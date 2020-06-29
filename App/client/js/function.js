@@ -124,11 +124,10 @@ function showSuccessAlert(message) {
 }
 
 
-function showEditPost(post) {
-    let data = JSON.parse(post);
-    console.log(post);
+function showEditPost(data) {
+    let post = $.parseJSON(data);
     $("#editPost").modal("show");
-
-    $("#editPost [name='title']").val(data.titulo);
-    $("#editPost [name='description']").val(data.descricao);
+    $("#editPost [name='postId']").val(post.id);
+    $("#editPost [name='title']").val(post.title);
+    $("#editPost [name='description']").val(post.description);
 }

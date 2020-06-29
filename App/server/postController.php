@@ -90,7 +90,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "new" && isset($_POST["title"
 
 
 // executar código quando o botão de editar post é clicado
-if (isset($_POST["action"]) && $_POST["action"] == "edit") {
+if (isset($_POST["action"]) && $_POST["action"] === "edit") {
     require("../server/connectDB.php");
     session_start();
 
@@ -101,18 +101,20 @@ if (isset($_POST["action"]) && $_POST["action"] == "edit") {
     $result = mysqli_query($connection, "SELECT titulo, descricao FROM posts WHERE id = $postId");
     $post = mysqli_fetch_assoc($result);
 
+    // enviar JSON para conseguir ler estes dados em JS 
+    $sendJSON = json_encode(array("id" => $postId, "title" => $post["titulo"], "description" => $post["descricao"]));
+
     // fechar conexão
     $connection->close();
 
     // ir para a página de user e mostrar popup de editar post
-    $_SESSION["popupEditPost"] = $post;
-    header("location: ../client/post.php?postId=" . $_POST["postId"] . "");
-    unset($_POST["action"]);
+    $_SESSION["popupEditPost"] = $sendJSON;
+    header("location: ../client/post.php?postId=" . $postId . "");
 }
 
 
 // atualizar post
-if (isset($_POST["edit"]) && $_POST["edit"] == "post") {
+if (isset($_POST["edit"]) && $_POST["edit"] === "post") {
     require("../server/connectDB.php");
     session_start();
 
@@ -128,9 +130,7 @@ if (isset($_POST["edit"]) && $_POST["edit"] == "post") {
     $connection->close();
 
     $_SESSION["messageSuccess"] = "Post atualizado com sucesso!";
-    header("location: ../client/post.php?postId=" . $_POST["postId"] . "");
-
-    unset($_POST["edit"]);
+    header("location: ../client/post.php?postId=" . $postId . "");
 }
 
 
@@ -153,7 +153,5 @@ if (isset($_POST["action"]) && $_POST["action"] == "delete") {
 
     $_SESSION["messageSuccess"] = "Post eliminado com sucesso!";
     header("location: ../client/index.php");
-
-    unset($_POST["action"]);
 }
 ?>

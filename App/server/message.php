@@ -10,12 +10,6 @@ if (isset($_SESSION["messageSuccess"])) {
 }
 
 if (isset($_SESSION["popupEditPost"])) {
-    echo "<script> showEditPost('" . $_SESSION['popupEditPost'] . "'); </script>";
+    echo "<script> showEditPost(" . json_encode($_SESSION['popupEditPost']) . "); </script>";
     unset($_SESSION["popupEditPost"]);
 }
-
-if (isset($_SESSION["popupEditComment"])) {
-    echo "<script> showEditComment('" . $_SESSION['popupEditComment'] . "'); </script>";
-    unset($_SESSION["popupEditComment"]);
-}
-?>

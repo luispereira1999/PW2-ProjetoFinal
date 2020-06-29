@@ -13,6 +13,7 @@
                 <form id="formEditPost" method="post" action="../server/postController.php" class="modalForm">
                     <input type="text" name="title" value="" placeholder="Título" require>
                     <input type="hidden" name="edit" value="post">
+                    <input type="hidden" name="postId" value="">
                     <textarea name="description" value="" cols="40" rows="5" id="commentTA" placeholder="Texto da Publicação ..." require></textarea>
                 </form>
             </div>

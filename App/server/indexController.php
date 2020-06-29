@@ -82,7 +82,7 @@ function getSearchPosts($userLoggedId)
             } else {
                 $_SESSION["messageError"] = "Sem resultados.";
                 $_SESSION["error"] = true;
-            }
+            }   
         } else {
             $_SESSION["messageError"] = "Sem resultados.";
             $_SESSION["error"] = true;
