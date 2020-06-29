@@ -97,26 +97,25 @@ $(document).ready(function() {
     });
 
 
-    // clicar no ícone de editar post para abrir a popup de editar post
+    // clicar no ícone de editar post
     $("[data-action='edit']").click(function() {
         $("[name='action']").attr("value", "edit");
         $(this).parent(".editDeletePost").submit();
     });
-    // clicar no ícone de eliminar post para eliminar post
+    // clicar no ícone de eliminar post
     $("[data-action='delete']").click(function() {
         $("[name='action']").attr("value", "delete");
         $(this).parent(".editDeletePost").submit();
     });
 
 
-    // clicar no ícone de editar comentário para abrir a popup de editar
+    // clicar no ícone de editar comentário
     $("[data-action='edit']").click(function() {
         $("[data-action='edit']").attr("value", "edit");
         $("#editComment [name='description']").val($(this).parent().parent().parent().children(".col-9").children("p").text());
-        let commentId = $(this).parent().parent().parent().parent().parent().children(".comment").data("comment");
-        $("#editComment [name='commentId']").attr("value", commentId);
+        $("#editComment [name='commentId']").attr("value", $(this).parent().parent().parent().parent().data("comment"));
     });
-    // clicar no ícone de eliminar post para eliminar post
+    // clicar no ícone de eliminar comentário
     $("[data-action='delete']").click(function() {
         $("[name='action']").attr("value", "delete");
         $(this).parent(".editDeleteComment").submit();

@@ -107,14 +107,11 @@ if (isset($_POST["new"]) && $_POST["new"] == "comment" && isset($_POST["descript
 
     $_SESSION["messageSuccess"] = "Comentário criado com sucesso!";
     header("location: ../client/post.php?postId=" . $postId . "");
-
-    unset($_POST["new"]);
-    unset($_POST["description"]);
 }
 
 
 // atualizar comentário
-if (isset($_POST["edit"]) && $_POST["edit"] == "comment" && isset($_POST["commentId"]) && isset($_POST["description"])) {
+if (isset($_POST["edit"]) && $_POST["edit"] === "comment" && isset($_POST["commentId"]) && isset($_POST["description"])) {
     require("../server/connectDB.php");
     session_start();
 
@@ -130,10 +127,6 @@ if (isset($_POST["edit"]) && $_POST["edit"] == "comment" && isset($_POST["commen
 
     $_SESSION["messageSuccess"] = "Comentário atualizado com sucesso!";
     header("location: ../client/post.php?postId=" . $_SESSION["post"]["idPost"] . "");
-
-    unset($_POST["edit"]);
-    unset($_POST["commentId"]);
-    unset($_POST["description"]);
 }
 
 
@@ -177,7 +170,5 @@ if (isset($_POST["action"]) && $_POST["action"] == "delete") {
 
     $_SESSION["messageSuccess"] = "Comentário eliminado com sucesso!";
     header("location: ../client/post.php?postId=" . $_SESSION["post"]["idPost"] . "");
-
-    unset($_POST["action"]);
 }
 ?>
