@@ -1,16 +1,6 @@
 <?php  // DEFINIÇÃO: parte principal da apresentação dos posts
 
 
-// posts da pesquisa
-if (isset($_GET["text"])) {
-    $posts = getSearchPosts($userLoggedId);
-    showPostsMainPage($posts, $userLoggedId);
-} else {  // posts ao carregar a página
-    $posts = getPostsMainPage($userLoggedId);
-    showPostsMainPage($posts, $userLoggedId);
-}
-
-
 // obter posts ao carregar a página principal
 function getPostsMainPage($userLoggedId)
 {
@@ -82,7 +72,7 @@ function getSearchPosts($userLoggedId)
             } else {
                 $_SESSION["messageError"] = "Sem resultados.";
                 $_SESSION["error"] = true;
-            }   
+            }
         } else {
             $_SESSION["messageError"] = "Sem resultados.";
             $_SESSION["error"] = true;
@@ -90,6 +80,46 @@ function getSearchPosts($userLoggedId)
     }
     $_SESSION["messageError"] = "Sem resultados.";
     $_SESSION["error"] = true;
+}
+
+
+// mostrar post em destaque
+function showFeaturedPost($featuredPost, $userLoggedId)
+{
+    if (!isset($_SESSION["error"])) { ?>
+        <section data-post="<?= $featuredPost["idPost"]; ?>" class="featuredPost">
+            <h2><a href="post.php?postId=<?= $featuredPost["idPost"]; ?>"><?= $featuredPost["titulo"]; ?></a></h2>
+            <div>
+                <h5><a href="#"><?= $featuredPost["nomeUtilizador"]; ?></a></h5>
+                <h5><?= $featuredPost["data"]; ?></h5>
+            </div>
+            <p><?= $featuredPost["descricao"]; ?></p>
+            <div class="interactionsBar">
+                <div class="votes">
+                    <!-- mostrar votos do post -->
+                    <?php showPostVotes($featuredPost, $userLoggedId); ?>
+                </div>
+                <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment interactionsBarIcons"></i></span>
+                <label><?= $featuredPost["quantidadeComentarios"] ?></label>
+            </div>
+            <div class="divButton">
+                <button class="button buttonPrimary">Ver Mais...</button>
+                <div class="postOptions">
+                    <?php if ($featuredPost["pIdUtilizador"] == $userLoggedId) : ?>
+                        <form class="editDeletePost" method="post" action="../server/postController.php">
+                            <a data-action="edit"><span data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fas fa-edit col-0"></i></span></a>
+                            <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name="postId" value="<?= $featuredPost["idPost"]; ?>">
+                            <a data-action="delete" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fas fa-trash-alt col-0"></i></a>
+                        </form>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+        <?php
+    } else {
+        unset($_SESSION["error"]);
+    }
 }
 
 
@@ -101,7 +131,7 @@ function showPostsMainPage($posts, $userLoggedId)
         $i = 0;
         $j = 0;
         // índice do post atual
-        $current = 0;
+        $current = 1;
 
         for ($i; $i < count($posts); $i++) : ?>
             <section class="sectionPost">
@@ -127,7 +157,7 @@ function showPostsMainPage($posts, $userLoggedId)
                             <?php endif; ?>
                         </div>
                         <div class="postOptionDiv">
-                            <h3 class="postTitle"><a href="post.php?postId=<?= $posts[$current]["idPost"]; ?>"><?= $posts[$current]["titulo"]; ?></a></h3>
+                            <h3><a href="post.php?postId=<?= $posts[$current]["idPost"]; ?>"><?= $posts[$current]["titulo"]; ?></a></h3>
                         </div>
                         <div>
                             <h5><a href="user.php?userId=<?= $posts[$current]["pIdUtilizador"]; ?>"><?= $posts[$current]["nomeUtilizador"]; ?></a></h5>
@@ -137,7 +167,7 @@ function showPostsMainPage($posts, $userLoggedId)
                         <div class="interactionsBar">
                             <div class="votes">
                                 <!-- mostrar votos do post -->
-                                <?php showPostVotes($posts, $current, $userLoggedId); ?>
+                                <?php showPostVotes($posts[$current], $userLoggedId); ?>
                             </div>
                             <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment interactionsBarIcons"></i></span>
                             <label><?= $posts[$current]["quantidadeComentarios"] ?></label>
@@ -157,9 +187,9 @@ function showPostsMainPage($posts, $userLoggedId)
 
 
 // mostrar votos do post
-function showPostVotes($posts, $current, $userLoggedId)
+function showPostVotes($currentPost, $userLoggedId)
 { ?>
-    <span data-vote="upvote"><i <?php if ($posts[$current]["vIdUtilizador"] == $userLoggedId && $posts[$current]["idTipoVoto"] == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="fas fa-heart interactionsBarIcons"></i></span>
-    <label><?= $posts[$current]["quantidadeVotos"]; ?></label>
-    <span data-vote="downvote"><i <?php if ($posts[$current]["vIdUtilizador"] == $userLoggedId && $posts[$current]["idTipoVoto"] == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="fas fa-heart-broken interactionsBarIcons"></i></span>
+    <span data-vote="upvote"><i <?php if ($currentPost["vIdUtilizador"] == $userLoggedId && $currentPost["idTipoVoto"] == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="fas fa-heart interactionsBarIcons"></i></span>
+    <label><?= $currentPost["quantidadeVotos"]; ?></label>
+    <span data-vote="downvote"><i <?php if ($currentPost["vIdUtilizador"] == $userLoggedId && $currentPost["idTipoVoto"] == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="fas fa-heart-broken interactionsBarIcons"></i></span>
 <?php } ?>

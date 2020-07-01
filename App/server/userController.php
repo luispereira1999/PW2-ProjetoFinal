@@ -93,7 +93,7 @@ function showUserPosts($posts, $userLoggedId)
                         <?php endif; ?>
                     </div>
                     <div class="postOptionDiv">
-                        <h3 class="postTitle"><a href="post.php?postId=<?= $posts[$current]["idPost"]; ?>"><?= $posts[$current]["titulo"]; ?></a></h3>
+                        <h3><a href="post.php?postId=<?= $posts[$current]["idPost"]; ?>"><?= $posts[$current]["titulo"]; ?></a></h3>
                     </div>
                     <div>
                         <h5><a href="user.php?userId=<?= $posts[$current]["pIdUtilizador"]; ?>"><?= $posts[$current]["nomeUtilizador"]; ?></a></h5>

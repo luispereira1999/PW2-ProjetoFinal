@@ -17,7 +17,16 @@ if (isset($_SESSION["login"])) {
     $userLoggedId = -1;
 }
 
+
+require("../server/indexController.php");
 require("../server/connectDB.php");
+
+// posts da pesquisa
+if (isset($_GET["text"])) {
+    $posts = getSearchPosts($userLoggedId);
+} else {  // posts ao carregar a página
+    $posts = getPostsMainPage($userLoggedId);
+}
 ?>
 
 <!-- DEFINIÇÃO: página principal do site -->
@@ -66,9 +75,7 @@ require("../server/connectDB.php");
 
     <main>
         <!-- post em destaque -->
-        <section class="featuredPost">
-            <h2>Posts Disponíveis em KLL</h2>
-        </section>
+         <?php  showFeaturedPost($posts[0], $userLoggedId); ?>  
 
         <!-- pesquisa -->
         <section class="searchArea">
@@ -87,7 +94,7 @@ require("../server/connectDB.php");
 
         <!-- posts -->
         <section class="posts sectionFullWidth">
-            <?php require("../server/indexController.php"); ?>
+            <?php showPostsMainPage($posts, $userLoggedId); ?>
         </section>
     </main>
 
