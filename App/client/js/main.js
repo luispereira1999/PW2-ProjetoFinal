@@ -71,22 +71,19 @@ $(document).ready(function() {
 
 
     // ao clicar para ativar "Alterar Senha", verificar se está ativa ou desativa 
-    $("#updatePassword").click(function() {
-        if ($("#updatePassword").attr("src") === "../server/assets/images/switch-off.png") {
-            $("#updatePassword").attr("src", "../server/assets/images/switch-on.png");
-            $("#updatePassword").attr("name", "update");
+    $("#checkUpdatePassword").click(function() {
+        if ($("#checkUpdatePassword").attr("src") === "../server/assets/images/switch-off.png") {
+            $("#checkUpdatePassword").attr("src", "../server/assets/images/switch-on.png");
+            $("[name='password']").attr("value", "update");
             $("[name='currentPassword']").removeAttr("disabled");
             $("[name='newPassword']").removeAttr("disabled");
             $("[name='confirmNewPassword']").removeAttr("disabled");
         } else {
-            $("#updatePassword").attr("src", "../server/assets/images/switch-off.png");
-            $("#updatePassword").attr("name", "notUpdate");
+            $("#checkUpdatePassword").attr("src", "../server/assets/images/switch-off.png");
+            $("[name='password']").attr("value", "notUpdate");
             $("[name='currentPassword']").prop("disabled", true);
             $("[name='newPassword']").prop("disabled", true);
             $("[name='confirmNewPassword']").prop("disabled", true);
-            $("[name='currentPassword']").val("");
-            $("[name='newPassword']").val("");
-            $("[name='confirmNewPassword']").val("");
         }
     });
 

@@ -6,35 +6,10 @@ if (empty($_COOKIE["login"]) && empty($_SESSION["login"])) {
 }
 
 
-require("../server/connectDB.php");
-require("../client/error.php");
-require("../server/message.php");
+require("../server/settingsController.php");
 
 // selecionar utilizador
-if ($query = $connection->prepare("SELECT primeiroNome, ultimoNome, cidade, pais FROM utilizadores WHERE id = ?")) {
-    // executar query
-    $query->bind_param("i", $_SESSION["id"]);
-    $query->execute();
-
-    // obter resultado da query
-    $result = $query->get_result();
-
-    // se o utilizador existe
-    if ($result->num_rows > 0) {
-        // obter dados dos posts
-        $post = $result->fetch_assoc();
-
-        // fechar ligações
-        $query->close();
-        $connection->close();
-    } else {
-        $_SESSION["messageError"] = "O utilizador não existe.";
-        header("location: ../client/index.php");
-    }
-} else {
-   $_SESSION["messageError"] = "Erro: Algo deu errado com a base de dados.";
-   header("location: ../client/404.php");
-}
+$user = getUserData();
 ?>
 
 <!-- DEFINIÇÃO: página para editar os dados de cada utilizador -->
@@ -76,7 +51,6 @@ if ($query = $connection->prepare("SELECT primeiroNome, ultimoNome, cidade, pais
 </head>
 
 <body>
-
     <header>
         <?php require("nav.php") ?>
         <section class="uHeader">
@@ -92,12 +66,12 @@ if ($query = $connection->prepare("SELECT primeiroNome, ultimoNome, cidade, pais
             <ul>
                 <h4>Detalhes Básicos</h4>
                 <li>
-                    <input type="text" name="firstName" class="field-style field-split align-left" placeholder="Primeiro Nome" value="<?= $post["primeiroNome"] ?>">
-                    <input type="text" name="lastName" class="field-style field-split align-right" placeholder="Último Nome" value="<?= $post["ultimoNome"] ?>">
+                    <input type="text" name="firstName" class="field-style field-split align-left" placeholder="Primeiro Nome" value="<?= $user["primeiroNome"] ?>">
+                    <input type="text" name="lastName" class="field-style field-split align-right" placeholder="Último Nome" value="<?= $user["ultimoNome"] ?>">
                 </li>
                 <li>
-                    <input type="text" name="city" class="field-style field-split align-left" placeholder="Cidade" value="<?= $post["cidade"] ?>">
-                    <input type="text" name="country" class="field-style field-split align-right" placeholder="País" value="<?= $post["pais"] ?>">
+                    <input type="text" name="city" class="field-style field-split align-left" placeholder="Cidade" value="<?= $user["cidade"] ?>">
+                    <input type="text" name="country" class="field-style field-split align-right" placeholder="País" value="<?= $user["pais"] ?>">
                 </li>
                 <li>
                     <input type="email" name="email" class="field-style field-full align-none" placeholder="Email" value="<?= $_SESSION["email"] ?>" require>
@@ -107,7 +81,8 @@ if ($query = $connection->prepare("SELECT primeiroNome, ultimoNome, cidade, pais
             <ul>
                 <div class="changePass">
                     <h4>Alterar Password</h4>
-                    <img src="../server/assets/images/switch-off.png" name="notUpdate" id="updatePassword">
+                    <input type="hidden" name="password" value="notUpdate" />
+                    <img src="../server/assets/images/switch-off.png" id="checkUpdatePassword">
                 </div>
                 <li>
                     <input type="password" name="currentPassword" class="field-style field-full align-left" placeholder="Senha Atual" require disabled>
@@ -117,8 +92,8 @@ if ($query = $connection->prepare("SELECT primeiroNome, ultimoNome, cidade, pais
                     <input type="password" name="confirmNewPassword" class="field-style field-split align-right" placeholder="Confirmar Senha" require disabled>
                 </li>
                 <li class="ueButtons">
-                    <button name="save" value="save" class="button buttonPrimary">Salvar</button>
-                    <button name="cancel" value="cancel" class="button buttonCancel">Cancelar</button>
+                    <button name="action" value="save" class="button buttonPrimary">Salvar</button>
+                    <button name="action" value="cancel" class="button buttonCancel">Cancelar</button>
                 </li>
             </ul>
         </form>
@@ -129,7 +104,7 @@ if ($query = $connection->prepare("SELECT primeiroNome, ultimoNome, cidade, pais
     <?php require("error.php"); ?>
     <?php require("success.php"); ?>
     <?php require("../server/message.php"); ?>
-    
+
     <footer class="footer">
         <?php require("footer.php") ?>
     </footer>

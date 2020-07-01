@@ -1,15 +1,45 @@
 <?php  // atualizar dados do utilizador
 
-require("connectDB.php");
+
+// obter dados do utilizador
+function getUserData()
+{
+    require("../server/connectDB.php");
+
+    if ($query = $connection->prepare("SELECT primeiroNome, ultimoNome, cidade, pais FROM utilizadores WHERE id = ?")) {
+        // executar query
+        $query->bind_param("i", $_SESSION["id"]);
+        $query->execute();
+
+        // obter resultado da query
+        $result = $query->get_result();
+
+        // se o utilizador existe
+        if ($result->num_rows > 0) {
+            // obter dados dos posts
+            return $result->fetch_assoc();
+        } else {
+            $_SESSION["messageError"] = "O utilizador não existe.";
+            header("location: ../client/index.php");
+        }
+
+        // fechar ligações
+        $query->close();
+        $connection->close();
+    } else {
+        $_SESSION["messageError"] = "Erro: Algo deu errado com a base de dados.";
+        header("location: ../client/404.php");
+    }
+}
 
 
 // atualizar dados do utilizador
-if (isset($_POST["save"]) == "save") {
+if (isset($_POST["action"]) && $_POST["action"] === "save") {
+    require("connectDB.php");
     session_start();
 
-    $_SESSION["messageError"] = "Erro: Nova senha  é obrigatória.";
-    header("location: ../client/settings.php");
-    die();
+    // $_SESSION["messageError"] = "Erro: Nova senha é obrigatória.";
+    // header("location: ../client/settings.php");
 
     // obter de forma segura os dados que vem do formulário
     $email = mysqli_real_escape_string($connection, $_POST["email"]);
@@ -20,45 +50,54 @@ if (isset($_POST["save"]) == "save") {
 
     // validar campos
     if (empty($email)) {
-        array_push($errors, "Erro: Email é obrigatório.");
+        $_SESSION["messageError"] = "O email é obrigatório.";
+        header("location: ../client/settings.php");
+        die();
     }
 
-    // verificar se não existe erros para atualizar detalhes básicos
-    if (count($errors) == 0) {
-        // atualizar detalhes básicos
-        $query = "UPDATE utilizadores SET email = '$email', primeiroNome = '$firstName', ultimoNome = '$lastName' , cidade = '$city' , pais = '$country' WHERE id = " . $_SESSION["id"] . ";";
-        $result = mysqli_query($connection, $query);
+    // atualizar detalhes básicos
+    $query = "UPDATE utilizadores SET email = '$email', primeiroNome = '$firstName', ultimoNome = '$lastName', cidade = '$city', pais = '$country' WHERE id = " . $_SESSION["id"] . ";";
+    $result = mysqli_query($connection, $query);
 
-        header("location: ../client/settings.php");
+    // atualizar senha
+    if (isset($_POST["password"]) && $_POST["password"] === "update") {
+        updatePassword($email);
     } else {
         header("location: ../client/settings.php");
     }
+}
 
-    // atualizar senha
+
+// atualizar senha
+function updatePassword($email)
+{
+    global $connection;
+
     if (isset($_POST["currentPassword"]) && isset($_POST["newPassword"]) && isset($_POST["confirmNewPassword"])) {
         $currentPassword = mysqli_real_escape_string($connection, $_POST["currentPassword"]);
         $newPassword = mysqli_real_escape_string($connection, $_POST["newPassword"]);
         $confirmNewPassword = mysqli_real_escape_string($connection, $_POST["confirmNewPassword"]);
-        echo $currentPassword;
-        echo $newPassword;
-        echo $confirmNewPassword;
-        die();
+
         // validar senhas
         if (empty($currentPassword)) {
             $_SESSION["messageError"] = "Erro: Senha atual é obrigatória.";
             header("location: ../client/settings.php");
+            die();
         }
         if (empty($newPassword)) {
             $_SESSION["messageError"] = "Erro: Nova senha  é obrigatória.";
             header("location: ../client/settings.php");
+            die();
         }
         if (empty($confirmNewPassword)) {
             $_SESSION["messageError"] = "Erro: Nova senha  é obrigatória.";
             header("location: ../client/settings.php");
+            die();
         }
         if ($newPassword != $confirmNewPassword) {
-            $_SESSION["messageError"] = "Erro: As novas senhas não correspondem.";
+            $_SESSION["messageError"] = "Erro: As novas senhas não combinam.";
             header("location: ../client/settings.php");
+            die();
         }
 
         // Selecionar password atual do utilizador
@@ -68,7 +107,8 @@ if (isset($_POST["save"]) == "save") {
 
         // se o utilizador existe
         if ($user) {
-            // se atual password não corresponde à password inserida
+            // encriptar a senha atual que foi inserida para verificar se corresponde à senha guardada na BD
+            $currentPassword = md5($currentPassword);
             if ($user["senha"] != $currentPassword) {
                 $_SESSION["messageError"] = "Erro: Senha atual está incorreta.";
                 header("location: ../client/settings.php");
@@ -78,12 +118,12 @@ if (isset($_POST["save"]) == "save") {
             $newPassword = md5($newPassword);
 
             // executar query
-            $query = "UPDATE utilizadores SET senha = " . $newPassword . " WHERE id = " . $_SESSION["id"] . ";";
+            $query = "UPDATE utilizadores SET senha = '$newPassword' WHERE id = " . $_SESSION["id"] . ";";
             mysqli_query($connection, $query);
 
-            updateSession($username, $email);
+            updateSession($email);
             if (isset($_COOKIE["login"])) {
-                updateCookies($username, $email);
+                updateCookies($email);
             }
 
             header("location: ../client/settings.php");
@@ -93,21 +133,18 @@ if (isset($_POST["save"]) == "save") {
 
 
 // cancelar atualização dos dados do utilizador
-if (isset($_POST["cancel"]) == "cancel") {
-    session_start();
+if (isset($_POST["action"]) && $_POST["action"] === "cancel") {
     header("location: ../client/index.php");
 }
 
 
-function updateSession($username, $email)
+function updateSession($email)
 {
-    $_SESSION["username"] = $username;
     $_SESSION["email"] = $email;
 }
 
 
-function updateCookies($username, $email)
+function updateCookies($email)
 {
-    $_COOKIE["username"] = $username;
     $_COOKIE["email"] = $email;
 }
