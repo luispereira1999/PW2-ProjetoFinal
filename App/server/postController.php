@@ -8,7 +8,7 @@ function getPost($postId, $userLoggedId)
     $post = array();
 
     // selecionar posts
-    if ($query = $connection->prepare("SELECT p.id AS idPost, p.titulo AS titulo, p.descricao AS descricao, p.data AS data, p.quantidadeVotos AS quantidadeVotos, p.quantidadeComentarios AS quantidadeComentarios, p.idUtilizador AS pIdUtilizador, u.nomeUtilizador AS nomeUtilizador, v.idUtilizador AS vIdUtilizador, v.idTipoVoto AS idTipoVoto FROM posts p INNER JOIN utilizadores u ON p.idUtilizador = u.id LEFT JOIN votos v ON p.id = v.idPost AND ? = v.idUtilizador WHERE p.id = ?")) {
+    if ($query = $connection->prepare("SELECT p.id AS idPost, p.titulo AS titulo, p.descricao AS descricao, p.data AS data, p.quantidadeVotos AS quantidadeVotos, p.quantidadeComentarios AS quantidadeComentarios, p.idUtilizador AS pIdUtilizador, u.nomeUtilizador AS nomeUtilizador, v.idUtilizador AS vIdUtilizador, v.idTipoVoto AS idTipoVoto FROM posts p INNER JOIN utilizadores u ON p.idUtilizador = u.id LEFT JOIN votosposts v ON p.id = v.idPost AND ? = v.idUtilizador WHERE p.id = ?")) {
         // executar query
         $query->bind_param("ii", $userLoggedId, $postId);
         $query->execute();
@@ -144,7 +144,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "delete") {
 
     // eliminar na base de dados
     mysqli_query($connection, "DELETE FROM posts WHERE id = $postId;");
-    mysqli_query($connection, "DELETE FROM votos WHERE id = $postId;");
+    mysqli_query($connection, "DELETE FROM votosposts WHERE id = $postId;");
     mysqli_query($connection, "DELETE FROM comentarios WHERE id = $postId;");
     mysqli_query($connection, "DELETE FROM votoscomentarios WHERE id = $postId;");
 

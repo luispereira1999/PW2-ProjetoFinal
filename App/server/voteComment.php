@@ -30,6 +30,7 @@ function voteComment()
     $userId = $_SESSION["id"];
     $commentId = $vote->commentId;
     $voteTypeId = $vote->voteTypeId;
+    $activeVote = false;
 
     // selecionar voto
     if ($query = $connection->prepare("SELECT idTipoVoto FROM votoscomentarios WHERE idComentario = ? AND idUtilizador = ?")) {
@@ -46,7 +47,7 @@ function voteComment()
             // se o voto é up não está repetido - atualizar voto  
             if ($selectedVote && $voteTypeId != $selectedVote["idTipoVoto"]) {
                 $query->close();
-                updateVote($commentId, $userId, $voteTypeId);
+                $activeVote = updateVote($commentId, $userId, $voteTypeId);
             }
             // se o voto é up e está repetido - remover voto  
             else if ($selectedVote && $voteTypeId == $selectedVote["idTipoVoto"]) {
@@ -56,7 +57,7 @@ function voteComment()
             // senao existe - inserir novo voto
             else if (!$selectedVote) {
                 $query->close();
-                insertVote($commentId, $userId, 1);
+                $activeVote = insertVote($commentId, $userId, 1);
             }
         }
         // se voto clicado é down
@@ -64,7 +65,7 @@ function voteComment()
             // se o voto é down e não está repetido - atualizar voto
             if ($selectedVote && $voteTypeId != $selectedVote["idTipoVoto"]) {
                 $query->close();
-                updateVote($commentId, $userId, $voteTypeId);
+                $activeVote = updateVote($commentId, $userId, $voteTypeId);
             }
             // se o voto é down e está repetido - remover voto
             else if ($selectedVote && $voteTypeId == $selectedVote["idTipoVoto"]) {
@@ -74,11 +75,11 @@ function voteComment()
             // senao existe - inserir novo voto
             else if (!$selectedVote) {
                 $query->close();
-                insertVote($commentId, $userId, 2);
+                $activeVote = insertVote($commentId, $userId, 2);
             }
         }
 
-        // selecionar número de votos do post atualizado
+        // selecionar número de votos do comentário atualizado
         if ($query = $connection->prepare("SELECT quantidadeVotos FROM comentarios WHERE id = ?")) {
             $numberOfVotes = getUpdatedNumberOfVotes($query, $commentId);
         } else {
@@ -89,7 +90,7 @@ function voteComment()
         $connection->close();
 
         // retornar JSON ao cliente
-        $returnData = array("voteTypeId" => $voteTypeId, "numberOfVotes" => $numberOfVotes, "selectedVote" => isset($selectedVote["idTipoVoto"]));
+        $returnData = array("voteTypeId" => $voteTypeId, "numberOfVotes" => $numberOfVotes, "selectedVote" => isset($selectedVote["idTipoVoto"]), "activeVote" => $activeVote);
         echo json_encode($returnData);
     } else {
         die("Algo deu errado com a base de dados.");
@@ -158,6 +159,8 @@ function updateVote($commentId, $userId, $voteTypeId)
                 $query->bind_param("i", $commentId);
                 $query->execute();
                 $query->close();
+
+                return true;
             } else {
                 die("Erro: Algo deu errado com a base de dados.");
             }
@@ -176,6 +179,8 @@ function updateVote($commentId, $userId, $voteTypeId)
                 $query->bind_param("i", $commentId);
                 $query->execute();
                 $query->close();
+
+                return true;
             } else {
                 die("Erro: Algo deu errado com a base de dados.");
             }
@@ -201,6 +206,8 @@ function insertVote($commentId, $userId,  $voteTypeId)
                 $query->bind_param("i", $commentId);
                 $query->execute();
                 $query->close();
+
+                return true;
             } else {
                 die("Erro: Algo deu errado com a base de dados.");
             }
@@ -219,6 +226,8 @@ function insertVote($commentId, $userId,  $voteTypeId)
                 $query->bind_param("i", $commentId);
                 $query->execute();
                 $query->close();
+
+                return true;
             } else {
                 die("Erro: Algo deu errado com a base de dados.");
             }

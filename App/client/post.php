@@ -37,7 +37,7 @@ $post = getPost($postId, $userLoggedId);
 $_SESSION["post"] = $post;
 
 // obter comentários do post
-$comments = getComments($postId);
+$comments = getComments($postId, $userLoggedId);
 ?>
 
 <!DOCTYPE html>

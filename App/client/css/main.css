@@ -649,6 +649,7 @@ p {
 i[data-markedvote="marked"] {
     font-size: 15px;
     margin: 0 5px;
+    color: #21c937;
 }
 
 .interactionsBar span:hover {
@@ -709,6 +710,7 @@ i[data-markedvote="marked"] {
 .commentsArea i[data-markedvote="marked"] {
     font-size: 15px;
     margin: 0 5px;
+    color: #21c937;
 }
 
 .commentsArea i {

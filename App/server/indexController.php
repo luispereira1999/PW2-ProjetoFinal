@@ -8,7 +8,7 @@ function getPostsMainPage($userLoggedId)
     $posts = array();
 
     // selecionar posts
-    if ($query = $connection->prepare("SELECT p.id AS idPost, p.titulo AS titulo, p.descricao AS descricao, p.data AS data, p.quantidadeVotos AS quantidadeVotos, p.quantidadeComentarios AS quantidadeComentarios, p.idUtilizador AS pIdUtilizador, u.nomeUtilizador AS nomeUtilizador, v.idUtilizador AS vIdUtilizador, v.idTipoVoto AS idTipoVoto FROM posts p INNER JOIN utilizadores u ON p.idUtilizador = u.id LEFT JOIN votos v ON p.id = v.idPost AND ? = v.idUtilizador ORDER BY quantidadeVotos DESC")) {
+    if ($query = $connection->prepare("SELECT p.id AS idPost, p.titulo AS titulo, p.descricao AS descricao, p.data AS data, p.quantidadeVotos AS quantidadeVotos, p.quantidadeComentarios AS quantidadeComentarios, p.idUtilizador AS pIdUtilizador, u.nomeUtilizador AS nomeUtilizador, v.idUtilizador AS vIdUtilizador, v.idTipoVoto AS idTipoVoto FROM posts p INNER JOIN utilizadores u ON p.idUtilizador = u.id LEFT JOIN votosposts v ON p.id = v.idPost AND ? = v.idUtilizador ORDER BY quantidadeVotos DESC")) {
         // executar query
         $query->bind_param("i", $userLoggedId);
         $query->execute();
@@ -49,7 +49,7 @@ function getSearchPosts($userLoggedId)
         $textFilter = "%{$text}%";
 
         // selecionar posts
-        if ($query = $connection->prepare("SELECT p.id AS idPost, p.titulo AS titulo, p.descricao AS descricao, p.data AS data, p.quantidadeVotos AS quantidadeVotos, p.quantidadeComentarios AS quantidadeComentarios, p.idUtilizador AS pIdUtilizador, u.nomeUtilizador AS nomeUtilizador, v.idUtilizador AS vIdUtilizador, v.idTipoVoto AS idTipoVoto FROM posts p INNER JOIN utilizadores u ON p.idUtilizador = u.id LEFT JOIN votos v ON p.id = v.idPost AND ? = v.idUtilizador WHERE titulo LIKE ? ORDER BY quantidadeVotos DESC")) {
+        if ($query = $connection->prepare("SELECT p.id AS idPost, p.titulo AS titulo, p.descricao AS descricao, p.data AS data, p.quantidadeVotos AS quantidadeVotos, p.quantidadeComentarios AS quantidadeComentarios, p.idUtilizador AS pIdUtilizador, u.nomeUtilizador AS nomeUtilizador, v.idUtilizador AS vIdUtilizador, v.idTipoVoto AS idTipoVoto FROM posts p INNER JOIN utilizadores u ON p.idUtilizador = u.id LEFT JOIN votosposts v ON p.id = v.idPost AND ? = v.idUtilizador WHERE titulo LIKE ? ORDER BY quantidadeVotos DESC")) {
             // executar query
             $query->bind_param("is", $userLoggedId, $textFilter);
             $query->execute();

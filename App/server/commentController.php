@@ -1,7 +1,7 @@
 <?php  // DEFINIÇÃO: parte principal da apresentação dos posts
 
 
-function getComments($postId)
+function getComments($postId, $userLoggedId)
 {
     global $connection;
     $comments = array();
@@ -49,8 +49,8 @@ function showComments($comments, $userLoggedId)
             <div class="row commentsCenter">
                 <div>
                     <div class="commentVotes">
-                        <!-- mostrar votos do comentario -->
-                        <?php showCommentsVotes($comments, $current, $userLoggedId); ?>
+                        <!-- mostrar votos do comentário -->
+                        <?php showCommentsVotes($comments[$current], $userLoggedId); ?>
                     </div>
                 </div>
                 <div class="col-1">
@@ -80,11 +80,12 @@ function showComments($comments, $userLoggedId)
 <?php }
 
 
-function showCommentsVotes($comments, $current, $userLoggedId)
+// mostrar votos do comentário
+function showCommentsVotes($currentComment, $userLoggedId)
 { ?>
-    <span <?php if ($comments[$current]["idUtilizador"] == $userLoggedId && $comments[$current]["idTipoVoto"] == 1) : ?> data-markedvote="marked" <?php endif; ?> data-vote="upvote" data-toggle="tooltip" data-placement="bottom" title="Up Vote"><i class="fas fa-heart interactionsBarIcons"></i></span>
-    <label data-toggle="tooltip" data-placement="bottom" title="Número de Comentários"><?= $comments[$current]["quantidadeVotos"] ?></label>
-    <span <?php if ($comments[$current]["vcIdUtilizador"] == $userLoggedId && $comments[$current]["idTipoVoto"] == 2) : ?> data-markedvote="marked" <?php endif; ?> data-vote="downvote" data-toggle="tooltip" data-placement="bottom" title="Down Vote"><i class="fas fa-heart-broken interactionsBarIcons"></i></span>
+    <span data-vote="upvote"><i <?php if ($currentComment["vcIdUtilizador"] == $userLoggedId && $currentComment["idTipoVoto"] == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="fas fa-heart interactionsBarIcons"></i></span>
+    <label data-toggle="tooltip" data-placement="bottom" title="Número de Comentários"><?= $currentComment["quantidadeVotos"] ?></label>
+    <span data-vote="downvote"><i <?php if ($currentComment["idUtilizador"] == $userLoggedId && $currentComment["idTipoVoto"] == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="fas fa-heart interactionsBarIcons"></i></span>
 <?php }
 
 

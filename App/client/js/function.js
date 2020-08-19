@@ -20,10 +20,9 @@ function votePost(thisEvent, voteTypeId, postId) {
     });
 
     // executar esta função quando o pedido é concluído com sucesso
-    ajaxRequest.done(function(data) {
+    ajaxRequest.done(function (data) {
         // converter JSON que veio do servidor para JS
         clientJS = JSON.parse(data);
-        console.log(data);
 
         // verificar se houve erros
         if (clientJS.error != null) {
@@ -31,31 +30,21 @@ function votePost(thisEvent, voteTypeId, postId) {
             return;
         }
 
-        // if (voteTypeId == 1 && clientJS.selectedVote) {
-        //     alert("lala");
-        // }
-        // if (voteTypeId == 2 && clientJS.selectedVote) {
-        //     alert("dd");
-        // }
-
         // atualizar atributos
-        // thisEvent.children().attr("data-markedvote", "marked");
-        // if (clientJS.voteTypeId == 1 && voteTypeId == 1) {
-        //     thisEvent.parent().children("[data-vote='downvote']").children("[data-markedvote]").attr("data-markedvote", "none");
-        // } else if (clientJS.voteTypeId == 2 && voteTypeId == 2) {
-        //     thisEvent.parent().children("[data-vote='upvote']").children("[data-markedvote]").attr("data-markedvote", "none");
-        // }
-
-        thisEvent.children().attr("data-markedvote", "marked");
-
-        if (voteTypeId == 1 && clientJS.selectedVote) {
+        if (voteTypeId == 1 && clientJS.activeVote == true) {
+            thisEvent.children().attr("data-markedvote", "marked");
+        } else if (voteTypeId == 2 && clientJS.activeVote == true) {
+            thisEvent.children().attr("data-markedvote", "marked");
+        } else if (voteTypeId == 1 && clientJS.activeVote == false) {
             thisEvent.parent().children("[data-vote='upvote']").children("[data-markedvote]").attr("data-markedvote", "none");
-        } else if (voteTypeId == 2 && clientJS.selectedVote) {
+        } else if (voteTypeId == 2 && clientJS.activeVote == false) {
             thisEvent.parent().children("[data-vote='downvote']").children("[data-markedvote]").attr("data-markedvote", "none");
         }
 
-        if (clientJS.voteTypeId == 1 && thisEvent.parent().children("[data-vote='downvote']").children("[data-markedvote]").attr("data-markedvote") == "marked") {
-            alert("d");
+        if (voteTypeId == 1 && thisEvent.parent().children("[data-vote='downvote']").children("[data-markedvote]").data("markedvote") == "marked") {
+            thisEvent.parent().children("[data-vote='downvote']").children("[data-markedvote]").attr("data-markedvote", "none");
+        } else if (voteTypeId == 2 && thisEvent.parent().children("[data-vote='upvote']").children("[data-markedvote]").data("markedvote") == "marked") {
+            thisEvent.parent().children("[data-vote='upvote']").children("[data-markedvote]").attr("data-markedvote", "none");
         }
 
         // atualizar número de votos na página
@@ -63,7 +52,7 @@ function votePost(thisEvent, voteTypeId, postId) {
     });
 
     // executar esta função quando existe algum erro ao fazer o pedido
-    ajaxRequest.fail(function() {
+    ajaxRequest.fail(function () {
         showErrorAlert("Erro ao comunicar com o servidor.");
     });
 }
@@ -91,7 +80,7 @@ function voteComment(thisEvent, voteTypeId, commentId) {
     });
 
     // executar esta função quando o pedido é concluído com sucesso
-    ajaxRequest.done(function(data) {
+    ajaxRequest.done(function (data) {
         // converter JSON que veio do servidor para JS
         clientJS = JSON.parse(data);
 
@@ -101,12 +90,29 @@ function voteComment(thisEvent, voteTypeId, commentId) {
             return;
         }
 
+        // atualizar atributos
+        if (voteTypeId == 1 && clientJS.activeVote == true) {
+            thisEvent.children().attr("data-markedvote", "marked");
+        } else if (voteTypeId == 2 && clientJS.activeVote == true) {
+            thisEvent.children().attr("data-markedvote", "marked");
+        } else if (voteTypeId == 1 && clientJS.activeVote == false) {
+            thisEvent.parent().children("[data-vote='upvote']").children("[data-markedvote]").attr("data-markedvote", "none");
+        } else if (voteTypeId == 2 && clientJS.activeVote == false) {
+            thisEvent.parent().children("[data-vote='downvote']").children("[data-markedvote]").attr("data-markedvote", "none");
+        }
+
+        if (voteTypeId == 1 && thisEvent.parent().children("[data-vote='downvote']").children("[data-markedvote]").data("markedvote") == "marked") {
+            thisEvent.parent().children("[data-vote='downvote']").children("[data-markedvote]").attr("data-markedvote", "none");
+        } else if (voteTypeId == 2 && thisEvent.parent().children("[data-vote='upvote']").children("[data-markedvote]").data("markedvote") == "marked") {
+            thisEvent.parent().children("[data-vote='upvote']").children("[data-markedvote]").attr("data-markedvote", "none");
+        }
+
         // atualizar número de votos na página
         thisEvent.parent().children("label").text(clientJS.numberOfVotes);
     });
 
     // executar esta função quando existe algum erro ao fazer o pedido
-    ajaxRequest.fail(function() {
+    ajaxRequest.fail(function () {
         showErrorAlert("Erro ao comunicar com o servidor.");
     });
 }

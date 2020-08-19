@@ -30,9 +30,10 @@ function votePost()
     $userId = $_SESSION["id"];
     $postId = $vote->postId;
     $voteTypeId = $vote->voteTypeId;
+    $activeVote = false;
 
     // selecionar voto
-    if ($query = $connection->prepare("SELECT idTipoVoto FROM votos WHERE idPost = ? AND idUtilizador = ?")) {
+    if ($query = $connection->prepare("SELECT idTipoVoto FROM votosposts WHERE idPost = ? AND idUtilizador = ?")) {
         // executar query
         $query->bind_param("ii", $postId, $userId);
         $query->execute();
@@ -46,17 +47,17 @@ function votePost()
             // se o voto é up não está repetido - atualizar voto  
             if ($selectedVote && $voteTypeId != $selectedVote["idTipoVoto"]) {
                 $query->close();
-                updateVote($postId, $userId, $voteTypeId);
+                $activeVote = updateVote($postId, $userId, $voteTypeId);
             }
             // se o voto é up e está repetido - remover voto  
             else if ($selectedVote && $voteTypeId == $selectedVote["idTipoVoto"]) {
                 $query->close();
                 removeUpvote($postId, $userId);
             }
-            // senao existe - inserir novo voto
+            // senão existe - inserir novo voto
             else if (!$selectedVote) {
                 $query->close();
-                insertVote($postId, $userId, 1);
+                $activeVote = insertVote($postId, $userId, 1);
             }
         }
         // se voto clicado é down
@@ -64,17 +65,17 @@ function votePost()
             // se o voto é down e não está repetido - atualizar voto
             if ($selectedVote && $voteTypeId != $selectedVote["idTipoVoto"]) {
                 $query->close();
-                updateVote($postId, $userId, $voteTypeId);
+                $activeVote = updateVote($postId, $userId, $voteTypeId);
             }
             // se o voto é down e está repetido - remover voto
             else if ($selectedVote && $voteTypeId == $selectedVote["idTipoVoto"]) {
                 $query->close();
                 removeDownvote($postId, $userId);
             }
-            // senao existe - inserir novo voto
+            // senão existe - inserir novo voto
             else if (!$selectedVote) {
                 $query->close();
-                insertVote($postId, $userId, 2);
+                $activeVote =  insertVote($postId, $userId, 2);
             }
         }
 
@@ -89,10 +90,10 @@ function votePost()
         $connection->close();
 
         // retornar JSON ao cliente
-        $returnData = array("voteTypeId" => $voteTypeId, "numberOfVotes" => $numberOfVotes, "selectedVote" => isset($selectedVote["idTipoVoto"]));
+        $returnData = array("voteTypeId" => $voteTypeId, "numberOfVotes" => $numberOfVotes, "selectedVote" => isset($selectedVote["idTipoVoto"]), "activeVote" => $activeVote);
         echo json_encode($returnData);
     } else {
-        die("Algo deu errado com a base de dados.");
+        die("Erro: Algo deu errado com a base de dados.");
     }
 }
 
@@ -101,7 +102,7 @@ function removeUpvote($postId, $userId)
 {
     global $connection;
 
-    if ($query = $connection->prepare("DELETE FROM votos WHERE idPost = ? AND idUtilizador = ?")) {
+    if ($query = $connection->prepare("DELETE FROM votosposts WHERE idPost = ? AND idUtilizador = ?")) {
         $query->bind_param("ii", $postId, $userId);
         $query->execute();
         $query->close();
@@ -124,7 +125,7 @@ function removeDownvote($postId, $userId)
 {
     global $connection;
 
-    if ($query = $connection->prepare("DELETE FROM votos WHERE idPost = ? AnD idUtilizador = ?")) {
+    if ($query = $connection->prepare("DELETE FROM votosposts WHERE idPost = ? AnD idUtilizador = ?")) {
         $query->bind_param("ii", $postId, $userId);
         $query->execute();
         $query->close();
@@ -146,9 +147,9 @@ function removeDownvote($postId, $userId)
 function updateVote($postId, $userId, $voteTypeId)
 {
     global $connection;
- 
+
     if ($voteTypeId == 1) {  // 1 = upvote
-        if ($query = $connection->prepare("UPDATE votos SET idTipoVoto = ? WHERE idPost = ? AND idUtilizador = ?")) {
+        if ($query = $connection->prepare("UPDATE votosposts SET idTipoVoto = ? WHERE idPost = ? AND idUtilizador = ?")) {
             $query->bind_param("iii", $voteTypeId, $postId, $userId);
             $query->execute();
             $query->close();
@@ -158,6 +159,8 @@ function updateVote($postId, $userId, $voteTypeId)
                 $query->bind_param("i", $postId);
                 $query->execute();
                 $query->close();
+
+                return true;
             } else {
                 die("Erro: Algo deu errado com a base de dados.");
             }
@@ -166,7 +169,7 @@ function updateVote($postId, $userId, $voteTypeId)
         }
     }
     if ($voteTypeId == 2) {  // 2 = downvote
-        if ($query = $connection->prepare("UPDATE votos SET idTipoVoto = ? WHERE idPost = ? AND idUtilizador = ?")) {
+        if ($query = $connection->prepare("UPDATE votosposts SET idTipoVoto = ? WHERE idPost = ? AND idUtilizador = ?")) {
             $query->bind_param("iii", $voteTypeId, $postId, $userId);
             $query->execute();
             $query->close();
@@ -188,12 +191,12 @@ function updateVote($postId, $userId, $voteTypeId)
 }
 
 
-function insertVote($postId, $userId,  $voteTypeId)
+function insertVote($postId, $userId, $voteTypeId)
 {
     global $connection;
 
     if ($voteTypeId == 1) {  // 1 = upvote
-        if ($query = $connection->prepare("INSERT INTO votos (idPost, idUtilizador, idTipoVoto) VALUES (?, ?, ?)")) {
+        if ($query = $connection->prepare("INSERT INTO votosposts (idPost, idUtilizador, idTipoVoto) VALUES (?, ?, ?)")) {
             $query->bind_param("iii", $postId, $userId, $voteTypeId);
             $query->execute();
             $query->close();
@@ -203,6 +206,8 @@ function insertVote($postId, $userId,  $voteTypeId)
                 $query->bind_param("i", $postId);
                 $query->execute();
                 $query->close();
+
+                return true;
             } else {
                 die("Erro: Algo deu errado com a base de dados.");
             }
@@ -211,7 +216,7 @@ function insertVote($postId, $userId,  $voteTypeId)
         }
     }
     if ($voteTypeId == 2) {  // 2 = downvote
-        if ($query = $connection->prepare("INSERT INTO votos (idPost, idUtilizador, idTipoVoto) VALUES (?, ?, ?)")) {
+        if ($query = $connection->prepare("INSERT INTO votosposts (idPost, idUtilizador, idTipoVoto) VALUES (?, ?, ?)")) {
             $query->bind_param("iii", $postId, $userId, $voteTypeId);
             $query->execute();
             $query->close();
@@ -221,6 +226,8 @@ function insertVote($postId, $userId,  $voteTypeId)
                 $query->bind_param("i", $postId);
                 $query->execute();
                 $query->close();
+
+                return true;
             } else {
                 die("Erro: Algo deu errado com a base de dados.");
             }

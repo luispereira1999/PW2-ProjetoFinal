@@ -85,12 +85,12 @@ function updatePassword($email)
             die();
         }
         if (empty($newPassword)) {
-            $_SESSION["messageError"] = "Erro: Nova senha  é obrigatória.";
+            $_SESSION["messageError"] = "Erro: Nova senha é obrigatória.";
             header("location: ../client/settings.php");
             die();
         }
         if (empty($confirmNewPassword)) {
-            $_SESSION["messageError"] = "Erro: Nova senha  é obrigatória.";
+            $_SESSION["messageError"] = "Erro: Nova senha é obrigatória.";
             header("location: ../client/settings.php");
             die();
         }
