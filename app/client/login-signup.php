@@ -1,35 +1,18 @@
 <?php
 // verificar se existem cookies, para atribui-los a uma sessão quando o utilizador volta abrir a página depois de fechar o browser
+session_start();
 if (isset($_COOKIE["login"])) {
-   session_start();
    $_SESSION["login"] = $_COOKIE["login"];
    $_SESSION["id"] = $_COOKIE["id"];
    $_SESSION["username"] = $_COOKIE["username"];
    $_SESSION["email"] = $_COOKIE["email"];
-} else {  // iniciar apenas a sessão
-   session_start();
-}
-
-// verificar se algum utilizador está logado, para obter o id
-if (isset($_SESSION["login"])) {
-   $userLoggedId = $_SESSION["id"];
-} else {
-   $userLoggedId = -1;
-}
-
-
-require("../server/index-controller.php");
-require("../server/connect-db.php");
-
-// posts da pesquisa
-if (isset($_GET["text"])) {
-   $posts = getSearchPosts($userLoggedId);
-} else {  // posts ao carregar a página
-   $posts = getPostsMainPage($userLoggedId);
+   header("location: index.php");
+} else if (isset($_SESSION["login"])) {
+   header("location: index.php");
 }
 ?>
 
-<!-- DEFINIÇÃO: página principal do site -->
+<!-- DEFINAÇÃO: Area de Login e de Registo -->
 
 <!DOCTYPE html>
 <html>
@@ -46,6 +29,7 @@ if (isset($_GET["text"])) {
 
    <!-- CSS -->
    <link rel="stylesheet" href="css/main.css">
+   <link rel="stylesheet" href="css/login-signup.css">
 
    <!-- JQuery -->
    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -67,49 +51,49 @@ if (isset($_GET["text"])) {
    <link href="https://fonts.googleapis.com/css2?family=Nova+Round&family=Nunito:wght@300;400&display=swap" rel="stylesheet">
 </head>
 
-<body>
-   <!-- barra de navegação -->
-   <header>
-      <?php require("nav.php"); ?>
-   </header>
+<body class="ls">
+   <section class="lsContent">
+      <div class="lsContentLogo">
+         <img src="../server/assets/images/logo.png" class="lsLogoImage">
+      </div>
 
-   <main>
-      <!-- post em destaque -->
-      <?php showFeaturedPost($posts[0], $userLoggedId); ?>
+      <div class="lsContentLinks">
+         <a data-session="login">Log In</a>
+         <a data-session="signup">Sign Up</a>
+      </div>
 
-      <!-- pesquisa -->
-      <section class="searchArea">
-         <form method="get" action="">
-            <input type="text" id="textSearch" name="text" placeholder="Texto a Pesquisar ..." require>
-            <a id="search" name="search"><span><i class="fas fa-search" data-toggle="tooltip" data-placement="bottom" title="Pesquisar"></i></span></a>
-            <a href="index.php"><span><i class="fas fa-backspace" data-toggle="tooltip" data-placement="bottom" title="Limpar Pesquisa"></i></span></a>
+      <div class="lsContentForm" id="div-login">
+         <form method="post" action="../server/session.php">
+            <input type="text" name="username" placeholder="Utilizador / Email" require>
+            <input type="password" name="password" placeholder="Senha" require>
+
+            <div class="row">
+               <div class="col-8">
+                  <input type="checkbox" name="dismember" value="rememberLogin" require>
+                  <label id="rememberText">Lembrar login?</label>
+               </div>
+               <div class="col-4 my-auto">
+                  <button class="button buttonPrimary" name="login">Entrar</button>
+               </div>
+            </div>
          </form>
-      </section>
+      </div>
 
-      <!-- opções de layouts dos posts -->
-      <section class="gridOptions">
-         <i class="fas fa-th-list" data-grid="fullWidth" data-toggle="tooltip" data-placement="bottom" title="Vista de Lista"></i>
-         <i class="fas fa-th" data-grid="width3" data-toggle="tooltip" data-placement="bottom" title="Vista de Grellha"></i>
-      </section>
+      <div class="lsContentForm" id="div-signup">
+         <form method="post" action="../server/session.php">
+            <input type="text" class="lsFieldForm" name="username" placeholder="Nome de Utilizador" require>
+            <input type="email" class="lsFieldForm" name="email" placeholder="Email" require>
+            <input type="password" class="lsFieldForm" name="password" placeholder="Senha" require>
+            <input type="password" name="confirmPassword" placeholder="Confirmar Senha" require>
 
-      <!-- posts -->
-      <section class="posts sectionFullWidth">
-         <?php showPostsMainPage($posts, $userLoggedId); ?>
-      </section>
-   </main>
+            <a data-toggle="tooltip" data-placement="bottom" title="Os restantes dados poderá preencher na área de utilizador!"><i class="fas fa-info-circle"></i></a>
+            <button class="button buttonPrimary" name="signup">Registar</button>
+         </form>
+      </div>
+   </section>
 
-   <!-- alertas -->
    <?php require("error.php"); ?>
-   <?php require("success.php"); ?>
-   <?php require("about.php"); ?>
-   <?php require("new-post.php"); ?>
-   <?php require("edit-post.php"); ?>
    <?php require("../server/message.php"); ?>
-
-   <!-- rodapé -->
-   <footer class="footer">
-      <?php require("footer.php"); ?>
-   </footer>
 </body>
 
 </html>

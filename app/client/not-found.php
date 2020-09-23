@@ -1,37 +1,12 @@
-<?php
-if (!isset($_GET["userId"])) {
-   header("location:../client/not-found.php");
-}
-
-require("../client/error.php");
-require("../server/message.php");
-require("../server/connect-db.php");
-require("../server/user-controller.php");
-
-session_start();
-
-// verificar se algum utilizador está logado, para obter o id
-if (isset($_SESSION["login"])) {
-   $userLoggedId = $_SESSION["id"];
-} else {
-   $userLoggedId = -1;
-}
-
-// obter utilizador do post
-$user = getPostUser();
-
-// obter posts
-$posts = getUserPosts($userLoggedId);
-?>
-
-<!-- DEFINIÇÃO: página de cada utilizador -->
+<!-- DEFINIÇÃO: página de erro: 404 page not fond -->
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
    <!-- metadados -->
-   <title><?= $user["nomeUtilizador"]; ?></title>
+   <title>KLL</title>
    <meta charset="utf-8">
    <meta name="description" content="Uma rede social nova e alternativa!">
    <meta name="keywords" content="IPCA, Programação Web 2, Projeto Final, Rede Social">
@@ -40,6 +15,7 @@ $posts = getUserPosts($userLoggedId);
    <link rel="shortcut icon" type="image/x-icon" href="../server/assets/images/favicon.ico">
 
    <!-- CSS -->
+   <link rel="stylesheet" href="css/login-signup.css">
    <link rel="stylesheet" href="css/main.css">
 
    <!-- JQuery -->
@@ -62,44 +38,23 @@ $posts = getUserPosts($userLoggedId);
    <link href="https://fonts.googleapis.com/css2?family=Nova+Round&family=Nunito:wght@300;400&display=swap" rel="stylesheet">
 </head>
 
-<body>
-   <header>
-      <?php require("nav.php"); ?>
-      <section class="uHeader">
-         <div>
-            <i class="fas fa-user-circle"></i>
-            <h2><?= $user["nomeUtilizador"]; ?></h2>
-         </div>
-      </section>
-   </header>
+<body class="nf404">
+   <!-- logótipo do site -->
+   <section class="lsContent">
+      <div class="lsContentLogo">
+         <img src="../server/assets/images/logo.png" class="lsLogoImage">
+      </div>
 
-   <main>
-      <?php if (!isset($_SESSION["error"])) { ?>
+      <!-- aréa de erro -->
+      <div>
+         <h1>404</h1>
+         <h3>Page Not Found!</h3>
+         <p>Parece que algum dos developers anda a dormir!</p>
+      </div>
+   </section>
 
-         <!-- opções de layouts dos posts -->
-         <section class="gridOptions">
-            <i class="fas fa-th-list" data-grid="fullWidth" data-toggle="tooltip" data-placement="bottom" title="Vista de Lista"></i>
-            <i class="fas fa-th" data-grid="width3" data-toggle="tooltip" data-placement="bottom" title="Vista de Grelha"></i>
-         </section>
-
-         <!-- posts -->
-         <section class="posts">
-            <?php
-            // mostrar posts
-            showUserPosts($posts, $userLoggedId);
-            ?>
-         </section>
-      <?php } else {
-         unset($_SESSION["error"]);
-      } ?>
-   </main>
-
-   <?php require("about.php"); ?>
-   <?php require("new-post.php"); ?>
-
-   <footer class="footer">
-      <?php require("footer.php") ?>
-   </footer>
+   <?php require("error.php"); ?>
+   <?php require("../server/message.php"); ?>
 </body>
 
 </html>
