@@ -33,7 +33,7 @@ function votePost()
    $activeVote = false;
 
    // selecionar voto
-   if ($query = $connection->prepare("SELECT idTipoVoto FROM votosposts WHERE idPost = ? AND idUtilizador = ?")) {
+   if ($query = $connection->prepare("SELECT idTipoVoto FROM votos WHERE idPost = ? AND idUtilizador = ?")) {
       // executar query
       $query->bind_param("ii", $postId, $userId);
       $query->execute();
@@ -102,7 +102,7 @@ function removeUpvote($postId, $userId)
 {
    global $connection;
 
-   if ($query = $connection->prepare("DELETE FROM votosposts WHERE idPost = ? AND idUtilizador = ?")) {
+   if ($query = $connection->prepare("DELETE FROM votos WHERE idPost = ? AND idUtilizador = ?")) {
       $query->bind_param("ii", $postId, $userId);
       $query->execute();
       $query->close();
@@ -125,7 +125,7 @@ function removeDownvote($postId, $userId)
 {
    global $connection;
 
-   if ($query = $connection->prepare("DELETE FROM votosposts WHERE idPost = ? AnD idUtilizador = ?")) {
+   if ($query = $connection->prepare("DELETE FROM votos WHERE idPost = ? AnD idUtilizador = ?")) {
       $query->bind_param("ii", $postId, $userId);
       $query->execute();
       $query->close();
@@ -149,7 +149,7 @@ function updateVote($postId, $userId, $voteTypeId)
    global $connection;
 
    if ($voteTypeId == 1) {  // 1 = upvote
-      if ($query = $connection->prepare("UPDATE votosposts SET idTipoVoto = ? WHERE idPost = ? AND idUtilizador = ?")) {
+      if ($query = $connection->prepare("UPDATE votos SET idTipoVoto = ? WHERE idPost = ? AND idUtilizador = ?")) {
          $query->bind_param("iii", $voteTypeId, $postId, $userId);
          $query->execute();
          $query->close();
@@ -169,7 +169,7 @@ function updateVote($postId, $userId, $voteTypeId)
       }
    }
    if ($voteTypeId == 2) {  // 2 = downvote
-      if ($query = $connection->prepare("UPDATE votosposts SET idTipoVoto = ? WHERE idPost = ? AND idUtilizador = ?")) {
+      if ($query = $connection->prepare("UPDATE votos SET idTipoVoto = ? WHERE idPost = ? AND idUtilizador = ?")) {
          $query->bind_param("iii", $voteTypeId, $postId, $userId);
          $query->execute();
          $query->close();
@@ -196,7 +196,7 @@ function insertVote($postId, $userId, $voteTypeId)
    global $connection;
 
    if ($voteTypeId == 1) {  // 1 = upvote
-      if ($query = $connection->prepare("INSERT INTO votosposts (idPost, idUtilizador, idTipoVoto) VALUES (?, ?, ?)")) {
+      if ($query = $connection->prepare("INSERT INTO votos (idPost, idUtilizador, idTipoVoto) VALUES (?, ?, ?)")) {
          $query->bind_param("iii", $postId, $userId, $voteTypeId);
          $query->execute();
          $query->close();
@@ -216,7 +216,7 @@ function insertVote($postId, $userId, $voteTypeId)
       }
    }
    if ($voteTypeId == 2) {  // 2 = downvote
-      if ($query = $connection->prepare("INSERT INTO votosposts (idPost, idUtilizador, idTipoVoto) VALUES (?, ?, ?)")) {
+      if ($query = $connection->prepare("INSERT INTO votos (idPost, idUtilizador, idTipoVoto) VALUES (?, ?, ?)")) {
          $query->bind_param("iii", $postId, $userId, $voteTypeId);
          $query->execute();
          $query->close();
