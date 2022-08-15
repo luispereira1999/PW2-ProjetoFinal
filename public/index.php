@@ -11,7 +11,7 @@
    <meta charset="utf-8">
    <meta name="description" content="Uma rede social nova e alternativa!">
    <meta name="keywords" content="IPCA, Programação Web 2, Projeto Final, Rede Social">
-   <meta name="author" content="Lara Ribeiro, Luís Pereira, Maria Francisca Costa">
+   <meta name="author" content="Lara Ribeiro, Luís Pereira, Maria Costa">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <!-- FAVICON -->
@@ -41,10 +41,24 @@
 </head>
 
 <body>
-   <!-- CABEÇALHO: menu -->
+   <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
    <header>
       <?php require("components/nav.php"); ?>
    </header>
+
+   <!-- PRINCIPAL: posts -->
+   <main id="posts">
+      <section class="posts sectionFullWidth">
+         <?php
+         // showPostsMainPage($posts, $userLoggedId);
+         ?>
+      </section>
+   </main>
+
+   <!-- RADAPÉ:  -->
+   <footer class="footer">
+      <?php require("components/footer.php"); ?>
+   </footer>
 </body>
 
 </html>
