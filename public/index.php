@@ -1,5 +1,17 @@
 <!-- DEFINIÇÃO: página principal do site -->
 
+<?php
+require("../src/utils/database-util.php");~
+require("../src/models/card-post-model.php");
+require("../src/controllers/card-post-controller.php");
+
+$userLoggedId = -1;
+$numberOfPosts = 9;
+
+// posts ao carregar a página
+$posts = getCardPosts($userLoggedId, $numberOfPosts);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-PT">
 
@@ -49,13 +61,11 @@
    <!-- PRINCIPAL: posts -->
    <main id="posts">
       <section class="posts sectionFullWidth">
-         <?php
-         // showPostsMainPage($posts, $userLoggedId);
-         ?>
+         <?php showPostsMainPage($posts, $userLoggedId); ?>
       </section>
    </main>
 
-   <!-- RADAPÉ:  -->
+   <!-- RODAPÉ:  -->
    <footer class="footer">
       <?php require("components/footer.php"); ?>
    </footer>

@@ -104,7 +104,7 @@ REPLACE INTO `users` (`id`, `name`, `password`, `email`, `first_name`, `last_nam
 CREATE TABLE IF NOT EXISTS `posts_votes` (
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `type_vote_id` int(11) NOT NULL,
+  `vote_type_id` int(11) NOT NULL,
   PRIMARY KEY (`post_id`,`user_id`),
   KEY `fk_user_id_v` (`user_id`),
   CONSTRAINT `fk_post_id_v` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `posts_votes` (
 CREATE TABLE IF NOT EXISTS `comments_votes` (
   `comment_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `type_vote_id` int(11) DEFAULT NULL,
+  `vote_type_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`comment_id`,`user_id`),
   KEY `fk_user_id` (`user_id`),
   CONSTRAINT `fk_comment_id` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
