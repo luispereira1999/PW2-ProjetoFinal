@@ -1,17 +1,5 @@
 <!-- DEFINIÇÃO: página principal do site -->
 
-<?php
-require("../src/utils/database-util.php");~
-require("../src/models/card-post-model.php");
-require("../src/controllers/card-post-controller.php");
-
-$userLoggedId = -1;
-$numberOfPosts = 9;
-
-// posts ao carregar a página
-$posts = getCardPosts($userLoggedId, $numberOfPosts);
-?>
-
 <!DOCTYPE html>
 <html lang="pt-PT">
 
@@ -27,17 +15,17 @@ $posts = getCardPosts($userLoggedId, $numberOfPosts);
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <!-- FAVICON -->
-   <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+   <link rel="shortcut icon" type="image/x-icon" href="../public/assets/images/favicon.ico">
 
    <!-- CSS -->
-   <link rel="stylesheet" href="css/main.css">
+   <link rel="stylesheet" href="../public/css/main.css">
 
    <!-- JQUERY -->
    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
    <!-- JS -->
-   <script type="text/javascript" src="js/main.js"></script>
-   <script type="text/javascript" src="js/function.js"></script>
+   <script type="text/javascript" src="../public/js/main.js"></script>
+   <script type="text/javascript" src="../public/js/function.js"></script>
 
    <!-- BOOTSTRAP -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -58,10 +46,10 @@ $posts = getCardPosts($userLoggedId, $numberOfPosts);
       <?php require("components/nav.php"); ?>
    </header>
 
-   <!-- PRINCIPAL: posts -->
+   <!-- PRINCIPAL: posts resumidos -->
    <main id="posts">
       <section class="posts sectionFullWidth">
-         <?php showPostsMainPage($posts, $userLoggedId); ?>
+         <?php require_once("components/brief-post.php"); ?>
       </section>
    </main>
 

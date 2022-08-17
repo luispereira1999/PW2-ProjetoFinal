@@ -7,7 +7,7 @@
    </div>
 
    <div class="navigation__center-wrapper">
-      <a href="./index.php"><img src="./assets/images/logo.png" class="navigation__logo"></a>
+      <a href="./index.php"><img src="../public/assets/images/logo.png" class="navigation__logo"></a>
    </div>
 
    <div class="navigation__right-wrapper">
@@ -38,7 +38,7 @@
    </div>
 
    <div class="navigation__center-wrapper">
-      <a href="./index.php"><img src="./assets/images/logo.png" class="navigation__logo"></a>
+      <a href="./index.php"><img src="../public/assets/images/logo.png" class="navigation__logo"></a>
    </div>
 
    <div class="navigation__right-wrapper">
