@@ -14,7 +14,8 @@ class BriefPostController
 
    public function getBriefPosts($userLoggedId)
    {
-      $data = $this->model->getAll($userLoggedId);
+      $briefPosts = $this->model->getAll($userLoggedId);
+      require_once("../src/views/index.php");
    }
 }
 ?>
