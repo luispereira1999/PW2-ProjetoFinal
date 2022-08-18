@@ -43,19 +43,17 @@
 <body>
    <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
    <header>
-      <?php require("components/nav.php"); ?>
+      <?php require_once("components/nav.php"); ?>
    </header>
 
-   <!-- PRINCIPAL: posts resumidos -->
-   <main id="posts">
-      <section class="posts sectionFullWidth">
-         <?php require_once("components/brief-post.php"); ?>
-      </section>
+   <!-- PRINCIPAL: posts resumidos   -->
+   <main class="brief-posts">
+      <?php require_once("components/brief-post.php"); ?>
    </main>
 
    <!-- RODAPÉ:  -->
    <footer class="footer">
-      <?php require("components/footer.php"); ?>
+      <?php require_once("components/footer.php"); ?>
    </footer>
 </body>
 

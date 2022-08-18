@@ -23,10 +23,10 @@ for ($i; $i < count($briefPosts); $i++) : ?>
             <div class="brief-posts__options">
                <?php if ($briefPosts[$current]->post_user_id == $userLoggedId) : ?>
                   <form class="editDeletePost" method="post" action="../server/post-controller.php">
-                     <a data-action="edit"><span data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fas fa-edit col-0"></i></span></a>
+                     <a class="brief-posts__link" data-action="edit"><span data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="brief-posts__options__icon fas fa-edit col-0"></i></span></a>
                      <input type="hidden" name="action" value="edit">
                      <input type="hidden" name="postId" value="<?= $briefPosts[$current]->post_id; ?>">
-                     <a data-action="delete" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fas fa-trash-alt col-0"></i></a>
+                     <a class="brief-posts__link" data-action="delete" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="brief-posts__options__icon fas fa-trash-alt col-0"></i></a>
                   </form>
                <?php endif; ?>
             </div>
@@ -44,13 +44,13 @@ for ($i; $i < count($briefPosts); $i++) : ?>
 
             <div class="brief-posts__interactions">
                <!-- mostrar votos do post -->
-               <div class="brief-posts__votes votes">
-                  <span data-vote="upvote"><i <?php if ($briefPosts[$current]->user_logged_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="fas fa-heart brief-posts__icon"></i></span>
-                  <label><?= $briefPosts[$current]->votes_amount; ?></label>
-                  <span data-vote="downvote"><i <?php if ($briefPosts[$current]->user_logged_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="fas fa-heart-broken brief-posts__icon"></i></span>
+               <div class="brief-posts__votes">
+                  <span data-vote="upvote" class="brief-posts__vote"><i <?php if ($briefPosts[$current]->user_logged_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="brief-posts__interactions__icon fas fa-heart"></i></span>
+                  <label class="brief-posts__amount"><?= $briefPosts[$current]->votes_amount; ?></label>
+                  <span data-vote="downvote" class="brief-posts__vote"><i <?php if ($briefPosts[$current]->user_logged_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="brief-posts__interactions__icon fas fa-heart-broken"></i></span>
                </div>
 
-               <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment brief-posts__icon"></i></span>
+               <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment brief-posts__interactions__icon"></i></span>
                <label><?= $briefPosts[$current]->comments_amount ?></label>
             </div>
          </div>
