@@ -46,9 +46,43 @@
       <?php require_once("components/nav.php"); ?>
    </header>
 
-   <!-- PRINCIPAL: posts resumidos   -->
+   <!-- PRINCIPAL: posts resumidos -->
    <main class="brief-posts">
-      <?php require_once("components/brief-post.php"); ?>
+      <?php
+      // if (!isset($_SESSION["error"])) {
+      // índices do ciclo for e do clico while
+      $i = 0;
+      $j = 0;
+
+      // índice do post atual
+      $current = 1;
+
+      for ($i; $i < count($briefPosts); $i++) : ?>
+         <section class="brief-posts__post">
+
+            <!-- ciclo para mostrar 3 em 3 posts -->
+            <?php while ($j < 3) :
+
+               // se já não existem posts para mostrar sai do desta função "showPosts"
+               if ($current == count($briefPosts)) :
+                  break;
+               endif; ?>
+
+               <!-- mostrar post -->
+               <?php require("components/brief-post.php"); ?>
+
+            <?php
+               $j++;
+               $current++;
+            endwhile;
+
+            $j = 0; ?>
+         </section>
+      <?php endfor;
+      // } else {
+      //    unset($_SESSION["error"]);
+      // }
+      ?>
    </main>
 
    <!-- RODAPÉ:  -->

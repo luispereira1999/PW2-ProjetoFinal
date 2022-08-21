@@ -1,7 +1,7 @@
 <!-- DEFINIÇÃO: controlador dos posts na página principal (posts resumidos) -->
 
 <?php
-require_once("../src/models/brief-post-model.php");
+require_once("src/models/brief-post-model.php");
 
 class BriefPostController
 {
@@ -12,10 +12,12 @@ class BriefPostController
       $this->model = new briefPostModel;
    }
 
-   public function getBriefPosts($userLoggedId)
+   // obter todos os posts ao carregar a página principal
+   public function getBriefPosts()
    {
+      $userLoggedId = 1;
       $briefPosts = $this->model->getAll($userLoggedId);
-      require_once("../src/views/index.php");
+      require_once("src/views/index.php");
    }
 }
 ?>

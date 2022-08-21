@@ -1,7 +1,7 @@
 <!-- DEFINIÇÃO: modelo de um post que aparece na página principal -->
 
 <?php
-require_once("../src/configurations/database.php");
+require_once("src/configurations/database.php");
 
 class BriefPost
 {
@@ -34,7 +34,7 @@ class BriefPostModel extends Database
          $query->bindParam(":userLoggedId", $userLoggedId, PDO::PARAM_INT);
          $query->execute();
 
-         // existem dados
+         // se existir dados
          if ($query->rowCount() > 0) {
             // obter dados dos posts
             while ($row = $query->fetch()) {
