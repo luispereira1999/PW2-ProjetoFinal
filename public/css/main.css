@@ -1,3 +1,5 @@
+/* DEFINIÇÃO: estilos globais do site */
+
 /**** GLOBAL ****/
 /* Cores: #242424, #D4D4D4, #8228DE (roxo), #21C937 (verde) */
 
@@ -95,160 +97,13 @@ h5 {
 }
 
 
-/**** MENU DE NAVEGAÇÃO ****/
-
-.navigation {
-   align-items: center;
-   background-color: #242424;
-   box-shadow: 0px 0px 5px 0px rgb(23, 23, 23);
-   box-sizing: border-box;
-   display: flex;
-   height: 60px;
-   justify-content: center;
-   width: 100%;
-}
-
-.navigation__left-wrapper {
-   align-items: center;
-   display: flex;
-   justify-content: start;
-   width: 10%;
-}
-
-.navigation__icon {
-   color: #D4D4D4;
-   font-size: 20px;
-   margin: 20px 10px;
-   margin: 20px 10px 20px 20px;
-}
-
-.navigation__icon:hover {
-   color: #7d7d7d;
-   text-decoration: none;
-}
-
-.navigation__center-wrapper {
-   align-items: center;
-   display: flex;
-   justify-content: center;
-   width: 80%;
-}
-
-.navigation__logo {
-   height: 50px;
-   margin: 5px;
-   width: 80px;
-}
-
-.navigation__right-wrapper {
-   align-items: center;
-   display: flex;
-   justify-content: flex-end;
-   width: 10%;
-}
-
-.navigation__dropdown {
-   float: right;
-}
-
-.navigation__dropdown__link:hover {
-   color: #7d7d7d;
-   text-decoration: none;
-}
-
-.navigation__dropdown__content-wrapper {
-   background-color: #242424;
-   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-   display: none;
-   min-width: 200px;
-   position: absolute;
-   right: 0;
-   z-index: 1;
-}
-
-.navigation__dropdown__link {
-   color: #cacaca;
-   display: block;
-   padding: 12px 16px;
-   text-decoration: none;
-}
-
-.navigation__dropdown__icon {
-   margin-right: 5px;
-   padding: 0 5px;
-   width: 40px;
-}
-
-.navigation__dropdown:hover .navigation__dropdown__content-wrapper {
-   display: block;
-}
-
-
-/**** RODAPÉ ****/
-
-.footer {
-   background-color: #242424;
-   margin-top: 20px;
-}
-
-.footer__top {
-   display: flex;
-   padding: 10px 20px;
-   margin: 0;
-}
-
-.footer__copyright-wrapper {
-   align-items: flex-start;
-   display: block;
-   justify-content: flex-start;
-   width: 50%;
-}
-
-.footer__author-wrapper {
-   align-items: flex-end;
-   display: flex;
-   justify-content: flex-end;
-   width: 50%;
-}
-
-.footer__text {
-   color: #666;
-   font-size: 20px;
-   margin-top: 10px;
-}
-
-.footer_line {
-   background-color: #333;
-   margin: 0;
-}
-
-.footer__bottom {
-   display: flex;
-   padding: 20px;
-}
-
-.footer__bottom .footer__logo {
-   height: 50px;
-   width: 50px;
-}
-
-.footer__link {
-   color: #888;
-   text-decoration: none;
-}
-
-.footer__link:hover {
-   color: #aaa;
-   text-decoration: none;
-}
-
-
 /**** GRID - TIPOS DE GRID PARA VISUALIZAR OS POSTS RESUMIDOS ****/
 
 .width-1 {
    background-color: #f0f0f0;
    margin: 15px 5px;
 }
+
 /* .fullWidth_row {
    margin: 5px 35px !important;
    display: flex;

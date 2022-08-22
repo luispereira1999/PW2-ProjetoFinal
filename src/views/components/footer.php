@@ -13,5 +13,5 @@
 <hr class="footer_line">
 
 <section class="footer__bottom">
-   <a class="footer__link" href="./index.php"><img class="footer__logo" src="../public/assets/images/logo-favicon.png"></a>
+   <a class="footer__link" href="index.php"><img class="footer__logo" src="../public/assets/images/logo-favicon.png"></a>
 </section>

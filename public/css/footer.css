@@ -1,0 +1,57 @@
+/* DEFINIÇÃO: estilos para o rodapé do site */
+
+.footer {
+   background-color: #242424;
+   margin-top: 20px;
+}
+
+.footer__top {
+   display: flex;
+   padding: 10px 20px;
+   margin: 0;
+}
+
+.footer__copyright-wrapper {
+   align-items: flex-start;
+   display: block;
+   justify-content: flex-start;
+   width: 50%;
+}
+
+.footer__author-wrapper {
+   align-items: flex-end;
+   display: flex;
+   justify-content: flex-end;
+   width: 50%;
+}
+
+.footer__text {
+   color: #666;
+   font-size: 20px;
+   margin-top: 10px;
+}
+
+.footer_line {
+   background-color: #333;
+   margin: 0;
+}
+
+.footer__bottom {
+   display: flex;
+   padding: 20px;
+}
+
+.footer__bottom .footer__logo {
+   height: 50px;
+   width: 50px;
+}
+
+.footer__link {
+   color: #888;
+   text-decoration: none;
+}
+
+.footer__link:hover {
+   color: #aaa;
+   text-decoration: none;
+}
