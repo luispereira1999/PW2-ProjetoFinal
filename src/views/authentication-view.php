@@ -1,5 +1,15 @@
 <!-- DEFINIÇÃO: página de login ou signup do site -->
 
+<?php
+session_start();
+$error = "";
+
+if (!empty($_SESSION["error"])) {
+   $error = $_SESSION["error"];
+   unset($_SESSION["error"]);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-PT">
 
@@ -21,7 +31,7 @@
    <link rel="stylesheet" href="../public/css/main.css">
    <link rel="stylesheet" href="../public/css/nav.css">
    <link rel="stylesheet" href="../public/css/footer.css">
-   <link rel="stylesheet" href="../public/css/login-signup.css">
+   <link rel="stylesheet" href="../public/css/authentication.css">
 
    <!-- JQUERY -->
    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -46,7 +56,9 @@
 <body>
    <main class="content">
       <div class="content__logo-wrapper">
-         <img src="../public/assets/images/logo.png" class="content__logo">
+         <a href="/">
+            <img src="../public/assets/images/logo.png" class="content__logo">
+         </a>
       </div>
 
       <div class="content__links-wrapper">
@@ -56,14 +68,14 @@
 
       <!-- formulário de login -->
       <div class="content__form-wrapper" id="content__login">
-         <form method="post" action="../server/session.php">
-            <input class="content__text" type="text" name="username" placeholder="Nome de Utilizador ou Email" require>
+         <form method="post" action="/authentication/login">
+            <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador ou Email" require>
             <input class="content__password" type="password" name="password" placeholder="Senha" require>
 
             <div class="row">
                <div class="col-8">
                   <input class="content__checkbox" type="checkbox" name="dismember" value="rememberLogin" require>
-                  <label class="content__label" id="rememberText">Memorizar login?</label>
+                  <label class="content__label" id="rememberText"><?= $error ?></label>
                </div>
                <div class="col-4 my-auto">
                   <button class="button button-primary" name="login">Entrar</button>
@@ -74,8 +86,8 @@
 
       <!-- formulário de signup -->
       <div class="content__form-wrapper" id="content__signup">
-         <form method="post" action="../server/session.php">
-            <input class="content__text" type="text" class="lsFieldForm" name="username" placeholder="Nome de Utilizador" require>
+         <form method="post" action="/authentication/signup">
+            <input class="content__text" type="text" class="lsFieldForm" name="name" placeholder="Nome de Utilizador" require>
             <input class="content__email" type="email" class="lsFieldForm" name="email" placeholder="Email" require>
             <input class="content__password" type="password" class="lsFieldForm" name="password" placeholder="Senha" require>
             <input class="content__password" type="password" name="confirmPassword" placeholder="Confirmar Senha" require>

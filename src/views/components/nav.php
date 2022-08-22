@@ -42,7 +42,7 @@
    </div>
 
    <div class="navigation__right-wrapper">
-      <a href="login-signup-view.php" data-toggle="tooltip" data-placement="bottom" title="Login / Signup"><i class="navigation__icon fas fa-user-plus"></i></a>
+      <a href="authentication-view.php" data-toggle="tooltip" data-placement="bottom" title="Login / Signup"><i class="navigation__icon fas fa-user-plus"></i></a>
 
       <div class="navigation__dropdown">
          <button class="button-dropdown"><i class="navigation__icon fas fa-ellipsis-v"></i></button>
