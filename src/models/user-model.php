@@ -75,7 +75,11 @@ class UserModel extends Database
             $user->city = $row["city"];
             $user->country = $row["country"];
 
-            return $user; // retorna o utilizador que será logado
+            // definir sessão de login no site
+            require_once("src/utils/session.php");
+            setLoginSession(true, $user->id, $user->name, $user->email, $user->first_name, $user->last_name);
+
+            return $user; // retorna o utilizador logado
          } else {
             $_SESSION["error"] = "Senha inválida.";
          }

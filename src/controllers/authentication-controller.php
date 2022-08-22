@@ -18,10 +18,11 @@ class AuthenticationController
       require_once("src/views/authentication-view.php");
    }
 
+   // fazer login e redirecionar utilizador para a página principal
    public function login()
    {
       $user = $this->model->login();
-      require_once("src/views/index-view.php");
+      header("location: /");
    }
 }
 ?>
