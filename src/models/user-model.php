@@ -3,6 +3,8 @@
 <?php
 require_once("src/configurations/database.php");
 
+// representação de um utilizador na base de dados
+// (constituído pelos campos da tabela "users" na base de dados)
 class User
 {
    public $id;
@@ -49,7 +51,7 @@ class UserModel extends Database
       $password = md5($password);
 
       $query = "
-      SELECT id, name, email, first_name, last_name, city, country
+      SELECT id, name, email, first_name, last_name
       FROM users
       WHERE name = :name AND password = :password
       LIMIT 1";
@@ -72,12 +74,15 @@ class UserModel extends Database
             $user->email = $row["email"];
             $user->first_name = $row["first_name"];
             $user->last_name = $row["last_name"];
-            $user->city = $row["city"];
-            $user->country = $row["country"];
 
             // definir sessão de login no site
             require_once("src/utils/session.php");
             setLoginSession(true, $user->id, $user->name, $user->email, $user->first_name, $user->last_name);
+
+            // definir cookies para lembrar login quando o browser é fechado
+            if (isset($_POST["remember"])) {
+               setLoginCookies(true, $user->id, $user->name, $user->email, $user->first_name, $user->last_name);
+            }
 
             return $user; // retorna o utilizador logado
          } else {

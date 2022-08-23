@@ -75,7 +75,7 @@ if (!empty($_SESSION["error"])) {
             <div class="row">
                <div class="col-8">
                   <input class="content__checkbox" type="checkbox" name="dismember" value="rememberLogin" require>
-                  <label class="content__label" id="rememberText"><?= $error ?></label>
+                  <label class="content__label" id="rememberText">Memorizar login</label>
                </div>
                <div class="col-4 my-auto">
                   <button class="button button-primary" name="login">Entrar</button>
