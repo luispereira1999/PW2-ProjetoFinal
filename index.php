@@ -1,5 +1,5 @@
 <?php
-require_once("src/route.php");
+require_once("src/configs/route-config.php");
 
 require_once("src/controllers/brief-post-controller.php");
 require_once("src/controllers/authentication-controller.php");
@@ -7,6 +7,8 @@ require_once("src/controllers/authentication-controller.php");
 $route = new Route();
 $briefPostController = new BriefPostController();
 $authenticationController = new AuthenticationController();
+
+session_start();
 
 // rotas
 $route->add("/", "src/controllers/brief-post-controller.php", array($briefPostController, "index"));

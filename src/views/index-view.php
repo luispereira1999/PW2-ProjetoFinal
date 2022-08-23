@@ -1,9 +1,5 @@
 <!-- DEFINIÇÃO: página principal do site -->
 
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="pt-PT">
 

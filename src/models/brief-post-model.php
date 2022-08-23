@@ -1,7 +1,7 @@
 <!-- DEFINIÇÃO: modelo de um post que aparece na página principal -->
 
 <?php
-require_once("src/configurations/database.php");
+require_once("src/configs/database-config.php");
 
 // representação de um post resumido
 // (constituído por campos das tabelas "posts", "users" e "posts_votes" na base de dados)
