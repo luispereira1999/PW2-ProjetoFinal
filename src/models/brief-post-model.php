@@ -3,6 +3,8 @@
 <?php
 require_once("src/configurations/database.php");
 
+// representação de um post resumido
+// (constituído por campos das tabelas "posts", "users" e "posts_votes" na base de dados)
 class BriefPost
 {
    public $post_id;
@@ -26,18 +28,26 @@ class BriefPostModel extends Database
 
    public function getAll($userLoggedId)
    {
-      $briefPosts = array();
+      $query = "
+      SELECT p.id AS post_id, p.title AS title, p.description AS description, p.date AS date, p.votes_amount AS votes_amount, p.comments_amount AS comments_amount, p.user_id AS post_user_id, u.name AS name, v.user_id AS user_logged_id, v.vote_type_id AS vote_type_id
+      FROM posts p
+      INNER JOIN users u ON p.user_id = u.id
+      LEFT JOIN posts_votes v ON p.id = v.post_id AND :userLoggedId = v.user_id
+      ORDER BY votes_amount
+      DESC";
 
       // selecionar posts
-      if ($query = $this->connection->prepare("SELECT p.id AS post_id, p.title AS title, p.description AS description, p.date AS date, p.votes_amount AS votes_amount, p.comments_amount AS comments_amount, p.user_id AS post_user_id, u.name AS name, v.user_id AS user_logged_id, v.vote_type_id AS vote_type_id FROM posts p INNER JOIN users u ON p.user_id = u.id LEFT JOIN posts_votes v ON p.id = v.post_id AND :userLoggedId = v.user_id ORDER BY votes_amount DESC")) {
+      if ($result = $this->connection->prepare($query)) {
          // executar query
-         $query->bindParam(":userLoggedId", $userLoggedId, PDO::PARAM_INT);
-         $query->execute();
+         $result->bindParam(":userLoggedId", $userLoggedId, PDO::PARAM_INT);
+         $result->execute();
 
          // se existir dados
-         if ($query->rowCount() > 0) {
+         if ($result->rowCount() > 0) {
+            $briefPosts = array();
+
             // obter dados dos posts
-            while ($row = $query->fetch()) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                $briefPost = new BriefPost();
                $briefPost->post_id = $row["post_id"];
                $briefPost->title = $row["title"];
@@ -55,15 +65,13 @@ class BriefPostModel extends Database
 
             return $briefPosts; // retorna os dados dos posts
          } else {
-            $_SESSION["messageError"] = "Sem resultados.";
-            $_SESSION["error"] = true;
+            $_SESSION["error"] =  "Sem resultados.";
          }
       } else {
-         $_SESSION["messageError"] = "Sem resultados.";
-         $_SESSION["error"] = true;
+         $_SESSION["error"] =  "Sem resultados.";
       }
 
-      return $briefPosts; // retorna array sem dados
+      return null;
    }
 }
 ?>

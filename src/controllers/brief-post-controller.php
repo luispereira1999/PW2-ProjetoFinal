@@ -13,11 +13,11 @@ class BriefPostController
    }
 
    // obter todos os posts ao carregar a página principal
-   public function getBriefPosts()
+   public function index()
    {
       $userLoggedId = 1;
       $briefPosts = $this->model->getAll($userLoggedId);
-      require_once("src/views/index.php");
+      require_once("src/views/index-view.php");
    }
 }
 ?>
