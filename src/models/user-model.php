@@ -1,7 +1,8 @@
 <!-- DEFINIÇÃO: modelo de um utilizador -->
 
 <?php
-require_once("src/configurations/database.php");
+// require_once("src/configs/database-config.php");
+require_once("src/models/model.php");
 
 // representação de um utilizador na base de dados
 // (constituído pelos campos da tabela "users" na base de dados)
@@ -17,34 +18,26 @@ class User
    public $country;
 }
 
-class UserModel extends Database
+class UserModel extends Model
 {
+   public $errors;
+
    public function __construct()
    {
       parent::__construct();
+      $this->errors = array();
    }
 
-   public function login()
+   public function login($name, $password)
    {
-      session_start();
-
-      // $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-      if (isset($_POST["login"])) {
-         // obter os dados que vem do formulário
-         $name = $_POST["name"];
-         $password = $_POST["password"];
-
-         if (empty($name)) {
-            $_SESSION["error"] = "O nome de utilizador ou email é obrigatório.";
-            header("location: /authentication");
-            die();
-         }
-         if (empty($password)) {
-            $_SESSION["error"] = "A senha é obrigatória.";
-            header("location: /authentication");
-            die();
-         }
+      if (empty($name)) {
+         $error = new Exception("Insira um nome de utilizador/email.", 1);
+         array_push($this->errors, $error);
+      }
+      if (empty($password)) {
+         $error = new Exception("Insira uma senha.", 1);
+         array_push($this->errors, $error);
+         return null;
       }
 
       // encriptar senha para que seja igual à que está armazenada na base de dados, caso esta exista
@@ -56,7 +49,7 @@ class UserModel extends Database
       WHERE name = :name AND password = :password
       LIMIT 1";
 
-      // selecionar posts
+      // selecionar utilizador na base de dados
       if ($result = $this->connection->prepare($query)) {
          // executar query
          $result->bindParam(":name", $name, PDO::PARAM_STR);
@@ -76,7 +69,7 @@ class UserModel extends Database
             $user->last_name = $row["last_name"];
 
             // definir sessão de login no site
-            require_once("src/utils/session.php");
+            require_once("src/utils/session-util.php");
             setLoginSession(true, $user->id, $user->name, $user->email, $user->first_name, $user->last_name);
 
             // definir cookies para lembrar login quando o browser é fechado
@@ -86,13 +79,15 @@ class UserModel extends Database
 
             return $user; // retorna o utilizador logado
          } else {
-            $_SESSION["error"] = "Senha inválida.";
+            $error = new Exception("O nome de utilizador/email ou senha não coincidem.", 1);
+            array_push($this->errors, $error);
+            return null;
          }
       } else {
-         $_SESSION["error"] = "Sem resultados.";
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
+         array_push($this->errors, $error);
+         return null;
       }
-
-      return null;
    }
 }
 ?>

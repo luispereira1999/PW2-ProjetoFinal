@@ -1,13 +1,13 @@
 <?php
-function safeHtmlOutput($data)
+function protectOutputToHtml($data)
 {
    if (is_array($data)) {
       foreach ($data as $key => $value) {
-         $data[htmlspecialchars($key)] = safeHtmlOutput($value);
+         $data[htmlspecialchars($key)] = htmlspecialchars($value);
       }
    } else if (is_object($data)) {
       foreach ($data as $key => $value) {
-         $data->{htmlspecialchars($key)} = safeHtmlOutput($value);
+         $data->{htmlspecialchars($key)} = htmlspecialchars($value);
       }
    } else {
       $data = htmlspecialchars($data);
@@ -15,3 +15,4 @@ function safeHtmlOutput($data)
 
    return $data;
 }
+?>

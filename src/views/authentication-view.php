@@ -1,12 +1,11 @@
 <!-- DEFINIÇÃO: página de login ou signup do site -->
 
 <?php
-session_start();
 $error = "";
 
-if (!empty($_SESSION["error"])) {
-   $error = $_SESSION["error"];
-   unset($_SESSION["error"]);
+if (!empty($_SESSION["errors"])) {
+   $errors = $_SESSION["errors"];
+   unset($_SESSION["errors"]);
 }
 ?>
 
@@ -78,7 +77,7 @@ if (!empty($_SESSION["error"])) {
                   <label class="content__label" id="rememberText">Memorizar login</label>
                </div>
                <div class="col-4 my-auto">
-                  <button class="button button-primary" name="login">Entrar</button>
+                  <button class="button button-primary" name="isLogin">Entrar</button>
                </div>
             </div>
          </form>
@@ -93,7 +92,7 @@ if (!empty($_SESSION["error"])) {
             <input class="content__password" type="password" name="confirmPassword" placeholder="Confirmar Senha" require>
 
             <a class="content__link" data-toggle="tooltip" data-placement="bottom" title="Os restantes dados poderá preencher na área de utilizador!"><i class="fas fa-info-circle content__icon"></i></a>
-            <button class="button button-primary" name="signup">Registar</button>
+            <button class="button button-primary" name="isSignup">Registar</button>
          </form>
       </div>
    </main>
