@@ -1,26 +1,27 @@
 <!-- DEFINIÇÃO: classe para conexão à base de dados -->
 
 <?php
-define("HOST", "localhost");
-define("USER", "root");
-define("PASSWORD", "");
-define("DATABASE_NAME", "kll");
-
 class Database
 {
    protected $connection;
 
    public function __construct()
    {
-      $this->connectDatabase();
+      define("HOST", "localhost");
+      define("USER", "root");
+      define("PASSWORD", "");
+      define("DATABASE_NAME", "kll");
+
+      $this->connect();
    }
 
-   private function connectDatabase()
+   private function connect()
    {
       try {
          $this->connection = new PDO("mysql:host=" . HOST . ";dbname=" . DATABASE_NAME, USER, PASSWORD);
       } catch (PDOException $exception) {
-         header("location: not-found.php");
+         $_SESSION["errors"] = "Não foi possível comunicar com o servidor. Tente mais tarde.";
+         header("location: /not-found");
          die();
       }
    }

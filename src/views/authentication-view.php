@@ -1,7 +1,7 @@
 <!-- DEFINIÇÃO: página de login ou signup do site -->
 
 <?php
-$error = "";
+$errors = "";
 
 if (!empty($_SESSION["errors"])) {
    $errors = $_SESSION["errors"];
@@ -73,7 +73,7 @@ if (!empty($_SESSION["errors"])) {
 
             <div class="row">
                <div class="col-8">
-                  <input class="content__checkbox" type="checkbox" name="dismember" value="rememberLogin" require>
+                  <input class="content__checkbox" type="checkbox" name="rememberLogin" value="true" require>
                   <label class="content__label" id="rememberText">Memorizar login</label>
                </div>
                <div class="col-4 my-auto">

@@ -1,8 +1,7 @@
 <!-- DEFINIÇÃO: modelo de um utilizador -->
 
 <?php
-// require_once("src/configs/database-config.php");
-require_once("src/models/model.php");
+require_once("src/configs/database-config.php");
 
 // representação de um utilizador na base de dados
 // (constituído pelos campos da tabela "users" na base de dados)
@@ -18,7 +17,7 @@ class User
    public $country;
 }
 
-class UserModel extends Model
+class UserModel extends Database
 {
    public $errors;
 
@@ -28,7 +27,7 @@ class UserModel extends Model
       $this->errors = array();
    }
 
-   public function login($name, $password)
+   public function validate($name, $password)
    {
       if (empty($name)) {
          $error = new Exception("Insira um nome de utilizador/email.", 1);
@@ -67,15 +66,6 @@ class UserModel extends Model
             $user->email = $row["email"];
             $user->first_name = $row["first_name"];
             $user->last_name = $row["last_name"];
-
-            // definir sessão de login no site
-            require_once("src/utils/session-util.php");
-            setLoginSession(true, $user->id, $user->name, $user->email, $user->first_name, $user->last_name);
-
-            // definir cookies para lembrar login quando o browser é fechado
-            if (isset($_POST["remember"])) {
-               setLoginCookies(true, $user->id, $user->name, $user->email, $user->first_name, $user->last_name);
-            }
 
             return $user; // retorna o utilizador logado
          } else {
