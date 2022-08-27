@@ -1,6 +1,11 @@
 <!-- DEFINIÇÃO: ficheiro com funções auxiliares relacionadas a sessões -->
 
 <?php
+function startSession()
+{
+   session_start();
+}
+
 function setLoginSession($isActive, $id, $name, $email, $firstName, $lastName)
 {
    $_SESSION["login"] = $isActive;

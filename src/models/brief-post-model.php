@@ -21,9 +21,12 @@ class BriefPost
 
 class BriefPostModel extends Database
 {
+   public $errors;
+
    public function __construct()
    {
       parent::__construct();
+      $this->errors = array();
    }
 
    public function getAll($userLoggedId)
@@ -63,15 +66,17 @@ class BriefPostModel extends Database
                array_push($briefPosts, $briefPost);
             }
 
-            return $briefPosts; // retorna os dados dos posts
+            return $briefPosts; // retorna os posts
          } else {
-            $_SESSION["error"] =  "Sem resultados.";
+            $error = new Exception("Posts não encontrados.", 1);
+            array_push($this->errors, $error);
+            return null;
          }
       } else {
-         $_SESSION["error"] =  "Sem resultados.";
+         $error = new Exception("Posts não encontrados.", 1);
+         array_push($this->errors, $error);
+         return null;
       }
-
-      return null;
    }
 }
 ?>

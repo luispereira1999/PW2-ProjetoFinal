@@ -31,15 +31,15 @@ class AuthenticationController
 
       // se houve erros na requisição
       if (!isset($user) || count($this->model->errors) > 0) {
-         $errors = array();
+         $messages = array();
 
          // obter mensagens de erros
          foreach ($this->model->errors as $error) {
-            array_push($errors, $error->getMessage());
+            array_push($messages, $error->getMessage());
          }
 
          // aceder aos erros na página de autenticação
-         $_SESSION["errors"] = $errors;
+         $_SESSION["errors"] = $messages;
          header("location: /authentication");
          die();
       }

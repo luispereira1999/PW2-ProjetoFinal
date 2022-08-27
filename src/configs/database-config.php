@@ -7,11 +7,6 @@ class Database
 
    public function __construct()
    {
-      define("HOST", "localhost");
-      define("USER", "root");
-      define("PASSWORD", "");
-      define("DATABASE_NAME", "kll");
-
       $this->connect();
    }
 
