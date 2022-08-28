@@ -1,14 +1,14 @@
 <!-- DEFINIÇÃO: controlador relativo a autenticação no site (login, signup, logout) -->
 
 <?php
-class AuthenticationController
+class AuthController
 {
    private $model;
 
    // obter todos os posts ao carregar a página principal
-   public function authentication()
+   public function authenticate()
    {
-      require_once("src/views/authentication-view.php");
+      require_once("src/views/auth-view.php");
    }
 
    // fazer login e redirecionar utilizador para a página principal
@@ -40,7 +40,7 @@ class AuthenticationController
 
          // aceder aos erros na página de autenticação
          $_SESSION["errors"] = $messages;
-         header("location: /authentication");
+         header("location: /auth");
          die();
       }
 

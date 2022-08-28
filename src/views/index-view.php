@@ -45,7 +45,7 @@
 <body>
    <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
    <header>
-      <?php require_once("components/nav.php"); ?>
+      <?php require_once("components/nav-component.php"); ?>
    </header>
 
    <!-- PRINCIPAL: posts resumidos -->
@@ -65,7 +65,7 @@
             <?php endif; ?>
 
             <!-- mostrar post -->
-            <?php require("components/brief-post.php"); ?>
+            <?php require("components/brief-post-component.php"); ?>
 
             <?php if ($counter == 3) :  ?>
             </section>
@@ -78,7 +78,7 @@
 
    <!-- RODAPÉ:  -->
    <footer class="footer">
-      <?php require_once("components/footer.php"); ?>
+      <?php require_once("components/footer-component.php"); ?>
    </footer>
 </body>
 

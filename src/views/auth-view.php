@@ -30,7 +30,7 @@ if (!empty($_SESSION["errors"])) {
    <link rel="stylesheet" href="../public/css/main.css">
    <link rel="stylesheet" href="../public/css/nav.css">
    <link rel="stylesheet" href="../public/css/footer.css">
-   <link rel="stylesheet" href="../public/css/authentication.css">
+   <link rel="stylesheet" href="../public/css/auth.css">
 
    <!-- JQUERY -->
    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -67,7 +67,7 @@ if (!empty($_SESSION["errors"])) {
 
       <!-- formulário de login -->
       <div class="content__form-wrapper" id="content__login">
-         <form method="post" action="/authentication/login">
+         <form method="post" action="/auth/login">
             <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador ou Email" require>
             <input class="content__password" type="password" name="password" placeholder="Senha" require>
 
@@ -85,7 +85,7 @@ if (!empty($_SESSION["errors"])) {
 
       <!-- formulário de signup -->
       <div class="content__form-wrapper" id="content__signup">
-         <form method="post" action="/authentication/signup">
+         <form method="post" action="/auth/signup">
             <input class="content__text" type="text" class="lsFieldForm" name="name" placeholder="Nome de Utilizador" require>
             <input class="content__email" type="email" class="lsFieldForm" name="email" placeholder="Email" require>
             <input class="content__password" type="password" class="lsFieldForm" name="password" placeholder="Senha" require>

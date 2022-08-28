@@ -3,7 +3,7 @@
 <?php
 require_once("src/configs/route-config.php");
 require_once("src/controllers/brief-post-controller.php");
-require_once("src/controllers/authentication-controller.php");
+require_once("src/controllers/auth-controller.php");
 require_once("src/utils/session-util.php");
 
 // variáveis de ambiente
@@ -23,13 +23,13 @@ if (isset($_COOKIE["id"]) && !isset($_SESSION["id"])) {
 
 $route = new Route();
 $briefPostController = new BriefPostController();
-$authenticationController = new AuthenticationController();
+$authController = new AuthController();
 
 // rotas
 $route->add("/", "src/controllers/brief-post-controller.php", array($briefPostController, "index"));
-$route->add("/authentication", "src/controllers/authentication-controller.php", array($authenticationController, "authentication"));
-$route->add("/authentication/login", "src/controllers/authentication-controller.php", array($authenticationController, "login"));
-$route->add("/authentication/logout", "src/controllers/authentication-controller.php", array($authenticationController, "logout"));
+$route->add("/auth", "src/controllers/auth-controller.php", array($authController, "authenticate"));
+$route->add("/auth/login", "src/controllers/auth-controller.php", array($authController, "login"));
+$route->add("/auth/logout", "src/controllers/auth-controller.php", array($authController, "logout"));
 
 // quando nenhuma rota foi encontrada
 $route->notFound("src/views/not-found-view.php");
