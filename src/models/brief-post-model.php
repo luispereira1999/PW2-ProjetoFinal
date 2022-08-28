@@ -2,22 +2,7 @@
 
 <?php
 require_once("src/configs/database-config.php");
-
-// representação de um post resumido
-// (constituído por campos das tabelas "posts", "users" e "posts_votes" na base de dados)
-class BriefPost
-{
-   public $post_id;
-   public $title;
-   public $description;
-   public $date;
-   public $votes_amount;
-   public $comments_amount;
-   public $post_user_id;
-   public $post_user_name;
-   public $user_logged_id;
-   public $vote_type_id;
-}
+require_once("entities/brief-post.php");
 
 class BriefPostModel extends Database
 {

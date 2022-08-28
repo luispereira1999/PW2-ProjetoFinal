@@ -2,20 +2,7 @@
 
 <?php
 require_once("src/configs/database-config.php");
-
-// representação de um utilizador na base de dados
-// (constituído pelos campos da tabela "users" na base de dados)
-class User
-{
-   public $id;
-   public $name;
-   public $password;
-   public $email;
-   public $first_name;
-   public $last_name;
-   public $city;
-   public $country;
-}
+require_once("entities/user.php");
 
 class UserModel extends Database
 {
