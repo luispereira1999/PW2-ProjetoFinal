@@ -17,7 +17,7 @@
    </div>
 
    <div>
-      <h5><a href="user.php?userId=<?= $briefPosts[$current]->post_user_id; ?>"><?= $briefPosts[$current]->name; ?></a></h5>
+      <h5><a href="user.php?userId=<?= $briefPosts[$current]->post_user_id; ?>"><?= $briefPosts[$current]->post_user_name; ?></a></h5>
       <h5><?= $briefPosts[$current]->date; ?></h5>
    </div>
 

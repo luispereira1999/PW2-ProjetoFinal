@@ -59,5 +59,20 @@ class AuthenticationController
       // redirecionar para a página principal
       header("location: /");
    }
+
+   // fazer logout e redirecionar utilizador para a página principal
+   public function logout()
+   {
+      require_once("src/utils/session-util.php");
+
+      // efetuar logout
+      destroySession();
+      if (isset($_COOKIE["id"])) {
+         removeCookies();
+      }
+
+      // redirecionar para a página principal
+      header("location: /");
+   }
 }
 ?>

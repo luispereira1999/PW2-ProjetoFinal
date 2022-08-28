@@ -14,7 +14,7 @@ class BriefPost
    public $votes_amount;
    public $comments_amount;
    public $post_user_id;
-   public $name;
+   public $post_user_name;
    public $user_logged_id;
    public $vote_type_id;
 }
@@ -59,7 +59,7 @@ class BriefPostModel extends Database
                $briefPost->votes_amount = $row["votes_amount"];
                $briefPost->comments_amount = $row["comments_amount"];
                $briefPost->post_user_id = $row["post_user_id"];
-               $briefPost->name = $row["post_user_name"];
+               $briefPost->post_user_name = $row["post_user_name"];
                $briefPost->user_logged_id = $row["user_logged_id"];
                $briefPost->vote_type_id = $row["vote_type_id"];
 

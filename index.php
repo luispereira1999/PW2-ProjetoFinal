@@ -12,7 +12,7 @@ define("USER", "root");
 define("PASSWORD", "");
 define("DATABASE_NAME", "kll");
 
-startSession(); // iniciar uma nova ou continuar a sessão atual 
+startOrContinueSession(); // iniciar uma nova ou continuar a sessão atual 
 
 // se só existem cookies definidos,
 // significa que o utilizador já estava logado no site, antes de abrir o browser
@@ -29,6 +29,7 @@ $authenticationController = new AuthenticationController();
 $route->add("/", "src/controllers/brief-post-controller.php", array($briefPostController, "index"));
 $route->add("/authentication", "src/controllers/authentication-controller.php", array($authenticationController, "authentication"));
 $route->add("/authentication/login", "src/controllers/authentication-controller.php", array($authenticationController, "login"));
+$route->add("/authentication/logout", "src/controllers/authentication-controller.php", array($authenticationController, "logout"));
 
 // quando nenhuma rota foi encontrada
 $route->notFound("src/views/not-found-view.php");
