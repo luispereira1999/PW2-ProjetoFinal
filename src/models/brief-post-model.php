@@ -32,9 +32,9 @@ class BriefPostModel extends Database
    public function getAll($userLoggedId)
    {
       $query = "
-      SELECT p.id AS post_id, p.title AS title, p.description AS description, p.date AS date, p.votes_amount AS votes_amount, p.comments_amount AS comments_amount, p.user_id AS post_user_id, u.name AS name, v.user_id AS user_logged_id, v.vote_type_id AS vote_type_id
+      SELECT p.id AS post_id, p.title AS title, p.description AS description, p.date AS date, p.votes_amount AS votes_amount, p.comments_amount AS comments_amount, p.user_id AS post_user_id, u.name AS post_user_name, v.user_id AS user_logged_id, v.vote_type_id AS vote_type_id
       FROM posts p
-      INNER JOIN users u ON p.user_id = u.id
+      LEFT JOIN users u ON p.user_id = u.id
       LEFT JOIN posts_votes v ON p.id = v.post_id AND :userLoggedId = v.user_id
       ORDER BY votes_amount
       DESC";
@@ -59,7 +59,7 @@ class BriefPostModel extends Database
                $briefPost->votes_amount = $row["votes_amount"];
                $briefPost->comments_amount = $row["comments_amount"];
                $briefPost->post_user_id = $row["post_user_id"];
-               $briefPost->name = $row["name"];
+               $briefPost->name = $row["post_user_name"];
                $briefPost->user_logged_id = $row["user_logged_id"];
                $briefPost->vote_type_id = $row["vote_type_id"];
 

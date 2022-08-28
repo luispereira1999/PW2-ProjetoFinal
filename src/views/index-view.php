@@ -50,41 +50,30 @@
 
    <!-- PRINCIPAL: posts resumidos -->
    <main class="brief-posts">
+
       <?php
-      // if (!isset($_SESSION["error"])) {
-      // índices do ciclo for e do clico while
-      $i = 0;
-      $j = 0;
+      $counter = 0;
 
-      // índice do post atual
-      $current = 1;
+      // mostrar posts (3 em 3 por padrão)
+      for ($current = 0; $current < count($briefPosts); $current++) : ?>
 
-      for ($i; $i < count($briefPosts); $i++) : ?>
-         <section class="brief-posts__post">
+         <?php
+         $counter++;
 
-            <!-- ciclo para mostrar 3 em 3 posts -->
-            <?php while ($j < 3) :
+         if ($current % 3 == 0) : ?>
+            <section class="brief-posts__post">
+            <?php endif; ?>
 
-               // se já não existem posts para mostrar sai do desta função "showPosts"
-               if ($current == count($briefPosts)) :
-                  break;
-               endif; ?>
+            <!-- mostrar post -->
+            <?php require("components/brief-post.php"); ?>
 
-               <!-- mostrar post -->
-               <?php require("components/brief-post.php"); ?>
+            <?php if ($counter == 3) :  ?>
+            </section>
+         <?php
+               $counter = 0;
+            endif; ?>
 
-            <?php
-               $j++;
-               $current++;
-            endwhile;
-
-            $j = 0; ?>
-         </section>
-      <?php endfor;
-      // } else {
-      //    unset($_SESSION["error"]);
-      // }
-      ?>
+      <?php endfor; ?>
    </main>
 
    <!-- RODAPÉ:  -->

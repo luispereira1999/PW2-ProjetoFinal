@@ -12,13 +12,25 @@ class BriefPostController
       $this->model = new briefPostModel();
 
       // obter utilizador logado
-      $userLoggedId = isset($_SESSION["id"]);
+      if (isset($_SESSION["id"])) {
+         $userLoggedId = $_SESSION["id"];
+      } else {
+         $userLoggedId = -1;
+      }
 
       // obter posts para mostrar na página principal
       $briefPosts = $this->model->getAll($userLoggedId);
 
+      require_once("src/utils/security-util.php");
+      $briefPostsCleaned = array();
+
+      foreach ($briefPosts as $briefPost) {
+         $briefPost = protectOutputToHtml($briefPost);
+         array_push($briefPostsCleaned, $briefPost);
+      }
+
       // se houve erros na requisição
-      if (!isset($briefPosts) || count($this->model->errors) > 0) {
+      if (!isset($briefPostsCleaned) || count($this->model->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros

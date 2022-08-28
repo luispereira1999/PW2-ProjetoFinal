@@ -16,9 +16,9 @@ startSession(); // iniciar uma nova ou continuar a sessão atual
 
 // se só existem cookies definidos,
 // significa que o utilizador já estava logado no site, antes de abrir o browser
-if (isset($_COOKIE["id"]) || !isset($_SESSION["id"])) {
+if (isset($_COOKIE["id"]) && !isset($_SESSION["id"])) {
    // definir sessão de login
-   setLoginSession($_SESSION["login"], $_SESSION["id"], $_SESSION["name"], $_SESSION["email"], $_SESSION["firstName"], $_SESSION["lastName"]);
+   setLoginSession($_COOKIE["login"], $_COOKIE["id"], $_COOKIE["name"], $_COOKIE["email"], $_COOKIE["firstName"], $_COOKIE["lastName"]);
 }
 
 $route = new Route();
