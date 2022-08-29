@@ -5,7 +5,7 @@ class BriefPostController
 {
    private $model;
 
-   // obter todos os posts ao carregar a página principal
+   // obter os posts e ir para a página inicial
    public function index()
    {
       require_once("src/models/brief-post-model.php");
@@ -40,7 +40,7 @@ class BriefPostController
 
          // aceder aos erros na página de autenticação
          $_SESSION["errors"] = $messages;
-         require_once("src/views/index-view.php");
+         header("location: /not-found");
          die();
       }
 

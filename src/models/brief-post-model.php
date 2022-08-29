@@ -2,7 +2,7 @@
 
 <?php
 require_once("src/configs/database-config.php");
-require_once("entities/brief-post.php");
+require_once("entities/post.php");
 
 class BriefPostModel extends Database
 {
@@ -16,8 +16,15 @@ class BriefPostModel extends Database
 
    public function getAll($userLoggedId)
    {
+      // validar inputs
+      if (empty($userLoggedId)) {
+         $error = new Exception("Identificador do utilizador logado é inválido.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+
       $query = "
-      SELECT p.id AS post_id, p.title AS title, p.description AS description, p.date AS date, p.votes_amount AS votes_amount, p.comments_amount AS comments_amount, p.user_id AS post_user_id, u.name AS post_user_name, v.user_id AS user_logged_id, v.vote_type_id AS vote_type_id
+      SELECT p.id AS post_id, p.title AS title, p.description AS description, p.date AS date, p.votes_amount AS votes_amount, p.comments_amount AS comments_amount, p.user_id AS post_user_id, u.name AS post_user_name, v.user_id AS vote_user_id, v.vote_type_id AS vote_type_id
       FROM posts p
       LEFT JOIN users u ON p.user_id = u.id
       LEFT JOIN posts_votes v ON p.id = v.post_id AND :userLoggedId = v.user_id
@@ -25,40 +32,42 @@ class BriefPostModel extends Database
       DESC";
 
       // selecionar posts
-      if ($result = $this->connection->prepare($query)) {
+      try {
+         $result = $this->connection->prepare($query);
+
          // executar query
          $result->bindParam(":userLoggedId", $userLoggedId, PDO::PARAM_INT);
          $result->execute();
 
-         // se existir dados
+         // se existir posts
          if ($result->rowCount() > 0) {
-            $briefPosts = array();
+            $posts = array();
 
             // obter dados dos posts
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-               $briefPost = new BriefPost();
-               $briefPost->post_id = $row["post_id"];
-               $briefPost->title = $row["title"];
-               $briefPost->description = $row["description"];
-               $briefPost->date = $row["date"];
-               $briefPost->votes_amount = $row["votes_amount"];
-               $briefPost->comments_amount = $row["comments_amount"];
-               $briefPost->post_user_id = $row["post_user_id"];
-               $briefPost->post_user_name = $row["post_user_name"];
-               $briefPost->user_logged_id = $row["user_logged_id"];
-               $briefPost->vote_type_id = $row["vote_type_id"];
+               $post = new Post();
+               $post->post_id = $row["post_id"];
+               $post->title = $row["title"];
+               $post->description = $row["description"];
+               $post->date = $row["date"];
+               $post->votes_amount = $row["votes_amount"];
+               $post->comments_amount = $row["comments_amount"];
+               $post->post_user_id = $row["post_user_id"];
+               $post->post_user_name = $row["post_user_name"];
+               $post->vote_user_id = $row["vote_user_id"];
+               $post->vote_type_id = $row["vote_type_id"];
 
-               array_push($briefPosts, $briefPost);
+               array_push($posts, $post);
             }
 
-            return $briefPosts; // retorna os posts
+            return $posts; // retorna os posts
          } else {
-            $error = new Exception("Posts não encontrados.", 1);
+            $error = new Exception("Os posts não foram encontrados.", 1);
             array_push($this->errors, $error);
             return null;
          }
-      } else {
-         $error = new Exception("Posts não encontrados.", 1);
+      } catch (PDOException $exception) {
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
          array_push($this->errors, $error);
          return null;
       }

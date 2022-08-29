@@ -5,7 +5,7 @@ class AuthController
 {
    private $model;
 
-   // redirecionar para a página de login ou signup
+   // ir para a página de login ou signup
    public function index()
    {
       require_once("src/views/auth-view.php");
