@@ -4,8 +4,8 @@
 require_once("src/configs/route-config.php");
 
 require_once("src/controllers/brief-post-controller.php");
-require_once("src/controllers/auth-controller.php");
 require_once("src/controllers/full-post-controller.php");
+require_once("src/controllers/auth-controller.php");
 
 require_once("src/utils/session-util.php");
 
@@ -27,16 +27,16 @@ if (isset($_COOKIE["id"]) && !isset($_SESSION["id"])) {
 
 $route = new Route();
 $briefPostController = new BriefPostController();
-$authController = new AuthController();
 $fullPostController = new FullPostController();
+$authController = new AuthController();
 
 // rotas
 $route->add("/", array($briefPostController, "index"));
+$route->add("/post/{id}", array($fullPostController, "index"));
 $route->add("/auth", array($authController, "index"));
 $route->add("/auth/login", array($authController, "login"));
 $route->add("/auth/signup", array($authController, "signup"));
 $route->add("/auth/logout", array($authController, "logout"));
-$route->add("/post/{id}", array($fullPostController, "index"));
 
 // quando nenhuma rota foi encontrada
 $route->notFound("src/views/not-found-view.php");
