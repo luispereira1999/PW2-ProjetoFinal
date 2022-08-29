@@ -13,7 +13,7 @@
    </div>
 
    <div class="brief-posts__title-wrapper">
-      <h3><a href="post.php?postId=<?= $briefPosts[$current]->post_id; ?>"><?= $briefPosts[$current]->title; ?></a></h3>
+      <h3><a href="/post/<?= $briefPosts[$current]->post_id; ?>"><?= $briefPosts[$current]->title; ?></a></h3>
    </div>
 
    <div>
