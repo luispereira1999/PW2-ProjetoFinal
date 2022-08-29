@@ -1,3 +1,5 @@
+<!-- DEFINIÇÃO: ficheiro com funções auxiliares relacionadas a segurança -->
+
 <?php
 function protectOutputToHtml($data)
 {

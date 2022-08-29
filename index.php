@@ -11,6 +11,7 @@ define("HOST", "localhost");
 define("USER", "root");
 define("PASSWORD", "");
 define("DATABASE_NAME", "kll");
+define("CHARSET", "utf8");
 
 startOrContinueSession(); // iniciar uma nova ou continuar a sessão atual 
 
@@ -27,8 +28,9 @@ $authController = new AuthController();
 
 // rotas
 $route->add("/", "src/controllers/brief-post-controller.php", array($briefPostController, "index"));
-$route->add("/auth", "src/controllers/auth-controller.php", array($authController, "authenticate"));
+$route->add("/auth", "src/controllers/auth-controller.php", array($authController, "index"));
 $route->add("/auth/login", "src/controllers/auth-controller.php", array($authController, "login"));
+$route->add("/auth/signup", "src/controllers/auth-controller.php", array($authController, "signup"));
 $route->add("/auth/logout", "src/controllers/auth-controller.php", array($authController, "logout"));
 
 // quando nenhuma rota foi encontrada

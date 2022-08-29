@@ -13,7 +13,7 @@ class Database
    private function connect()
    {
       try {
-         $this->connection = new PDO("mysql:host=" . HOST . ";dbname=" . DATABASE_NAME, USER, PASSWORD);
+         $this->connection = new PDO("mysql:host=" . HOST . ";dbname=" . DATABASE_NAME . ";charset=" . CHARSET, USER, PASSWORD);
       } catch (PDOException $exception) {
          $_SESSION["errors"] = "Não foi possível comunicar com o servidor. Tente mais tarde.";
          header("location: /not-found");

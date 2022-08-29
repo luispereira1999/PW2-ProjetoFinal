@@ -61,8 +61,8 @@ if (!empty($_SESSION["errors"])) {
       </div>
 
       <div class="content__links-wrapper">
-         <a class="content__link" data-session="login">Log In</a>
-         <a class="content__link" data-session="signup">Sign Up</a>
+         <a class="content__link" data-auth="login">Log In</a>
+         <a class="content__link" data-auth="signup">Sign Up</a>
       </div>
 
       <!-- formulário de login -->
@@ -86,9 +86,9 @@ if (!empty($_SESSION["errors"])) {
       <!-- formulário de signup -->
       <div class="content__form-wrapper" id="content__signup">
          <form method="post" action="/auth/signup">
-            <input class="content__text" type="text" class="lsFieldForm" name="name" placeholder="Nome de Utilizador" require>
-            <input class="content__email" type="email" class="lsFieldForm" name="email" placeholder="Email" require>
-            <input class="content__password" type="password" class="lsFieldForm" name="password" placeholder="Senha" require>
+            <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador" require>
+            <input class="content__email" type="email" name="email" placeholder="Email" require>
+            <input class="content__password" type="password" name="password" placeholder="Senha" require>
             <input class="content__password" type="password" name="confirmPassword" placeholder="Confirmar Senha" require>
 
             <a class="content__link" data-toggle="tooltip" data-placement="bottom" title="Os restantes dados poderá preencher na área de utilizador!"><i class="fas fa-info-circle content__icon"></i></a>
