@@ -2,8 +2,11 @@
 
 <?php
 require_once("src/configs/route-config.php");
+
 require_once("src/controllers/brief-post-controller.php");
 require_once("src/controllers/auth-controller.php");
+require_once("src/controllers/full-post-controller.php");
+
 require_once("src/utils/session-util.php");
 
 // variáveis de ambiente
@@ -25,6 +28,7 @@ if (isset($_COOKIE["id"]) && !isset($_SESSION["id"])) {
 $route = new Route();
 $briefPostController = new BriefPostController();
 $authController = new AuthController();
+$fullPostController = new FullPostController();
 
 // rotas
 $route->add("/", "src/controllers/brief-post-controller.php", array($briefPostController, "index"));
@@ -32,6 +36,7 @@ $route->add("/auth", "src/controllers/auth-controller.php", array($authControlle
 $route->add("/auth/login", "src/controllers/auth-controller.php", array($authController, "login"));
 $route->add("/auth/signup", "src/controllers/auth-controller.php", array($authController, "signup"));
 $route->add("/auth/logout", "src/controllers/auth-controller.php", array($authController, "logout"));
+$route->add("/post/:id", "src/controllers/full-post-controller.php", array($fullPostController, "index"));
 
 // quando nenhuma rota foi encontrada
 $route->notFound("src/views/not-found-view.php");
