@@ -1,11 +1,11 @@
-<!-- DEFINIÇÃO: página principal do site -->
+<!-- DEFINIÇÃO: página individual de um post -->
 
 <!DOCTYPE html>
 <html lang="pt-PT">
 
 <head>
    <!-- TÍTULO DA PÁGINA -->
-   <title>KLL</title>
+   <title><?= $post->title; ?></title>
 
    <!-- METADADOS -->
    <meta charset="utf-8">
@@ -19,7 +19,7 @@
 
    <!-- CSS -->
    <link rel="stylesheet" href="../public/css/global.css">
-   <link rel="stylesheet" href="../public/css/index.css">
+   <link rel="stylesheet" href="../public/css/post.css">
    <link rel="stylesheet" href="../public/css/nav.css">
    <link rel="stylesheet" href="../public/css/footer.css">
 
@@ -44,37 +44,37 @@
 </head>
 
 <body>
-   <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
+   <!-- CABEÇALHO: menu de navegação (logótipo, links) e post (título, autor, data) -->
    <header>
       <?php require_once("components/nav-component.php"); ?>
    </header>
 
-   <!-- PRINCIPAL: posts resumidos -->
-   <main class="brief-posts">
+   <!-- PRINCIPAL: post (informações, barra de interações) -->
+   <main>
+      <section class="full-post__header-wrapper">
+         <div>
+            <h2 class="header__title"><?= $post->title; ?></h2>
+            <h3 class="header__name"><?= $post->post_user_name; ?></h3>
+            <h3 class="header__date"><?= $post->date; ?></h3>
+         </div>
+      </section>
 
-      <?php
-      $counter = 0;
+      <section data-post="<?= $post->post_id; ?>" class="full-post__main-wrapper">
+         <div>
+            <p><?= $post->description; ?></p>
+         </div>
 
-      // mostrar posts (3 em 3 por padrão)
-      for ($current = 0; $current < count($briefPosts); $current++) : ?>
+         <div class="full-post__interactions">
+            <div class="full-post__votes">
+               <span class="full-post__vote" data-vote="upvote"><i <?php if ($post->vote_user_id == $userLoggedId && $post->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="fas fa-heart full-post__icon"></i></span>
+               <label class="full-post__votes-amount"><?= $post->votes_amount; ?></label>
+               <span class="full-post__vote" data-vote="downvote"><i <?php if ($post->vote_user_id == $userLoggedId && $post->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="fas fa-heart-broken full-post__icon"></i></span>
+            </div>
 
-         <?php
-         $counter++;
-
-         if ($current % 3 == 0) : ?>
-            <section class="brief-posts__post">
-            <?php endif; ?>
-
-            <!-- mostrar post -->
-            <?php require("components/brief-post-component.php"); ?>
-
-            <?php if ($counter == 3) :  ?>
-            </section>
-         <?php
-               $counter = 0;
-            endif; ?>
-
-      <?php endfor; ?>
+            <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment full-post__icon"></i></span>
+            <label><?= $post->comments_amount; ?></label>
+         </div>
+      </section>
    </main>
 
    <!-- RODAPÉ:  -->

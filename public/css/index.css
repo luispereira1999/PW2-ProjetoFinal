@@ -1,102 +1,3 @@
-/* DEFINIÇÃO: estilos globais do site */
-
-/**** GLOBAL ****/
-/* Cores: #242424, #D4D4D4, #8228DE (roxo), #21C937 (verde) */
-
-* {
-   font-family: "Nunito", sans-serif;
-}
-
-body {
-   background-size: auto;
-   background-position: center;
-}
-
-h1,
-h2,
-h3,
-h3,
-h4,
-h5 {
-   font-family: "Nova Round", cursive;
-}
-
-
-/**** BOTÕES ****/
-
-.button {
-   border: none;
-   border-radius: 4px;
-   color: white;
-   display: inline-block;
-   font-size: 16px;
-   margin: 2px 0px;
-   padding: 10px;
-   text-align: center;
-   text-decoration: none;
-   width: 125px;
-}
-
-.button-primary {
-   /* background-color: rgb(130, 40, 222); */
-   background: linear-gradient(127deg, rgba(130, 40, 222, 1) 0%, rgba(33, 201, 55, 1) 100%);
-}
-
-.button-primary:focus {
-   outline: none;
-   border: none;
-}
-
-.button-primary:hover {
-   background: linear-gradient(127deg, rgb(157, 76, 241) 0%, rgb(86, 245, 107) 100%);
-}
-
-.button-cancel {
-   background-color: #777;
-}
-
-.button-cancel:focus {
-   outline: none;
-   border: none;
-}
-
-.button-cancel:hover {
-   background-color: #888;
-}
-
-.button-dropdown {
-   background-color: #242424;
-   border: none;
-   height: 60px;
-   margin: 0;
-   padding: 0;
-}
-
-.button-dropdown:focus {
-   outline: none;
-}
-
-
-/**** SCROLLBAR DA PÁGINA ****/
-
-::-webkit-scrollbar {
-   height: 5px;
-   width: 5px;
-}
-
-::-webkit-scrollbar-track {
-   background-color: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-   background-color: #555;
-}
-
-::-webkit-scrollbar-thumb:hover {
-   background: linear-gradient(127deg, rgba(130, 40, 222, 5) 0%, rgba(33, 201, 55, 5) 100%);
-}
-
-
 /**** GRID - TIPOS DE GRID PARA VISUALIZAR OS POSTS RESUMIDOS ****/
 
 .width-1 {
@@ -279,7 +180,7 @@ h5 {
    margin-left: 0 !important;
 }
 
-.brief-posts__amount {
+.brief-posts__votes-amount {
    color: #7d7d7d;
    margin-bottom: 0 !important;
 }

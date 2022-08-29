@@ -26,9 +26,9 @@
    <div class="brief-posts__interactions">
       <!-- mostrar votos do post -->
       <div class="brief-posts__votes">
-         <span data-vote="upvote" class="brief-posts__vote"><i <?php if ($briefPosts[$current]->user_logged_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="brief-posts__interactions__icon fas fa-heart"></i></span>
-         <label class="brief-posts__amount"><?= $briefPosts[$current]->votes_amount; ?></label>
-         <span data-vote="downvote" class="brief-posts__vote"><i <?php if ($briefPosts[$current]->user_logged_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="brief-posts__interactions__icon fas fa-heart-broken"></i></span>
+         <span class="brief-posts__vote" data-vote="upvote"><i <?php if ($briefPosts[$current]->vote_user_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="brief-posts__interactions__icon fas fa-heart"></i></span>
+         <label class="brief-posts__votes-amount"><?= $briefPosts[$current]->votes_amount; ?></label>
+         <span class="brief-posts__vote" data-vote="downvote"><i <?php if ($briefPosts[$current]->vote_user_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="brief-posts__interactions__icon fas fa-heart-broken"></i></span>
       </div>
 
       <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment brief-posts__interactions__icon"></i></span>

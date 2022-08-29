@@ -1,0 +1,110 @@
+/**** POST INDIVIDUAL - CABEÇALHO ****/
+
+.full-post__header-wrapper {
+   align-items: center;
+   background: linear-gradient(180deg, rgba(191, 128, 255, 1) 0%, rgba(138, 255, 153, 1) 100%);
+   box-shadow: 0px 3px 4px 0px rgb(212, 212, 212);
+   display: flex;
+   height: 250px;
+   justify-content: center;
+}
+
+.header__title {
+   font-size: 25px;
+   color: white;
+   text-align: center;
+}
+
+.header__name,
+.header__date {
+   font-size: 15px;
+   text-align: center;
+   color: white;
+}
+
+/*** POST INDIVIDUAL - DESCRIÇÃO ***/
+
+.full-post__main-wrapper {
+   padding: 40px;
+   padding-bottom: 0;
+}
+
+/**** POST INDIVIDUAL - BARRA DE INTERAÇÕES ****/
+
+.full-post__interactions {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #e0e0e0;
+   margin-top: 30px;
+   margin-bottom: 0;
+   height: 40px;
+}
+
+.full-post__icon {
+   font-size: 15px;
+   color: #8228DE;
+   margin: 0 5px;
+   cursor: pointer;
+}
+
+.full-post__icon[data-markedvote="marked"] {
+   font-size: 15px;
+   margin: 0 5px;
+   color: #21c937;
+}
+
+.full-post__votes {
+   margin-right: 35px;
+}
+
+.full-post__vote:hover {
+   color: #7d7d7d;
+}
+
+.full-post__vote:first-child {
+   margin-left: 0 !important;
+}
+
+.full-post__votes-amount {
+   color: #7d7d7d;
+   margin-bottom: 0 !important;
+}
+
+/*** ÁREA DE COMENTÁRIOS DO POST INDIVIDUAL ***/
+
+.commentsArea {
+   padding: 40px;
+}
+
+.commentsArea h2 {
+   font-size: 17px;
+}
+
+.commentsArea h4 {
+   font-family: "Nunito", sans-serif !important;
+   font-size: 11px;
+}
+
+.commentsArea p {
+   font-size: 15px;
+}
+
+.commentsArea span {
+   font-weight: bold;
+   font-size: 15px;
+   color: #888;
+   cursor: pointer;
+}
+
+.commentsArea i[data-markedvote="marked"] {
+   font-size: 15px;
+   margin: 0 5px;
+   color: #21c937;
+}
+
+.commentsArea i {
+   color: #888;
+   cursor: pointer;
+   padding: 10px;
+}
