@@ -17,7 +17,7 @@ class Route
       }
    }
 
-   public function add($route, $file, $action)
+   public function add($route, $action)
    {
       // guarda todos os valores dos parâmetros da URI
       $params = array();
@@ -89,7 +89,7 @@ class Route
 
       // now matching route with regex
       if (preg_match("/$requestUri/", $route)) {
-         require_once($file);
+         $action($params);
          exit();
       }
    }
