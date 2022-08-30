@@ -1,6 +1,8 @@
 <!-- DEFINIÇÃO: controlador dos posts na página principal (posts resumidos) -->
 
 <?php
+require_once("src/views/view.php");
+
 class BriefPostController
 {
    private $model;
@@ -32,21 +34,27 @@ class BriefPostController
       $briefPosts = $briefPostsCleaned; // obter os comentários protegidos para a variável original
 
       // se houve erros na requisição
+      $errors = array();
       if (!isset($briefPosts) || count($this->model->errors) > 0) {
-         $messages = array();
-
          // obter mensagens de erros
          foreach ($this->model->errors as $error) {
-            array_push($messages, $error->getMessage());
+            array_push($errors, $error->getMessage());
          }
 
          // aceder aos erros na página de autenticação
-         $_SESSION["errors"] = $messages;
+         $_SESSION["errors"] = $errors;
          header("location: /not-found");
          die();
       }
 
-      require_once("src/views/index-view.php");
+      new View(
+         "src/views/index-view.php",
+         [
+            "briefPosts" => $briefPosts,
+            "userLoggedId" => $userLoggedId,
+            "messages" => $errors
+         ]
+      );
    }
 }
 ?>

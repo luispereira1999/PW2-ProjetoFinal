@@ -1,6 +1,8 @@
 <!-- DEFINIÇÃO: controlador dos posts na página principal (posts resumidos) -->
 
 <?php
+require_once("src/views/view.php");
+
 class FullPostController
 {
    private $fullPostModel;
@@ -39,24 +41,32 @@ class FullPostController
       $comments = $commentsCleaned; // obter os comentários protegidos para a variável original
 
       // se houve erros na requisição
+      $errors = array();
       if (!isset($post) || !isset($comments) || count($this->fullPostModel->errors) > 0 || count($this->commentModel->errors) > 0) {
-         $messages = array();
 
          // obter mensagens de erros
          foreach ($this->fullPostModel->errors as $error) {
-            array_push($messages, $error->getMessage());
+            array_push($errors, $error->getMessage());
          }
          foreach ($this->commentModel->errors as $error) {
-            array_push($messages, $error->getMessage());
+            array_push($errors, $error->getMessage());
          }
 
          // aceder aos erros na página de autenticação
-         $_SESSION["errors"] = $messages;
+         $_SESSION["errors"] = $errors;
          header("location: /not-found");
          die();
       }
 
-      require_once("src/views/post-view.php");
+      new View(
+         "src/views/post-view.php",
+         [
+            "post" => $post,
+            "comments" => $comments,
+            "userLoggedId" => $userLoggedId,
+            "errors" => $errors
+         ]
+      );
    }
 }
 ?>

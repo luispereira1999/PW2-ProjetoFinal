@@ -1,6 +1,8 @@
 <!-- DEFINIÇÃO: controlador relativo a autenticação no site (login, signup, logout) -->
 
 <?php
+require_once("src/views/view.php");
+
 class AuthController
 {
    private $model;
@@ -8,7 +10,7 @@ class AuthController
    // ir para a página de login ou signup
    public function index()
    {
-      require_once("src/views/auth-view.php");
+      new View("src/views/auth-view.php");
    }
 
    // fazer signup e redirecionar para a página principal
