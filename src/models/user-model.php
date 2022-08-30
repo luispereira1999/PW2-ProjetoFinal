@@ -175,7 +175,7 @@ class UserModel extends Database
       }
 
       $query = "
-      SELECT id, name, email, first_name, last_name
+      SELECT id, name, password, email, first_name, last_name, city, country
       FROM users
       WHERE id = :id
       LIMIT 1";
@@ -196,6 +196,7 @@ class UserModel extends Database
             $user = new User();
             $user->id = $row["id"];
             $user->name = $row["name"];
+            $user->password = $row["password"];
             $user->email = $row["email"];
             $user->first_name = $row["first_name"];
             $user->last_name = $row["last_name"];

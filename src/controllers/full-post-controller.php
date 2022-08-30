@@ -28,7 +28,7 @@ class FullPostController
       $post = $this->fullPostModel->getById($id, $userLoggedId);
       $comments = $this->commentModel->getAll($id, $userLoggedId);
 
-      // proteger dados 
+      // proteger dados
       require_once("src/utils/security-util.php");
       $post = protectOutputToHtml($post);
 
