@@ -6,6 +6,7 @@ require_once("src/configs/route-config.php");
 require_once("src/controllers/brief-post-controller.php");
 require_once("src/controllers/full-post-controller.php");
 require_once("src/controllers/auth-controller.php");
+require_once("src/controllers/account-controller.php");
 
 require_once("src/utils/session-util.php");
 
@@ -29,6 +30,7 @@ $route = new Route();
 $briefPostController = new BriefPostController();
 $fullPostController = new FullPostController();
 $authController = new AuthController();
+$accountController = new AccountController();
 
 // rotas
 $route->add("/", array($briefPostController, "index"));
@@ -37,6 +39,7 @@ $route->add("/auth", array($authController, "index"));
 $route->add("/auth/login", array($authController, "login"));
 $route->add("/auth/signup", array($authController, "signup"));
 $route->add("/auth/logout", array($authController, "logout"));
+$route->add("/account", array($accountController, "index"));
 
 // quando nenhuma rota foi encontrada
 $route->notFound("src/views/not-found-view.php");

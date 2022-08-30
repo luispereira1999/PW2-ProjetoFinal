@@ -26,7 +26,7 @@ if (isset($_SESSION["login"])) : ?>
 
             <div class="navigation__dropdown__content-wrapper">
                <a class="navigation__dropdown__link" href="" data-toggle="modal" data-target="#informations"><i class="navigation__dropdown__icon fas fa-info"></i>Informações</a>
-               <a class="navigation__dropdown__link" href="setting.php"><i class="navigation__dropdown__icon fas fa-user-edit"></i>Editar Utilizador</a>
+               <a class="navigation__dropdown__link" href="/account"><i class="navigation__dropdown__icon fas fa-user-edit"></i>Editar Utilizador</a>
                <a class="navigation__dropdown__link" href="/auth/logout"><i class="navigation__dropdown__icon fas fa-door-open "></i>Terminar Sessão</a>
             </div>
          </div>
