@@ -29,8 +29,10 @@ class BriefPostController
          array_push($briefPostsCleaned, $briefPost);
       }
 
+      $briefPosts = $briefPostsCleaned; // obter os comentários protegidos para a variável original
+
       // se houve erros na requisição
-      if (!isset($briefPostsCleaned) || count($this->model->errors) > 0) {
+      if (!isset($briefPosts) || count($this->model->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros

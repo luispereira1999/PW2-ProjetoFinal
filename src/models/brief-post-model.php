@@ -1,4 +1,4 @@
-<!-- DEFINIÇÃO: modelo de um post que aparece na página principal -->
+<!-- DEFINIÇÃO: modelo dos posts que aparecem na página principal -->
 
 <?php
 require_once("src/configs/database-config.php");
@@ -62,7 +62,7 @@ class BriefPostModel extends Database
 
             return $posts; // retorna os posts
          } else {
-            $error = new Exception("Os posts não foram encontrados.", 1);
+            $error = new Exception("Posts não encontrados.", 1);
             array_push($this->errors, $error);
             return null;
          }

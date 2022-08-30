@@ -64,7 +64,7 @@ class FullPostModel extends Database
 
             return $post; // retorna o post
          } else {
-            $error = new Exception("O post não foi encontrados.", 1);
+            $error = new Exception("Post não encontrado.", 1);
             array_push($this->errors, $error);
             return null;
          }
