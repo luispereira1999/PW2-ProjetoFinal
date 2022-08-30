@@ -1,0 +1,101 @@
+/**** CONTA - CABEÇALHO ****/
+
+.account__header-wrapper {
+   align-items: center;
+   background: linear-gradient(180deg, rgba(191, 128, 255, 1) 0%, rgba(138, 255, 153, 1) 100%);
+   box-shadow: 0px 3px 4px 0px rgb(212, 212, 212);
+   display: flex;
+   height: 250px;
+   justify-content: center;
+}
+
+.account__avatar {
+   font-size: 150px;
+   text-align: center;
+   color: #fff;
+   margin: 15px;
+}
+
+.account__name {
+   font-size: 25px;
+   color: white;
+   text-align: center;
+}
+
+
+/*** CONTA - ALTERAR DADOS ***/
+
+.account__form {
+   max-width: 70%;
+   padding: 30px;
+   margin: 50px auto;
+   margin-bottom: 0;
+}
+
+.account__items {
+   padding: 0;
+   margin: 0 0 50px 0;
+   list-style: none;
+}
+
+.account__item {
+   display: block;
+   margin-bottom: 15px;
+   padding: 8px;
+   min-height: 35px;
+}
+
+.account__text,
+.account__email,
+.account__password {
+   box-sizing: border-box;
+   height: 35px;
+   padding: 20px;
+   border: 1px solid #d4d4d4;
+   border-radius: 4px;
+   outline: none;
+   /* -webkit-box-sizing: border-box; */
+   /* -moz-box-sizing: border-box; */
+   /* -webkit-transition: all 0.30s ease-in-out; */
+   /* -moz-transition: all 0.30s ease-in-out; */
+   /* -ms-transition: all 0.30s ease-in-out; */
+   /* -o-transition: all 0.30s ease-in-out; */
+}
+
+.account__password-wrapper {
+   display: flex;
+   align-items: center;
+}
+
+.account__icon {
+   width: 35px;
+   height: 35px;
+   margin-bottom: .5rem;
+   margin-left: 20px;
+   cursor: pointer;
+}
+
+.account__actions {
+   margin-top: 20px;
+}
+
+.field-style:focus {
+   box-shadow: 0 0 5px #B0CFE0;
+   border: 1px solid #B0CFE0;
+}
+
+.field-split {
+   width: 49%;
+}
+
+.field-full {
+   width: 100%;
+}
+
+.align-left {
+   float: left;
+}
+
+.align-right {
+   float: right;
+}
