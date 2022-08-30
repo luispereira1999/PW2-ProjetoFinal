@@ -53,9 +53,9 @@
    <main>
       <section class="full-post__header-wrapper">
          <div>
-            <h2 class="header__title"><?= $post->title; ?></h2>
-            <h3 class="header__name"><?= $post->post_user_name; ?></h3>
-            <h3 class="header__date"><?= $post->date; ?></h3>
+            <h2 class="full-post__title"><?= $post->title; ?></h2>
+            <h3 class="full-post__name"><?= $post->post_user_name; ?></h3>
+            <h3 class="full-post__date"><?= $post->date; ?></h3>
          </div>
       </section>
 
@@ -66,9 +66,9 @@
 
          <div class="full-post__interactions">
             <div class="full-post__votes">
-               <span class="full-post__vote" data-vote="upvote"><i <?php if ($post->vote_user_id == $userLoggedId && $post->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="fas fa-heart full-post__icon"></i></span>
+               <span class="full-post__vote" data-vote="upvote"><i class="fas fa-heart full-post__icon" <?php if ($post->vote_user_id == $userLoggedId && $post->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote"></i></span>
                <label class="full-post__votes-amount"><?= $post->votes_amount; ?></label>
-               <span class="full-post__vote" data-vote="downvote"><i <?php if ($post->vote_user_id == $userLoggedId && $post->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="fas fa-heart-broken full-post__icon"></i></span>
+               <span class="full-post__vote" data-vote="downvote"><i class="fas fa-heart-broken full-post__icon" <?php if ($post->vote_user_id == $userLoggedId && $post->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote"></i></span>
             </div>
 
             <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment full-post__icon"></i></span>
@@ -76,6 +76,26 @@
          </div>
       </section>
    </main>
+
+   <!-- COMENTÁRIOS: informações, ações -->
+   <section class="comments">
+      <span data-toggle="modal" data-target="#newComment"><i class="fas fa-plus comment__icon"></i>Adicionar Novo Comentário</span>
+      <hr>
+
+      <div class="comments__content-wrapper">
+         <ul class="comments__items">
+
+            <?php
+            for ($current = 0; $current < count($comments); $current++) : ?>
+            
+               <!-- COMENTÁRIO -->
+               <?php require("components/comment-component.php"); ?>
+
+            <?php endfor; ?>
+
+         </ul>
+      </div>
+   </section>
 
    <!-- RODAPÉ:  -->
    <footer class="footer">

@@ -24,7 +24,7 @@
    <p><?= $briefPosts[$current]->description; ?></p>
 
    <div class="brief-posts__interactions">
-      <!-- mostrar votos do post -->
+      <!-- VOTOS DO POST -->
       <div class="brief-posts__votes">
          <span class="brief-posts__vote" data-vote="upvote"><i <?php if ($briefPosts[$current]->vote_user_id == $userLoggedId && $briefPosts[$current]->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="brief-posts__interactions__icon fas fa-heart"></i></span>
          <label class="brief-posts__votes-amount"><?= $briefPosts[$current]->votes_amount; ?></label>

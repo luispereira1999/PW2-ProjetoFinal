@@ -9,14 +9,14 @@
    justify-content: center;
 }
 
-.header__title {
+.full-post__title {
    font-size: 25px;
    color: white;
    text-align: center;
 }
 
-.header__name,
-.header__date {
+.full-post__name,
+.full-post__date {
    font-size: 15px;
    text-align: center;
    color: white;
@@ -71,40 +71,97 @@
    margin-bottom: 0 !important;
 }
 
-/*** ÁREA DE COMENTÁRIOS DO POST INDIVIDUAL ***/
+/*** POST INDIVIDUAL - COMENTÁRIOS ***/
 
-.commentsArea {
+.comments {
    padding: 40px;
 }
 
-.commentsArea h2 {
+.comments .comment__name {
    font-size: 17px;
 }
 
-.commentsArea h4 {
-   font-family: "Nunito", sans-serif !important;
-   font-size: 11px;
-}
-
-.commentsArea p {
+.comments .comment__description {
    font-size: 15px;
 }
 
-.commentsArea span {
+.comment__vote,
+.comment__edit {
    font-weight: bold;
    font-size: 15px;
    color: #888;
    cursor: pointer;
 }
 
-.commentsArea i[data-markedvote="marked"] {
+.comments .comment__icon[data-markedvote="marked"] {
    font-size: 15px;
    margin: 0 5px;
    color: #21c937;
 }
 
-.commentsArea i {
+.comments .comment__icon {
    color: #888;
    cursor: pointer;
    padding: 10px;
+}
+
+.comments__content-wrapper {
+   display: flex;
+   width: 100%;
+}
+
+.comments__content-wrapper .comments__items {
+   padding: 0;
+   margin: 0 0 50px 0;
+   list-style: none;
+   width: 100%;
+}
+
+.comments__content-wrapper .comments__items .comment {
+   display: block;
+   margin-bottom: 15px;
+   padding: 8px;
+   min-height: 35px;
+   width: 100%;
+}
+
+.comment {
+   display: flex;
+   flex-direction: row;
+}
+
+.comment .comment__icon {
+   color: #888;
+}
+
+.comment__link {
+   height: 30px;
+}
+
+.comment__votes {
+   padding: 0;
+   display: inline;
+}
+
+.comment__votes .comment__icon {
+   padding: 0 !important;
+}
+
+.comment__votes-amount {
+   font-size: 15px;
+}
+
+.col-1 {
+   display: flex;
+   /* align-items: center; */
+   justify-content: center;
+   padding-right: 0 !important;
+}
+
+.col-9 {
+   margin: 0px 20px 0px 0px;
+}
+
+.col-10 {
+   margin: 0px 20px 0px 0px;
 }

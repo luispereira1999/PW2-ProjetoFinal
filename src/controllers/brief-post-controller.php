@@ -34,15 +34,16 @@ class BriefPostController
       $briefPosts = $briefPostsCleaned; // obter os comentários protegidos para a variável original
 
       // se houve erros na requisição
-      $errors = array();
       if (!isset($briefPosts) || count($this->model->errors) > 0) {
+         $messages = array();
+
          // obter mensagens de erros
          foreach ($this->model->errors as $error) {
-            array_push($errors, $error->getMessage());
+            array_push($messages, $error->getMessage());
          }
 
          // aceder aos erros na página de autenticação
-         $_SESSION["errors"] = $errors;
+         $_SESSION["errors"] = $messages;
          header("location: /not-found");
          die();
       }
@@ -51,8 +52,7 @@ class BriefPostController
          "src/views/index-view.php",
          [
             "briefPosts" => $briefPosts,
-            "userLoggedId" => $userLoggedId,
-            "messages" => $errors
+            "userLoggedId" => $userLoggedId
          ]
       );
    }

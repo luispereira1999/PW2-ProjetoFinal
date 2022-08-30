@@ -41,19 +41,19 @@ class FullPostController
       $comments = $commentsCleaned; // obter os comentários protegidos para a variável original
 
       // se houve erros na requisição
-      $errors = array();
       if (!isset($post) || !isset($comments) || count($this->fullPostModel->errors) > 0 || count($this->commentModel->errors) > 0) {
+         $messages = array();
 
          // obter mensagens de erros
          foreach ($this->fullPostModel->errors as $error) {
-            array_push($errors, $error->getMessage());
+            array_push($messages, $error->getMessage());
          }
          foreach ($this->commentModel->errors as $error) {
-            array_push($errors, $error->getMessage());
+            array_push($messages, $error->getMessage());
          }
 
          // aceder aos erros na página de autenticação
-         $_SESSION["errors"] = $errors;
+         $_SESSION["errors"] = $messages;
          header("location: /not-found");
          die();
       }
@@ -63,8 +63,7 @@ class FullPostController
          [
             "post" => $post,
             "comments" => $comments,
-            "userLoggedId" => $userLoggedId,
-            "errors" => $errors
+            "userLoggedId" => $userLoggedId
          ]
       );
    }

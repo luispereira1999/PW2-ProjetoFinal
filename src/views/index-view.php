@@ -53,6 +53,7 @@
    <main class="brief-posts">
 
       <?php
+      // contador auxiliar para saber quando já foram criados 3 posts
       $counter = 0;
 
       // mostrar posts (3 em 3 por padrão)
@@ -65,7 +66,7 @@
             <section class="brief-posts__post">
             <?php endif; ?>
 
-            <!-- mostrar post -->
+            <!-- POST -->
             <?php require("components/brief-post-component.php"); ?>
 
             <?php if ($counter == 3) :  ?>
@@ -75,6 +76,7 @@
             endif; ?>
 
       <?php endfor; ?>
+      
    </main>
 
    <!-- RODAPÉ:  -->
