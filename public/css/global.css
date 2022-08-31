@@ -95,3 +95,35 @@ h5 {
 ::-webkit-scrollbar-thumb:hover {
    background: linear-gradient(127deg, rgba(130, 40, 222, 5) 0%, rgba(33, 201, 55, 5) 100%);
 }
+
+
+/*** POPUPS ***/
+
+.popup__close:focus {
+   outline: none;
+}
+
+.popup__paragraph {
+   margin-bottom: 2rem;
+}
+
+.popup__form {
+   display: grid;
+}
+
+.popup__text {
+   border-style: none;
+   border-bottom: 1px solid #ccc;
+   padding: 12px 5px;
+   width: 100%;
+   margin-bottom: 15px;
+   outline: none;
+}
+
+.popup__textarea {
+   border-style: none;
+   border-bottom: 1px solid #ccc;
+   outline: none;
+   padding: 12px 5px;
+   width: 100%;
+}
