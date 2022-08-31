@@ -5,6 +5,7 @@ require_once("src/configs/route-config.php");
 
 require_once("src/controllers/brief-post-controller.php");
 require_once("src/controllers/full-post-controller.php");
+require_once("src/controllers/profile-controller.php");
 require_once("src/controllers/auth-controller.php");
 require_once("src/controllers/account-controller.php");
 
@@ -29,12 +30,14 @@ if (isset($_COOKIE["id"]) && !isset($_SESSION["id"])) {
 $route = new Route();
 $briefPostController = new BriefPostController();
 $fullPostController = new FullPostController();
+$profileController = new ProfileController();
 $authController = new AuthController();
 $accountController = new AccountController();
 
 // rotas
 $route->add("/", array($briefPostController, "index"));
 $route->add("/post/{id}", array($fullPostController, "index"));
+$route->add("/profile/{id}", array($profileController, "index"));
 $route->add("/auth", array($authController, "index"));
 $route->add("/auth/login", array($authController, "login"));
 $route->add("/auth/signup", array($authController, "signup"));
