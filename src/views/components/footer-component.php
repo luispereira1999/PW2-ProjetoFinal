@@ -1,4 +1,4 @@
-<!-- DEFINIÇÃO: rodapé do site, com copyright e links -->
+<!-- DEFINIÇÃO: rodapé do site, com copyright, autor e links -->
 
 <section class="footer__top">
    <div class="footer__copyright-wrapper">

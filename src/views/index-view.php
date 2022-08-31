@@ -47,6 +47,7 @@
    <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
    <header>
       <?php require_once("components/nav-component.php"); ?>
+      <?php require_once("components/about-component.php"); ?>
    </header>
 
    <!-- PRINCIPAL: posts (informações, ações) -->
