@@ -21,20 +21,20 @@ class BriefPostController
       }
 
       // obter posts para mostrar na página principal
-      $briefPosts = $this->model->getAll($userLoggedId);
+      $posts = $this->model->getAll($userLoggedId);
 
       require_once("src/utils/security-util.php");
-      $briefPostsCleaned = array();
+      $postsCleaned = array();
 
-      foreach ($briefPosts as $briefPost) {
-         $briefPost = protectOutputToHtml($briefPost);
-         array_push($briefPostsCleaned, $briefPost);
+      foreach ($posts as $post) {
+         $post = protectOutputToHtml($post);
+         array_push($postsCleaned, $post);
       }
 
-      $briefPosts = $briefPostsCleaned; // obter os comentários protegidos para a variável original
+      $posts = $postsCleaned; // obter os posts protegidos para a variável original
 
       // se houve erros na requisição
-      if (!isset($briefPosts) || count($this->model->errors) > 0) {
+      if (!isset($posts) || count($this->model->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros
@@ -51,7 +51,7 @@ class BriefPostController
       new View(
          "src/views/index-view.php",
          [
-            "briefPosts" => $briefPosts,
+            "posts" => $posts,
             "userLoggedId" => $userLoggedId
          ]
       );

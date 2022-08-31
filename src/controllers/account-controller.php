@@ -7,7 +7,7 @@ class AccountController
 {
    private $model;
 
-   // obter os dados do utilizador e ir para a página de definições da conta
+   // obter o utilizador e ir para a página de definições da conta
    public function index()
    {
       require_once("src/models/user-model.php");
