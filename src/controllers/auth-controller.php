@@ -17,7 +17,7 @@ class AuthController
    public function signup()
    {
       require_once("src/models/user-model.php");
-      $this->model = new userModel();
+      $this->model = new UserModel();
 
       // obter os dados do formulário
       $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -63,7 +63,7 @@ class AuthController
    public function login()
    {
       require_once("src/models/user-model.php");
-      $this->model = new userModel();
+      $this->model = new UserModel();
 
       // obter os dados do formulário
       $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
