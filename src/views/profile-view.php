@@ -1,11 +1,11 @@
-<!-- DEFINIÇÃO: página principal do site -->
+<!-- DEFINIÇÃO: página do perfil de um utilizador -->
 
 <!DOCTYPE html>
 <html lang="pt-PT">
 
 <head>
    <!-- TÍTULO DA PÁGINA -->
-   <title>KLL</title>
+   <title><?= $user->name; ?></title>
 
    <!-- METADADOS -->
    <meta charset="utf-8">
@@ -19,7 +19,7 @@
 
    <!-- CSS -->
    <link rel="stylesheet" href="../public/css/global.css">
-   <link rel="stylesheet" href="../public/css/index.css">
+   <link rel="stylesheet" href="../public/css/profile.css">
    <link rel="stylesheet" href="../public/css/nav.css">
    <link rel="stylesheet" href="../public/css/footer.css">
 
@@ -44,39 +44,48 @@
 </head>
 
 <body>
-   <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
+   <!-- CABEÇALHO: menu de navegação (logótipo, links) e post (título, autor, data) -->
    <header>
       <?php require_once("components/nav-component.php"); ?>
    </header>
 
-   <!-- PRINCIPAL: posts (informações, ações) -->
-   <main class="brief-posts">
+   <!-- PRINCIPAL: utilizador, posts (informações, ações) -->
+   <main>
+      <section class="profile__header-wrapper">
+         <div>
+            <i class="profile__avatar fas fa-user-circle"></i>
+            <h2 class="profile__name"><?= $user->name; ?></h2>
+         </div>
+      </section>
 
-      <?php
-      // contador auxiliar para saber quando já foram criados 3 posts
-      $counter = 0;
-
-      // mostrar posts (3 em 3 por padrão)
-      for ($current = 0; $current < count($posts); $current++) : ?>
-
+      <!-- posts -->
+      <section class="posts">
          <?php
-         $counter++;
+         // contador auxiliar para saber quando já foram criados 3 posts
+         $counter = 0;
 
-         if ($current % 3 == 0) : ?>
-            <section class="brief-posts__post">
-            <?php endif; ?>
+         // mostrar posts (3 em 3 por padrão)
+         for ($current = 0; $current < count($posts); $current++) : ?>
 
-            <!-- POST -->
-            <?php require("components/brief-post-component.php"); ?>
+            <?php
+            $counter++;
 
-            <?php if ($counter == 3) :  ?>
-            </section>
-         <?php
-               $counter = 0;
-            endif; ?>
+            if ($current % 3 == 0) : ?>
+               <section class="brief-posts__post">
+               <?php endif; ?>
 
-      <?php endfor; ?>
+               <!-- POST -->
+               <?php require("components/brief-post-component.php"); ?>
 
+               <?php if ($counter == 3) :  ?>
+               </section>
+            <?php
+                  $counter = 0;
+               endif; ?>
+
+         <?php endfor; ?>
+
+      </section>
    </main>
 
    <!-- RODAPÉ:  -->

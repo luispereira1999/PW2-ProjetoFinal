@@ -1,3 +1,85 @@
+/**** CONTA - CABEÇALHO ****/
+
+.profile__header-wrapper {
+   align-items: center;
+   background: linear-gradient(180deg, rgba(191, 128, 255, 1) 0%, rgba(138, 255, 153, 1) 100%);
+   box-shadow: 0px 3px 4px 0px rgb(212, 212, 212);
+   display: flex;
+   height: 250px;
+   justify-content: center;
+}
+
+.profile__avatar {
+   font-size: 150px;
+   text-align: center;
+   color: #fff;
+   margin: 15px;
+}
+
+.profile__name {
+   font-size: 25px;
+   color: white;
+   text-align: center;
+}
+
+
+/*** CONTA - ALTERAR DADOS ***/
+
+.profile__form {
+   max-width: 70%;
+   padding: 30px;
+   margin: 50px auto;
+   margin-bottom: 0;
+}
+
+.profile__items {
+   padding: 0;
+   margin: 0 0 50px 0;
+   list-style: none;
+}
+
+.profile__item {
+   display: block;
+   margin-bottom: 15px;
+   padding: 8px;
+   min-height: 35px;
+}
+
+.profile__text,
+.profile__email,
+.profile__password {
+   box-sizing: border-box;
+   height: 35px;
+   padding: 20px;
+   border: 1px solid #d4d4d4;
+   border-radius: 4px;
+   outline: none;
+   /* -webkit-box-sizing: border-box; */
+   /* -moz-box-sizing: border-box; */
+   /* -webkit-transition: all 0.30s ease-in-out; */
+   /* -moz-transition: all 0.30s ease-in-out; */
+   /* -ms-transition: all 0.30s ease-in-out; */
+   /* -o-transition: all 0.30s ease-in-out; */
+}
+
+.profile__password-wrapper {
+   display: flex;
+   align-items: center;
+}
+
+.profile__icon {
+   width: 35px;
+   height: 35px;
+   margin-bottom: .5rem;
+   margin-left: 20px;
+   cursor: pointer;
+}
+
+.profile__actions {
+   margin-top: 20px;
+}
+
+
 /**** GRID - TIPOS DE GRID PARA VISUALIZAR OS POSTS RESUMIDOS ****/
 
 .width-1 {

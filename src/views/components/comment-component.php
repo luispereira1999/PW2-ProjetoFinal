@@ -2,7 +2,7 @@
 
 <li data-comment="<?= $comments[$current]->comment_id; ?>" class="comment">
    <div class="row">
-      <!-- VOTOS DO COMENTÁRIO -->
+      <!-- votos do comentário -->
       <div>
          <div class="comment__votes">
             <span class="comment__vote" data-vote="upvote"><i class="fas fa-heart interactionsBarIcons comment__icon" <?php if ($comments[$current]->vote_user_id == $userLoggedId && $comments[$current]->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote"></i></span>

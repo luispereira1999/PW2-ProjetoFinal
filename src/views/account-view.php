@@ -15,20 +15,20 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <!-- FAVICON -->
-   <link rel="shortcut icon" type="image/x-icon" href="public/assets/images/favicon.ico">
+   <link rel="shortcut icon" type="image/x-icon" href="../public/assets/images/favicon.ico">
 
    <!-- CSS -->
-   <link rel="stylesheet" href="public/css/global.css">
-   <link rel="stylesheet" href="public/css/account.css">
-   <link rel="stylesheet" href="public/css/nav.css">
-   <link rel="stylesheet" href="public/css/footer.css">
+   <link rel="stylesheet" href="../public/css/global.css">
+   <link rel="stylesheet" href="../public/css/account.css">
+   <link rel="stylesheet" href="../public/css/nav.css">
+   <link rel="stylesheet" href="../public/css/footer.css">
 
    <!-- JQUERY -->
    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
    <!-- JS -->
-   <script type="text/javascript" src="public/js/main.js"></script>
-   <script type="text/javascript" src="public/js/function.js"></script>
+   <script type="text/javascript" src="../public/js/main.js"></script>
+   <script type="text/javascript" src="../public/js/function.js"></script>
 
    <!-- BOOTSTRAP -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -79,7 +79,7 @@
             <div class="account__password-wrapper">
                <h4>Alterar Password</h4>
                <input type="hidden" name="password" value="notUpdate" />
-               <img class="account__icon" src="public/assets/images/switch-off.png" id="checkUpdatePassword">
+               <img class="account__icon" src="../public/assets/images/switch-off.png" id="checkUpdatePassword">
             </div>
 
             <li class="account__item">
