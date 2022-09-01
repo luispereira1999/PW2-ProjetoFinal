@@ -88,12 +88,14 @@
          <ul class="comments__items">
 
             <?php
-            for ($current = 0; $current < count($comments); $current++) : ?>
+            if (isset($comments)) :
+               for ($current = 0; $current < count($comments); $current++) : ?>
 
-               <!-- COMENTÁRIO -->
-               <?php require("components/comment-component.php"); ?>
+                  <!-- COMENTÁRIO -->
+                  <?php require("components/comment-component.php"); ?>
 
-            <?php endfor; ?>
+               <?php endfor; ?>
+            <?php endif; ?>
 
          </ul>
       </div>

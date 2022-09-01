@@ -12,7 +12,7 @@
           <div class="modal-body">
              <form id="formNewComment" method="post" action="../server/comment-controller.php" class="modalForm">
                 <input type="hidden" name="new" value="comment">
-                <textarea name="description" cols="40" rows="5" id="commentTA" placeholder="Adicionar Comentário ..." require></textarea>
+                <textarea name="description" cols="40" rows="5" placeholder="Adicionar Comentário ..." require></textarea>
              </form>
           </div>
           <div class="modal-footer">

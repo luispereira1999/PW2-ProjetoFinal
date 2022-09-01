@@ -1,4 +1,4 @@
-<!-- DEFINIÇÃO: controlador dos posts na página principal (posts resumidos) -->
+<!-- DEFINIÇÃO: controlador dos posts na página individual do post -->
 
 <?php
 require_once("src/views/view.php");
@@ -8,7 +8,7 @@ class FullPostController
    private $fullPostModel;
    private $commentModel;
 
-   // obter o post, os comentários associados e ir para a página individual do post
+   // obter o post, os comentários associados e ir para a página do post
    public function index($params)
    {
       require_once("src/models/full-post-model.php");
@@ -31,17 +31,20 @@ class FullPostController
       // proteger dados
       require_once("src/utils/security-util.php");
       $post = protectOutputToHtml($post);
+      $userLoggedId = protectOutputToHtml($userLoggedId);
 
-      $commentsCleaned = array();
-      foreach ($comments as $comment) {
-         $comment = protectOutputToHtml($comment);
-         array_push($commentsCleaned, $comment);
+      if (isset($comments)) {
+         $commentsCleaned = array();
+         foreach ($comments as $comment) {
+            $comment = protectOutputToHtml($comment);
+            array_push($commentsCleaned, $comment);
+         }
+
+         $comments = $commentsCleaned; // obter os comentários protegidos para a variável original
       }
 
-      $comments = $commentsCleaned; // obter os comentários protegidos para a variável original
-
       // se houve erros na requisição
-      if (!isset($post) || !isset($comments) || count($this->fullPostModel->errors) > 0 || count($this->commentModel->errors) > 0) {
+      if (!isset($post) || count($this->fullPostModel->errors) > 0 || count($this->commentModel->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros
@@ -66,6 +69,54 @@ class FullPostController
             "userLoggedId" => $userLoggedId
          ]
       );
+   }
+
+   // criar post e redirecionar para a página do post
+   public function create()
+   {
+      require_once("src/models/full-post-model.php");
+      $this->fullPostModel = new FullPostModel();
+
+      // obter os dados do formulário
+      $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+      // verificar se o utilizador clicou no botão de novo post
+      if (!isset($data["isCreate"])) {
+         $_SESSION["errors"] = "Não é possível efetuar esta operação.";
+         header("location: /not-found");
+         die();
+      }
+
+      // obter utilizador logado
+      if (isset($_SESSION["id"])) {
+         $userLoggedId = $_SESSION["id"];
+      } else {
+         $userLoggedId = -1;
+      }
+
+      // registar utilizador na base de dados
+      $postId = $this->fullPostModel->insert($data["title"], $data["description"], $userLoggedId);
+
+      // se houve erros na requisição
+      if (!isset($postId) || count($this->fullPostModel->errors) > 0) {
+         $messages = array();
+
+         // obter mensagens de erros
+         foreach ($this->fullPostModel->errors as $error) {
+            array_push($messages, $error->getMessage());
+         }
+
+         // aceder aos erros na página de autenticação
+         $_SESSION["errors"] = $messages;
+         header("location: /not-found");
+         die();
+      }
+
+      require_once("src/utils/security-util.php");
+      $postId = protectOutputToHtml($postId);
+
+      // redirecionar para a página do post
+      header("location: /post/" . $postId);
    }
 }
 ?>

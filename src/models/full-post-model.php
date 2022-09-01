@@ -14,6 +14,50 @@ class FullPostModel extends Database
       $this->errors = array();
    }
 
+   public function insert($title, $description, $userId)
+   {
+      // validar inputs
+      if (empty($title)) {
+         $error = new Exception("Insira um título.", 1);
+         array_push($this->errors, $error);
+      }
+      if (empty($description)) {
+         $error = new Exception("Insira uma descrição.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($userId)) {
+         $error = new Exception("Insira um identificador do utilizador (autor) do post.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+
+      // obter data atual
+      $date = date("Y/m/d h:i:s", time());
+
+      $query = "
+      INSERT INTO posts (title, description, date, votes_amount, comments_amount, user_id)
+      VALUES (:title, :description, :date, 0, 0, :userId)";
+
+      // inserir post na base de dados
+      try {
+         $result = $this->connection->prepare($query);
+
+         $result->bindParam(":title", $title, PDO::PARAM_STR);
+         $result->bindParam(":description", $description, PDO::PARAM_STR);
+         $result->bindParam(":date", $date, PDO::PARAM_STR);
+         $result->bindParam(":userId", $userId, PDO::PARAM_STR);
+         $result->execute();
+
+         $postId = $this->connection->lastInsertId();
+         return $postId; // retorna o id do post inserido
+      } catch (PDOException $exception) {
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+   }
+
    public function getById($id, $userLoggedId)
    {
       // validar inputs

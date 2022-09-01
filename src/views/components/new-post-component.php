@@ -5,21 +5,20 @@
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title">Novo Post</h5>
-            <button class="popup__close" type="button" data-dismiss="modal" aria-label="Close">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
          </div>
 
          <div class="modal-body">
-            <form class="popup__form" id="formNewPost" method="post" action="post/create">
+            <form class="popup__form" id="formNewPost" method="post" action="/post/create">
                <input class="popup__text" type="text" name="title" placeholder="Título" require>
-               <input type="hidden" name="action" value="new">
-               <textarea class="popup__textarea" name="description" cols="40" rows="5" id="commentTA" placeholder="Texto da Publicação ..." require></textarea>
+               <textarea class="popup__textarea" name="description" cols="40" rows="5" placeholder="Texto da Publicação ..." require></textarea>
             </form>
          </div>
 
          <div class="modal-footer">
-            <button class="button button-primary" type="submit" form="formNewPost">Submeter</button>
+            <button class="button button-primary" type="submit" form="formNewPost" name="isCreate">Submeter</button>
          </div>
       </div>
    </div>
