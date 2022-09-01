@@ -1,22 +1,6 @@
 <?php
 class Route
 {
-   private function addRouteWithoutParams($route, $action)
-   {
-      if (!empty($_REQUEST['uri'])) {
-         $route = preg_replace("/(^\/)|(\/$)/", "", $route);
-         $requestUri =  preg_replace("/(^\/)|(\/$)/", "", $_REQUEST['uri']);
-      } else {
-         $requestUri = "/";
-      }
-
-      if ($requestUri == $route) {
-         $params = [];
-         $action();
-         exit();
-      }
-   }
-
    public function add($route, $action)
    {
       // guarda todos os valores dos parâmetros da URI
@@ -90,6 +74,22 @@ class Route
       // now matching route with regex
       if (preg_match("/$requestUri/", $route)) {
          $action($params);
+         exit();
+      }
+   }
+
+   private function addRouteWithoutParams($route, $action)
+   {
+      if (!empty($_REQUEST['uri'])) {
+         $route = preg_replace("/(^\/)|(\/$)/", "", $route);
+         $requestUri =  preg_replace("/(^\/)|(\/$)/", "", $_REQUEST['uri']);
+      } else {
+         $requestUri = "/";
+      }
+
+      if ($requestUri == $route) {
+         $params = [];
+         $action();
          exit();
       }
    }

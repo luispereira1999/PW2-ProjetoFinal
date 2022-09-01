@@ -35,14 +35,18 @@ $authController = new AuthController();
 $accountController = new AccountController();
 
 // rotas
-$route->add("/", array($briefPostController, "index"));
-$route->add("/post/{id}", array($fullPostController, "index"));
-$route->add("/profile/{id}", array($profileController, "index"));
-$route->add("/auth", array($authController, "index"));
-$route->add("/auth/login", array($authController, "login"));
-$route->add("/auth/signup", array($authController, "signup"));
-$route->add("/auth/logout", array($authController, "logout"));
-$route->add("/account", array($accountController, "index"));
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+   $route->add("/post/create", array($fullPostController, "create"));
+   $route->add("/auth/login", array($authController, "login"));
+   $route->add("/auth/signup", array($authController, "signup"));
+} else {
+   $route->add("/", array($briefPostController, "index"));
+   $route->add("/post/{id}", array($fullPostController, "index"));
+   $route->add("/profile/{id}", array($profileController, "index"));
+   $route->add("/auth", array($authController, "index"));
+   $route->add("/auth/logout", array($authController, "logout"));
+   $route->add("/account", array($accountController, "index"));
+}
 
 // quando nenhuma rota foi encontrada
 $route->notFound("src/views/not-found-view.php");
