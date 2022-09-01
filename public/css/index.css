@@ -5,13 +5,7 @@
    margin: 15px 5px;
 }
 
-/* .fullWidth_row {
-   margin: 5px 35px !important;
-   display: flex;
-   flex-wrap: wrap;
-} */
-
-.width-1 h3 {
+.width-1 .brief-posts__title {
    text-align: left;
    margin: 5px 40px;
    font-size: 22px;
@@ -19,14 +13,15 @@
    cursor: pointer;
 }
 
-.width-1 h5 {
+.width-1 .brief-posts__name,
+.width-1 .brief-posts__date {
    text-align: left;
    margin: 5px 40px;
    font-size: 10px;
    color: #666;
 }
 
-.width-1 p {
+.width-1 .brief-posts__description {
    text-align: left;
    margin: 20px 40px;
    height: 70px;
@@ -37,12 +32,12 @@
    text-overflow: ellipsis;
 }
 
-.width-1 a {
+.width-1 .brief-posts__link {
    text-decoration: none;
    color: #666;
 }
 
-.width-1 a:hover {
+.width-1 .brief-posts__link:hover {
    text-decoration: none;
    color: #999;
 }
@@ -53,7 +48,7 @@
    margin: 15px 5px;
 }
 
-.width-3 h3 {
+.width-3 .brief-posts__title {
    font-size: 22px;
    text-align: center;
    color: #8228DE;
@@ -63,7 +58,8 @@
    text-overflow: ellipsis;
 }
 
-.width-3 h5 {
+.width-3 .brief-posts__name,
+.width-3 .brief-posts__date {
    font-size: 10px;
    color: #666;
    text-align: center;
@@ -71,7 +67,7 @@
    color: #666;
 }
 
-.width-3 p {
+.width-3 .brief-posts__description {
    text-align: center;
    margin: 20px 60px;
    height: 100px;
@@ -83,12 +79,12 @@
    text-overflow: ellipsis;
 }
 
-.width-3 a {
+.width-3 .brief-posts__link {
    text-decoration: none;
    color: #666;
 }
 
-.width-3 a:hover {
+.width-3 .brief-posts__link:hover {
    text-decoration: none;
    color: #999;
 }
@@ -118,27 +114,27 @@
    padding-right: 10px;
 }
 
-.brief-posts__options__icon {
+.brief-posts__options .brief-posts__icon {
    padding: 0 5px;
 }
 
-.brief-posts__link {
+.brief-posts__options .brief-posts__link {
    cursor: pointer;
 }
 
-.brief-posts__link:first-child {
+.brief-posts__options .brief-posts__link:first-child {
    color: #21C937;
 }
 
-.brief-posts__link:last-child {
+.brief-posts__options .brief-posts__link:last-child {
    color: #ff3c3c;
 }
 
-.brief-posts__link:first-child:hover {
+.brief-posts__options .brief-posts__link:first-child:hover {
    color: #21c937a9;
 }
 
-.brief-posts__link:last-child:hover {
+.brief-posts__options .brief-posts__link:last-child:hover {
    color: #ff3c3ca9;
 }
 

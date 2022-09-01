@@ -3,25 +3,24 @@
 <div data-post="<?= $posts[$current]->post_id; ?>" class="width-3">
    <div class="brief-posts__options">
       <?php if ($posts[$current]->post_user_id == $userLoggedId) : ?>
-         <form class="editDeletePost" method="post" action="../server/post-controller.php">
-            <a class="brief-posts__link" data-action="edit"><span data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="brief-posts__options__icon fas fa-edit col-0"></i></span></a>
-            <input type="hidden" name="action" value="edit">
-            <input type="hidden" name="postId" value="<?= $posts[$current]->post_id; ?>">
-            <a class="brief-posts__link" data-action="delete" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="brief-posts__options__icon fas fa-trash-alt col-0"></i></a>
-         </form>
+         <span data-toggle="tooltip" data-placement="bottom" title="Eliminar Post">
+            <a class="brief-posts__link" href="" data-toggle="modal" data-target="#deletePost"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
+         </span>
+
+         <?php require("delete-post-component.php"); ?>
       <?php endif; ?>
    </div>
 
    <div class="brief-posts__title-wrapper">
-      <h3><a href="/post/<?= $posts[$current]->post_id; ?>"><?= $posts[$current]->title; ?></a></h3>
+      <h3 class="brief-posts__title"><a class="brief-posts__link" href="/post/<?= $posts[$current]->post_id; ?>"><?= $posts[$current]->title; ?></a></h3>
    </div>
 
    <div>
-      <h5><a href="user.php?userId=<?= $posts[$current]->post_user_id; ?>"><?= $posts[$current]->post_user_name; ?></a></h5>
-      <h5><?= $posts[$current]->date; ?></h5>
+      <h5 class="brief-posts__name"><a class="brief-posts__link" href="user/<?= $posts[$current]->post_user_id; ?>"><?= $posts[$current]->post_user_name; ?></a></h5>
+      <h5 class="brief-posts__date"><?= $posts[$current]->date; ?></h5>
    </div>
 
-   <p><?= $posts[$current]->description; ?></p>
+   <p class="brief-posts__description"><?= $posts[$current]->description; ?></p>
 
    <div class="brief-posts__interactions">
       <!-- votos do post -->
