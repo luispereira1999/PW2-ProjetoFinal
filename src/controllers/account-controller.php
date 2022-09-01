@@ -32,10 +32,7 @@ class AccountController
          $messages = array();
 
          // obter mensagens de erros
-         foreach ($this->fullPostModel->errors as $error) {
-            array_push($messages, $error->getMessage());
-         }
-         foreach ($this->commentModel->errors as $error) {
+         foreach ($this->model->errors as $error) {
             array_push($messages, $error->getMessage());
          }
 

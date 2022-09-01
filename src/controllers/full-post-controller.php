@@ -5,15 +5,15 @@ require_once("src/views/view.php");
 
 class FullPostController
 {
-   private $fullPostModel;
+   private $postModel;
    private $commentModel;
 
    // obter o post, os comentários associados e ir para a página do post
    public function index($params)
    {
-      require_once("src/models/full-post-model.php");
+      require_once("src/models/post-model.php");
       require_once("src/models/comment-model.php");
-      $this->fullPostModel = new FullPostModel();
+      $this->postModel = new PostModel();
       $this->commentModel = new CommentModel();
 
       // obter utilizador logado
@@ -25,7 +25,7 @@ class FullPostController
 
       // obter post e comentários desse post
       $id = $params["id"];
-      $post = $this->fullPostModel->getById($id, $userLoggedId);
+      $post = $this->postModel->getById($id, $userLoggedId);
       $comments = $this->commentModel->getAll($id, $userLoggedId);
 
       // proteger dados
@@ -44,11 +44,11 @@ class FullPostController
       }
 
       // se houve erros na requisição
-      if (!isset($post) || count($this->fullPostModel->errors) > 0 || count($this->commentModel->errors) > 0) {
+      if (!isset($post) || count($this->postModel->errors) > 0 || count($this->commentModel->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros
-         foreach ($this->fullPostModel->errors as $error) {
+         foreach ($this->postModel->errors as $error) {
             array_push($messages, $error->getMessage());
          }
          foreach ($this->commentModel->errors as $error) {
@@ -74,8 +74,8 @@ class FullPostController
    // criar post e redirecionar para a página do post
    public function create()
    {
-      require_once("src/models/full-post-model.php");
-      $this->fullPostModel = new FullPostModel();
+      require_once("src/models/post-model.php");
+      $this->postModel = new PostModel();
 
       // obter os dados do formulário
       $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -95,14 +95,14 @@ class FullPostController
       }
 
       // registar utilizador na base de dados
-      $postId = $this->fullPostModel->insert($data["title"], $data["description"], $userLoggedId);
+      $postId = $this->postModel->insert($data["title"], $data["description"], $userLoggedId);
 
       // se houve erros na requisição
-      if (!isset($postId) || count($this->fullPostModel->errors) > 0) {
+      if (!isset($postId) || count($this->postModel->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros
-         foreach ($this->fullPostModel->errors as $error) {
+         foreach ($this->postModel->errors as $error) {
             array_push($messages, $error->getMessage());
          }
 

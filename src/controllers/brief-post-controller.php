@@ -10,8 +10,8 @@ class BriefPostController
    // obter os posts e ir para a página inicial
    public function index()
    {
-      require_once("src/models/brief-post-model.php");
-      $this->model = new briefPostModel();
+      require_once("src/models/post-model.php");
+      $this->model = new PostModel();
 
       // obter utilizador logado
       if (isset($_SESSION["id"])) {
