@@ -200,23 +200,24 @@
    padding: 0 5px;
 }
 
-.brief-posts__options .brief-posts__link {
+.brief-posts__link__edit,
+.brief-posts__link__delete {
    cursor: pointer;
 }
 
-.brief-posts__options .brief-posts__link:first-child {
+.brief-posts__link__edit:first-child {
    color: #21C937;
 }
 
-.brief-posts__options .brief-posts__link:last-child {
+.brief-posts__link__delete:last-child {
    color: #ff3c3c;
 }
 
-.brief-posts__options .brief-posts__link:first-child:hover {
+.brief-posts__link__edit:first-child:hover {
    color: #21c937a9;
 }
 
-.brief-posts__options .brief-posts__link:last-child:hover {
+.brief-posts__link__delete:last-child:hover {
    color: #ff3c3ca9;
 }
 

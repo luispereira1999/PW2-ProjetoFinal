@@ -3,10 +3,15 @@
 <div data-post="<?= $posts[$current]->post_id; ?>" class="width-3">
    <div class="brief-posts__options">
       <?php if ($posts[$current]->post_user_id == $userLoggedId) : ?>
-         <span data-toggle="tooltip" data-placement="bottom" title="Eliminar Post">
-            <a class="brief-posts__link" href="" data-toggle="modal" data-target="#deletePost"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
+         <span data-toggle="tooltip" data-placement="bottom" title="Editar Post">
+            <a class="brief-posts__link__edit" data-toggle="modal" data-target="#editPost"><i class="brief-posts__icon fas fa-edit col-0"></i></a>
          </span>
 
+         <span data-toggle="tooltip" data-placement="bottom" title="Eliminar Post">
+            <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deletePost"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
+         </span>
+
+         <?php require("edit-post-component.php"); ?>
          <?php require("delete-post-component.php"); ?>
       <?php endif; ?>
    </div>
@@ -16,7 +21,7 @@
    </div>
 
    <div>
-      <h5 class="brief-posts__name"><a class="brief-posts__link" href="user/<?= $posts[$current]->post_user_id; ?>"><?= $posts[$current]->post_user_name; ?></a></h5>
+      <h5 class="brief-posts__name"><a class="brief-posts__link" href="/profile/<?= $posts[$current]->post_user_id; ?>"><?= $posts[$current]->post_user_name; ?></a></h5>
       <h5 class="brief-posts__date"><?= $posts[$current]->date; ?></h5>
    </div>
 

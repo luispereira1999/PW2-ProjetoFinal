@@ -5,13 +5,13 @@ require_once("src/views/view.php");
 
 class BriefPostController
 {
-   private $model;
+   private $postModel;
 
    // obter os posts e ir para a página inicial
    public function index()
    {
       require_once("src/models/post-model.php");
-      $this->model = new PostModel();
+      $this->postModel = new PostModel();
 
       // obter utilizador logado
       if (isset($_SESSION["id"])) {
@@ -21,7 +21,7 @@ class BriefPostController
       }
 
       // obter posts para mostrar na página principal
-      $posts = $this->model->getAll($userLoggedId);
+      $posts = $this->postModel->getAll($userLoggedId);
 
       require_once("src/utils/security-util.php");
       $userLoggedId = protectOutputToHtml($userLoggedId);
@@ -35,11 +35,11 @@ class BriefPostController
       $posts = $postsCleaned; // obter os posts protegidos para a variável original
 
       // se houve erros na requisição
-      if (!isset($posts) || count($this->model->errors) > 0) {
+      if (!isset($posts) || count($this->postModel->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros
-         foreach ($this->model->errors as $error) {
+         foreach ($this->postModel->errors as $error) {
             array_push($messages, $error->getMessage());
          }
 
@@ -56,6 +56,52 @@ class BriefPostController
             "userLoggedId" => $userLoggedId
          ]
       );
+   }
+
+   // apagar post, registos associados e redirecionar para a página principal
+   public function delete($params)
+   {
+      require_once("src/models/post-model.php");
+      $this->postModel = new PostModel();
+
+      // obter os dados do formulário
+      $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+      // verificar se o utilizador clicou no botão de novo post
+      if (!isset($data["isDelete"])) {
+         $_SESSION["errors"] = "Não é possível efetuar esta operação.";
+         header("location: /not-found");
+         die();
+      }
+
+      // obter utilizador logado
+      if (isset($_SESSION["id"])) {
+         $userLoggedId = $_SESSION["id"];
+      } else {
+         $userLoggedId = -1;
+      }
+
+      // apagar post na base de dados
+      $postId = $params["id"];
+      $isDeleted = $this->postModel->delete($postId, $userLoggedId);
+
+      // se houve erros na requisição
+      if (!isset($isDeleted) || count($this->postModel->errors) > 0) {
+         $messages = array();
+
+         // obter mensagens de erros
+         foreach ($this->postModel->errors as $error) {
+            array_push($messages, $error->getMessage());
+         }
+
+         // aceder aos erros na página de autenticação
+         $_SESSION["errors"] = $messages;
+         header("location: /not-found");
+         die();
+      }
+
+      // redirecionar para a página principal
+      header("location: /");
    }
 }
 ?>
