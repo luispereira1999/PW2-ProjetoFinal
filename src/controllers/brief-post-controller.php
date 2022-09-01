@@ -24,8 +24,9 @@ class BriefPostController
       $posts = $this->model->getAll($userLoggedId);
 
       require_once("src/utils/security-util.php");
-      $postsCleaned = array();
+      $userLoggedId = protectOutputToHtml($userLoggedId);
 
+      $postsCleaned = array();
       foreach ($posts as $post) {
          $post = protectOutputToHtml($post);
          array_push($postsCleaned, $post);

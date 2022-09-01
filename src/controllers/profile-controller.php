@@ -31,6 +31,7 @@ class ProfileController
       // proteger dados
       require_once("src/utils/security-util.php");
       $user = protectOutputToHtml($user);
+      $userLoggedId = protectOutputToHtml($userLoggedId);
 
       $postsCleaned = array();
       foreach ($posts as $post) {

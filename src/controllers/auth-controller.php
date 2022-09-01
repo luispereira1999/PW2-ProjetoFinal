@@ -30,7 +30,7 @@ class AuthController
       }
 
       // registar utilizador na base de dados
-      $userId = $this->model->create($data["name"], $data["email"], $data["password"], $data["confirmPassword"]);
+      $userId = $this->model->insert($data["name"], $data["email"], $data["password"], $data["confirmPassword"]);
       $user = $this->model->getById($userId);
 
       // se houve erros na requisição

@@ -31,21 +31,20 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `fk_post_id_c` (`post_id`),
   CONSTRAINT `fk_post_id_c` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_user_id_c` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- A despejar dados para tabela kll.comments: ~11 rows (aproximadamente)
 REPLACE INTO `comments` (`id`, `description`, `votes_amount`, `user_id`, `post_id`) VALUES
 	(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante libero, tristique at est et, sodales vulputate lectus. Curabitur eget bibendum ipsum. Nulla tincidunt dignissim est eget dapibus. ', 0, 3, 1),
 	(2, 'Etiam convallis luctus neque eget egestas. Maecenas condimentum consectetur lorem et scelerisque. Nam pellentesque tincidunt malesuada. Nam in dolor id est viverra efficitur eget ac nisl. Nunc scelerisque malesuada ligula nec hendrerit. Phasellus elementum leo finibus risus consequat fringilla.', 0, 7, 1),
 	(3, 'Phasellus quis lectus non risus volutpat tincidunt non nec nulla. Proin sed est at erat lobortis consectetur. Proin eget ullamcorper justo, nec semper metus.\r\n\r\nCras lobortis convallis orci. Quisque molestie, libero id sagittis fermentum, dolor magna vulputate elit, eget gravida tellus est vel nisl. ', 0, 6, 1),
-	(4, ' Ut ac dolor ac dolor scelerisque accumsan. Phasellus in eleifend nibh, ut auctor est. Nulla sodales, leo ut pulvinar consequat, nisi nisi sagittis sapien, sit amet mollis nisl magna nec quam. Sed bibendum felis neque, vel maximus nunc mollis nec. Nam a iaculis neque. Nulla facilisi', 0, 5, 1),
+	(4, 'Ut ac dolor ac dolor scelerisque accumsan. Phasellus in eleifend nibh, ut auctor est. Nulla sodales, leo ut pulvinar consequat, nisi nisi sagittis sapien, sit amet mollis nisl magna nec quam. Sed bibendum felis neque, vel maximus nunc mollis nec. Nam a iaculis neque. Nulla facilisi', 0, 5, 1),
 	(5, 'Phasellus lectus orci, lacinia eget ullamcorper ac, dictum sit amet orci. Donec vehicula nibh nulla, sed tincidunt justo fringilla imperdiet. Donec arcu massa, fringilla nec vestibulum sit amet, consectetur a dui. Nulla convallis tincidunt nunc, non tristique dui.\r\n\r\nPhasellus convallis elementum maximus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi vel interdum felis, eu posuere massa. ', 0, 11, 2),
 	(6, 'Nam sit amet urna eget nisi rutrum fringilla. Morbi dapibus fermentum diam, vitae vehicula diam dapibus sit amet. Nunc consequat nibh at est venenatis, ac scelerisque libero ultricies. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi facilisis commodo metus, sit amet facilisis libero condimentum dapibus. Sed id venenatis nibh. Donec eu ligula ac urna auctor eleifend.\r\n\r\n', 0, 1, 2),
 	(7, 'Duis eu libero aliquam, vulputate neque in, dignissim augue. Nulla facilisi. Donec vitae scelerisque sem. Nullam ac hendrerit ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sodales, ex quis egestas varius, felis felis dapibus dui, non finibus nisl nibh in magna. ', 0, 3, 3),
 	(8, 'Morbi porttitor accumsan justo, a fermentum justo fermentum consectetur. Integer hendrerit ultrices eros tincidunt consequat. Curabitur iaculis, augue quis porttitor blandit, sapien enim mattis ante, in ultricies lorem nunc et nulla.\r\n\r\nMorbi vestibulum turpis in semper tempus. In a nisi quis lorem elementum viverra. Pellentesque eu ex sit amet nisl vulputate dapibus ac eget enim. Integer quis odio lobortis, ornare felis eu, finibus enim.', 0, 8, 3),
 	(9, 'Phasellus posuere est sit amet nisi rhoncus consectetur at commodo eros. Nunc lacinia lorem dui, sed efficitur quam efficitur vitae. Aenean porttitor enim sit amet dignissim imperdiet. Morbi tempus nunc eu odio pellentesque pellentesque. Duis condimentum sit amet felis ut faucibus.', 0, 6, 8),
-	(10, 'Phasellus facilisis arcu at vulputate finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus congue pulvinar eros id vulputate. Donec tincidunt orci nisl. Praesent non nibh condimentum, maximus leo et, hendrerit dolor.', 0, 5, 5),
-	(11, 'Nam consequat, augue vel tincidunt rhoncus, sapien erat gravida lacus, sit amet porttitor nunc risus ut leo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum a enim et augue semper tincidunt. Aliquam porttitor eros justo, ac pharetra tortor iaculis ut. Phasellus eget lobortis nisl, non pellentesque lacus. ', 0, 2, 8);
+	(10, 'Nam consequat, augue vel tincidunt rhoncus, sapien erat gravida lacus, sit amet porttitor nunc risus ut leo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum a enim et augue semper tincidunt. Aliquam porttitor eros justo, ac pharetra tortor iaculis ut. Phasellus eget lobortis nisl, non pellentesque lacus. ', 0, 2, 5);
 
 -- A despejar estrutura para tabela kll.posts
 CREATE TABLE IF NOT EXISTS `posts` (
@@ -59,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   PRIMARY KEY (`id`),
   KEY `fk_user_id_p` (`user_id`),
   CONSTRAINT `fk_user_id_p` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- A despejar dados para tabela kll.posts: ~10 rows (aproximadamente)
 REPLACE INTO `posts` (`id`, `title`, `description`, `date`, `votes_amount`, `comments_amount`, `user_id`) VALUES
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `city` varchar(50) DEFAULT '',
   `country` varchar(50) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- A despejar dados para tabela kll.users: ~10 rows (aproximadamente)
 REPLACE INTO `users` (`id`, `name`, `password`, `email`, `first_name`, `last_name`, `city`, `country`) VALUES

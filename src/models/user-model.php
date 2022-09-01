@@ -14,7 +14,7 @@ class UserModel extends Database
       $this->errors = array();
    }
 
-   public function create($name, $email, $password, $confirmPassword)
+   public function insert($name, $email, $password, $confirmPassword)
    {
       // validar inputs
       if (empty($name)) {
@@ -100,7 +100,7 @@ class UserModel extends Database
          $result->execute();
 
          $id = $this->connection->lastInsertId();
-         return $id; // retornar o id do utilizador inserido
+         return $id; // retorna o id do utilizador inserido
       } catch (PDOException $exception) {
          $error = new Exception("Erro ao comunicar com o servidor.", 1);
          array_push($this->errors, $error);

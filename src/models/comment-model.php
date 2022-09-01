@@ -66,10 +66,6 @@ class CommentModel extends Database
             }
 
             return $comments; // retorna os comentários
-         } else {
-            $error = new Exception("Comentários não encontrados.", 1);
-            array_push($this->errors, $error);
-            return null;
          }
       } catch (PDOException $exception) {
          $error = new Exception("Erro ao comunicar com o servidor.", 1);
