@@ -99,7 +99,7 @@ h5 {
 
 /*** POPUPS ***/
 
-.popup__close:focus {
+.close:focus {
    outline: none;
 }
 
