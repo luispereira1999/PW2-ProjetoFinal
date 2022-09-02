@@ -82,6 +82,8 @@
    <!-- COMENTÁRIOS: informações, ações -->
    <section class="comments">
       <span data-toggle="modal" data-target="#newComment"><i class="fas fa-plus comment__icon"></i>Adicionar Novo Comentário</span>
+      <?php require_once("components/new-comment-component.php"); ?>
+
       <hr>
 
       <div class="comments__content-wrapper">
