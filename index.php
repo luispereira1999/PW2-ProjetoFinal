@@ -37,6 +37,7 @@ $accountController = new AccountController();
 // rotas
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
    $route->add("/post/create", array($fullPostController, "create"));
+   $route->add("/post/edit/{id}", array($briefPostController, "edit"));
    $route->add("/post/delete/{id}", array($briefPostController, "delete"));
    $route->add("/auth/login", array($authController, "login"));
    $route->add("/auth/signup", array($authController, "signup"));

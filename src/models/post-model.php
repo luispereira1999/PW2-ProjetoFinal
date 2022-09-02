@@ -243,6 +243,52 @@ class PostModel extends Database
       }
    }
 
+   public function update($postId, $title, $description, $userId)
+   {
+      // validar inputs
+      if (empty($postId)) {
+         $error = new Exception("Identificador do post inválido.", 1);
+         array_push($this->errors, $error);
+      }
+      if (empty($title)) {
+         $error = new Exception("Insira um título.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($description)) {
+         $error = new Exception("Insira uma descrição.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($userId)) {
+         $error = new Exception("Identificador do utilizador logado inválido.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+
+      $query = "
+      UPDATE posts
+      SET title = :title, description = :description
+      WHERE id = :postId AND user_id = :userId";
+
+      // atualizar post na base de dados
+      try {
+         $result = $this->connection->prepare($query);
+
+         $result->bindParam(":title", $title, PDO::PARAM_STR);
+         $result->bindParam(":description", $description, PDO::PARAM_STR);
+         $result->bindParam(":postId", $postId, PDO::PARAM_INT);
+         $result->bindParam(":userId", $userId, PDO::PARAM_INT);
+         $result->execute();
+
+         return $postId; // retorna o id do post atualizado
+      } catch (PDOException $exception) {
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+   }
+
    public function delete($postId, $userId)
    {
       // validar inputs

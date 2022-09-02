@@ -58,6 +58,52 @@ class BriefPostController
       );
    }
 
+   // editar post e redirecionar para a página do post
+   public function edit($params)
+   {
+      require_once("src/models/post-model.php");
+      $this->postModel = new PostModel();
+
+      // obter os dados do formulário
+      $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+      // verificar se o utilizador clicou no botão de novo post
+      if (!isset($data["isEdit"])) {
+         $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
+         header("location: /not-found");
+         die();
+      }
+
+      // obter utilizador logado
+      if (isset($_SESSION["id"])) {
+         $userLoggedId = $_SESSION["id"];
+      } else {
+         $userLoggedId = -1;
+      }
+
+      // apagar post na base de dados
+      $postId = $params["id"];
+      $isUpdated = $this->postModel->update($postId, $data["title"], $data["description"], $userLoggedId);
+
+      // se houve erros na requisição
+      if (!isset($isUpdated) || count($this->postModel->errors) > 0) {
+         $messages = array();
+
+         // obter mensagens de erros
+         foreach ($this->postModel->errors as $error) {
+            array_push($messages, $error->getMessage());
+         }
+
+         // aceder aos erros na página de autenticação
+         $_SESSION["errors"] = $messages;
+         header("location: /not-found");
+         die();
+      }
+
+      // redirecionar para a página do post
+      header("location: /post/" . $postId);
+   }
+
    // apagar post, registos associados e redirecionar para a página principal
    public function delete($params)
    {
@@ -69,7 +115,7 @@ class BriefPostController
 
       // verificar se o utilizador clicou no botão de novo post
       if (!isset($data["isDelete"])) {
-         $_SESSION["errors"] = "Não é possível efetuar esta operação.";
+         $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
          header("location: /not-found");
          die();
       }

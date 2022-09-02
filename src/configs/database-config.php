@@ -15,7 +15,7 @@ class Database
       try {
          $this->connection = new PDO("mysql:host=" . HOST . ";dbname=" . DATABASE_NAME . ";charset=" . CHARSET, USER, PASSWORD);
       } catch (PDOException $exception) {
-         $_SESSION["errors"] = "Não foi possível comunicar com o servidor. Tente mais tarde.";
+         $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
          header("location: /not-found");
          die();
       }

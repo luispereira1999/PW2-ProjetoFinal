@@ -24,7 +24,7 @@ class AuthController
 
       // verificar se o utilizador clicou no botão de signup
       if (!isset($data["isSignup"])) {
-         $_SESSION["errors"] = "Não é possível efetuar esta operação.";
+         $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
          header("location: /auth");
          die();
       }
@@ -70,7 +70,7 @@ class AuthController
 
       // verificar se o utilizador clicou no botão de login
       if (!isset($data["isLogin"])) {
-         $_SESSION["errors"] = "Não é possível efetuar esta operação.";
+         $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
          header("location: /auth");
          die();
       }

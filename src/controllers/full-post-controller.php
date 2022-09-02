@@ -82,7 +82,7 @@ class FullPostController
 
       // verificar se o utilizador clicou no botão de novo post
       if (!isset($data["isCreate"])) {
-         $_SESSION["errors"] = "Não é possível efetuar esta operação.";
+         $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
          header("location: /not-found");
          die();
       }
