@@ -4,11 +4,11 @@
    <div class="brief-posts__options">
       <?php if ($posts[$current]->post_user_id == $userLoggedId) : ?>
          <span data-toggle="tooltip" data-placement="bottom" title="Editar Post">
-            <a class="brief-posts__link__edit" data-toggle="modal" data-target="#editPost"><i class="brief-posts__icon fas fa-edit col-0"></i></a>
+            <a class="brief-posts__link__edit" data-toggle="modal" data-target="#editPost<?= $posts[$current]->post_id; ?>"><i class="brief-posts__icon fas fa-edit col-0"></i></a>
          </span>
 
          <span data-toggle="tooltip" data-placement="bottom" title="Eliminar Post">
-            <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deletePost"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
+            <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deletePost<?= $posts[$current]->post_id; ?>"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
          </span>
 
          <?php require("edit-post-component.php"); ?>

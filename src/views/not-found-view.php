@@ -1,11 +1,11 @@
 <h1>404 ERROR</h1>
 
 <?php
+$errors = array();
+
 if (isset($_SESSION["errors"])) {
    $errors = $_SESSION["errors"];
    unset($_SESSION["errors"]);
-} else {
-   $errors = array();
 }
 
 foreach ($errors as $error) : ?>

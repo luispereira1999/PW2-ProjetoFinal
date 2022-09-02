@@ -18,7 +18,7 @@
          </div>
 
          <div class="modal-footer">
-            <button class="button button-primary" type="submit" form="formNewPost" name="isCreate">Submeter</button>
+            <button class="button button-primary" type="submit" form="formNewPost" name="isCreate">Criar</button>
          </div>
       </div>
    </div>
