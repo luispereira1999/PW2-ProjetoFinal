@@ -46,7 +46,7 @@ class PostModel extends Database
          $result->bindParam(":title", $title, PDO::PARAM_STR);
          $result->bindParam(":description", $description, PDO::PARAM_STR);
          $result->bindParam(":date", $date, PDO::PARAM_STR);
-         $result->bindParam(":userId", $userId, PDO::PARAM_STR);
+         $result->bindParam(":userId", $userId, PDO::PARAM_INT);
          $result->execute();
 
          $postId = $this->connection->lastInsertId();

@@ -14,6 +14,63 @@ class CommentModel extends Database
       $this->errors = array();
    }
 
+   public function insert($description, $postId, $userId)
+   {
+      // validar inputs
+      if (empty($description)) {
+         $error = new Exception("Insira uma descrição.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($postId)) {
+         $error = new Exception("Insira um identificador do post.", 1);
+         array_push($this->errors, $error);
+      }
+      if (empty($userId)) {
+         $error = new Exception("Insira um identificador do utilizador (autor) do post.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+
+      $query1 = "
+      INSERT INTO comments (description, votes_amount, user_id, post_id)
+      VALUES (:description, 0, :userId, :postId)";
+
+      $query2 = "
+      UPDATE posts
+      SET comments_amount = comments_amount + 1
+      WHERE id = :postId";
+
+      // inserir comentário na base de dados
+      try {
+         $this->connection->beginTransaction();
+
+         // inserir comentário pelo id do post e id do utilizador
+         $result1 = $this->connection->prepare($query1);
+         $result1->bindParam(":description", $description, PDO::PARAM_STR);
+         $result1->bindParam(":userId", $userId, PDO::PARAM_INT);
+         $result1->bindParam(":postId", $postId, PDO::PARAM_INT);
+         $result1->execute();
+
+         $commentId = $this->connection->lastInsertId();
+
+         // atualizar quantidade de comentários do post
+         $result2 = $this->connection->prepare($query2);
+         $result2->bindParam(":postId", $postId, PDO::PARAM_INT);
+         $result2->execute();
+
+         $this->connection->commit();
+
+         return $commentId; // retorna o id do comentário inserido
+      } catch (PDOException $exception) {
+         $this->connection->rollback();
+
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+   }
+
    public function getAll($postId, $userLoggedId)
    {
       // validar inputs

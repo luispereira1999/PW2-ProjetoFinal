@@ -12,6 +12,7 @@
 
          <div class="modal-body">
             <form class="popup__form" id="formNewComment" method="post" action="/comment/create">
+               <input type="hidden" name="postId" value="<?= $post->post_id ?>">
                <textarea class="popup__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ..." require></textarea>
             </form>
          </div>

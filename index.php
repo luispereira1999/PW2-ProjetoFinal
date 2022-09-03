@@ -5,6 +5,7 @@ require_once("src/configs/route-config.php");
 
 require_once("src/controllers/brief-post-controller.php");
 require_once("src/controllers/full-post-controller.php");
+require_once("src/controllers/comment-controller.php");
 require_once("src/controllers/profile-controller.php");
 require_once("src/controllers/auth-controller.php");
 require_once("src/controllers/account-controller.php");
@@ -30,6 +31,7 @@ if (isset($_COOKIE["id"]) && !isset($_SESSION["id"])) {
 $route = new Route();
 $briefPostController = new BriefPostController();
 $fullPostController = new FullPostController();
+$commentController = new CommentController();
 $profileController = new ProfileController();
 $authController = new AuthController();
 $accountController = new AccountController();
@@ -39,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    $route->add("/post/create", array($fullPostController, "create"));
    $route->add("/post/edit/{id}", array($briefPostController, "edit"));
    $route->add("/post/delete/{id}", array($briefPostController, "delete"));
+   $route->add("/comment/create", array($commentController, "create"));
    $route->add("/auth/login", array($authController, "login"));
    $route->add("/auth/signup", array($authController, "signup"));
 } else {
