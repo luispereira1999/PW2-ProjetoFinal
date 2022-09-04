@@ -170,5 +170,67 @@ class CommentModel extends Database
          return null;
       }
    }
+
+   public function delete($commentId, $postId, $userId)
+   {
+      // validar inputs
+      if (empty($commentId)) {
+         $error = new Exception("Identificador do comentário inválido.", 1);
+         array_push($this->errors, $error);
+      }
+      if (empty($postId)) {
+         $error = new Exception("Identificador do post inválido.", 1);
+         array_push($this->errors, $error);
+      }
+      if (empty($userId)) {
+         $error = new Exception("Identificador do utilizador logado inválido.", 1);
+         array_push($this->errors, $error);
+      }
+
+      $query1 = "
+      DELETE FROM comments
+      WHERE id = :commentId AND user_id = :userId AND post_id = :postId";
+
+      $query2 = "
+      DELETE FROM comments_votes
+      WHERE comment_id = :commentId";
+
+      $query3 = "
+      UPDATE posts
+      SET comments_amount = comments_amount - 1
+      WHERE id = :postId";
+
+      // apagar comentário e registos associados na base de dados
+      try {
+         $this->connection->beginTransaction();
+
+         // apagar comentário pelo id do comentário
+         $result1 = $this->connection->prepare($query1);
+         $result1->bindParam(":commentId", $commentId, PDO::PARAM_INT);
+         $result1->bindParam(":userId", $userId, PDO::PARAM_INT);
+         $result1->bindParam(":postId", $postId, PDO::PARAM_INT);
+         $result1->execute();
+
+         // apagar votos do comentário pelo id do comentário
+         $result2 = $this->connection->prepare($query2);
+         $result2->bindParam(":commentId", $postId, PDO::PARAM_INT);
+         $result2->execute();
+
+         // atualizar quantidade de comentários do post pelo id do post
+         $result3 = $this->connection->prepare($query3);
+         $result3->bindParam(":postId", $postId, PDO::PARAM_INT);
+         $result3->execute();
+
+         $this->connection->commit();
+
+         return true; // retorna o estado da operação
+      } catch (PDOException $exception) {
+         $this->connection->rollback();
+
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+   }
 }
 ?>
