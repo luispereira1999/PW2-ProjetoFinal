@@ -23,12 +23,15 @@
 
       <?php if ($comments[$current]->comment_user_id == $userLoggedId) : ?>
          <div class="col-1">
-            <form class="editDeleteComment" method="post" action="../server/comment-controller.php">
-               <span class="comment__edit" data-action="edit" data-toggle="tooltip" data-placement="bottom" title="Editar"><a class="comment__link" data-toggle="modal" data-target="#editComment"><i class="fas fa-edit col-0 comment__icon"></i></a></span>
-               <input type="hidden" name="action" value="edit">
-               <input type="hidden" name="commentId" value="<?= $comments[$current]->comment_id; ?>">
-               <a class="comment__link" data-action="delete" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fas fa-trash-alt col-0"></i></a>
-            </form>
+            <span class="comment__edit" data-toggle="tooltip" data-placement="bottom" title="Editar Comentário">
+               <a class="comment__link" data-toggle="modal" data-target="#editComment<?= $comments[$current]->comment_id; ?>"><i class="fas fa-edit col-0 comment__icon"></i></a>
+            </span>
+            <span class="comment__delete" data-toggle="tooltip" data-placement="bottom" title="Eliminar Comentário">
+               <a class="comment__link" data-toggle="modal" data-target="#deleteComment<?= $comments[$current]->comment_id; ?>"><i class="fas fa-trash-alt col-0 comment__icon"></i></a>
+            </span>
+
+            <?php require("edit-comment-component.php"); ?>
+            <?php require("delete-comment-component.php"); ?>
          </div>
       <?php endif; ?>
    </div>

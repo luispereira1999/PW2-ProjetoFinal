@@ -5,7 +5,7 @@
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title">Editar Post</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
          </div>
@@ -19,7 +19,7 @@
 
          <div class="modal-footer">
             <button class="button button-primary" type="submit" form="formEditPost<?= $posts[$current]->post_id; ?>" name="isEdit">Editar</button>
-            <button class="button button-cancel" type="button">Não</button>
+            <button class="button button-cancel" type="button">Cancelar</button>
          </div>
       </div>
    </div>
