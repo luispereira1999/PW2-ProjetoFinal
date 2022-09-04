@@ -86,7 +86,8 @@
 }
 
 .comment__vote,
-.comment__edit {
+.comment__edit,
+.comment__delete {
    font-weight: bold;
    font-size: 15px;
    color: #888;

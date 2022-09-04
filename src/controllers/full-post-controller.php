@@ -71,7 +71,7 @@ class FullPostController
       );
    }
 
-   // criar post e redirecionar para a página do post
+   // criar post e ir para a página do post
    public function create()
    {
       require_once("src/models/post-model.php");

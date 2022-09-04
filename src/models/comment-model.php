@@ -130,5 +130,45 @@ class CommentModel extends Database
          return null;
       }
    }
+
+   public function update($commentId, $description, $userId)
+   {
+      // validar inputs
+      if (empty($commentId)) {
+         $error = new Exception("Identificador do comentário inválido.", 1);
+         array_push($this->errors, $error);
+      }
+      if (empty($description)) {
+         $error = new Exception("Insira uma descrição.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($userId)) {
+         $error = new Exception("Identificador do utilizador logado inválido.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+
+      $query = "
+      UPDATE comments
+      SET description = :description
+      WHERE id = :commentId AND user_id = :userId";
+
+      // atualizar comentário na base de dados
+      try {
+         $result = $this->connection->prepare($query);
+
+         $result->bindParam(":description", $description, PDO::PARAM_STR);
+         $result->bindParam(":commentId", $commentId, PDO::PARAM_INT);
+         $result->bindParam(":userId", $userId, PDO::PARAM_INT);
+         $result->execute();
+
+         return true; // retorna o estado da operação
+      } catch (PDOException $exception) {
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+   }
 }
 ?>

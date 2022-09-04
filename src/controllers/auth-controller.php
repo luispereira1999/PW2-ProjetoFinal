@@ -13,7 +13,7 @@ class AuthController
       new View("src/views/auth-view.php");
    }
 
-   // fazer signup e redirecionar para a página principal
+   // fazer signup e ir para a página principal
    public function signup()
    {
       require_once("src/models/user-model.php");
@@ -59,7 +59,7 @@ class AuthController
       header("location: /");
    }
 
-   // fazer login e redirecionar para a página principal
+   // fazer login e ir para a página principal
    public function login()
    {
       require_once("src/models/user-model.php");
@@ -109,7 +109,7 @@ class AuthController
       header("location: /");
    }
 
-   // fazer logout e redirecionar para a página principal
+   // fazer logout e ir para a página principal
    public function logout()
    {
       require_once("src/utils/session-util.php");

@@ -42,6 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    $route->add("/post/edit/{id}", array($briefPostController, "edit"));
    $route->add("/post/delete/{id}", array($briefPostController, "delete"));
    $route->add("/comment/create", array($commentController, "create"));
+   $route->add("/comment/edit/{id}", array($commentController, "edit"));
+   $route->add("/comment/delete/{id}", array($commentController, "delete"));
    $route->add("/auth/login", array($authController, "login"));
    $route->add("/auth/signup", array($authController, "signup"));
 } else {

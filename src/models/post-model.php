@@ -281,7 +281,7 @@ class PostModel extends Database
          $result->bindParam(":userId", $userId, PDO::PARAM_INT);
          $result->execute();
 
-         return $postId; // retorna o id do post atualizado
+         return true; // retorna o estado da operação
       } catch (PDOException $exception) {
          $error = new Exception("Erro ao comunicar com o servidor.", 1);
          array_push($this->errors, $error);

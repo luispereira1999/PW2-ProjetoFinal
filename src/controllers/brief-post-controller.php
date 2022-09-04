@@ -58,7 +58,7 @@ class BriefPostController
       );
    }
 
-   // editar post e redirecionar para a página do post
+   // editar post e ir para a página do post
    public function edit($params)
    {
       require_once("src/models/post-model.php");
@@ -81,7 +81,7 @@ class BriefPostController
          $userLoggedId = -1;
       }
 
-      // apagar post na base de dados
+      // editar post na base de dados
       $postId = $params["id"];
       $isUpdated = $this->postModel->update($postId, $data["title"], $data["description"], $userLoggedId);
 
@@ -100,11 +100,14 @@ class BriefPostController
          die();
       }
 
+      require_once("src/utils/security-util.php");
+      $postId = protectOutputToHtml($postId);
+
       // redirecionar para a página do post
       header("location: /post/" . $postId);
    }
 
-   // apagar post, registos associados e redirecionar para a página principal
+   // apagar post, registos associados e ir para a página principal
    public function delete($params)
    {
       require_once("src/models/post-model.php");
