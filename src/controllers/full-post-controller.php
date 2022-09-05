@@ -57,7 +57,7 @@ class FullPostController
 
          // aceder aos erros na página de autenticação
          $_SESSION["errors"] = $messages;
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 
@@ -83,7 +83,7 @@ class FullPostController
       // verificar se o utilizador clicou no botão de novo post
       if (!isset($data["isCreate"])) {
          $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 
@@ -108,7 +108,7 @@ class FullPostController
 
          // aceder aos erros na página de autenticação
          $_SESSION["errors"] = $messages;
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 

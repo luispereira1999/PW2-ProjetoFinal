@@ -94,9 +94,9 @@ class Route
       }
    }
 
-   public function notFound($file)
+   public function go($action)
    {
-      require_once($file);
+      $action();
       exit();
    }
 }

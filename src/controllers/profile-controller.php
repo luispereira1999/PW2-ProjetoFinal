@@ -55,7 +55,7 @@ class ProfileController
 
          // aceder aos erros na página de autenticação
          $_SESSION["errors"] = $messages;
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 

@@ -45,7 +45,7 @@ class BriefPostController
 
          // aceder aos erros na página de autenticação
          $_SESSION["errors"] = $messages;
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 
@@ -70,7 +70,7 @@ class BriefPostController
       // verificar se o utilizador clicou no botão de novo post
       if (!isset($data["isEdit"])) {
          $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 
@@ -96,7 +96,7 @@ class BriefPostController
 
          // aceder aos erros na página de autenticação
          $_SESSION["errors"] = $messages;
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 
@@ -119,7 +119,7 @@ class BriefPostController
       // verificar se o utilizador clicou no botão de novo post
       if (!isset($data["isDelete"])) {
          $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 
@@ -145,7 +145,7 @@ class BriefPostController
 
          // aceder aos erros na página de autenticação
          $_SESSION["errors"] = $messages;
-         header("location: /not-found");
+         header("location: /error");
          die();
       }
 

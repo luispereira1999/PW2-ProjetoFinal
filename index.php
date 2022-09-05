@@ -9,6 +9,7 @@ require_once("src/controllers/comment-controller.php");
 require_once("src/controllers/profile-controller.php");
 require_once("src/controllers/auth-controller.php");
 require_once("src/controllers/account-controller.php");
+require_once("src/controllers/error-controller.php");
 
 require_once("src/utils/session-util.php");
 
@@ -35,6 +36,7 @@ $commentController = new CommentController();
 $profileController = new ProfileController();
 $authController = new AuthController();
 $accountController = new AccountController();
+$errorController = new ErrorController();
 
 // rotas
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -55,6 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    $route->add("/account", array($accountController, "index"));
 }
 
-// quando nenhuma rota foi encontrada
-$route->notFound("src/views/not-found-view.php");
+// se nenhuma rota for encontrada
+$route->go(array($errorController, "index"));
 ?>
