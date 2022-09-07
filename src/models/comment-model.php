@@ -25,6 +25,7 @@ class CommentModel extends Database
       if (empty($postId)) {
          $error = new Exception("Insira um identificador do post.", 1);
          array_push($this->errors, $error);
+         return null;
       }
       if (empty($userId)) {
          $error = new Exception("Insira um identificador do utilizador (autor) do post.", 1);
@@ -137,6 +138,7 @@ class CommentModel extends Database
       if (empty($commentId)) {
          $error = new Exception("Identificador do comentário inválido.", 1);
          array_push($this->errors, $error);
+         return null;
       }
       if (empty($description)) {
          $error = new Exception("Insira uma descrição.", 1);
@@ -177,14 +179,17 @@ class CommentModel extends Database
       if (empty($commentId)) {
          $error = new Exception("Identificador do comentário inválido.", 1);
          array_push($this->errors, $error);
+         return null;
       }
       if (empty($postId)) {
          $error = new Exception("Identificador do post inválido.", 1);
          array_push($this->errors, $error);
+         return null;
       }
       if (empty($userId)) {
          $error = new Exception("Identificador do utilizador logado inválido.", 1);
          array_push($this->errors, $error);
+         return null;
       }
 
       $query1 = "

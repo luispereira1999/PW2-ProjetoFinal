@@ -20,6 +20,7 @@ class UserModel extends Database
       if (empty($name)) {
          $error = new Exception("Insira um nome de utilizador.", 1);
          array_push($this->errors, $error);
+         return null;
       }
       if (empty($email)) {
          $error = new Exception("Insira um email.", 1);
@@ -200,6 +201,8 @@ class UserModel extends Database
             $user->email = $row["email"];
             $user->first_name = $row["first_name"];
             $user->last_name = $row["last_name"];
+            $user->city = $row["city"];
+            $user->country = $row["country"];
 
             return $user; // retorna o utilizador logado
          } else {
@@ -207,6 +210,45 @@ class UserModel extends Database
             array_push($this->errors, $error);
             return null;
          }
+      } catch (PDOException $exception) {
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+   }
+
+   public function updateData($email, $firstName, $lastName, $city, $country, $userId)
+   {
+      // validar inputs
+      if (empty($userId)) {
+         $error = new Exception("Identificador do utilizador inválido.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($email)) {
+         $error = new Exception("Insira um email.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+
+      $query = "
+      UPDATE users
+      SET email = :email, first_name = :firstName, last_name = :lastName, city = :city, country = :country
+      WHERE id = :userId";
+
+      // atualizar dados do utilizador na base de dados
+      try {
+         $result = $this->connection->prepare($query);
+
+         $result->bindParam(":email", $email, PDO::PARAM_STR);
+         $result->bindParam(":firstName", $firstName, PDO::PARAM_STR);
+         $result->bindParam(":lastName", $lastName, PDO::PARAM_STR);
+         $result->bindParam(":city", $city, PDO::PARAM_STR);
+         $result->bindParam(":country", $country, PDO::PARAM_STR);
+         $result->bindParam(":userId", $userId, PDO::PARAM_INT);
+         $result->execute();
+
+         return true; // retorna o estado da operação
       } catch (PDOException $exception) {
          $error = new Exception("Erro ao comunicar com o servidor.", 1);
          array_push($this->errors, $error);

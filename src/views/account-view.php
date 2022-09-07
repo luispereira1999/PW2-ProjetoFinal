@@ -60,7 +60,7 @@
          </div>
       </section>
 
-      <form method="post" action="/account/update" class="account__form">
+      <form method="post" action="/account/edit/<?= $user->id; ?>" class="account__form">
          <ul class="account__items">
             <h4>Detalhes Básicos</h4>
 
@@ -80,7 +80,7 @@
          <ul class="account__items">
             <div class="account__password-wrapper">
                <h4>Alterar Password</h4>
-               <input type="hidden" name="password" value="notUpdate" />
+               <!-- <input type="hidden" name="password" value="notUpdate" /> -->
                <img class="account__icon" src="../public/assets/images/switch-off.png" id="checkUpdatePassword">
             </div>
 
@@ -93,8 +93,8 @@
             </li>
 
             <li class="account__actions">
-               <button class="button button-primary" name="action" value="update">Atualizar</button>
-               <button class="button button-cancel" name="action" value="cancel">Cancelar</button>
+               <button class="button button-primary" name="isEdit">Atualizar</button>
+               <button class="button button-cancel">Cancelar</button>
             </li>
          </ul>
       </form>

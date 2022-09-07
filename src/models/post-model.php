@@ -20,6 +20,7 @@ class PostModel extends Database
       if (empty($title)) {
          $error = new Exception("Insira um título.", 1);
          array_push($this->errors, $error);
+         return null;
       }
       if (empty($description)) {
          $error = new Exception("Insira uma descrição.", 1);
@@ -317,6 +318,7 @@ class PostModel extends Database
       if (empty($postId)) {
          $error = new Exception("Identificador do post inválido.", 1);
          array_push($this->errors, $error);
+         return null;
       }
       if (empty($title)) {
          $error = new Exception("Insira um título.", 1);
@@ -363,6 +365,7 @@ class PostModel extends Database
       if (empty($postId)) {
          $error = new Exception("Identificador do utilizador inválido.", 1);
          array_push($this->errors, $error);
+         return null;
       }
 
       $query1 = "

@@ -49,5 +49,54 @@ class AccountController
          ]
       );
    }
+
+   // editar utilizador e ir para a página do perfil
+   public function edit($params)
+   {
+      require_once("src/models/user-model.php");
+      $this->userModel = new UserModel();
+
+      // obter os dados do formulário
+      $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+      // verificar se o utilizador clicou no botão de novo post
+      if (!isset($data["isEdit"])) {
+         $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
+         header("location: /error");
+         die();
+      }
+
+      // obter utilizador logado
+      if (isset($_SESSION["id"])) {
+         $userLoggedId = $_SESSION["id"];
+      } else {
+         $userLoggedId = -1;
+      }
+
+      // editar perfil na base de dados
+      $userLoggedId = $params["id"];
+      $isUpdated = $this->userModel->updateData($data["email"], $data["firstName"], $data["lastName"], $data["city"], $data["country"], $userLoggedId);
+
+      // se houve erros na requisição
+      if (!isset($isUpdated) || count($this->userModel->errors) > 0) {
+         $messages = array();
+
+         // obter mensagens de erros
+         foreach ($this->userModel->errors as $error) {
+            array_push($messages, $error->getMessage());
+         }
+
+         // aceder aos erros na página de autenticação
+         $_SESSION["errors"] = $messages;
+         header("location: /error");
+         die();
+      }
+
+      require_once("src/utils/security-util.php");
+      $userId = protectOutputToHtml($userId);
+
+      // redirecionar para a página do perfil
+      header("location: /profile/" . $userLoggedId);
+   }
 }
 ?>
