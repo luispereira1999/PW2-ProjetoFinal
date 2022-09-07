@@ -51,8 +51,18 @@
       <?php require_once("components/about-component.php"); ?>
    </header>
 
-   <!-- PRINCIPAL: posts (informações, ações) -->
+   <!-- PRINCIPAL: pesquisa, posts (informações, ações) -->
    <main class="brief-posts">
+      <section class="search">
+         <form id="formSearchPosts" method="get" action="">
+            <input id="inputSearchText" class="search__text" type="text" name="title" placeholder="Título a Pesquisar ..." require>
+
+            <span id="submitForm" name="isSearch"><i class="search__icon fas fa-search" data-toggle="tooltip" data-placement="bottom" title="Pesquisar"></i></span>
+            <a href="/">
+               <span><i class="search__icon fas fa-backspace" data-toggle="tooltip" data-placement="bottom" title="Limpar Pesquisa"></i></span>
+            </a>
+         </form>
+      </section>
 
       <?php
       // contador auxiliar para saber quando já foram criados 3 posts
