@@ -12,19 +12,13 @@ $(document).ready(function () {
       $("#content__signup").show(500);
    });
 
-   // submeter formulário de pesquisa de posts
-   $("#submitForm").click(function () {
-      // obter URL amigável
+   // pesquisar posts
+   $("#linkSearchPosts").click(function () {
+      // obter URL
       let textSearched = $("#inputSearchText").val();
       let uri = "/search/" + textSearched;
-      let link = location.protocol + '//' + location.host + uri;
 
-      // submeter formulário
-      let form = $("#formSearchPosts");
-      form.prop("action", uri);
-      form.submit();
-
-      // alterar link
-      location.href = link;
+      // atualizar hyperlink
+      $(this).attr("href", uri);
    });
 });

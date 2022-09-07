@@ -51,7 +51,9 @@
       <main>
          <h1 class="content__title">404 ERROR</h1>
          <h3 class="content__subtitle">Page Not Found!</h3>
-         <p class="content__paragraph">Parece que algum dos developers anda a dormir!</p>
+         <?php foreach ($errors as $error) : ?>
+            <p class="content__paragraph">Erro: <?= $error ?></p>
+         <?php endforeach; ?>
       </main>
    </section>
 </body>

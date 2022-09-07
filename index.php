@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 } else {
    $route->add("/", array($briefPostController, "index"));
    $route->add("/post/{id}", array($fullPostController, "index"));
+   $route->add("/search/{title}", array($briefPostController, "search"));
    $route->add("/profile/{id}", array($profileController, "index"));
    $route->add("/auth", array($authController, "index"));
    $route->add("/auth/logout", array($authController, "logout"));
