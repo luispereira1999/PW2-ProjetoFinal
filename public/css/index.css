@@ -1,3 +1,38 @@
+/**** PESQUISA ****/
+
+.search {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.search__text {
+   width: 800px;
+   height: 40px;
+   margin: 40px 0;
+   padding: 0 20px;
+   border: 1px solid #d4d4d4;
+   border-radius: 4px;
+}
+
+.search__text:focus {
+   outline: none;
+   border: 1px solid #7d7d7d;
+}
+
+.search__icon {
+   color: #7d7d7d;
+   font-size: 15px;
+   margin-left: 20px;
+   cursor: pointer;
+}
+
+.search__icon:hover {
+   color: #D4D4D4;
+   font-size: 15px;
+}
+
+
 /**** GRID - TIPOS DE GRID PARA VISUALIZAR OS POSTS RESUMIDOS ****/
 
 .width-1 {
