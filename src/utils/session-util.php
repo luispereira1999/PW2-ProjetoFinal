@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: ficheiro com funções auxiliares relacionadas a sessões -->
-
 <?php
+// DEFINIÇÃO: ficheiro com funções auxiliares relacionadas a sessões
+
 function startOrContinueSession()
 {
    session_start();

@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: classe para renderizar as views e obter os dados de output para essas views -->
-
 <?php
+// DEFINIÇÃO: classe para renderizar as views e obter os dados de output para essas views
+
 class View
 {
    public function __construct($file, $data = [])

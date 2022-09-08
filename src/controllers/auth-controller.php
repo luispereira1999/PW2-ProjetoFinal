@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: controlador relativo a autenticação no site (login, signup, logout) -->
-
 <?php
+// DEFINIÇÃO: controlador relativo a autenticação no site (login, signup, logout)
+
 require_once("src/views/view.php");
 
 class AuthController

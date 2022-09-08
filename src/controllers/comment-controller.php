@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: controlador dos posts na página principal (posts resumidos) -->
-
 <?php
+// DEFINIÇÃO: controlador dos posts na página principal (posts resumidos)
+
 require_once("src/views/view.php");
 
 class CommentController

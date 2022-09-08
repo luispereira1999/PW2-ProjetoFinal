@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: classe para conexão à base de dados -->
-
 <?php
+// DEFINIÇÃO: classe para conexão à base de dados
+
 class Database
 {
    protected $connection;

@@ -1,4 +1,6 @@
 <?php
+// DEFINIÇÃO: classe para criar as rotas
+
 class Route
 {
    public function add($route, $action)

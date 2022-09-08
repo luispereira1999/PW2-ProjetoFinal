@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: modelo dos posts que aparecem na página principal, na página do perfil e na página individual do post  -->
-
 <?php
+// DEFINIÇÃO: modelo dos posts que aparecem na página principal, na página do perfil e na página individual do post
+
 require_once("src/configs/database-config.php");
 require_once("entities/post.php");
 

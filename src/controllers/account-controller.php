@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: controlador das definições da conta do utilizador na página de definições -->
-
 <?php
+// DEFINIÇÃO: controlador das definições da conta do utilizador na página de definições
+
 require_once("src/views/view.php");
 
 class AccountController

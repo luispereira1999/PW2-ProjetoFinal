@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: ponto de entrada do site (quaisquer requisições são encaminhadas para este ficheiro) -->
-
 <?php
+// DEFINIÇÃO: ponto de entrada do site (quaisquer requisições são encaminhadas para este ficheiro)
+
 require_once("src/configs/route-config.php");
 
 require_once("src/controllers/brief-post-controller.php");
@@ -42,6 +42,7 @@ $errorController = new ErrorController();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
    $route->add("/post/create", array($fullPostController, "create"));
    $route->add("/post/edit/{id}", array($briefPostController, "edit"));
+   $route->add("/post/vote/{id}", array($briefPostController, "vote"));
    $route->add("/post/delete/{id}", array($briefPostController, "delete"));
    $route->add("/comment/create", array($commentController, "create"));
    $route->add("/comment/edit/{id}", array($commentController, "edit"));

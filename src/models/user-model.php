@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: modelo de um utilizador -->
-
 <?php
+// DEFINIÇÃO: modelo de um utilizador
+
 require_once("src/configs/database-config.php");
 require_once("entities/user.php");
 

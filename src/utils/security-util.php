@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: ficheiro com funções auxiliares relacionadas a segurança -->
-
 <?php
+// DEFINIÇÃO: ficheiro com funções auxiliares relacionadas a segurança
+
 function protectOutputToHtml($data)
 {
    if (is_array($data)) {

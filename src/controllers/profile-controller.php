@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: controlador do perfil de um utilizador na página do perfil -->
-
 <?php
+// DEFINIÇÃO: controlador do perfil de um utilizador na página do perfil
+
 require_once("src/views/view.php");
 
 class ProfileController

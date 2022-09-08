@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: modelo dos comentários que aparecem na página individual do post -->
-
 <?php
+// DEFINIÇÃO: modelo dos comentários que aparecem na página individual do post
+
 require_once("src/configs/database-config.php");
 require_once("entities/comment.php");
 

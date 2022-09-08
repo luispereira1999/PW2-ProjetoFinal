@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: controlador dos posts na página individual do post -->
-
 <?php
+// DEFINIÇÃO: controlador dos posts na página individual do post
+
 require_once("src/views/view.php");
 
 class FullPostController

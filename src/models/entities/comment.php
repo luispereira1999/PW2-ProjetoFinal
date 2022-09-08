@@ -1,7 +1,7 @@
-<!-- DEFINIÇÃO: representação de um comentário
-(constituído por campos das tabelas "comments", "users" e "comments_votes" da base de dados) -->
-
 <?php
+// DEFINIÇÃO: representação de um comentário
+// (constituído por campos das tabelas "comments", "users" e "comments_votes" da base de dados)
+
 class Comment
 {
    public $comment_id;

@@ -1,7 +1,7 @@
-<!-- DEFINIÇÃO: representação de um post
-(constituído por campos das tabelas "posts", "users" e "posts_votes" da base de dados) -->
-
 <?php
+// DEFINIÇÃO: representação de um post
+// (constituído por campos das tabelas "posts", "users" e "posts_votes" da base de dados)
+
 class Post
 {
    public $post_id;

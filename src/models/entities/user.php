@@ -1,7 +1,7 @@
-<!-- DEFINIÇÃO: representação de um utilizador
-(constituído pelos campos da tabela "users" da base de dados) -->
-
 <?php
+// DEFINIÇÃO: representação de um utilizador
+// (constituído pelos campos da tabela "users" da base de dados)
+
 class User
 {
    public $id;

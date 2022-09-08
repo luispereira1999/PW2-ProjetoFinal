@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: controlador relativo à página de erros -->
-
 <?php
+// DEFINIÇÃO: controlador relativo à página de erros
+
 require_once("src/views/view.php");
 
 class ErrorController
