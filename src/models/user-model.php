@@ -255,5 +255,91 @@ class UserModel extends Database
          return null;
       }
    }
+
+   public function updatePassword($currentPassword, $newPassword, $confirmNewPassword, $userId)
+   {
+      // validar inputs
+      if (empty($userId)) {
+         $error = new Exception("Identificador do utilizador inválido.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($currentPassword)) {
+         $error = new Exception("Insira a palavra-passe atual.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($newPassword)) {
+         $error = new Exception("Insira a nova palavra-passe.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if (empty($confirmNewPassword)) {
+         $error = new Exception("Confirma a nova palavra-passe.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+      if ($newPassword != $confirmNewPassword) {
+         $error = new Exception("As novas palavras-passe não coincidem.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+
+      $query1 = "
+      SELECT password
+      FROM users
+      WHERE id = :userId";
+
+      // selecionar password atual do utilizador
+      try {
+         $result1 = $this->connection->prepare($query1);
+
+         $result1->bindParam(":userId", $userId, PDO::PARAM_INT);
+         $result1->execute();
+
+         // se o utilizador existir 
+         if ($result1->rowCount() > 0) {
+            // obter dados do utilizador
+            $row = $result1->fetch(PDO::FETCH_ASSOC);
+
+            $user = new User();
+            $user->password = $row["password"];
+
+            // encriptar a palavra-passe atual inserida,
+            // para verificar se corresponde à palavra-passe guardada na base de dados
+            $currentPassword = md5($currentPassword);
+            if ($currentPassword != $user->password) {
+               $error = new Exception("Palavra-passe atual está incorreta.", 1);
+               array_push($this->errors, $error);
+               return null;
+            }
+
+            // encriptar a nova palavra-passe para guarda-la na base de dados
+            $newPassword = md5($newPassword);
+
+            $query2 = "
+            UPDATE users
+            SET password = :newPassword
+            WHERE id = :userId";
+
+            // atualizar palavra-passe do utilizador na base de dados
+            $result2 = $this->connection->prepare($query2);
+
+            $result2->bindParam(":newPassword", $newPassword, PDO::PARAM_STR);
+            $result2->bindParam(":userId", $userId, PDO::PARAM_INT);
+            $result2->execute();
+
+            return true; // retorna o estado da operação
+         } else {
+            $error = new Exception("O nome de utilizador/email ou palavra-passe não coincidem.", 1);
+            array_push($this->errors, $error);
+            return null;
+         }
+      } catch (PDOException $exception) {
+         $error = new Exception("Erro ao comunicar com o servidor.", 1);
+         array_push($this->errors, $error);
+         return null;
+      }
+   }
 }
 ?>
