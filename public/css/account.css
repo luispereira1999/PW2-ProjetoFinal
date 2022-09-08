@@ -29,7 +29,6 @@
 
 .account__form {
    max-width: 70%;
-   padding: 30px;
    margin: 50px auto;
    margin-bottom: 0;
 }
@@ -41,63 +40,32 @@
 }
 
 .account__item {
-   display: block;
+   display: flex;
    margin-bottom: 15px;
-   padding: 8px;
    min-height: 35px;
+   gap: 15px;
 }
 
 .account__text,
 .account__email,
 .account__password {
    box-sizing: border-box;
+   display: flex;
    height: 35px;
    padding: 20px;
    border: 1px solid #d4d4d4;
    border-radius: 4px;
    outline: none;
-   /* -webkit-box-sizing: border-box; */
-   /* -moz-box-sizing: border-box; */
-   /* -webkit-transition: all 0.30s ease-in-out; */
-   /* -moz-transition: all 0.30s ease-in-out; */
-   /* -ms-transition: all 0.30s ease-in-out; */
-   /* -o-transition: all 0.30s ease-in-out; */
+   width: 100%;
 }
 
-.account__password-wrapper {
-   display: flex;
-   align-items: center;
-}
-
-.account__icon {
-   width: 35px;
-   height: 35px;
-   margin-bottom: .5rem;
-   margin-left: 20px;
-   cursor: pointer;
-}
-
-.account__actions {
-   margin-top: 20px;
-}
-
-.field-style:focus {
+.account__text:focus,
+.account__email:focus,
+.account__password:focus {
    box-shadow: 0 0 5px #B0CFE0;
    border: 1px solid #B0CFE0;
 }
 
-.field-split {
-   width: 49%;
-}
-
-.field-full {
-   width: 100%;
-}
-
-.align-left {
-   float: left;
-}
-
-.align-right {
-   float: right;
+.account__actions {
+   margin-top: 20px;
 }

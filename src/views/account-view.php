@@ -60,41 +60,44 @@
          </div>
       </section>
 
-      <form method="post" action="/account/edit/<?= $user->id; ?>" class="account__form">
-         <ul class="account__items">
-            <h4>Detalhes Básicos</h4>
-
-            <li class="account__item">
-               <input class="account__text field-style field-split align-left" type="text" name="firstName" placeholder="Primeiro Nome" value="<?= $user->first_name ?>">
-               <input class="account__text field-style field-split align-right" type="text" name="lastName" placeholder="Último Nome" value="<?= $user->last_name ?>">
-            </li>
-            <li class="account__item">
-               <input class="account__text field-style field-split align-left" type="text" name="city" placeholder="Cidade" value="<?= $user->city ?>">
-               <input class="account__text field-style field-split align-right" type="text" name="country" placeholder="País" value="<?= $user->country ?>">
-            </li>
-            <li class="account__item">
-               <input class="account__email field-style field-full align-none" type="email" name="email" placeholder="Email" value="<?= $user->email ?>" require>
-            </li>
-         </ul>
+      <form id="formEditData" class="account__form" method="post" action="/account/edit-data/<?= $user->id; ?>">
+         <h4>Dados Básicos</h4>
 
          <ul class="account__items">
-            <div class="account__password-wrapper">
-               <h4>Alterar Password</h4>
-               <!-- <input type="hidden" name="password" value="notUpdate" /> -->
-               <img class="account__icon" src="../public/assets/images/switch-off.png" id="checkUpdatePassword">
-            </div>
-
             <li class="account__item">
-               <input class="account__password field-style field-full align-left" type="password" name="currentPassword" placeholder="Senha Atual" require disabled>
+               <input class="account__text" type="text" name="firstName" placeholder="Primeiro Nome" value="<?= $user->first_name ?>">
+               <input class="account__text" type="text" name="lastName" placeholder="Último Nome" value="<?= $user->last_name ?>">
             </li>
             <li class="account__item">
-               <input class="account__password field-style field-split align-left" type="password" name="newPassword" placeholder="Nova Senha" require disabled>
-               <input class="account__password field-style field-split align-right" type="password" name="confirmNewPassword" placeholder="Confirmar Senha" require disabled>
+               <input class="account__text" type="text" name="city" placeholder="Cidade" value="<?= $user->city ?>">
+               <input class="account__text" type="text" name="country" placeholder="País" value="<?= $user->country ?>">
+            </li>
+            <li class="account__item">
+               <input class="account__email" type="email" name="email" placeholder="Email" value="<?= $user->email ?>" require>
             </li>
 
             <li class="account__actions">
-               <button class="button button-primary" name="isEdit">Atualizar</button>
-               <button class="button button-cancel">Cancelar</button>
+               <button class="button button-primary" type="submit" form="formEditData" name="isEditData">Atualizar</button>
+               <a href="/account"><button class="button button-cancel" type="button">Cancelar</button></a>
+            </li>
+         </ul>
+      </form>
+
+      <form id="formEditPassword" class="account__form" method="post" action="/account/edit-password/<?= $user->id; ?>">
+         <h4>Palavra-passe</h4>
+
+         <ul class="account__items">
+            <li class="account__item">
+               <input class="account__password" type="password" name="currentPassword" placeholder="Senha Atual" require>
+            </li>
+            <li class="account__item">
+               <input class="account__password" type="password" name="newPassword" placeholder="Nova Senha" require>
+               <input class="account__password" type="password" name="confirmNewPassword" placeholder="Confirmar Senha" require>
+            </li>
+
+            <li class="account__actions">
+               <button class="button button-primary" type="submit" form="formEditPassword" name="isEditPassword">Atualizar</button>
+               <a href="/account"><button class="button button-cancel" type="button">Cancelar</button></a>
             </li>
          </ul>
       </form>
