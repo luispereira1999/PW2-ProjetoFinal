@@ -28,17 +28,17 @@ class UserModel extends Database
          return null;
       }
       if (empty($password)) {
-         $error = new Exception("Insira uma senha.", 1);
+         $error = new Exception("Insira uma palavra-passe.", 1);
          array_push($this->errors, $error);
          return null;
       }
       if (empty($confirmPassword)) {
-         $error = new Exception("Confirma a sua senha.", 1);
+         $error = new Exception("Confirma a sua palavra-passe.", 1);
          array_push($this->errors, $error);
          return null;
       }
       if ($password != $confirmPassword) {
-         $error = new Exception("As senhas não correspondem.", 1);
+         $error = new Exception("As palavras-passe não correspondem.", 1);
          array_push($this->errors, $error);
          return null;
       }
@@ -84,7 +84,7 @@ class UserModel extends Database
          return null;
       }
 
-      // encriptar senha
+      // encriptar palavra-passe
       $password = md5($password);
 
       $query = "
@@ -118,12 +118,12 @@ class UserModel extends Database
          return null;
       }
       if (empty($password)) {
-         $error = new Exception("Insira uma senha.", 1);
+         $error = new Exception("Insira uma palavra-passe.", 1);
          array_push($this->errors, $error);
          return null;
       }
 
-      // encriptar senha
+      // encriptar palavra-passe
       $password = md5($password);
 
       $query = "
@@ -155,7 +155,7 @@ class UserModel extends Database
 
             return $user; // retorna o utilizador logado
          } else {
-            $error = new Exception("O nome de utilizador/email ou senha não coincidem.", 1);
+            $error = new Exception("O nome de utilizador/email ou palavra-passe não coincidem.", 1);
             array_push($this->errors, $error);
             return null;
          }
@@ -206,7 +206,7 @@ class UserModel extends Database
 
             return $user; // retorna o utilizador logado
          } else {
-            $error = new Exception("O nome de utilizador/email ou senha não coincidem.", 1);
+            $error = new Exception("O nome de utilizador/email ou palavra-passe não coincidem.", 1);
             array_push($this->errors, $error);
             return null;
          }

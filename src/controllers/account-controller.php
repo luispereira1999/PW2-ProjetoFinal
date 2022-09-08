@@ -50,8 +50,8 @@ class AccountController
       );
    }
 
-   // editar utilizador e ir para a página do perfil
-   public function edit($params)
+   // editar dados do utilizador e ir para a página do perfil
+   public function editData($params)
    {
       require_once("src/models/user-model.php");
       $this->userModel = new UserModel();
@@ -60,20 +60,13 @@ class AccountController
       $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
       // verificar se o utilizador clicou no botão de novo post
-      if (!isset($data["isEdit"])) {
+      if (!isset($data["isEditData"])) {
          $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
          header("location: /error");
          die();
       }
 
-      // obter utilizador logado
-      if (isset($_SESSION["id"])) {
-         $userLoggedId = $_SESSION["id"];
-      } else {
-         $userLoggedId = -1;
-      }
-
-      // editar perfil na base de dados
+      // editar utilizador na base de dados
       $userLoggedId = $params["id"];
       $isUpdated = $this->userModel->updateData($data["email"], $data["firstName"], $data["lastName"], $data["city"], $data["country"], $userLoggedId);
 
@@ -93,7 +86,7 @@ class AccountController
       }
 
       require_once("src/utils/security-util.php");
-      $userId = protectOutputToHtml($userId);
+      $userLoggedId = protectOutputToHtml($userLoggedId);
 
       // redirecionar para a página do perfil
       header("location: /profile/" . $userLoggedId);

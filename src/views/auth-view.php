@@ -69,7 +69,7 @@ if (!empty($_SESSION["errors"])) {
       <div class="content__form-wrapper" id="content__login">
          <form method="post" action="/auth/login">
             <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador ou Email" require>
-            <input class="content__password" type="password" name="password" placeholder="Senha" require>
+            <input class="content__password" type="password" name="password" placeholder="Palavra-passe" require>
 
             <div class="row">
                <div class="col-8">
@@ -88,8 +88,8 @@ if (!empty($_SESSION["errors"])) {
          <form method="post" action="/auth/signup">
             <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador" require>
             <input class="content__email" type="email" name="email" placeholder="Email" require>
-            <input class="content__password" type="password" name="password" placeholder="Senha" require>
-            <input class="content__password" type="password" name="confirmPassword" placeholder="Confirmar Senha" require>
+            <input class="content__password" type="password" name="password" placeholder="Palavra-passe" require>
+            <input class="content__password" type="password" name="confirmPassword" placeholder="Confirmar Palavra-passe" require>
 
             <a class="content__link" data-toggle="tooltip" data-placement="bottom" title="Os restantes dados poderá preencher na área de utilizador!"><i class="fas fa-info-circle content__icon"></i></a>
             <button class="button button-primary" name="isSignup">Registar</button>
