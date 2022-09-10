@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   CONSTRAINT `fk_user_id_c` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
--- A despejar dados para tabela kll.comments: ~11 rows (aproximadamente)
+-- A despejar dados para tabela kll.comments: ~10 rows (aproximadamente)
 REPLACE INTO `comments` (`id`, `description`, `votes_amount`, `user_id`, `post_id`) VALUES
 	(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante libero, tristique at est et, sodales vulputate lectus. Curabitur eget bibendum ipsum. Nulla tincidunt dignissim est eget dapibus. ', 0, 3, 1),
 	(2, 'Etiam convallis luctus neque eget egestas. Maecenas condimentum consectetur lorem et scelerisque. Nam pellentesque tincidunt malesuada. Nam in dolor id est viverra efficitur eget ac nisl. Nunc scelerisque malesuada ligula nec hendrerit. Phasellus elementum leo finibus risus consequat fringilla.', 0, 7, 1),
@@ -45,6 +45,21 @@ REPLACE INTO `comments` (`id`, `description`, `votes_amount`, `user_id`, `post_i
 	(8, 'Morbi porttitor accumsan justo, a fermentum justo fermentum consectetur. Integer hendrerit ultrices eros tincidunt consequat. Curabitur iaculis, augue quis porttitor blandit, sapien enim mattis ante, in ultricies lorem nunc et nulla.\r\n\r\nMorbi vestibulum turpis in semper tempus. In a nisi quis lorem elementum viverra. Pellentesque eu ex sit amet nisl vulputate dapibus ac eget enim. Integer quis odio lobortis, ornare felis eu, finibus enim.', 0, 8, 3),
 	(9, 'Phasellus posuere est sit amet nisi rhoncus consectetur at commodo eros. Nunc lacinia lorem dui, sed efficitur quam efficitur vitae. Aenean porttitor enim sit amet dignissim imperdiet. Morbi tempus nunc eu odio pellentesque pellentesque. Duis condimentum sit amet felis ut faucibus.', 0, 6, 8),
 	(10, 'Nam consequat, augue vel tincidunt rhoncus, sapien erat gravida lacus, sit amet porttitor nunc risus ut leo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum a enim et augue semper tincidunt. Aliquam porttitor eros justo, ac pharetra tortor iaculis ut. Phasellus eget lobortis nisl, non pellentesque lacus. ', 0, 2, 5);
+
+-- A despejar estrutura para tabela kll.comments_votes
+CREATE TABLE IF NOT EXISTS `comments_votes` (
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `vote_type_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`comment_id`,`user_id`),
+  KEY `fk_user_id` (`user_id`),
+  KEY `vote_type_id` (`vote_type_id`),
+  CONSTRAINT `comments_votes_ibfk_1` FOREIGN KEY (`vote_type_id`) REFERENCES `vote_types` (`id`),
+  CONSTRAINT `fk_comment_id` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- A despejar dados para tabela kll.comments_votes: ~0 rows (aproximadamente)
 
 -- A despejar estrutura para tabela kll.posts
 CREATE TABLE IF NOT EXISTS `posts` (
@@ -73,6 +88,21 @@ REPLACE INTO `posts` (`id`, `title`, `description`, `date`, `votes_amount`, `com
 	(9, 'Satélite da ESA que estuda alterações climáticas ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, vestibulum dui vitae, fringilla justo. Praesent mattis urna lobortis, consectetur ligula sed, rhoncus purus. Curabitur mattis congue risus sed dictum.\r\n\r\nPhasellus maximus consequat sem eu elementum. Sed non mollis libero. Morbi sed nunc mauris. Curabitur porttitor ante non ipsum aliquam tempus. Nulla placerat ultrices eros sed pharetra. Integer tellus purus, porttitor eu mollis vel, volutpat sit amet augue. Aliquam erat volutpat. Pellentesque a volutpat dui, luctus semper magna. Sed ut orci a ipsum finibus porta et in urna. Phasellus in eros scelerisque, maximus augue eget, finibus magna. Proin sollicitudin id est sed bibendum. Quisque ornare rhoncus ex, scelerisque dapibus felis. Praesent ut tincidunt lectus. Suspendisse sodales eleifend pharetra. Etiam urna quam, efficitur ut dictum eget, mattis pulvinar sapien. Donec metus sem, dictum eget arcu quis, interdum semper velit.', '2020-06-22 04:09:27', 0, 0, 10),
 	(10, 'A foca mais rara à face da Terra', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, vestibulum dui vitae, fringilla justo. Praesent mattis urna lobortis, consectetur ligula sed, rhoncus purus. Curabitur mattis congue risus sed dictum.\r\n\r\nPhasellus maximus consequat sem eu elementum. Sed non mollis libero. Morbi sed nunc mauris. Curabitur porttitor ante non ipsum aliquam tempus. Nulla placerat ultrices eros sed pharetra. Integer tellus purus, porttitor eu mollis vel, volutpat sit amet augue. Aliquam erat volutpat. Pellentesque a volutpat dui, luctus semper magna. Sed ut orci a ipsum finibus porta et in urna. Phasellus in eros scelerisque, maximus augue eget, finibus magna. Proin sollicitudin id est sed bibendum. Quisque ornare rhoncus ex, scelerisque dapibus felis. Praesent ut tincidunt lectus. Suspendisse sodales eleifend pharetra. Etiam urna quam, efficitur ut dictum eget, mattis pulvinar sapien. Donec metus sem, dictum eget arcu quis, interdum semper velit.', '2020-06-23 17:06:23', 0, 0, 2);
 
+-- A despejar estrutura para tabela kll.posts_votes
+CREATE TABLE IF NOT EXISTS `posts_votes` (
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `vote_type_id` int(11) NOT NULL,
+  PRIMARY KEY (`post_id`,`user_id`),
+  KEY `fk_user_id_v` (`user_id`),
+  KEY `vote_type_id` (`vote_type_id`),
+  CONSTRAINT `fk_post_id_v` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_user_id_v` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `posts_votes_ibfk_1` FOREIGN KEY (`vote_type_id`) REFERENCES `vote_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- A despejar dados para tabela kll.posts_votes: ~0 rows (aproximadamente)
+
 -- A despejar estrutura para tabela kll.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -99,31 +129,17 @@ REPLACE INTO `users` (`id`, `name`, `password`, `email`, `first_name`, `last_nam
 	(9, 'Luisinho', '81dc9bdb52d04dc20036dbd8313ed055', 'luis.pereira@kll.com', 'Luís', 'Pereira', 'Vila Nova de Famalicão', 'Portugal'),
 	(10, 'Larinha', '81dc9bdb52d04dc20036dbd8313ed055', 'lara.ribeiro@kll.com', 'Lara', 'Ribeiro', 'Barcelos', 'Portugal');
 
--- A despejar estrutura para tabela kll.posts_votes
-CREATE TABLE IF NOT EXISTS `posts_votes` (
-  `post_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `vote_type_id` int(11) NOT NULL,
-  PRIMARY KEY (`post_id`,`user_id`),
-  KEY `fk_user_id_v` (`user_id`),
-  CONSTRAINT `fk_post_id_v` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_user_id_v` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- A despejar estrutura para tabela kll.vote_types
+CREATE TABLE IF NOT EXISTS `vote_types` (
+  `id` int(11) NOT NULL DEFAULT 0,
+  `title` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- A despejar dados para tabela kll.posts_votes: ~0 rows (aproximadamente)
-
--- A despejar estrutura para tabela kll.comments_votes
-CREATE TABLE IF NOT EXISTS `comments_votes` (
-  `comment_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `vote_type_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`comment_id`,`user_id`),
-  KEY `fk_user_id` (`user_id`),
-  CONSTRAINT `fk_comment_id` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- A despejar dados para tabela kll.comments_votes: ~0 rows (aproximadamente)
+-- A despejar dados para tabela kll.vote_types: ~2 rows (aproximadamente)
+REPLACE INTO `vote_types` (`id`, `title`) VALUES
+	(1, 'up'),
+	(2, 'down');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
