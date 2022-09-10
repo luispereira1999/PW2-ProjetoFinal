@@ -1,6 +1,6 @@
-<!-- DEFINIÇÃO: controlador dos posts na página principal (posts resumidos) -->
-
 <?php
+// DEFINIÇÃO: controlador dos posts na página principal (posts resumidos)
+
 require_once("src/views/view.php");
 
 class BriefPostController
@@ -135,7 +135,7 @@ class BriefPostController
 
       // editar post na base de dados
       $postId = $params["id"];
-      $isUpdated = $this->postModel->update($postId, $data["title"], $data["description"], $userLoggedId);
+      $isUpdated = $this->postModel->updateData($postId, $data["title"], $data["description"], $userLoggedId);
 
       // se houve erros na requisição
       if (!isset($isUpdated) || count($this->postModel->errors) > 0) {
@@ -157,6 +157,19 @@ class BriefPostController
 
       // redirecionar para a página do post
       header("location: /post/" . $postId);
+   }
+
+   // votar num post e ir para a página do post
+   public function vote($params)
+   {
+      // converter JSON do cliente para PHP
+      $json = file_get_contents('php://input');
+
+      // obter dados do cliente
+      $data = json_decode($json, true);
+
+      echo $json;
+      die();
    }
 
    // apagar post, registos associados e ir para a página principal
@@ -205,4 +218,3 @@ class BriefPostController
       header("location: /");
    }
 }
-?>

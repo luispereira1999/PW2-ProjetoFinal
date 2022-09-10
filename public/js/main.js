@@ -12,6 +12,15 @@ $(document).ready(function () {
       $("#content__signup").show(500);
    });
 
+   // votar num post - upvote
+   $("[data-vote='upvote']").click(function () {
+      let currentElement = $(this);
+      let voteTypeId = 1;
+      let postId = $(this).parent().parent().parent().attr("data-post");
+
+      votePost(currentElement, voteTypeId, postId);
+   });
+
    // pesquisar posts
    $("#linkSearchPosts").click(function () {
       // obter URL
