@@ -82,7 +82,7 @@ class CommentController
       // editar comentário na base de dados
       $commentId = $params["id"];
       $postId = $data["postId"];
-      $isUpdated = $this->commentModel->update($commentId, $data["description"], $userLoggedId);
+      $isUpdated = $this->commentModel->updateData($commentId, $data["description"], $userLoggedId);
 
       // se houve erros na requisição
       if (!isset($isUpdated) || count($this->commentModel->errors) > 0) {
@@ -104,6 +104,53 @@ class CommentController
 
       // redirecionar para a página do post
       header("location: /post/" . $postId);
+   }
+
+   // votar num comentário e manter o utilizador nessa página
+   public function vote($params)
+   {
+      require_once("src/models/comment-model.php");
+      $this->commentModel = new CommentModel();
+
+      // converter JSON que vem do cliente para PHP
+      $json = file_get_contents('php://input');
+
+      // obter dados do cliente
+      $data = json_decode($json, true);
+
+      // obter utilizador logado
+      if (isset($_SESSION["id"])) {
+         $userLoggedId = $_SESSION["id"];
+      } else {
+         $userLoggedId = -1;
+      }
+
+      // editar comentário na base de dados
+      $commentId = $params["id"];
+      $isUpdated = $this->commentModel->updateVote($commentId, $data["voteTypeId"], $userLoggedId);
+      $votesAmount = $this->commentModel->getVotesAmount($commentId);
+
+      // se houve erros na requisição
+      if (!isset($isUpdated) || !isset($votesAmount) || count($this->commentModel->errors) > 0) {
+         $messages = array();
+
+         // obter mensagens de erros
+         foreach ($this->commentModel->errors as $error) {
+            array_push($messages, $error->getMessage());
+         }
+
+         // aceder aos erros na página
+         echo json_encode($messages);
+         die(header("HTTP/1.0 500"));
+      }
+
+      // proteger dados de saída
+      require_once("src/utils/security-util.php");
+      $votesAmount = protectOutputToHtml($votesAmount);
+
+      // retornar JSON ao cliente
+      $returnJon = array("votesAmount" => $votesAmount);
+      echo json_encode($returnJon);
    }
 
    // apagar comentário, registos associados e ir para a página principal
@@ -156,4 +203,3 @@ class CommentController
       header("location: /post/" . $postId);
    }
 }
-?>

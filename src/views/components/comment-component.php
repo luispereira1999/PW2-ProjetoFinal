@@ -5,9 +5,17 @@
       <!-- votos do comentário -->
       <div>
          <div class="comment__votes">
-            <span class="comment__vote" data-vote="upvote"><i class="fas fa-heart interactionsBarIcons comment__icon" <?php if ($comments[$current]->vote_user_id == $userLoggedId && $comments[$current]->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote"></i></span>
+            <span class="comment__vote" data-vote="upvote">
+               <i data-markedvote="<?php if ($comments[$current]->vote_user_id == $userLoggedId && $comments[$current]->vote_type_id == 1) : echo "marked";
+                                    else : echo "none";
+                                    endif; ?>" data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="fas fa-heart comment__icon"></i>
+            </span>
             <label class="comment__votes-amount" data-toggle="tooltip" data-placement="bottom" title="Número de Comentários"><?= $comments[$current]->votes_amount ?></label>
-            <span class="comment__vote" data-vote="downvote"><i class="fas fa-heart interactionsBarIcons comment__icon" <?php if ($comments[$current]->vote_user_id == $userLoggedId && $comments[$current]->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote"></i></span>
+            <span class="comment__vote" data-vote="downvote">
+               <i data-markedvote="<?php if ($comments[$current]->vote_user_id == $userLoggedId && $comments[$current]->vote_type_id == 2) : echo "marked";
+                                    else : echo "none";
+                                    endif; ?>" class="fas fa-heart comment__icon" data-toggle="tooltip" data-placement="bottom" title="Down Vote"></i>
+            </span>
          </div>
       </div>
 

@@ -13,7 +13,7 @@ $(document).ready(function () {
    });
 
    // votar num post - up vote
-   $("[data-vote='upvote']").click(function () {
+   $(".brief-posts [data-vote='upvote']").click(function () {
       let currentElement = $(this);
       let downElement = $(this).parent().children("[data-vote='downvote']");
       let voteTypeId = 1;
@@ -23,13 +23,33 @@ $(document).ready(function () {
    });
 
    // votar num post - down vote
-   $("[data-vote='downvote']").click(function () {
+   $(".brief-posts [data-vote='downvote']").click(function () {
       let currentElement = $(this);
       let upElement = $(this).parent().children("[data-vote='upvote']");
       let voteTypeId = 2;
       let postId = $(this).parent().parent().parent().attr("data-post");
 
       votePost(currentElement, upElement, voteTypeId, postId);
+   });
+
+   // votar num comentário - up vote
+   $(".comments [data-vote='upvote']").click(function () {
+      let currentElement = $(this);
+      let downElement = $(this).parent().children("[data-vote='downvote']");
+      let voteTypeId = 1;
+      let commentId = $(this).parent().parent().parent().parent().attr("data-comment");
+
+      voteComment(currentElement, downElement, voteTypeId, commentId);
+   });
+
+   // votar num comentário - down vote
+   $(".comments [data-vote='downvote']").click(function () {
+      let currentElement = $(this);
+      let upElement = $(this).parent().children("[data-vote='upvote']");
+      let voteTypeId = 2;
+      let commentId = $(this).parent().parent().parent().parent().attr("data-comment");
+
+      voteComment(currentElement, upElement, voteTypeId, commentId);
    });
 
    // pesquisar posts
