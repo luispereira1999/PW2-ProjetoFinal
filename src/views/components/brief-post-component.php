@@ -30,9 +30,17 @@
    <div class="brief-posts__interactions">
       <!-- votos do post -->
       <div class="brief-posts__votes">
-         <span class="brief-posts__vote" data-vote="upvote"><i <?php if ($posts[$current]->vote_user_id == $userLoggedId && $posts[$current]->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="brief-posts__interactions__icon fas fa-heart"></i></span>
+         <span class="brief-posts__vote" data-vote="upvote">
+            <i data-markedvote="<?php if ($posts[$current]->vote_user_id == $userLoggedId && $posts[$current]->vote_type_id == 1) : echo "marked";
+                                 else : echo "none";
+                                 endif; ?>" data-toggle=" tooltip" data-placement="bottom" title="Up Vote" class="brief-posts__interactions__icon fas fa-heart"></i>
+         </span>
          <label class="brief-posts__votes-amount"><?= $posts[$current]->votes_amount; ?></label>
-         <span class="brief-posts__vote" data-vote="downvote"><i <?php if ($posts[$current]->vote_user_id == $userLoggedId && $posts[$current]->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="brief-posts__interactions__icon fas fa-heart-broken"></i></span>
+         <span class="brief-posts__vote" data-vote="downvote">
+            <i data-markedvote="<?php if ($posts[$current]->vote_user_id == $userLoggedId && $posts[$current]->vote_type_id == 2) : echo "marked";
+                                 else : echo "none";
+                                 endif; ?>" data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="brief-posts__interactions__icon fas fa-heart-broken"></i>
+         </span>
       </div>
 
       <span class="brief-posts__votes-amount__tooltip" data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment brief-posts__interactions__icon"></i></span>

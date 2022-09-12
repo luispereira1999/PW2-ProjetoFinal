@@ -1,4 +1,4 @@
-function votePost(currentElement, voteTypeId, postId) {
+function votePost(currentElement, oppositeElement, voteTypeId, postId) {
    // dados que vão para o servidor (corpo da requisição)
    let body = {
       "voteTypeId": voteTypeId
@@ -21,9 +21,28 @@ function votePost(currentElement, voteTypeId, postId) {
    ajaxRequest.done(function (response) {
       // converter JSON que veio do servidor para JS
       clientJs = JSON.parse(response);
+
+      // atualizar cor dos ícones de up e down vote
+      let currentIsActive = currentElement.children(".brief-posts__interactions__icon").attr("data-markedvote") == "marked";
+      let oppositeIsActive = oppositeElement.children(".brief-posts__interactions__icon").attr("data-markedvote") == "marked";
+
+      if (currentIsActive) {
+         currentElement.children(".brief-posts__interactions__icon").attr("data-markedvote", "none"); // desativa atual
+      }
+      else {
+         currentElement.children(".brief-posts__interactions__icon").attr("data-markedvote", "marked"); // ativa atual
+
+         if (oppositeIsActive) {
+            oppositeElement.children(".brief-posts__interactions__icon").attr("data-markedvote", "none"); // desativa oposto
+         }
+      }
+
+      // atualizar número de votos do post na página
+      currentElement.parent().children(".brief-posts__votes-amount").text(clientJs.votesAmount);
    });
 
    // executar esta função quando existe algum erro ao fazer o pedido
    ajaxRequest.fail(function (error) {
+      // showErrorAlert("Erro ao comunicar com o servidor.");
    });
 }

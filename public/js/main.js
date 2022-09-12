@@ -12,13 +12,24 @@ $(document).ready(function () {
       $("#content__signup").show(500);
    });
 
-   // votar num post - upvote
+   // votar num post - up vote
    $("[data-vote='upvote']").click(function () {
       let currentElement = $(this);
+      let downElement = $(this).parent().children("[data-vote='downvote']");
       let voteTypeId = 1;
       let postId = $(this).parent().parent().parent().attr("data-post");
 
-      votePost(currentElement, voteTypeId, postId);
+      votePost(currentElement, downElement, voteTypeId, postId);
+   });
+
+   // votar num post - down vote
+   $("[data-vote='downvote']").click(function () {
+      let currentElement = $(this);
+      let upElement = $(this).parent().children("[data-vote='upvote']");
+      let voteTypeId = 2;
+      let postId = $(this).parent().parent().parent().attr("data-post");
+
+      votePost(currentElement, upElement, voteTypeId, postId);
    });
 
    // pesquisar posts
