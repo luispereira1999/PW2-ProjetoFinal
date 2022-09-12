@@ -159,17 +159,51 @@ class BriefPostController
       header("location: /post/" . $postId);
    }
 
-   // votar num post e ir para a página do post
+   // votar num post e manter o utilizador nessa página
    public function vote($params)
    {
-      // converter JSON do cliente para PHP
+      require_once("src/models/post-model.php");
+      $this->postModel = new PostModel();
+
+      // converter JSON que vem do cliente para PHP
       $json = file_get_contents('php://input');
 
       // obter dados do cliente
       $data = json_decode($json, true);
 
-      echo $json;
-      die();
+      // obter utilizador logado
+      if (isset($_SESSION["id"])) {
+         $userLoggedId = $_SESSION["id"];
+      } else {
+         $userLoggedId = -1;
+      }
+
+      // editar post na base de dados
+      $postId = $params["id"];
+      $isUpdated = $this->postModel->updateVote($postId, $data["voteTypeId"], $userLoggedId);
+      $votesAmount = $this->postModel->getVotesAmount($postId);
+
+      // se houve erros na requisição
+      if (!isset($isUpdated) || !isset($votesAmount) || count($this->postModel->errors) > 0) {
+         $messages = array();
+
+         // obter mensagens de erros
+         foreach ($this->postModel->errors as $error) {
+            array_push($messages, $error->getMessage());
+         }
+
+         // aceder aos erros na página
+         echo json_encode($messages);
+         die(header("HTTP/1.0 500"));
+      }
+
+      // proteger dados de saída
+      require_once("src/utils/security-util.php");
+      $votesAmount = protectOutputToHtml($votesAmount);
+
+      // retornar JSON ao cliente
+      $returnJon = array("votesAmount" => $votesAmount);
+      echo json_encode($returnJon);
    }
 
    // apagar post, registos associados e ir para a página principal
