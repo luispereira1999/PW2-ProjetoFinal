@@ -1,17 +1,20 @@
 <?php
-// DEFINIÇÃO: controlador dos posts na página principal (posts resumidos)
+// DEFINIÇÃO: controlador dos posts na página individual do post
 
 require_once("src/views/view.php");
 
-class BriefPostController
+class PostController
 {
    private $postModel;
+   private $commentModel;
 
-   // obter os posts e ir para a página inicial
-   public function index()
+   // obter o post, os comentários associados e ir para a página do post
+   public function index($params)
    {
       require_once("src/models/post-model.php");
+      require_once("src/models/comment-model.php");
       $this->postModel = new PostModel();
+      $this->commentModel = new CommentModel();
 
       // obter utilizador logado
       if (isset($_SESSION["id"])) {
@@ -20,26 +23,35 @@ class BriefPostController
          $userLoggedId = -1;
       }
 
-      // obter posts para mostrar na página principal
-      $posts = $this->postModel->getAll($userLoggedId);
+      // obter post e comentários desse post
+      $id = $params["id"];
+      $post = $this->postModel->getById($id, $userLoggedId);
+      $comments = $this->commentModel->getAll($id, $userLoggedId);
 
+      // proteger dados
       require_once("src/utils/security-util.php");
+      $post = protectOutputToHtml($post);
       $userLoggedId = protectOutputToHtml($userLoggedId);
 
-      $postsCleaned = array();
-      foreach ($posts as $post) {
-         $post = protectOutputToHtml($post);
-         array_push($postsCleaned, $post);
+      if (isset($comments)) {
+         $commentsCleaned = array();
+         foreach ($comments as $comment) {
+            $comment = protectOutputToHtml($comment);
+            array_push($commentsCleaned, $comment);
+         }
+
+         $comments = $commentsCleaned; // obter os comentários protegidos para a variável original
       }
 
-      $posts = $postsCleaned; // obter os posts protegidos para a variável original
-
       // se houve erros na requisição
-      if (!isset($posts) || count($this->postModel->errors) > 0) {
+      if (!isset($post) || count($this->postModel->errors) > 0 || count($this->commentModel->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros
          foreach ($this->postModel->errors as $error) {
+            array_push($messages, $error->getMessage());
+         }
+         foreach ($this->commentModel->errors as $error) {
             array_push($messages, $error->getMessage());
          }
 
@@ -50,19 +62,30 @@ class BriefPostController
       }
 
       new View(
-         "src/views/index-view.php",
+         "src/views/post-view.php",
          [
-            "posts" => $posts,
+            "post" => $post,
+            "comments" => $comments,
             "userLoggedId" => $userLoggedId
          ]
       );
    }
 
-   // obter os posts com filtro e ir para a página inicial
-   public function search($params)
+   // criar post e ir para a página do post
+   public function create()
    {
       require_once("src/models/post-model.php");
       $this->postModel = new PostModel();
+
+      // obter os dados do formulário
+      $data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+      // verificar se o utilizador clicou no botão de novo post
+      if (!isset($data["isCreate"])) {
+         $_SESSION["errors"] =  ["Não é possível efetuar esta operação."];
+         header("location: /error");
+         die();
+      }
 
       // obter utilizador logado
       if (isset($_SESSION["id"])) {
@@ -71,23 +94,11 @@ class BriefPostController
          $userLoggedId = -1;
       }
 
-      // obter posts com filtro na página principal
-      $title = $params["title"];
-      $posts = $this->postModel->getByTitle($title, $userLoggedId);
-
-      require_once("src/utils/security-util.php");
-      $userLoggedId = protectOutputToHtml($userLoggedId);
-
-      $postsCleaned = array();
-      foreach ($posts as $post) {
-         $post = protectOutputToHtml($post);
-         array_push($postsCleaned, $post);
-      }
-
-      $posts = $postsCleaned; // obter os posts protegidos para a variável original
+      // registar utilizador na base de dados
+      $postId = $this->postModel->insert($data["title"], $data["description"], $userLoggedId);
 
       // se houve erros na requisição
-      if (!isset($posts) || count($this->postModel->errors) > 0) {
+      if (!isset($postId) || count($this->postModel->errors) > 0) {
          $messages = array();
 
          // obter mensagens de erros
@@ -101,13 +112,11 @@ class BriefPostController
          die();
       }
 
-      new View(
-         "src/views/index-view.php",
-         [
-            "posts" => $posts,
-            "userLoggedId" => $userLoggedId
-         ]
-      );
+      require_once("src/utils/security-util.php");
+      $postId = protectOutputToHtml($postId);
+
+      // redirecionar para a página do post
+      header("location: /post/" . $postId);
    }
 
    // editar post e ir para a página do post

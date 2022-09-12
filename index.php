@@ -3,8 +3,8 @@
 
 require_once("src/configs/route-config.php");
 
-require_once("src/controllers/brief-post-controller.php");
-require_once("src/controllers/full-post-controller.php");
+require_once("src/controllers/index-controller.php");
+require_once("src/controllers/post-controller.php");
 require_once("src/controllers/comment-controller.php");
 require_once("src/controllers/profile-controller.php");
 require_once("src/controllers/auth-controller.php");
@@ -30,8 +30,8 @@ if (isset($_COOKIE["id"]) && !isset($_SESSION["id"])) {
 }
 
 $route = new Route();
-$briefPostController = new BriefPostController();
-$fullPostController = new FullPostController();
+$indexController = new IndexController();
+$postController = new PostController();
 $commentController = new CommentController();
 $profileController = new ProfileController();
 $authController = new AuthController();
@@ -40,10 +40,10 @@ $errorController = new ErrorController();
 
 // rotas
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-   $route->add("/post/create", array($fullPostController, "create"));
-   $route->add("/post/edit/{id}", array($briefPostController, "edit"));
-   $route->add("/post/vote/{id}", array($briefPostController, "vote"));
-   $route->add("/post/delete/{id}", array($briefPostController, "delete"));
+   $route->add("/post/create", array($postController, "create"));
+   $route->add("/post/edit/{id}", array($postController, "edit"));
+   $route->add("/post/vote/{id}", array($postController, "vote"));
+   $route->add("/post/delete/{id}", array($postController, "delete"));
    $route->add("/comment/create", array($commentController, "create"));
    $route->add("/comment/edit/{id}", array($commentController, "edit"));
    $route->add("/comment/delete/{id}", array($commentController, "delete"));
@@ -52,9 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
    $route->add("/account/edit-data/{id}", array($accountController, "editData"));
    $route->add("/account/edit-password/{id}", array($accountController, "editPassword"));
 } else {
-   $route->add("/", array($briefPostController, "index"));
-   $route->add("/search/{title}", array($briefPostController, "search"));
-   $route->add("/post/{id}", array($fullPostController, "index"));
+   $route->add("/", array($indexController, "index"));
+   $route->add("/search/{title}", array($indexController, "search"));
+   $route->add("/post/{id}", array($postController, "index"));
    $route->add("/profile/{id}", array($profileController, "index"));
    $route->add("/auth", array($authController, "index"));
    $route->add("/auth/logout", array($authController, "logout"));
