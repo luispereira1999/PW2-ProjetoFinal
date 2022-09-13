@@ -1,4 +1,4 @@
-function votePost(currentElement, oppositeElement, voteTypeId, postId) {
+function votePost(elements, voteTypeId, postId) {
    // dados que vão para o servidor (corpo da requisição)
    let body = {
       "voteTypeId": voteTypeId
@@ -23,22 +23,22 @@ function votePost(currentElement, oppositeElement, voteTypeId, postId) {
       clientJs = JSON.parse(response);
 
       // atualizar cor dos ícones de up e down vote
-      let currentIsActive = currentElement.children(".brief-posts__interactions__icon").attr("data-markedvote") == "marked";
-      let oppositeIsActive = oppositeElement.children(".brief-posts__interactions__icon").attr("data-markedvote") == "marked";
+      let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";
+      let oppositeIsActive = elements.oppositeVoteIcon.attr("data-markedvote") == "marked";
 
       if (currentIsActive) {
-         currentElement.children(".brief-posts__interactions__icon").attr("data-markedvote", "none"); // desativa atual
+         elements.currentVoteIcon.attr("data-markedvote", "none"); // desativa atual
       }
       else {
-         currentElement.children(".brief-posts__interactions__icon").attr("data-markedvote", "marked"); // ativa atual
+         elements.currentVoteIcon.attr("data-markedvote", "marked"); // ativa atual
 
          if (oppositeIsActive) {
-            oppositeElement.children(".brief-posts__interactions__icon").attr("data-markedvote", "none"); // desativa oposto
+            elements.oppositeVoteIcon.attr("data-markedvote", "none"); // desativa oposto
          }
       }
 
       // atualizar número de votos do post na página
-      currentElement.parent().children(".brief-posts__votes-amount").text(clientJs.votesAmount);
+      elements.votesAmount.text(clientJs.votesAmount);
    });
 
    // executar esta função quando existe algum erro ao fazer o pedido
@@ -47,7 +47,7 @@ function votePost(currentElement, oppositeElement, voteTypeId, postId) {
    });
 }
 
-function voteComment(currentElement, oppositeElement, voteTypeId, commentId) {
+function voteComment(elements, voteTypeId, commentId) {
    // dados que vão para o servidor (corpo da requisição)
    let body = {
       "voteTypeId": voteTypeId
@@ -72,22 +72,22 @@ function voteComment(currentElement, oppositeElement, voteTypeId, commentId) {
       clientJs = JSON.parse(response);
 
       // atualizar cor dos ícones de up e down vote
-      let currentIsActive = currentElement.children(".comment__vote__icon").attr("data-markedvote") == "marked";
-      let oppositeIsActive = oppositeElement.children(".comment__vote__icon").attr("data-markedvote") == "marked";
+      let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";
+      let oppositeIsActive = elements.oppositeVoteIcon.attr("data-markedvote") == "marked";
 
       if (currentIsActive) {
-         currentElement.children(".comment__vote__icon").attr("data-markedvote", "none"); // desativa atual
+         elements.currentVoteIcon.attr("data-markedvote", "none"); // desativa atual
       }
       else {
-         currentElement.children(".comment__vote__icon").attr("data-markedvote", "marked"); // ativa atual
+         elements.currentVoteIcon.attr("data-markedvote", "marked"); // ativa atual
 
          if (oppositeIsActive) {
-            oppositeElement.children(".comment__vote__icon").attr("data-markedvote", "none"); // desativa oposto
+            elements.oppositeVoteIcon.attr("data-markedvote", "none"); // desativa oposto
          }
       }
 
       // atualizar número de votos do post na página
-      currentElement.parent().children(".comment__votes-amount").text(clientJs.votesAmount);
+      elements.votesAmount.text(clientJs.votesAmount);
    });
 
    // executar esta função quando existe algum erro ao fazer o pedido
