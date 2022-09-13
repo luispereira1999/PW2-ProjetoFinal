@@ -68,7 +68,8 @@
    margin-left: 0 !important;
 }
 
-.full-post__votes-amount {
+.full-post__votes-amount,
+.full-post__comments-amount {
    color: #7d7d7d;
    margin-bottom: 0 !important;
 }
@@ -77,6 +78,18 @@
 
 .comments {
    padding: 40px;
+}
+
+.comment__new {
+   cursor: pointer;
+   padding: 8px;
+}
+
+.comment__new__icon {
+   font-weight: bold;
+   font-size: 15px;
+   color: #888;
+   margin: 0px 5px;
 }
 
 .comments .comment__name {
@@ -88,24 +101,24 @@
 }
 
 .comment__vote,
-.comment__edit,
-.comment__delete {
+.comment__action {
    font-weight: bold;
    font-size: 15px;
    color: #888;
    cursor: pointer;
 }
 
-.comments .comment__icon[data-markedvote="marked"] {
+.comment__vote__icon {
+   color: #888;
+   cursor: pointer;
+   margin: 0 5px;
+   padding: 0px;
+}
+
+.comment__vote__icon[data-markedvote="marked"] {
    font-size: 15px;
    margin: 0 5px;
    color: #21c937;
-}
-
-.comments .comment__icon {
-   color: #888;
-   cursor: pointer;
-   padding: 10px;
 }
 
 .comments__content-wrapper {
@@ -133,38 +146,51 @@
    flex-direction: row;
 }
 
-.comment .comment__icon {
+.comment__action__icon {
    color: #888;
+   cursor: pointer;
+   padding: 0px 10px;
 }
 
 .comment__link {
    height: 30px;
 }
 
-.comment__votes {
-   padding: 0;
-   display: inline;
+.comment .width-100 {
+   display: flex;
+   flex-direction: row;
 }
 
-.comment__votes .comment__icon {
-   padding: 0 !important;
+.comment__votes {
+   flex-direction: column;
+   width: 10%;
 }
 
 .comment__votes-amount {
    font-size: 15px;
+   margin: 0 5px;
 }
 
-.col-1 {
-   display: flex;
-   /* align-items: center; */
-   justify-content: center;
-   padding-right: 0 !important;
+.comment__name-wrapper {
+   width: 10%;
+   flex-direction: column;
 }
 
-.col-9 {
-   margin: 0px 20px 0px 0px;
+.width-70 {
+   flex-direction: column;
+   width: 70%;
 }
 
-.col-10 {
-   margin: 0px 20px 0px 0px;
+.width-80 {
+   flex-direction: column;
+   width: 80%;
+}
+
+.comment__actions {
+   flex-direction: column;
+   width: 10%;
+}
+
+.comment__action {
+   float: right;
 }

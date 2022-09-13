@@ -72,17 +72,17 @@ function voteComment(currentElement, oppositeElement, voteTypeId, commentId) {
       clientJs = JSON.parse(response);
 
       // atualizar cor dos ícones de up e down vote
-      let currentIsActive = currentElement.children(".comment__icon").attr("data-markedvote") == "marked";
-      let oppositeIsActive = oppositeElement.children(".comment__icon").attr("data-markedvote") == "marked";
+      let currentIsActive = currentElement.children(".comment__vote__icon").attr("data-markedvote") == "marked";
+      let oppositeIsActive = oppositeElement.children(".comment__vote__icon").attr("data-markedvote") == "marked";
 
       if (currentIsActive) {
-         currentElement.children(".comment__icon").attr("data-markedvote", "none"); // desativa atual
+         currentElement.children(".comment__vote__icon").attr("data-markedvote", "none"); // desativa atual
       }
       else {
-         currentElement.children(".comment__icon").attr("data-markedvote", "marked"); // ativa atual
+         currentElement.children(".comment__vote__icon").attr("data-markedvote", "marked"); // ativa atual
 
          if (oppositeIsActive) {
-            oppositeElement.children(".comment__icon").attr("data-markedvote", "none"); // desativa oposto
+            oppositeElement.children(".comment__vote__icon").attr("data-markedvote", "none"); // desativa oposto
          }
       }
 

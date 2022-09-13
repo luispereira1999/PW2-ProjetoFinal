@@ -43,7 +43,7 @@
          </span>
       </div>
 
-      <span class="brief-posts__votes-amount__tooltip" data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment brief-posts__interactions__icon"></i></span>
-      <label class="brief-posts__votes-amount"><?= $posts[$current]->comments_amount ?></label>
+      <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment brief-posts__interactions__icon"></i></span>
+      <label class="brief-posts__comments-amount"><?= $posts[$current]->comments_amount ?></label>
    </div>
 </div>

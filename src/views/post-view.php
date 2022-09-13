@@ -74,14 +74,14 @@
             </div>
 
             <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment full-post__icon"></i></span>
-            <label><?= $post->comments_amount; ?></label>
+            <label class="full-post__comments-amount"><?= $post->comments_amount; ?></label>
          </div>
       </section>
    </main>
 
    <!-- COMENTÁRIOS: informações, ações -->
    <section class="comments">
-      <span data-toggle="modal" data-target="#newComment"><i class="fas fa-plus comment__icon"></i>Adicionar Novo Comentário</span>
+      <span class="comment__new" data-toggle="modal" data-target="#newComment"><i class="fas fa-plus comment__new__icon"></i> Novo Comentário</span>
       <?php require_once("components/new-comment-component.php"); ?>
 
       <hr>

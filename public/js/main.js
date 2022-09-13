@@ -37,7 +37,7 @@ $(document).ready(function () {
       let currentElement = $(this);
       let downElement = $(this).parent().children("[data-vote='downvote']");
       let voteTypeId = 1;
-      let commentId = $(this).parent().parent().parent().parent().attr("data-comment");
+      let commentId = $(this).parent().parent().parent().attr("data-comment");
 
       voteComment(currentElement, downElement, voteTypeId, commentId);
    });
@@ -47,7 +47,7 @@ $(document).ready(function () {
       let currentElement = $(this);
       let upElement = $(this).parent().children("[data-vote='upvote']");
       let voteTypeId = 2;
-      let commentId = $(this).parent().parent().parent().parent().attr("data-comment");
+      let commentId = $(this).parent().parent().parent().attr("data-comment");
 
       voteComment(currentElement, upElement, voteTypeId, commentId);
    });

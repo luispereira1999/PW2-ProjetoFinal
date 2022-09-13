@@ -212,11 +212,8 @@
    margin-left: 0 !important;
 }
 
-.brief-posts__votes-amount__tooltip {
-   margin-bottom: 0;
-}
-
-.brief-posts__votes-amount {
+.brief-posts__votes-amount,
+.brief-posts__comments-amount {
    color: #7d7d7d;
    margin-bottom: 0 !important;
 }
