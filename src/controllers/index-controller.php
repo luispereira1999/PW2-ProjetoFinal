@@ -22,9 +22,11 @@ class IndexController
 
       // obter posts para mostrar na página principal
       $posts = $this->postModel->getAll($userLoggedId);
+      $featuredPost = $this->postModel->getByMaxVotesAmount($userLoggedId);
 
       require_once("src/utils/security-util.php");
       $userLoggedId = protectOutputToHtml($userLoggedId);
+      $featuredPost = protectOutputToHtml($featuredPost);
 
       $postsCleaned = array();
       foreach ($posts as $post) {
@@ -52,6 +54,7 @@ class IndexController
       new View(
          "src/views/index-view.php",
          [
+            "featuredPost" => $featuredPost,
             "posts" => $posts,
             "userLoggedId" => $userLoggedId
          ]
