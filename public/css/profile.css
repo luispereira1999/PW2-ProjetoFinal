@@ -1,4 +1,4 @@
-/* DEFINIÇÃO: estilos para a página do perfil de utilizador */
+/* DEFINIÇÃO: estilos da página do perfil de utilizador */
 
 /**** CONTA - CABEÇALHO ****/
 
@@ -56,12 +56,6 @@
    border: 1px solid #d4d4d4;
    border-radius: 4px;
    outline: none;
-   /* -webkit-box-sizing: border-box; */
-   /* -moz-box-sizing: border-box; */
-   /* -webkit-transition: all 0.30s ease-in-out; */
-   /* -moz-transition: all 0.30s ease-in-out; */
-   /* -ms-transition: all 0.30s ease-in-out; */
-   /* -o-transition: all 0.30s ease-in-out; */
 }
 
 .profile__password-wrapper {
@@ -101,7 +95,7 @@
 .width-1 .brief-posts__date {
    text-align: left;
    margin: 5px 40px;
-   font-size: 10px;
+   font-size: 12px;
    color: #666;
 }
 
@@ -144,10 +138,9 @@
 
 .width-3 .brief-posts__name,
 .width-3 .brief-posts__date {
-   font-size: 10px;
    color: #666;
    text-align: center;
-   font-size: 10px;
+   font-size: 12px;
    color: #666;
 }
 
@@ -155,7 +148,6 @@
    text-align: center;
    margin: 20px 60px;
    height: 100px;
-   font-size: 15px;
    font-size: 15px;
    display: -webkit-box;
    -webkit-line-clamp: 3;

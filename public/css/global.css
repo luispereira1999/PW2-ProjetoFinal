@@ -131,3 +131,28 @@ p {
    padding: 12px 5px;
    width: 100%;
 }
+
+
+/**** Opção de Vista dos Posts ****/
+
+.gridOptions {
+   display: flex;
+   width: 100%;
+   justify-content: flex-end;
+   align-items: center;
+}
+
+.gridOptions i {
+   color: #777;
+   margin: 20px 10px 10px 10px;
+   font-size: 20px;
+   cursor: pointer;
+}
+
+.gridOptions i:hover {
+   color: #888;
+}
+
+.gridOptions i:active {
+   color: #8228DE;
+}

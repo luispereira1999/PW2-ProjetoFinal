@@ -93,8 +93,11 @@
             if (isset($comments)) :
                for ($current = 0; $current < count($comments); $current++) : ?>
 
-                  <!-- COMENTÁRIO -->
-                  <?php require("components/comment-component.php"); ?>
+                  <!-- comentário -->
+                  <?php
+                  $comment = $comments[$current];
+                  require("components/comment-component.php");
+                  ?>
 
                <?php endfor; ?>
             <?php endif; ?>
