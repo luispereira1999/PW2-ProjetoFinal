@@ -73,7 +73,7 @@
                   <span class="featured__vote" data-vote="upvote">
                      <i data-markedvote="<?php if ($featuredPost->vote_user_id == $userLoggedId && $featuredPost->vote_type_id == 1) : echo "marked";
                                           else : echo "none";
-                                          endif; ?>" data-toggle=" tooltip" data-placement="bottom" title="Up Vote" class="featured__interactions__icon fas fa-heart"></i>
+                                          endif; ?>" data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="featured__interactions__icon fas fa-heart"></i>
                   </span>
                   <label class="featured__votes-amount"><?= $featuredPost->votes_amount; ?></label>
                   <span class="featured__vote" data-vote="downvote">

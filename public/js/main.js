@@ -162,4 +162,8 @@ $(document).ready(function () {
       // atualizar hyperlink
       $(this).attr("href", uri);
    });
+
+
+   // mostrar tooltips
+   $('[data-toggle="tooltip"]').tooltip();
 });

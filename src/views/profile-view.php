@@ -77,7 +77,10 @@
                <?php endif; ?>
 
                <!-- POST -->
-               <?php require("components/brief-post-component.php"); ?>
+               <?php
+               $post = $posts[$current];
+               require("components/brief-post-component.php");
+               ?>
 
                <?php if ($counter == 3) :  ?>
                </section>
