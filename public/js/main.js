@@ -12,6 +12,7 @@ $(document).ready(function () {
       $("#content__signup").show(500);
    });
 
+
    // votar num post na página principal - up vote
    $(".brief-posts [data-vote='upvote']").click(function () {
       let elements = {
@@ -45,6 +46,42 @@ $(document).ready(function () {
 
       votePost(elements, voteTypeId, postId);
    });
+
+
+   // votar no post em destaque na página principal - up vote
+   $(".featured [data-vote='upvote']").click(function () {
+      let elements = {
+         current: $(this),
+         // voto contrário ao deste clique
+         opposite: $(this).parent().children("[data-vote='downvote']"),
+         currentVoteIcon: $(this).children(".featured__interactions__icon"),
+         oppositeVoteIcon: $(this).parent().children("[data-vote='downvote']").children(".featured__interactions__icon"),
+         votesAmount: $(this).parent().children(".featured__votes-amount")
+      }
+
+      let voteTypeId = 1;
+      let postId = $(this).parent().parent().parent().parent().attr("data-post");
+
+      votePost(elements, voteTypeId, postId);
+   });
+
+   // votar no post em destaque na página principal - down vote
+   $(".featured [data-vote='downvote']").click(function () {
+      let elements = {
+         current: $(this),
+         // voto contrário ao deste clique
+         opposite: $(this).parent().children("[data-vote='downvote']"),
+         currentVoteIcon: $(this).children(".featured__interactions__icon"),
+         oppositeVoteIcon: $(this).parent().children("[data-vote='upvote']").children(".featured__interactions__icon"),
+         votesAmount: $(this).parent().children(".featured__votes-amount")
+      }
+
+      let voteTypeId = 2;
+      let postId = $(this).parent().parent().parent().parent().attr("data-post");
+
+      votePost(elements, voteTypeId, postId);
+   });
+
 
    // votar num post na página do post - up vote
    $(".full-post__interactions [data-vote='upvote']").click(function () {
@@ -80,6 +117,7 @@ $(document).ready(function () {
       votePost(elements, voteTypeId, postId);
    });
 
+   
    // votar num comentário - up vote
    $(".comments [data-vote='upvote']").click(function () {
       let elements = {
@@ -113,6 +151,7 @@ $(document).ready(function () {
 
       voteComment(elements, voteTypeId, commentId);
    });
+
 
    // pesquisar posts
    $("#linkSearchPosts").click(function () {
