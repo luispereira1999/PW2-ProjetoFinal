@@ -1,92 +1,92 @@
 /* DEFINIÇÃO: estilos da página de login ou signup */
 
 body {
-   background-image: url("../../public/assets/images/background-login-signup.png");
-   background-size: cover;
-   background-repeat: no-repeat;
-   background-position: initial;
+    background-image: url("../assets/images/background-login-signup.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: initial;
 }
 
 .button {
-   float: right !important;
-   margin-right: 0 !important;
+    float: right !important;
+    margin-right: 0 !important;
 }
 
 .content {
-   width: 40%;
-   margin: 25px;
+    width: 40%;
+    margin: 25px;
 }
 
 .content__logo-wrapper {
-   width: 100%;
-   height: 100px;
+    width: 100%;
+    height: 100px;
 }
 
 .content__logo {
-   width: 80px;
-   height: 50px;
-   margin: 5px;
-   float: left;
+    width: 80px;
+    height: 50px;
+    margin: 5px;
+    float: left;
 }
 
 .content__links-wrapper {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 50px;
-   margin: 40px 0;
-   margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin: 40px 0;
+    margin-left: 20px;
 }
 
 .content__link {
-   color: #ccc !important;
-   text-decoration: none;
-   margin: 15px;
-   font-size: 20px;
-   cursor: pointer;
+    color: #ccc !important;
+    text-decoration: none;
+    margin: 15px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .content__form-wrapper {
-   margin-left: 40px;
+    margin-left: 40px;
 }
 
 .content__text,
 .content__password,
 .content__email {
-   width: 100%;
-   padding: 4px 20px 3px 20px !important;
-   margin: 8px 0;
-   display: inline-block;
-   border: 2px solid #ccc !important;
-   border-radius: 4px;
-   box-sizing: border-box;
-   background-color: #242424;
-   color: #ccc;
+    width: 100%;
+    padding: 4px 20px 3px 20px !important;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid #ccc !important;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #242424;
+    color: #ccc;
 }
 
 .content__text:focus {
-   outline: none;
+    outline: none;
 }
 
 .content__checkbox {
-   background-color: #ccc;
+    background-color: #ccc;
 }
 
 .content__label {
-   color: #ccc;
-   margin: 5px 0;
-   cursor: pointer;
+    color: #ccc;
+    margin: 5px 0;
+    cursor: pointer;
 }
 
 .content__links-wrapper .content__link:active {
-   border-bottom: 3px solid #8228DE;
+    border-bottom: 3px solid #8228DE;
 }
 
 .content__icon {
-   color: #ccc;
-   cursor: help;
+    color: #ccc;
+    cursor: help;
 }
 
 #content__signup {
-   display: none;
+    display: none;
 }
