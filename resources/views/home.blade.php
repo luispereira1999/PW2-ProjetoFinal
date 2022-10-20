@@ -51,7 +51,41 @@
 
     <!-- PRINCIPAL: post em destaque, pesquisa, posts (informações, ações) -->
     <main class="brief-posts">
+        @php
+        // contador auxiliar para saber quando já foram criados 3 posts
+        $counter = 0;
+        $current = 0;
+        @endphp
 
+        <!-- mostrar posts (3 em 3 por padrão) -->
+        @foreach ($posts as $post)
+
+        @php
+        $counter++;
+        @endphp
+
+        @if ($current % 3 == 0)
+
+        <section class="brief-posts__post">
+            @endif
+
+            @include("brief-post")
+
+            @if ($counter == 3)
+        </section>
+
+        @php
+        $counter = 0;
+        @endphp
+
+        @endif
+
+
+        @php
+        $current++;
+        @endphp
+
+        @endforeach
     </main>
 
     <!-- RODAPÉ: copyright, autor, links -->
