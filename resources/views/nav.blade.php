@@ -18,7 +18,7 @@
             <a href="" data-toggle="modal" data-target="#newPost"><i class="navigation__icon fas fa-plus"></i></a>
         </span>
 
-        <a href="/profile/TROCAR" data-toggle="tooltip" data-placement="bottom" title="TROCAR"><i class="navigation__icon fas fa-user"></i></a>
+        <a href="/profile/{{ Auth::user()->id }}" data-toggle="tooltip" data-placement="bottom" title="{{ Auth::user()->first_name }}"><i class="navigation__icon fas fa-user"></i></a>
 
         <div class="navigation__dropdown">
             <button class="button-dropdown"><i class="navigation__icon fas fa-ellipsis-v"></i></button>
