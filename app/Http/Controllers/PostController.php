@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -18,6 +18,7 @@ class PostController extends Controller
         return view('home', compact('posts'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,6 +28,7 @@ class PostController extends Controller
     {
         //
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -38,6 +40,7 @@ class PostController extends Controller
     {
         //
     }
+
 
     /**
      * Display the specified resource.
@@ -60,6 +63,7 @@ class PostController extends Controller
     {
         //
     }
+
 
     /**
      * Update the specified resource in storage.
