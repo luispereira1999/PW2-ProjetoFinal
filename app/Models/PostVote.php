@@ -5,17 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class PostVote extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id',
-        'title',
-        'description',
-        'date',
-        'votes_amount',
-        'comments_amount',
-        'user_id'
+        'post_id',
+        'user_id',
+        'vote_type_id'
     ];
 }
