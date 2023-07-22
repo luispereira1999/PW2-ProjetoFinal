@@ -53,7 +53,7 @@ class CommentController
       $postId = protectOutputToHtml($postId);
 
       // redirecionar para a página do post
-      header("location: /post/" . $postId);
+      header("location: /posts/" . $postId);
    }
 
    // editar comentário e ir para a página do post
@@ -103,7 +103,7 @@ class CommentController
       $postId = protectOutputToHtml($postId);
 
       // redirecionar para a página do post
-      header("location: /post/" . $postId);
+      header("location: /posts/" . $postId);
    }
 
    // votar num comentário e manter o utilizador nessa página
@@ -200,6 +200,6 @@ class CommentController
       $postId = protectOutputToHtml($postId);
 
       // redirecionar para a página do post
-      header("location: /post/" . $postId);
+      header("location: /posts/" . $postId);
    }
 }

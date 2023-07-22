@@ -15,7 +15,7 @@
          </div>
 
          <div class="modal-footer">
-            <form id="formDeletePost<?= $post->post_id; ?>" method="post" action="/post/delete/<?= $post->post_id; ?>">
+            <form id="formDeletePost<?= $post->post_id; ?>" method="post" action="/posts/delete/<?= $post->post_id; ?>">
                <button class="button button-primary" type="submit" form="formDeletePost<?= $post->post_id; ?>" name="isDelete">Eliminar</button>
                <button class="button button-cancel" type="button">Não</button>
             </form>

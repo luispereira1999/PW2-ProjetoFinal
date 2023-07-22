@@ -14,7 +14,7 @@ function votePost(elements, voteTypeId, postId) {
       data: serverJson,
       dateType: "json",
       type: "post",
-      url: "/post/vote/" + postId
+      url: "/posts/vote/" + postId
    });
 
    // executar esta função quando o pedido é concluído com sucesso

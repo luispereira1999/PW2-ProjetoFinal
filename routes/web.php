@@ -17,7 +17,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index']);
 
+// Route::get('/user/', [Controller::class, 'index']);
+
 Route::get('/auth', [AuthController::class, 'index']);
 Route::post('/auth/signup', [AuthController::class, 'signup']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/auth/logout', [AuthController::class, 'logout']);
+
+Route::get('/posts/{postId}', [PostController::class, 'show']);
+
+//Route::get('/posts', [PostController::class, 'index']);
+
+// Route::resource('/',  [PostController::class, 'index']);
+// Route::resource('posts', PostController::class);

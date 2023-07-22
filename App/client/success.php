@@ -1,4 +1,4 @@
-<!-- DEFINAÇÃO: Modal de Adicionar um Novo Post -->
+<!-- DEFINIÇÃO: Modal de Adicionar um Novo Post -->
 
 <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">

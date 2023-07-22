@@ -10,7 +10,7 @@ use App\Models\User;
 class AuthController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a page of the authentication.
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,8 +19,9 @@ class AuthController extends Controller
         return view('auth');
     }
 
+
     /**
-     * handle an registration of the user..
+     * Handle an registration of the user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -39,8 +40,7 @@ class AuthController extends Controller
         ]);
 
         // encriptar palavra-passe
-        $hashed = Hash::make('password');
-        $data["password"] = $hashed;
+        $data["password"] = Hash::make($data["password"]);
 
         $user = User::create($data);
 

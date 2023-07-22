@@ -11,7 +11,7 @@
          </div>
 
          <div class="modal-body">
-            <form class="popup__form" id="formEditPost<?= $post->post_id; ?>" method="post" action="/post/edit/<?= $post->post_id; ?>">
+            <form class="popup__form" id="formEditPost<?= $post->post_id; ?>" method="post" action="/posts/edit/<?= $post->post_id; ?>">
                <input class="popup__text" type="text" name="title" value="<?= $post->title; ?>" placeholder="Título" require>
                <textarea class="popup__textarea" name="description" cols="40" rows="5" placeholder="Texto da Publicação ..." require><?= $post->description; ?></textarea>
             </form>

@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\Comment;
 
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the posts.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::allInHome();
         return view('home', compact('posts'));
     }
 
@@ -43,14 +45,22 @@ class PostController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * Display the specified post.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public static function show($postId)
     {
-        //
+        $user = Auth::user();
+        $userLoggedId = $user ? $user->id : -1;
+
+        $post = Post::oneInPost($userLoggedId, $postId);
+
+        return view('post', [
+            'post' => $post,
+            'userLoggedId' => $userLoggedId
+        ]);
     }
 
     /**

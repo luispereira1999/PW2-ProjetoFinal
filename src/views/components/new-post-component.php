@@ -11,7 +11,7 @@
          </div>
 
          <div class="modal-body">
-            <form class="popup__form" id="formNewPost" method="post" action="/post/create">
+            <form class="popup__form" id="formNewPost" method="post" action="/posts/create">
                <input class="popup__text" type="text" name="title" placeholder="Título" require>
                <textarea class="popup__textarea" name="description" cols="40" rows="5" placeholder="Texto do Post ..." require></textarea>
             </form>

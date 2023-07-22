@@ -116,7 +116,7 @@ class PostController
       $postId = protectOutputToHtml($postId);
 
       // redirecionar para a página do post
-      header("location: /post/" . $postId);
+      header("location: /posts/" . $postId);
    }
 
    // editar post e ir para a página do post
@@ -165,7 +165,7 @@ class PostController
       $postId = protectOutputToHtml($postId);
 
       // redirecionar para a página do post
-      header("location: /post/" . $postId);
+      header("location: /posts/" . $postId);
    }
 
    // votar num post e manter o utilizador nessa página
