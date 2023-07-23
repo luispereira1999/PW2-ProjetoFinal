@@ -19,14 +19,14 @@ class UserController extends Controller
         $userProfile = User::one($userProfileId);
 
         $userLogged = Auth::user();
-        $userLoggedId = $userLogged ? $userLogged->id : -1;
+        $loggedUserId = $userLogged ? $userLogged->id : -1;
 
-        $posts = Post::allInProfile($userProfileId, $userLoggedId);
+        $posts = Post::allInProfile($userProfileId, $loggedUserId);
 
         return view('profile', [
             'user' => $userProfile,
             'posts' => $posts,
-            'userLoggedId' => $userLoggedId
+            'userLoggedId' => $loggedUserId
         ]);
     }
 
@@ -63,9 +63,9 @@ class UserController extends Controller
     public static function show()
     {
         $user = Auth::user();
-        $userLoggedId = $user ? $user->id : -1;
+        $loggedUserId = $user ? $user->id : -1;
 
-        $user = User::one($userLoggedId);
+        $user = User::one($loggedUserId);
 
         return view('account', compact('user'));
     }
@@ -86,13 +86,40 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateData(Request $request, $userId)
     {
-        //
+        $request->validate([
+            'email' => 'required|email',
+        ], [
+            'email.required' => 'O email é obrigatório.'
+        ]);
+
+        if (!Auth::check()) {
+            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+        }
+
+        $loggedUserId = Auth::user()->id;
+        if ($loggedUserId != $userId) {
+            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+        }
+
+        $user = User::findOrFail($userId);
+
+        $user->email = $request->input('email');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->city = $request->input('city');
+        $user->country = $request->input('country');
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Perfil atualizado com sucesso!')
+            ->with('reload', true);
     }
+
 
     /**
      * Remove the specified resource from storage.

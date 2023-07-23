@@ -16,9 +16,9 @@ class PostController extends Controller
     public function index()
     {
         $userLogged = Auth::user();
-        $userLoggedId = $userLogged ? $userLogged->id : -1;
+        $loggedUserId = $userLogged ? $userLogged->id : -1;
 
-        $posts = Post::allInHome($userLoggedId);
+        $posts = Post::allInHome($loggedUserId);
 
         return view('home', compact('posts'));
     }
@@ -50,42 +50,30 @@ class PostController extends Controller
     /**
      * Display the specified post.
      *
-     * @param  int  $id
+     * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
     public static function show($postId)
     {
         $userLogged = Auth::user();
-        $userLoggedId = $userLogged ? $userLogged->id : -1;
+        $loggedUserId = $userLogged ? $userLogged->id : -1;
 
-        $post = Post::oneInPost($userLoggedId, $postId);
+        $post = Post::oneInPost($loggedUserId, $postId);
 
         return view('post', [
             'post' => $post,
-            'userLoggedId' => $userLoggedId
+            'userLoggedId' => $loggedUserId
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified user data in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateData(Request $request, $postId)
     {
         //
     }

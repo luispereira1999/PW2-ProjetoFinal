@@ -32,11 +32,9 @@ class User extends Authenticatable
 
     public static function one($userId)
     {
-        // $user = User::select('id', 'name', 'password', 'email', 'first_name', 'last_name', 'city', 'country')
         $user = DB::table('users')
             ->select('users.id', 'users.name', 'users.password', 'users.email', 'users.first_name', 'users.last_name', 'users.city', 'users.country')
             ->where('users.id', '=', $userId)
-            // ->where('id', $userLoggedId)
             ->first();
 
         return $user;

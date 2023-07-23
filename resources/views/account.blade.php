@@ -59,12 +59,14 @@
         </section>
 
         <form id="formEditData" class="account__form" method="post" action="/account/edit-data/{{ $user->id; }}">
+            @csrf
+
             <h4>Dados Básicos</h4>
 
             <ul class="account__items">
                 <li class="account__item">
-                    <input class="account__text" type="text" name="firstName" placeholder="Primeiro Nome" value="{{ $user->first_name }}">
-                    <input class="account__text" type="text" name="lastName" placeholder="Último Nome" value="{{ $user->last_name }}">
+                    <input class="account__text" type="text" name="first_name" placeholder="Primeiro Nome" value="{{ $user->first_name }}">
+                    <input class="account__text" type="text" name="last_name" placeholder="Último Nome" value="{{ $user->last_name }}">
                 </li>
                 <li class="account__item">
                     <input class="account__text" type="text" name="city" placeholder="Cidade" value="{{ $user->city }}">
@@ -82,6 +84,8 @@
         </form>
 
         <form id="formEditPassword" class="account__form" method="post" action="/account/edit-password/{{ $user->id; }}">
+            @csrf
+
             <h4>Palavra-passe</h4>
 
             <ul class="account__items">

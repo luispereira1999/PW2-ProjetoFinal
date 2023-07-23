@@ -22,7 +22,7 @@ class Post extends Model
         'user_id'
     ];
 
-    public static function allInHome($userLoggedId)
+    public static function allInHome($loggedUserId)
     {
         $posts = DB::table('posts as p')
             ->select(
@@ -38,9 +38,9 @@ class Post extends Model
                 'v.vote_type_id'
             )
             ->leftJoin('users as u', 'p.user_id', '=', 'u.id')
-            ->leftJoin('posts_votes as v', function ($join) use ($userLoggedId) {
+            ->leftJoin('posts_votes as v', function ($join) use ($loggedUserId) {
                 $join->on('p.id', '=', 'v.post_id')
-                     ->where('v.user_id', '=', $userLoggedId);
+                     ->where('v.user_id', '=', $loggedUserId);
             })
             ->orderBy('p.votes_amount', 'desc')
             ->get();
@@ -48,7 +48,7 @@ class Post extends Model
         return $posts;
     }
 
-    public static function allInProfile($userId, $userLoggedId)
+    public static function allInProfile($userId, $loggedUserId)
     {
         $posts = DB::table('posts AS p')
             ->select(
@@ -64,9 +64,9 @@ class Post extends Model
                 'v.vote_type_id AS vote_type_id'
             )
             ->join('users AS u', 'p.user_id', '=', 'u.id')
-            ->leftJoin('posts_votes AS v', function ($join) use ($userLoggedId) {
+            ->leftJoin('posts_votes AS v', function ($join) use ($loggedUserId) {
                 $join->on('p.id', '=', 'v.post_id')
-                     ->where('v.user_id', '=', $userLoggedId);
+                     ->where('v.user_id', '=', $loggedUserId);
             })
             ->where('p.user_id', '=', $userId)
             ->orderByDesc('votes_amount')
@@ -85,14 +85,14 @@ class Post extends Model
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 
-    public static function oneInPost($userLoggedId, $postId)
+    public static function oneInPost($loggedUserId, $postId)
     {
         $post = DB::table('posts as p')
             ->select('p.*', 'users.name as post_user_name', 'posts_votes.user_id as vote_user_logged_id', 'posts_votes.vote_type_id')
             ->join('users', 'p.user_id', '=', 'users.id')
-            ->leftJoin('posts_votes',  function ($query) use ($userLoggedId) {
+            ->leftJoin('posts_votes',  function ($query) use ($loggedUserId) {
                 $query->on('p.id', '=', 'posts_votes.post_id')
-                    ->where('posts_votes.user_id', '=', $userLoggedId);
+                    ->where('posts_votes.user_id', '=', $loggedUserId);
             })
             ->where('p.id', '=', $postId)
             ->first();
