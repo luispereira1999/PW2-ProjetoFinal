@@ -4,23 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Post;
 
-class PostController extends Controller
+class UserController extends Controller
 {
     /**
-     * Display a listing of the posts.
+     * Display a listing of the user.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($userProfileId)
     {
+        $user = User::one($userProfileId);
+
         $userLogged = Auth::user();
         $userLoggedId = $userLogged ? $userLogged->id : -1;
 
         $posts = Post::allInHome($userLoggedId);
 
-        return view('home', compact('posts'));
+        return view('profile', [
+            'user' => $user,
+            'posts' => $posts,
+            'userLoggedId' => $userLoggedId
+        ]);
     }
 
 
@@ -48,22 +55,19 @@ class PostController extends Controller
 
 
     /**
-     * Display the specified post.
+     * Display the user logged.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public static function show($postId)
+    public static function show()
     {
-        $userLogged = Auth::user();
-        $userLoggedId = $userLogged ? $userLogged->id : -1;
+        $user = Auth::user();
+        $userLoggedId = $user ? $user->id : -1;
 
-        $post = Post::oneInPost($userLoggedId, $postId);
+        $user = User::one($userLoggedId);
 
-        return view('post', [
-            'post' => $post,
-            'userLoggedId' => $userLoggedId
-        ]);
+        return view('account', compact('user'));
     }
 
     /**

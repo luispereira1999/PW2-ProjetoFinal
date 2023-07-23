@@ -22,10 +22,8 @@ class Post extends Model
         'user_id'
     ];
 
-    public static function allInHome()
+    public static function allInHome($userLoggedId)
     {
-        $userId = 1; // Substitua o valor 1 pela variável desejada.
-
         $posts = DB::table('posts as p')
             ->select(
                 'p.id as post_id',
@@ -40,9 +38,9 @@ class Post extends Model
                 'v.vote_type_id'
             )
             ->leftJoin('users as u', 'p.user_id', '=', 'u.id')
-            ->leftJoin('posts_votes as v', function ($join) use ($userId) {
+            ->leftJoin('posts_votes as v', function ($join) use ($userLoggedId) {
                 $join->on('p.id', '=', 'v.post_id')
-                    ->where('v.user_id', '=', $userId);
+                    ->where('v.user_id', '=', $userLoggedId);
             })
             ->orderBy('p.votes_amount', 'desc')
             ->get();
