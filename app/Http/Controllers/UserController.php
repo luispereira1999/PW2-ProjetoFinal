@@ -16,15 +16,15 @@ class UserController extends Controller
      */
     public function index($userProfileId)
     {
-        $user = User::one($userProfileId);
+        $userProfile = User::one($userProfileId);
 
         $userLogged = Auth::user();
         $userLoggedId = $userLogged ? $userLogged->id : -1;
 
-        $posts = Post::allInHome($userLoggedId);
+        $posts = Post::allInProfile($userProfileId, $userLoggedId);
 
         return view('profile', [
-            'user' => $user,
+            'user' => $userProfile,
             'posts' => $posts,
             'userLoggedId' => $userLoggedId
         ]);

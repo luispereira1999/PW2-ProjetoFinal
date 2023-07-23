@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<title>
+<head>
     <!-- TÍTULO DA PÁGINA -->
     <title>{{ $user->name; }}</title>
 
@@ -40,7 +40,7 @@
 
     <!-- FONT FAMILY -->
     <link href="https://fonts.googleapis.com/css2?family=Nova+Round&family=Nunito:wght@300;400&display=swap" rel="stylesheet">
-</title>
+</head>
 
 <body>
     <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
