@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Post;
 
@@ -115,6 +116,53 @@ class UserController extends Controller
         $user->country = $request->input('country');
 
         $user->save();
+
+        Auth::login($user);
+
+        return redirect()->back()->with('success', 'Perfil atualizado com sucesso!')
+            ->with('reload', true);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request, $userId)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required',
+            'new_password_confirm' => 'same:new_password'
+        ], [
+            'current_password.required' => 'A palavra-passe atual é obrigatória.',
+            'new_password.required' => 'A nova palavra-passe é obrigatória.',
+            'new_password_confirm.same' => 'As palavra-passes não correspondem.',
+        ]);
+
+        if (!Auth::check()) {
+            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+        }
+
+        $loggedUserId = Auth::user()->id;
+        if ($loggedUserId != $userId) {
+            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+        }
+
+        $user = User::findOrFail($userId);
+
+        if (!Hash::check($request->input('current_password'), $user->password)) {
+            return redirect()->back()->with('error', 'A palavra-passe atual fornecida está incorreta.');
+        }
+
+        $user->password = Hash::make($request->input('new_password'));
+
+        $user->save();
+
+        Auth::login($user);
 
         return redirect()->back()->with('success', 'Perfil atualizado com sucesso!')
             ->with('reload', true);

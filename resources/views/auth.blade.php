@@ -70,6 +70,7 @@
 
             <form method="post" action="/auth/login">
                 @csrf
+
                 <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador ou Email" require>
                 <input class="content__password" type="password" name="password" placeholder="Palavra-passe" require>
 
@@ -89,6 +90,7 @@
         <div class="content__form-wrapper" id="content__signup">
             <form method="post" action="/auth/signup">
                 @csrf
+                
                 <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador" require>
                 <input class="content__email" type="email" name="email" placeholder="Email" require>
                 <input class="content__password" type="password" name="password" placeholder="Palavra-passe" require>

@@ -29,6 +29,7 @@ Route::get('/auth/logout', [AuthController::class, 'logout']);
 Route::get('/profile/{userId}', [UserController::class, 'index']);
 Route::get('/account', [UserController::class, 'show']);
 Route::post('/account/edit-data/{userId}', [UserController::class, 'updateData']);
+Route::post('/account/edit-password/{userId}', [UserController::class, 'updatePassword']);
 
 // posts
 Route::get('/posts/{postId}', [PostController::class, 'show']);

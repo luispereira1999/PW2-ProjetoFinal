@@ -90,11 +90,11 @@
 
             <ul class="account__items">
                 <li class="account__item">
-                    <input class="account__password" type="password" name="currentPassword" placeholder="Palavra-passe Atual" require>
+                    <input class="account__password" type="password" name="current_password" placeholder="Palavra-passe Atual" require>
                 </li>
                 <li class="account__item">
-                    <input class="account__password" type="password" name="newPassword" placeholder="Nova Palavra-passe" require>
-                    <input class="account__password" type="password" name="confirmNewPassword" placeholder="Confirmar Palavra-passe" require>
+                    <input class="account__password" type="password" name="new_password" placeholder="Nova Palavra-passe" require>
+                    <input class="account__password" type="password" name="new_password_confirm" placeholder="Confirmar Palavra-passe" require>
                 </li>
 
                 <li class="account__actions">
