@@ -115,9 +115,4 @@
 
       <?php endfor; ?>
    </main>
-
-   <!-- RODAPÉ:  -->
-   <footer class="footer">
-      <?php require_once("components/footer-component.php"); ?>
-   </footer>
 </body>

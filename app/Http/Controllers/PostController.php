@@ -15,12 +15,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        $userLogged = Auth::user();
-        $loggedUserId = $userLogged ? $userLogged->id : -1;
+        $loggedUser = Auth::user();
+        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
 
         $posts = Post::allInHome($loggedUserId);
 
-        return view('home', compact('posts'));
+        return view('home', [
+            'posts' => $posts,
+            'loggedUserId' => $loggedUserId
+        ]);
     }
 
 
@@ -55,14 +58,14 @@ class PostController extends Controller
      */
     public static function show($postId)
     {
-        $userLogged = Auth::user();
-        $loggedUserId = $userLogged ? $userLogged->id : -1;
+        $loggedUser = Auth::user();
+        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
 
         $post = Post::oneInPost($loggedUserId, $postId);
 
         return view('post', [
             'post' => $post,
-            'userLoggedId' => $loggedUserId
+            'loggedUserId' => $loggedUserId
         ]);
     }
 

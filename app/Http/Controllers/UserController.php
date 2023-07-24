@@ -19,15 +19,15 @@ class UserController extends Controller
     {
         $userProfile = User::one($userProfileId);
 
-        $userLogged = Auth::user();
-        $loggedUserId = $userLogged ? $userLogged->id : -1;
+        $loggedUser = Auth::user();
+        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
 
         $posts = Post::allInProfile($userProfileId, $loggedUserId);
 
         return view('profile', [
             'user' => $userProfile,
             'posts' => $posts,
-            'userLoggedId' => $loggedUserId
+            'loggedUserId' => $loggedUserId
         ]);
     }
 

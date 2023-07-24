@@ -13,4 +13,20 @@
 
     <p class="brief-posts__description">{{ $post->description }}</p>
 
+    <div class="brief-posts__interactions">
+        <!-- votos do post -->
+        <div class="brief-posts__votes">
+            <span class="brief-posts__vote" data-vote="upvote">
+                <i data-markedvote="{{ ($post->vote_user_id == $loggedUserId && $post->vote_type_id == 1) ? 'marked' : 'none' }}" data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="brief-posts__interactions__icon fas fa-heart"></i>
+            </span>
+            <label class="brief-posts__votes-amount">{{ $post->votes_amount }}</label>
+            <span class="brief-posts__vote" data-vote="downvote">
+                <i data-markedvote="{{ ($post->vote_user_id == $loggedUserId && $post->vote_type_id == 2) ? 'marked' : 'none' }}" data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="brief-posts__interactions__icon fas fa-heart-broken"></i>
+            </span>
+        </div>
+
+        <span data-toggle="tooltip" data-placement="bottom" title="Comentários"><i class="fas fa-comment brief-posts__interactions__icon"></i></span>
+        <label class="brief-posts__comments-amount"><?= $post->comments_amount ?></label>
+    </div>
+
 </div>

@@ -76,7 +76,7 @@
 
                 <div class="row">
                     <div class="col-8">
-                        <input class="content__checkbox" type="checkbox" name="rememberLogin" value="true" require>
+                        <input class="content__checkbox" type="checkbox" name="remember_login" value="true" require>
                         <label class="content__label" id="rememberText">Memorizar login</label>
                     </div>
                     <div class="col-4 my-auto">
@@ -90,7 +90,7 @@
         <div class="content__form-wrapper" id="content__signup">
             <form method="post" action="/auth/signup">
                 @csrf
-                
+
                 <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador" require>
                 <input class="content__email" type="email" name="email" placeholder="Email" require>
                 <input class="content__password" type="password" name="password" placeholder="Palavra-passe" require>

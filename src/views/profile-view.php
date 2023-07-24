@@ -92,11 +92,6 @@
 
       </section>
    </main>
-
-   <!-- RODAPÉ:  -->
-   <footer class="footer">
-      <?php require_once("components/footer-component.php"); ?>
-   </footer>
 </body>
 
 </html>
