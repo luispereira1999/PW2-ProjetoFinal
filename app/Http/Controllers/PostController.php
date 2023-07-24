@@ -70,15 +70,43 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified user data in storage.
+     * Update the specified post data in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
-    public function updateData(Request $request, $postId)
+    public function update(Request $request, $postId)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ], [
+            'title.required' => 'O título é obrigatório.',
+            'description.required' => 'A descrição é obrigatória.'
+        ]);
+
+        if (!Auth::check()) {
+            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+        }
+
+        $loggedUser = Auth::user();
+        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
+
+        $post = Post::findOrFail($postId);
+
+        // verificar se pertence ao utilizador com login
+        if ($post->user_id != $loggedUserId) {
+            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+        }
+
+        $post->title = $request->input('title');
+        $post->last_name = $request->input('description');
+
+        $post->save();
+
+        return redirect()->back()->with('success', 'Post atualizado com sucesso!')
+            ->with('reload', true);
     }
 
     /**

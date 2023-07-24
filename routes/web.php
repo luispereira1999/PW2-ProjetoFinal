@@ -33,3 +33,5 @@ Route::post('/account/edit-password/{userId}', [UserController::class, 'updatePa
 
 // posts
 Route::get('/posts/{postId}', [PostController::class, 'show']);
+Route::post('/posts/update/{postId}', [PostController::class, 'update']);
+Route::post('/posts/delete/{postId}', [PostController::class, 'delete']);
