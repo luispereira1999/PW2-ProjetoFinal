@@ -67,9 +67,22 @@
             <div class="full-post__interactions">
                 <div class="full-post__votes">
                     <div class="full-post__votes">
-                        <span class="full-post__vote" data-vote="upvote"><i class="full-post__icon fas fa-heart" <?php if ($post->vote_user_logged_id == $loggedUserId && $post->vote_type_id == 1) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Up Vote"></i></span>
+                        <span class="full-post__vote" data-vote="upvote">
+                            <i class="full-post__icon fas fa-heart" @if ($post->vote_user_logged_id == $loggedUserId && $post->vote_type_id == 1)
+                                data-markedvote="marked"
+                                @endif
+                                data-toggle="tooltip" data-placement="bottom" title="Up Vote"></i>
+                        </span>
+
                         <label class="full-post__votes-amount">{{ $post->votes_amount }}</label>
-                        <span class="full-post__vote" data-vote="downvote"><i class="full-post__icon fas fa-heart-broken" <?php if ($post->vote_user_logged_id == $loggedUserId && $post->vote_type_id == 2) : ?> data-markedvote="marked" <?php endif; ?> data-toggle="tooltip" data-placement="bottom" title="Down Vote"></i></span>
+
+                        <span class="full-post__vote" data-vote="downvote">
+                            <i class="full-post__icon fas fa-heart-broken" @if ($post->vote_user_logged_id == $loggedUserId && $post->vote_type_id == 2)
+                                data-markedvote="marked"
+                                @endif
+                                data-toggle="tooltip" data-placement="bottom" title="Down Vote">
+                            </i>
+                        </span>
                     </div>
                 </div>
 

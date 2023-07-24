@@ -19,7 +19,9 @@
             <span class="brief-posts__vote" data-vote="upvote">
                 <i data-markedvote="{{ ($post->vote_user_id == $loggedUserId && $post->vote_type_id == 1) ? 'marked' : 'none' }}" data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="brief-posts__interactions__icon fas fa-heart"></i>
             </span>
+
             <label class="brief-posts__votes-amount">{{ $post->votes_amount }}</label>
+
             <span class="brief-posts__vote" data-vote="downvote">
                 <i data-markedvote="{{ ($post->vote_user_id == $loggedUserId && $post->vote_type_id == 2) ? 'marked' : 'none' }}" data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="brief-posts__interactions__icon fas fa-heart-broken"></i>
             </span>
