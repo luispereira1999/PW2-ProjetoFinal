@@ -13,6 +13,8 @@
             <div class="modal-body">
                 <form class="popup__form" id="formEditPost{{ $post->post_id }}" method="post" action="/posts/update/{{ $post->post_id }}">
                     @csrf
+                    @method('PATCH')
+
                     <input class="popup__text" type="text" name="title" value="{{ $post->title }}" placeholder="Título" required>
                     <textarea class="popup__textarea" name="description" cols="40" rows="5" placeholder="Texto da Publicação ..." required>{{ $post->description }}</textarea>
                 </form>

@@ -101,7 +101,7 @@ class PostController extends Controller
         }
 
         $post->title = $request->input('title');
-        $post->last_name = $request->input('description');
+        $post->description = $request->input('description');
 
         $post->save();
 
@@ -112,11 +112,27 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($postId)
     {
-        //
+        $post = Post::find($postId);
+
+        if (!$post) {
+            return redirect()->back()->with('error', 'Post not found.');
+        }
+
+        $loggedUser = Auth::user();
+        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
+
+        // verificar se pertence ao utilizador com login
+        if ($post->user_id != $loggedUserId) {
+            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+        }
+
+        $post->delete();
+
+        return redirect()->back()->with('success', 'Post deleted successfully.');
     }
 }

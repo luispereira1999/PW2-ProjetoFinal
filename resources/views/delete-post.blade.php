@@ -17,6 +17,8 @@
             <div class="modal-footer">
                 <form id="formDeletePost{{ $post->post_id }}" method="post" action="/posts/delete/{{ $post->post_id }}">
                     @csrf
+                    @method('DELETE')
+
                     <button class="button button-primary" type="submit" form="formDeletePost{{ $post->post_id }}" name="isDelete">Eliminar</button>
                     <button class="button button-cancel" type="button" data-dismiss="modal">Não</button>
                 </form>
