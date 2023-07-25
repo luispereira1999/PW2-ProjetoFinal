@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `posts_votes` (
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `first_name` varchar(50) DEFAULT '',
   `last_name` varchar(50) DEFAULT '',
@@ -118,16 +118,16 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- A despejar dados para tabela kll.users: ~10 rows (aproximadamente)
 REPLACE INTO `users` (`id`, `name`, `password`, `email`, `first_name`, `last_name`, `city`, `country`) VALUES
-	(1, 'Luisa', '81dc9bdb52d04dc20036dbd8313ed055', 'l.m@gmail.com', 'Luisa', 'Machado', 'Aveiro', 'Portugal'),
-	(2, 'Matias', '81dc9bdb52d04dc20036dbd8313ed055', 'p.m@gmail.com', 'Pedro', 'Matias', 'Vila Real', 'Portugal'),
-	(3, 'Duda', '81dc9bdb52d04dc20036dbd8313ed055', 'a.d@gmail.com', 'Álvaro', 'Duarte', 'Bragança', 'Portugal'),
-	(4, 'Matilde', '81dc9bdb52d04dc20036dbd8313ed055', 'm.c@gmail.com', 'Matilde', 'Castro', 'Viseu', 'Portugal'),
-	(5, 'Joaninha', '81dc9bdb52d04dc20036dbd8313ed055', 'j.a@gmail.com', 'Joana', 'Alves', 'Portimão', 'Portugal'),
-	(6, 'Ismael', '81dc9bdb52d04dc20036dbd8313ed055', 'i.m@gmail.com', 'Ismael', 'Moreira', 'Lisboa', 'Portugal'),
-	(7, 'Barbie', '81dc9bdb52d04dc20036dbd8313ed055', 'b.b@gmail.com', 'Barbara', 'Barbosa', 'Porto', 'Portugal'),
-	(8, 'Kiki', '81dc9bdb52d04dc20036dbd8313ed055', 'francisca.costa@kll.com', 'Francisca', 'Costa', 'Braga', 'Portugal'),
-	(9, 'Luisinho', '81dc9bdb52d04dc20036dbd8313ed055', 'luis.pereira@kll.com', 'Luís', 'Pereira', 'Vila Nova de Famalicão', 'Portugal'),
-	(10, 'Larinha', '81dc9bdb52d04dc20036dbd8313ed055', 'lara.ribeiro@kll.com', 'Lara', 'Ribeiro', 'Barcelos', 'Portugal');
+	(1, 'Luisa', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'l.m@gmail.com', 'Luisa', 'Machado', 'Aveiro', 'Portugal'),
+	(2, 'Matias', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'p.m@gmail.com', 'Pedro', 'Matias', 'Vila Real', 'Portugal'),
+	(3, 'Duda', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'a.d@gmail.com', 'Álvaro', 'Duarte', 'Bragança', 'Portugal'),
+	(4, 'Matilde', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'm.c@gmail.com', 'Matilde', 'Castro', 'Viseu', 'Portugal'),
+	(5, 'Joaninha', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'j.a@gmail.com', 'Joana', 'Alves', 'Portimão', 'Portugal'),
+	(6, 'Ismael', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'i.m@gmail.com', 'Ismael', 'Moreira', 'Lisboa', 'Portugal'),
+	(7, 'Barbie', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'b.b@gmail.com', 'Barbara', 'Barbosa', 'Porto', 'Portugal'),
+	(8, 'Kiki', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'francisca.costa@kll.com', 'Francisca', 'Costa', 'Braga', 'Portugal'),
+	(9, 'Luisinho', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'luis.pereira@kll.com', 'Luís', 'Pereira', 'Vila Nova de Famalicão', 'Portugal'),
+	(10, 'Larinha', '$2y$10$ZLpz9us1B9XZY9x/AZr6xOGCVbY.w61CjHukmuo7cEXiU31v/wolq', 'lara.ribeiro@kll.com', 'Lara', 'Ribeiro', 'Barcelos', 'Portugal');
 
 -- A despejar estrutura para tabela kll.vote_types
 CREATE TABLE IF NOT EXISTS `vote_types` (

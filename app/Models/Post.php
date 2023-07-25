@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 use App\Models\Comment;
 use App\Models\PostsVote;
-use Illuminate\Support\Facades\DB;
 
 class Post extends Model
 {
@@ -42,7 +43,7 @@ class Post extends Model
             ->leftJoin('users as u', 'p.user_id', '=', 'u.id')
             ->leftJoin('posts_votes as v', function ($join) use ($loggedUserId) {
                 $join->on('p.id', '=', 'v.post_id')
-                     ->where('v.user_id', '=', $loggedUserId);
+                    ->where('v.user_id', '=', $loggedUserId);
             })
             ->orderBy('p.votes_amount', 'desc')
             ->get();
@@ -68,7 +69,7 @@ class Post extends Model
             ->join('users AS u', 'p.user_id', '=', 'u.id')
             ->leftJoin('posts_votes AS v', function ($join) use ($loggedUserId) {
                 $join->on('p.id', '=', 'v.post_id')
-                     ->where('v.user_id', '=', $loggedUserId);
+                    ->where('v.user_id', '=', $loggedUserId);
             })
             ->where('p.user_id', '=', $userId)
             ->orderByDesc('votes_amount')
@@ -100,5 +101,74 @@ class Post extends Model
             ->first();
 
         return $post;
+    }
+
+    public static function vote($postId, $voteTypeId, $userId)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Selecionar voto
+            $postVote = DB::table('posts_votes')
+                ->select('post_id', 'user_id', 'vote_type_id')
+                ->where('post_id', $postId)
+                ->where('user_id', $userId)
+                ->first();
+
+            if ($postVote) {
+                if ($voteTypeId == $postVote->vote_type_id) {
+                    // Remover voto
+                    DB::table('posts_votes')
+                        ->where('post_id', $postId)
+                        ->where('user_id', $userId)
+                        ->delete();
+
+                    if ($voteTypeId == 1) {
+                        $operation = -1;
+                    } elseif ($voteTypeId == 2) {
+                        $operation = 1;
+                    }
+                } else {
+                    // Atualizar voto
+                    DB::table('posts_votes')
+                        ->updateOrInsert(
+                            ['post_id' => $postId, 'user_id' => $userId],
+                            ['vote_type_id' => $voteTypeId]
+                        );
+
+                    if ($voteTypeId == 1) {
+                        $operation = 2;
+                    } elseif ($voteTypeId == 2) {
+                        $operation = -2;
+                    }
+                }
+            } else {
+                // Inserir voto
+                DB::table('posts_votes')
+                    ->insert([
+                        'post_id' => $postId,
+                        'user_id' => $userId,
+                        'vote_type_id' => $voteTypeId,
+                    ]);
+
+                if ($voteTypeId == 1) {
+                    $operation = 1;
+                } elseif ($voteTypeId == 2) {
+                    $operation = -1;
+                }
+            }
+
+            // Atualizar quantidade de votos
+            DB::table('posts')
+                ->where('id', $postId)
+                ->increment('votes_amount', $operation);
+
+            DB::commit();
+
+            return true; // retorna o estado da operação
+        } catch (QueryException $exception) {
+            DB::rollback();
+            return null;
+        }
     }
 }

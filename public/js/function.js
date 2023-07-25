@@ -1,97 +1,106 @@
 function votePost(elements, voteTypeId, postId) {
-   // dados que vão para o servidor (corpo da requisição)
-   let body = {
-      "voteTypeId": voteTypeId
-   };
+    // dados que vão para o servidor (corpo da requisição)
+    let body = {
+        "voteTypeId": voteTypeId
+    };
 
-   // para enviar dados ao servidor é preciso primeiro converter para JSON
-   let serverJson = JSON.stringify(body);
+    // para enviar dados ao servidor é preciso primeiro converter para JSON
+    let serverJson = JSON.stringify(body);
 
-   // fazer pedido ao servidor
-   ajaxRequest = $.ajax({
-      cache: false,
-      contentType: "application/json; charset=utf-8",
-      data: serverJson,
-      dateType: "json",
-      type: "post",
-      url: "/posts/vote/" + postId
-   });
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-   // executar esta função quando o pedido é concluído com sucesso
-   ajaxRequest.done(function (response) {
-      // converter JSON que veio do servidor para JS
-      clientJs = JSON.parse(response);
+    // fazer pedido ao servidor
+    ajaxRequest = $.ajax({
+        cache: false,
+        contentType: "application/json; charset=utf-8",
+        data: serverJson,
+        dateType: "json",
+        type: "post",
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        url: "/posts/vote/" + postId
+    });
 
-      // atualizar cor dos ícones de up e down vote
-      let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";
-      let oppositeIsActive = elements.oppositeVoteIcon.attr("data-markedvote") == "marked";
+    // executar esta função quando o pedido é concluído com sucesso
+    ajaxRequest.done(function (response) {
+        let votesAmount = response.votesAmount;
+        console.log("ola")
+        // atualizar cor dos ícones de up e down vote
+        let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";
+        let oppositeIsActive = elements.oppositeVoteIcon.attr("data-markedvote") == "marked";
 
-      if (currentIsActive) {
-         elements.currentVoteIcon.attr("data-markedvote", "none"); // desativa atual
-      }
-      else {
-         elements.currentVoteIcon.attr("data-markedvote", "marked"); // ativa atual
+        if (currentIsActive) {
+            elements.currentVoteIcon.attr("data-markedvote", "none"); // desativa atual
+        }
+        else {
+            elements.currentVoteIcon.attr("data-markedvote", "marked"); // ativa atual
 
-         if (oppositeIsActive) {
-            elements.oppositeVoteIcon.attr("data-markedvote", "none"); // desativa oposto
-         }
-      }
+            if (oppositeIsActive) {
+                elements.oppositeVoteIcon.attr("data-markedvote", "none"); // desativa oposto
+            }
+        }
 
-      // atualizar número de votos do post na página
-      elements.votesAmount.text(clientJs.votesAmount);
-   });
+        // atualizar número de votos do post na página
+        elements.votesAmount.text(votesAmount);
+    });
 
-   // executar esta função quando existe algum erro ao fazer o pedido
-   ajaxRequest.fail(function (error) {
-      // showErrorAlert("Erro ao comunicar com o servidor.");
-   });
+    // executar esta função quando existe algum erro ao fazer o pedido
+    ajaxRequest.fail(function (error) {
+        // showErrorAlert("Erro ao comunicar com o servidor.");
+    });
 }
 
 function voteComment(elements, voteTypeId, commentId) {
-   // dados que vão para o servidor (corpo da requisição)
-   let body = {
-      "voteTypeId": voteTypeId
-   };
+    // dados que vão para o servidor (corpo da requisição)
+    let body = {
+        "voteTypeId": voteTypeId
+    };
 
-   // para enviar dados ao servidor é preciso primeiro converter para JSON
-   let serverJson = JSON.stringify(body);
+    // para enviar dados ao servidor é preciso primeiro converter para JSON
+    let serverJson = JSON.stringify(body);
 
-   // fazer pedido ao servidor
-   ajaxRequest = $.ajax({
-      cache: false,
-      contentType: "application/json; charset=utf-8",
-      data: serverJson,
-      dateType: "json",
-      type: "post",
-      url: "/comment/vote/" + commentId
-   });
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-   // executar esta função quando o pedido é concluído com sucesso
-   ajaxRequest.done(function (response) {
-      // converter JSON que veio do servidor para JS
-      clientJs = JSON.parse(response);
+    // fazer pedido ao servidor
+    ajaxRequest = $.ajax({
+        cache: false,
+        contentType: "application/json; charset=utf-8",
+        data: serverJson,
+        dateType: "json",
+        type: "post",
+        headers: {
+            'X-CSRF-TOKEN': csrfToken // Adiciona o token CSRF ao cabeçalho
+        },
+        url: "/comment/vote/" + commentId
+    });
 
-      // atualizar cor dos ícones de up e down vote
-      let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";
-      let oppositeIsActive = elements.oppositeVoteIcon.attr("data-markedvote") == "marked";
+    // executar esta função quando o pedido é concluído com sucesso
+    ajaxRequest.done(function (response) {
+        // converter JSON que veio do servidor para JS
+        clientJs = JSON.parse(response);
 
-      if (currentIsActive) {
-         elements.currentVoteIcon.attr("data-markedvote", "none"); // desativa atual
-      }
-      else {
-         elements.currentVoteIcon.attr("data-markedvote", "marked"); // ativa atual
+        // atualizar cor dos ícones de up e down vote
+        let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";
+        let oppositeIsActive = elements.oppositeVoteIcon.attr("data-markedvote") == "marked";
 
-         if (oppositeIsActive) {
-            elements.oppositeVoteIcon.attr("data-markedvote", "none"); // desativa oposto
-         }
-      }
+        if (currentIsActive) {
+            elements.currentVoteIcon.attr("data-markedvote", "none"); // desativa atual
+        }
+        else {
+            elements.currentVoteIcon.attr("data-markedvote", "marked"); // ativa atual
 
-      // atualizar número de votos do post na página
-      elements.votesAmount.text(clientJs.votesAmount);
-   });
+            if (oppositeIsActive) {
+                elements.oppositeVoteIcon.attr("data-markedvote", "none"); // desativa oposto
+            }
+        }
 
-   // executar esta função quando existe algum erro ao fazer o pedido
-   ajaxRequest.fail(function (error) {
-      // showErrorAlert("Erro ao comunicar com o servidor.");
-   });
+        // atualizar número de votos do post na página
+        elements.votesAmount.text(clientJs.votesAmount);
+    });
+
+    // executar esta função quando existe algum erro ao fazer o pedido
+    ajaxRequest.fail(function (error) {
+        // showErrorAlert("Erro ao comunicar com o servidor.");
+    });
 }

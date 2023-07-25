@@ -28,10 +28,11 @@ Route::get('/auth/logout', [AuthController::class, 'logout']);
 // utilizadores
 Route::get('/profile/{userId}', [UserController::class, 'index']);
 Route::get('/account', [UserController::class, 'show']);
-Route::put('/account/edit-data/{userId}', [UserController::class, 'updateData']);
-Route::put('/account/edit-password/{userId}', [UserController::class, 'updatePassword']);
+Route::patch('/account/edit-data/{userId}', [UserController::class, 'updateData']);
+Route::patch('/account/edit-password/{userId}', [UserController::class, 'updatePassword']);
 
 // posts
 Route::get('/posts/{postId}', [PostController::class, 'show']);
 Route::patch('/posts/update/{postId}', [PostController::class, 'update']);
+Route::post('/posts/vote/{postId}', [PostController::class, 'vote']);
 Route::delete('/posts/delete/{postId}', [PostController::class, 'destroy']);

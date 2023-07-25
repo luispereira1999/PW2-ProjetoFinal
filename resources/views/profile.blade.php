@@ -12,6 +12,7 @@
     <meta name="keywords" content="IPCA, Programação Web 2, Projeto Final, Rede Social">
     <meta name="author" content="Lara Ribeiro, Luís Pereira, Maria Costa">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('assets/images/favicon.ico') }}">

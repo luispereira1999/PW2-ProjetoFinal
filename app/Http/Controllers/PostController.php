@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use App\Models\PostVote;
 
 class PostController extends Controller
 {
@@ -107,6 +108,46 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'Post atualizado com sucesso!')
             ->with('reload', true);
+    }
+
+    /**
+     * Update the specified post data in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $postId
+     * @return \Illuminate\Http\Response
+     */
+    public function vote(Request $request, $postId)
+    {
+        $request->validate([
+            'voteTypeId' => 'required|in:1,2'
+        ], [
+            'voteTypeId.required' => 'O identificador do tipo de voto é obrigatório.',
+            'voteTypeId.in' => 'O identificador do tipo de voto inválido.',
+        ]);
+
+        if (!Auth::check()) {
+            return redirect()->route('auth')->with('error', 'Você precisa fazer login para realizar esta operação.');
+        }
+
+        $loggedUser = Auth::user();
+        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
+
+        $post = Post::findOrFail($postId);
+
+        if (!$post) {
+            $stringsArray = ['Erro ao votar'];
+
+            return response()->json($stringsArray);
+        }
+
+        Post::vote($postId, $request->input('voteTypeId'), $loggedUserId);
+
+        $votesAmount = Post::where('id', $postId)->pluck('votes_amount')->first();
+
+        return response()->json([
+            'votesAmount' => $votesAmount
+        ]);
     }
 
     /**
