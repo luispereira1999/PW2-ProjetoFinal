@@ -69,7 +69,7 @@
             </div>
             @endif
 
-            <form method="post" action="/auth/login">
+            <form method="post" action="{{ route('auth.login') }}">
                 @csrf
 
                 <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador ou Email" require>
@@ -89,7 +89,7 @@
 
         <!-- formulário de signup -->
         <div class="content__form-wrapper" id="content__signup">
-            <form method="post" action="/auth/signup">
+            <form method="post" action="{{ route('auth.signup') }}">
                 @csrf
 
                 <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador" require>

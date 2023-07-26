@@ -15,7 +15,7 @@
             </div>
 
             <div class="modal-footer">
-                <form id="formDeletePost{{ $post->post_id }}" method="post" action="/posts/delete/{{ $post->post_id }}">
+                <form id="formDeletePost{{ $post->post_id }}" method="post" action="{{ route('posts.delete', ['postId' => $post->post_id]) }}">
                     @csrf
                     @method('DELETE')
 

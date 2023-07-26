@@ -61,7 +61,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public static function show()
+    public function show()
     {
         $user = Auth::user();
         $loggedUserId = $user ? $user->id : -1;

@@ -59,7 +59,7 @@
             </div>
         </section>
 
-        <form id="formEditData" class="account__form" method="post" action="/account/edit-data/{{ $user->id; }}">
+        <form id="formEditData" class="account__form" method="post" action="{{ route('account.edit-data', ['userId' => $user->id]) }}">
             @csrf
             @method('PATCH')
 
@@ -85,7 +85,7 @@
             </ul>
         </form>
 
-        <form id="formEditPassword" class="account__form" method="post" action="/account/edit-password/{{ $user->id; }}">
+        <form id="formEditPassword" class="account__form" method="post" action="{{ route('account.edit-password', ['userId' => $user->id]) }}">
             @csrf
             @method('PATCH')
 

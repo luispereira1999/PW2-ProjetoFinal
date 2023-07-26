@@ -93,6 +93,25 @@
         </section>
     </main>
 
+    <!-- COMENTÁRIOS: informações, ações -->
+    <section class="comments">
+        <span class="comment__new" data-toggle="modal" data-target="#newComment"><i class="fas fa-plus comment__new__icon"></i> Novo Comentário</span>
+        @include('new-comment')
+
+        <hr>
+
+        <div class="comments__content-wrapper">
+            <ul class="comments__items">
+                @if (isset($comments))
+                @foreach ($comments as $comment)
+                <!-- comentário -->
+                @include('components.comment-component')
+                @endforeach
+                @endif
+            </ul>
+        </div>
+    </section>
+
     <!-- RODAPÉ: copyright, autor, links -->
     <footer class="footer">
         @include("footer")

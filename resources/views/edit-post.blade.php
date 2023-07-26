@@ -11,7 +11,7 @@
             </div>
 
             <div class="modal-body">
-                <form class="popup__form" id="formEditPost{{ $post->post_id }}" method="post" action="/posts/update/{{ $post->post_id }}">
+                <form class="popup__form" id="formEditPost{{ $post->post_id }}" method="post" action="{{ route('posts.update', ['postId' => $post->post_id]) }}">
                     @csrf
                     @method('PATCH')
 

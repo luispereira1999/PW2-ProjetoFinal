@@ -6,20 +6,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\PostVote;
+use App\Services\AuthService;
+use App\Services\PostService;
+use App\Services\CommentService;
 
 class PostController extends Controller
 {
+    protected $authService;
+    protected $postService;
+    protected $commentService;
+
+    public function __construct(AuthService $authService, PostService $postService, CommentService $commentService)
+    {
+        $this->authService = $authService;
+        $this->postService = $postService;
+        $this->commentService = $commentService;
+    }
+
+
     /**
-     * Display a listing of the posts.
+     * Mostrar todos os posts.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $loggedUser = Auth::user();
-        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
-
-        $posts = Post::allInHome($loggedUserId);
+        $loggedUserId = $this->authService->getUserId();
+        $posts = $this->postService->getAll($loggedUserId);
 
         return view('home', [
             'posts' => $posts,
@@ -29,18 +42,7 @@ class PostController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
+     * Criar um novo post.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -52,17 +54,15 @@ class PostController extends Controller
 
 
     /**
-     * Display the specified post.
+     * Mostrar um post específico.
      *
      * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
-    public static function show($postId)
+    public function show($postId)
     {
-        $loggedUser = Auth::user();
-        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
-
-        $post = Post::oneInPost($loggedUserId, $postId);
+        $loggedUserId = $this->authService->getUserId();
+        $post = $this->postService->getOneWithUserVote($postId, $loggedUserId);
 
         return view('post', [
             'post' => $post,
@@ -70,8 +70,9 @@ class PostController extends Controller
         ]);
     }
 
+
     /**
-     * Update the specified post data in storage.
+     * Atualizar um post.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $postId
@@ -87,31 +88,22 @@ class PostController extends Controller
             'description.required' => 'A descrição é obrigatória.'
         ]);
 
-        if (!Auth::check()) {
-            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+        // obtido do middleware que verificar se o post existe
+        $post = $request->attributes->get('post');
+
+        $loggedUserId = $this->authService->getUserId();
+        $result = $this->postService->updateOne($post, $loggedUserId, $request->input('title'), $request->input('description'));
+
+        if (!$result['success']) {
+            return redirect()->back()->with('error', $result['message']);
         }
 
-        $loggedUser = Auth::user();
-        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
-
-        $post = Post::findOrFail($postId);
-
-        // verificar se pertence ao utilizador com login
-        if ($post->user_id != $loggedUserId) {
-            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
-        }
-
-        $post->title = $request->input('title');
-        $post->description = $request->input('description');
-
-        $post->save();
-
-        return redirect()->back()->with('success', 'Post atualizado com sucesso!')
-            ->with('reload', true);
+        return redirect()->back()->with('success', $result['message']);
     }
 
+
     /**
-     * Update the specified post data in storage.
+     * Atualizar um voto de um post.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $postId
@@ -126,54 +118,34 @@ class PostController extends Controller
             'voteTypeId.in' => 'O identificador do tipo de voto inválido.',
         ]);
 
-        if (!Auth::check()) {
-            return redirect()->route('auth')->with('error', 'Você precisa fazer login para realizar esta operação.');
-        }
+        $loggedUserId = $this->authService->getUserId();
 
-        $loggedUser = Auth::user();
-        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
+        $this->postService->vote($postId, $loggedUserId, $request->input('voteTypeId'));
+        $votesAmount = $this->postService->getVotesAmount($postId);
 
-        $post = Post::findOrFail($postId);
-
-        if (!$post) {
-            $stringsArray = ['Erro ao votar'];
-
-            return response()->json($stringsArray);
-        }
-
-        Post::vote($postId, $request->input('voteTypeId'), $loggedUserId);
-
-        $votesAmount = Post::where('id', $postId)->pluck('votes_amount')->first();
-
-        return response()->json([
-            'votesAmount' => $votesAmount
-        ]);
+        return response()->json(['votesAmount' => $votesAmount]);
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Remover um post.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($postId)
+    public function destroy(Request $request, $postId)
     {
-        $post = Post::find($postId);
+        // obtido do middleware que verificar se o post existe
+        $post = $request->attributes->get('post');
 
-        if (!$post) {
-            return redirect()->back()->with('error', 'Post not found.');
+        $loggedUserId = $this->authService->getUserId();
+        $result = $this->postService->delete($post, $loggedUserId);
+
+        if (!$result['success']) {
+            return redirect()->back()->with('error', $result['message']);
         }
 
-        $loggedUser = Auth::user();
-        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
-
-        // verificar se pertence ao utilizador com login
-        if ($post->user_id != $loggedUserId) {
-            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
-        }
-
-        $post->delete();
-
-        return redirect()->back()->with('success', 'Post deleted successfully.');
+        return redirect()->back()->with('success', $result['message']);
     }
 }

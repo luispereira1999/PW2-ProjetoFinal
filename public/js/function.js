@@ -25,7 +25,7 @@ function votePost(elements, voteTypeId, postId) {
     // executar esta função quando o pedido é concluído com sucesso
     ajaxRequest.done(function (response) {
         let votesAmount = response.votesAmount;
-        console.log("ola")
+
         // atualizar cor dos ícones de up e down vote
         let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";
         let oppositeIsActive = elements.oppositeVoteIcon.attr("data-markedvote") == "marked";
@@ -47,9 +47,14 @@ function votePost(elements, voteTypeId, postId) {
 
     // executar esta função quando existe algum erro ao fazer o pedido
     ajaxRequest.fail(function (error) {
+        // utilizador não autenticado
+        if (error.status === 401) {
+            window.location.href = '/auth';
+        }
         // showErrorAlert("Erro ao comunicar com o servidor.");
     });
 }
+
 
 function voteComment(elements, voteTypeId, commentId) {
     // dados que vão para o servidor (corpo da requisição)
@@ -101,6 +106,10 @@ function voteComment(elements, voteTypeId, commentId) {
 
     // executar esta função quando existe algum erro ao fazer o pedido
     ajaxRequest.fail(function (error) {
+        // utilizador não autenticado
+        if (error.status === 401) {
+            window.location.href = '/auth';
+        }
         // showErrorAlert("Erro ao comunicar com o servidor.");
     });
 }
