@@ -63,10 +63,12 @@ class PostController extends Controller
     {
         $loggedUserId = $this->authService->getUserId();
         $post = $this->postService->getOneWithUserVote($postId, $loggedUserId);
+        $comments = $this->commentService->getAllByPostId($postId, $loggedUserId);
 
         return view('post', [
+            'loggedUserId' => $loggedUserId,
             'post' => $post,
-            'loggedUserId' => $loggedUserId
+            'comments' => $comments,
         ]);
     }
 

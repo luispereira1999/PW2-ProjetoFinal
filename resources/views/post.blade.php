@@ -103,9 +103,11 @@
         <div class="comments__content-wrapper">
             <ul class="comments__items">
                 @if (isset($comments))
+
                 @foreach ($comments as $comment)
                 <!-- comentário -->
-                @include('components.comment-component')
+                @include('comment')
+
                 @endforeach
                 @endif
             </ul>
