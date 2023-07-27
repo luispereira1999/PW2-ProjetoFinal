@@ -59,7 +59,7 @@ Route::get('/posts/{postId}', [PostController::class, 'show'])
     ->middleware('check.post.exists')
     ->name('posts');
 
-Route::patch('/posts/create', [PostController::class, 'create'])
+Route::post('/posts/create', [PostController::class, 'create'])
     ->middleware(['auth'])
     ->name('posts.create');
 

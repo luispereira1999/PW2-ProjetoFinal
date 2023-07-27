@@ -65,6 +65,7 @@ class PostService
         $post = new Post();
         $post->title = $title;
         $post->description = $description;
+        $post->date = now();
         $post->user_id = $loggedUserId;
         $post->save();
 

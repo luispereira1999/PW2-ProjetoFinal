@@ -52,7 +52,7 @@ class PostController extends Controller
         ]);
 
         $loggedUserId = $this->authService->getUserId();
-        $result = $this->commentService->insertOne($request->input('title'), $request->input('description'), $loggedUserId);
+        $result = $this->postService->insertOne($request->input('title'), $request->input('description'), $loggedUserId);
 
         if (!$result['success']) {
             return redirect()->back()->with('error', $result['message']);
