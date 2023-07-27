@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,7 +59,7 @@ Route::get('/posts/{postId}', [PostController::class, 'show'])
     ->middleware('check.post.exists')
     ->name('posts');
 
-Route::patch('/posts/create/{postId}', [PostController::class, 'store'])
+Route::patch('/posts/create/{postId}', [PostController::class, 'create'])
     ->middleware(['auth'])
     ->name('posts.create');
 
@@ -76,18 +77,14 @@ Route::delete('/posts/delete/{postId}', [PostController::class, 'destroy'])
 
 
 // COMENTÁRIOS
-Route::get('/comments', [CommentController::class, 'index'])
-    ->middleware('auth')
-    ->name('comments');
-
 Route::post('/comments/create', [CommentController::class, 'create'])
     ->middleware('auth')
     ->name('comments.create');
 
-Route::patch('/comments/update/{postId}', [CommentController::class, 'update'])
-    ->middleware('auth')
+Route::patch('/comments/update/{commentId}', [CommentController::class, 'update'])
+    ->middleware(['auth', 'check.comment.exists'])
     ->name('comments.update');
 
-Route::delete('/comments/delete/{postId}', [CommentController::class, 'destroy'])
-    ->middleware('auth')
+Route::delete('/comments/delete/{commentId}', [CommentController::class, 'destroy'])
+    ->middleware(['auth', 'check.comment.exists'])
     ->name('comments.delete');

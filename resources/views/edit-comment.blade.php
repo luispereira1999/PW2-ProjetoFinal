@@ -11,10 +11,11 @@
             </div>
 
             <div class="modal-body">
-                <form class="popup__form" id="formEditComment{{ $comment->comment_id }}" method="post" action="{{ route('comments.edit', ['commentId' => $comment->comment_id]) }}">
+                <form class="popup__form" id="formEditComment{{ $comment->comment_id }}" method="post" action="{{ route('comments.update', ['commentId' => $comment->comment_id]) }}">
                     @csrf
+                    @method('PATCH')
 
-                    <input type="hidden" name="postId" value="{{ $post->post_id }}">
+                    <input type="hidden" name="postId" value="{{ $post->id }}">
                     <textarea class="popup__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ..." required>{{ $comment->description }}</textarea>
                 </form>
             </div>

@@ -9,7 +9,7 @@ use App\Models\Post;
 class CheckPostExistsMiddleware
 {
     /**
-     * Middleware para verificar se um post com um id existe na base de dados.
+     * Middleware para verificar se um post com um determinado id existe na base de dados.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next

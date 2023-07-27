@@ -60,25 +60,10 @@ class PostService
         return $votesAmount;
     }
 
-    public function hasPost($postId)
-    {
-        $post = Post::find($postId);
-
-        if ($post) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function belongsToUser()
-    {
-    }
-
     public function updateOne($post, $loggedUserId, $title, $description)
     {
         if ($post->user_id != $loggedUserId) {
-            return ['success' => false, 'message' => 'É necessário fazer login para realizar a operação.'];
+            return ['success' => false, 'message' => 'O post não pertence ao utilizador atualmente com login.'];
         }
 
         $post->title = $title;
@@ -161,7 +146,7 @@ class PostService
     public function delete($post, $loggedUserId)
     {
         if ($post->user_id != $loggedUserId) {
-            return ['success' => false, 'message' => 'É necessário fazer login para realizar a operação.'];
+            return ['success' => false, 'message' => 'O post não pertence ao utilizador atualmente com login.'];
         }
 
         $post->delete();

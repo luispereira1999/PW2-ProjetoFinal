@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comment;
 use App\Services\AuthService;
 use App\Services\PostService;
 use App\Services\CommentService;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     protected $authService;
     protected $postService;
@@ -22,24 +23,7 @@ class PostController extends Controller
 
 
     /**
-     * Mostrar todos os posts.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $loggedUserId = $this->authService->getUserId();
-        $posts = $this->postService->getAll($loggedUserId);
-
-        return view('home', [
-            'posts' => $posts,
-            'loggedUserId' => $loggedUserId
-        ]);
-    }
-
-
-    /**
-     * Criar um novo post.
+     * Criar um novo comentário.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -51,47 +35,25 @@ class PostController extends Controller
 
 
     /**
-     * Mostrar um post específico.
-     *
-     * @param  int  $postId
-     * @return \Illuminate\Http\Response
-     */
-    public function show($postId)
-    {
-        $loggedUserId = $this->authService->getUserId();
-        $post = $this->postService->getOneWithUserVote($postId, $loggedUserId);
-        $comments = $this->commentService->getAllByPostId($postId, $loggedUserId);
-
-        return view('post', [
-            'loggedUserId' => $loggedUserId,
-            'post' => $post,
-            'comments' => $comments,
-        ]);
-    }
-
-
-    /**
-     * Atualizar um post.
+     * Atualizar um comentário.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $postId
+     * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $postId)
+    public function update(Request $request, $commentId)
     {
         $request->validate([
-            'title' => 'required',
             'description' => 'required',
         ], [
-            'title.required' => 'O título é obrigatório.',
             'description.required' => 'A descrição é obrigatória.'
         ]);
 
-        // obtido do middleware que verificar se o post existe
-        $post = $request->attributes->get('post');
+        // obtido do middleware que verificar se o comentário existe
+        $comment = $request->attributes->get('comment');
 
         $loggedUserId = $this->authService->getUserId();
-        $result = $this->postService->updateOne($post, $loggedUserId, $request->input('title'), $request->input('description'));
+        $result = $this->commentService->updateOne($comment, $loggedUserId, $request->input('title'), $request->input('description'));
 
         if (!$result['success']) {
             return redirect()->back()->with('error', $result['message']);
@@ -102,13 +64,13 @@ class PostController extends Controller
 
 
     /**
-     * Atualizar um voto de um post.
+     * Atualizar um voto de um comentário.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $postId
+     * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
-    public function vote(Request $request, $postId)
+    public function vote(Request $request, $commentId)
     {
         $request->validate([
             'voteTypeId' => 'required|in:1,2'
@@ -119,27 +81,27 @@ class PostController extends Controller
 
         $loggedUserId = $this->authService->getUserId();
 
-        $this->postService->vote($postId, $loggedUserId, $request->input('voteTypeId'));
-        $votesAmount = $this->postService->getVotesAmount($postId);
+        $this->commentService->vote($commentId, $loggedUserId, $request->input('voteTypeId'));
+        $votesAmount = $this->commentService->getVotesAmount($commentId);
 
         return response()->json(['votesAmount' => $votesAmount]);
     }
 
 
     /**
-     * Remover um post.
+     * Remover um comentário.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $postId
+     * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $postId)
+    public function destroy(Request $request, $commentId)
     {
-        // obtido do middleware que verificar se o post existe
-        $post = $request->attributes->get('post');
+        // obtido do middleware que verificar se o comentário existe
+        $comment = $request->attributes->get('comment');
 
         $loggedUserId = $this->authService->getUserId();
-        $result = $this->postService->delete($post, $loggedUserId);
+        $result = $this->commentService->delete($comment, $loggedUserId);
 
         if (!$result['success']) {
             return redirect()->back()->with('error', $result['message']);

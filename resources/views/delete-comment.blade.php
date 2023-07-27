@@ -15,10 +15,11 @@
             </div>
 
             <div class="modal-footer">
-                <form id="formDeleteComment{{ $comment->comment_id }}" method="post" action="{{ route('comments.delete', ['id' => $comment->comment_id]) }}">
+                <form id="formDeleteComment{{ $comment->comment_id }}" method="post" action="{{ route('comments.delete', ['commentId' => $comment->comment_id]) }}">
                     @csrf
+                    @method('DELETE')
 
-                    <input type="hidden" name="postId" value="{{ $post->post_id }}">
+                    <input type="hidden" name="postId" value="{{ $post->id }}">
                     <button class="button button-primary" type="submit" form="formDeleteComment{{ $comment->comment_id }}" name="isDelete">Eliminar</button>
                     <button class="button button-cancel" type="button" data-dismiss="modal">Não</button>
                 </form>
