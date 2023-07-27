@@ -1,11 +1,4 @@
 <body>
-   <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
-   <header>
-      <?php require_once("components/nav-component.php"); ?>
-      <?php require_once("components/new-post-component.php"); ?>
-      <?php require_once("components/about-component.php"); ?>
-   </header>
-
    <!-- PRINCIPAL: post em destaque, pesquisa, posts (informações, ações) -->
    <main class="brief-posts">
       <!-- post em destaque -->

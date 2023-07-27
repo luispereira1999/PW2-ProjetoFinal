@@ -60,6 +60,17 @@ class PostService
         return $votesAmount;
     }
 
+    public function insertOne($title, $description, $loggedUserId)
+    {
+        $post = new Post();
+        $post->title = $title;
+        $post->description = $description;
+        $post->user_id = $loggedUserId;
+        $post->save();
+
+        return ['success' => true, 'message' => 'Post criado com sucesso.'];
+    }
+
     public function updateOne($post, $loggedUserId, $title, $description)
     {
         if ($post->user_id != $loggedUserId) {
@@ -68,7 +79,6 @@ class PostService
 
         $post->title = $title;
         $post->description = $description;
-
         $post->save();
 
         return ['success' => true, 'message' => 'Post atualizado com sucesso.'];

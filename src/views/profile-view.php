@@ -44,13 +44,6 @@
 </head>
 
 <body>
-   <!-- CABEÇALHO: menu de navegação (logótipo, links) e post (título, autor, data) -->
-   <header>
-      <?php require_once("components/nav-component.php"); ?>
-      <?php require_once("components/new-post-component.php"); ?>
-      <?php require_once("components/about-component.php"); ?>
-   </header>
-
    <!-- PRINCIPAL: utilizador, posts (informações, ações) -->
    <main>
       <section class="profile__header-wrapper">

@@ -46,7 +46,19 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+        $loggedUserId = $this->authService->getUserId();
+        $result = $this->commentService->insertOne($request->input('title'), $request->input('description'), $loggedUserId);
+
+        if (!$result['success']) {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->back()->with('success', $result['message']);
     }
 
 

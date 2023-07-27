@@ -47,6 +47,8 @@
     <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
     <header>
         @include("nav")
+        @include("new-post")
+        @include("about")
     </header>
 
     <!-- PRINCIPAL: utilizador, posts (informações, ações) -->
