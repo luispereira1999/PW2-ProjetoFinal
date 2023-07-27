@@ -77,13 +77,12 @@ function voteComment(elements, voteTypeId, commentId) {
         headers: {
             'X-CSRF-TOKEN': csrfToken // Adiciona o token CSRF ao cabeçalho
         },
-        url: "/comment/vote/" + commentId
+        url: "/comments/vote/" + commentId
     });
 
     // executar esta função quando o pedido é concluído com sucesso
     ajaxRequest.done(function (response) {
-        // converter JSON que veio do servidor para JS
-        clientJs = JSON.parse(response);
+        let votesAmount = response.votesAmount;
 
         // atualizar cor dos ícones de up e down vote
         let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";
@@ -101,7 +100,7 @@ function voteComment(elements, voteTypeId, commentId) {
         }
 
         // atualizar número de votos do post na página
-        elements.votesAmount.text(clientJs.votesAmount);
+        elements.votesAmount.text(votesAmount);
     });
 
     // executar esta função quando existe algum erro ao fazer o pedido

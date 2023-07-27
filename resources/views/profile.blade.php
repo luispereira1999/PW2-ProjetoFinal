@@ -1,6 +1,7 @@
 <!-- DEFINIÇÃO: página do perfil de um utilizador -->
 
 <!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <!-- TÍTULO DA PÁGINA -->

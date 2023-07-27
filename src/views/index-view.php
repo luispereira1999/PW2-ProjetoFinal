@@ -1,4 +1,3 @@
-<body>
    <!-- PRINCIPAL: post em destaque, pesquisa, posts (informações, ações) -->
    <main class="brief-posts">
       <!-- post em destaque -->
@@ -108,4 +107,3 @@
 
       <?php endfor; ?>
    </main>
-</body>

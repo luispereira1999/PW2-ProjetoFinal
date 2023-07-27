@@ -85,6 +85,10 @@ Route::patch('/comments/update/{commentId}', [CommentController::class, 'update'
     ->middleware(['auth', 'check.comment.exists'])
     ->name('comments.update');
 
+Route::post('/comments/vote/{commentId}', [CommentController::class, 'vote'])
+    ->middleware(['auth', 'check.comment.exists'])
+    ->name('comments.vote');
+
 Route::delete('/comments/delete/{commentId}', [CommentController::class, 'destroy'])
     ->middleware(['auth', 'check.comment.exists'])
     ->name('comments.delete');
