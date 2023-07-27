@@ -5,19 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Services\AuthService;
-use App\Services\PostService;
 use App\Services\CommentService;
 
 class CommentController extends Controller
 {
     protected $authService;
-    protected $postService;
     protected $commentService;
 
-    public function __construct(AuthService $authService, PostService $postService, CommentService $commentService)
+    public function __construct(AuthService $authService, CommentService $commentService)
     {
         $this->authService = $authService;
-        $this->postService = $postService;
         $this->commentService = $commentService;
     }
 
@@ -30,7 +27,18 @@ class CommentController extends Controller
      */
     public function create(Request $request)
     {
-        //
+        $request->validate([
+            'description' => 'required'
+        ]);
+
+        $loggedUserId = $this->authService->getUserId();
+        $result = $this->commentService->insertOne($request->input('description'), $loggedUserId, $request->input('post_id'));
+
+        if (!$result['success']) {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->back()->with('success', $result['message']);
     }
 
 

@@ -14,7 +14,7 @@
                 <form class="popup__form" id="formNewComment" method="post" action="{{ route('comments.create') }}">
                     @csrf
 
-                    <input type="hidden" name="postId" value="{{ $post->id }}">
+                    <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <textarea class="popup__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ..." required></textarea>
                 </form>
             </div>

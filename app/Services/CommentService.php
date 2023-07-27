@@ -37,6 +37,17 @@ class CommentService
         return $votesAmount;
     }
 
+    public function insertOne($description, $loggedUserId, $postId)
+    {
+        $comment = new Comment();
+        $comment->description = $description;
+        $comment->user_id = $loggedUserId;
+        $comment->post_id = $postId;
+        $comment->save();
+
+        return ['success' => true, 'message' => 'Comentário criado com sucesso.'];
+    }
+
     public function updateOne($comment, $loggedUserId, $title, $description)
     {
         if ($comment->user_id != $loggedUserId) {
@@ -44,7 +55,6 @@ class CommentService
         }
 
         $comment->description = $description;
-
         $comment->save();
 
         return ['success' => true, 'message' => 'Comentário atualizado com sucesso.'];
@@ -56,14 +66,14 @@ class CommentService
             DB::beginTransaction();
 
             // selecionar voto
-            $postVote = DB::table('posts_votes')
-                ->select('post_id', 'user_id', 'vote_type_id')
-                ->where('post_id', $commentId)
+            $commentVote = DB::table('comments_votes')
+                ->select('comment_id', 'user_id', 'vote_type_id')
+                ->where('comment_id', $commentId)
                 ->where('user_id', $userId)
                 ->first();
 
-            if ($postVote) {
-                if ($voteTypeId == $postVote->vote_type_id) {
+            if ($commentVote) {
+                if ($voteTypeId == $commentVote->vote_type_id) {
                     // remover comentário
                     DB::table('comments_votes')
                         ->where('comment_id', $commentId)
