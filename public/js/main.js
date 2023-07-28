@@ -13,38 +13,21 @@ $(document).ready(function () {
     });
 
 
-    // votar num post na página principal - up vote
-    $(".brief-posts__interactions [data-vote='upvote']").click(function () {
-        let elements = {
-            current: $(this),
-            // voto contrário ao deste clique
-            opposite: $(this).parent().children("[data-vote='downvote']"),
-            currentVoteIcon: $(this).children(".brief-posts__interactions__icon"),
-            oppositeVoteIcon: $(this).parent().children("[data-vote='downvote']").children(".brief-posts__interactions__icon"),
-            votesAmount: $(this).parent().children(".brief-posts__votes-amount")
+    // pesquisar posts
+    $("#linkSearchPosts").click(function () {
+        const textSearched = $("#inputSearchText").val();
+
+        // verifica se o texto está vazio ou contém apenas espaços em branco
+        if (!textSearched.trim()) {
+            return;
         }
 
-        let voteTypeId = 1;
-        let postId = $(this).parent().parent().parent().attr("data-post");
+        // obter endpoint
+        const encodedText = encodeURIComponent(textSearched);
+        const route = "/search/" + encodedText;
 
-        votePost(elements, voteTypeId, postId);
-    });
-
-    // votar num post na página principal - down vote
-    $(".brief-posts__interactions [data-vote='downvote']").click(function () {
-        let elements = {
-            current: $(this),
-            // voto contrário ao deste clique
-            opposite: $(this).parent().children("[data-vote='downvote']"),
-            currentVoteIcon: $(this).children(".brief-posts__interactions__icon"),
-            oppositeVoteIcon: $(this).parent().children("[data-vote='upvote']").children(".brief-posts__interactions__icon"),
-            votesAmount: $(this).parent().children(".brief-posts__votes-amount")
-        }
-
-        let voteTypeId = 2;
-        let postId = $(this).parent().parent().parent().attr("data-post");
-
-        votePost(elements, voteTypeId, postId);
+        // atualizar URL
+        $(this).attr("href", route);
     });
 
 
@@ -78,6 +61,41 @@ $(document).ready(function () {
 
         let voteTypeId = 2;
         let postId = $(this).parent().parent().parent().parent().attr("data-post");
+
+        votePost(elements, voteTypeId, postId);
+    });
+
+
+    // votar num post na página principal - up vote
+    $(".brief-posts__interactions [data-vote='upvote']").click(function () {
+        let elements = {
+            current: $(this),
+            // voto contrário ao deste clique
+            opposite: $(this).parent().children("[data-vote='downvote']"),
+            currentVoteIcon: $(this).children(".brief-posts__interactions__icon"),
+            oppositeVoteIcon: $(this).parent().children("[data-vote='downvote']").children(".brief-posts__interactions__icon"),
+            votesAmount: $(this).parent().children(".brief-posts__votes-amount")
+        }
+
+        let voteTypeId = 1;
+        let postId = $(this).parent().parent().parent().attr("data-post");
+
+        votePost(elements, voteTypeId, postId);
+    });
+
+    // votar num post na página principal - down vote
+    $(".brief-posts__interactions [data-vote='downvote']").click(function () {
+        let elements = {
+            current: $(this),
+            // voto contrário ao deste clique
+            opposite: $(this).parent().children("[data-vote='downvote']"),
+            currentVoteIcon: $(this).children(".brief-posts__interactions__icon"),
+            oppositeVoteIcon: $(this).parent().children("[data-vote='upvote']").children(".brief-posts__interactions__icon"),
+            votesAmount: $(this).parent().children(".brief-posts__votes-amount")
+        }
+
+        let voteTypeId = 2;
+        let postId = $(this).parent().parent().parent().attr("data-post");
 
         votePost(elements, voteTypeId, postId);
     });
@@ -150,24 +168,6 @@ $(document).ready(function () {
         let commentId = $(this).parent().parent().parent().attr("data-comment");
 
         voteComment(elements, voteTypeId, commentId);
-    });
-
-
-    // pesquisar posts
-    $("#linkSearchPosts").click(function () {
-        let textSearched = $("#inputSearchText").val();
-
-        // verifica se o texto está vazio ou contém apenas espaços em branco
-        if (!textSearched.trim()) {
-            return;
-        }
-
-        // obter endpoint
-        let encodedText = encodeURIComponent(textSearched);
-        let route = "/search/" + encodedText;
-
-        // atualizar URL
-        $(this).attr("href", route);
     });
 
 

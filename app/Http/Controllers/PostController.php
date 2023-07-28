@@ -29,9 +29,11 @@ class PostController extends Controller
     public function index()
     {
         $loggedUserId = $this->authService->getUserId();
+        $featuredPost = $this->postService->getOneByMostVotes($loggedUserId);
         $posts = $this->postService->getAll($loggedUserId);
 
         return view('home', [
+            'featuredPost' => $featuredPost,
             'posts' => $posts,
             'loggedUserId' => $loggedUserId
         ]);
@@ -48,7 +50,7 @@ class PostController extends Controller
     public function search($textSearched)
     {
         $loggedUserId = $this->authService->getUserId();
-        $posts = $this->postService->getByTitle($textSearched, $loggedUserId);
+        $posts = $this->postService->getAllByTitle($textSearched, $loggedUserId);
 
         return view('home', [
             'posts' => $posts,

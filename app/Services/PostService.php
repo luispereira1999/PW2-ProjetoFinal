@@ -27,17 +27,46 @@ class PostService
                 $join->on('p.id', '=', 'v.post_id')
                     ->where('v.user_id', '=', $loggedUserId);
             })
-            ->orderBy('p.votes_amount', 'desc')
+            ->orderBy('p.date', 'desc')
             ->get();
 
         return $posts;
     }
+
+
+    public function getOneByMostVotes($loggedUserId)
+    {
+        $post = DB::table('posts as p')
+            ->select(
+                'p.id as post_id',
+                'p.title',
+                'p.description',
+                'p.date',
+                'p.votes_amount',
+                'p.comments_amount',
+                'p.user_id as post_user_id',
+                'u.name as post_user_name',
+                'v.user_id as vote_user_id',
+                'v.vote_type_id'
+            )
+            ->leftJoin('users as u', 'p.user_id', '=', 'u.id')
+            ->leftJoin('posts_votes as v', function ($join) use ($loggedUserId) {
+                $join->on('p.id', '=', 'v.post_id')
+                    ->where('v.user_id', '=', $loggedUserId);
+            })
+            ->orderBy('p.votes_amount', 'desc')
+            ->first();
+
+        return $post;
+    }
+
 
     public function getOne($postId)
     {
         $post = Post::find($postId);
         return $post;
     }
+
 
     public function getOneWithUserVote($postId, $loggedUserId)
     {
@@ -54,13 +83,15 @@ class PostService
         return $post;
     }
 
+
     public function getVotesAmount($postId)
     {
         $votesAmount = Post::where('id', $postId)->pluck('votes_amount')->first();
         return $votesAmount;
     }
 
-    public function getByTitle($title, $loggedUserId)
+
+    public function getAllByTitle($title, $loggedUserId)
     {
         $titleFilter = '%' . $title . '%';
 
@@ -100,6 +131,7 @@ class PostService
         return ['success' => true, 'message' => 'Post criado com sucesso.'];
     }
 
+
     public function updateOne($post, $loggedUserId, $title, $description)
     {
         if ($post->user_id != $loggedUserId) {
@@ -112,6 +144,7 @@ class PostService
 
         return ['success' => true, 'message' => 'Post atualizado com sucesso.'];
     }
+
 
     public function vote($postId, $userId, $voteTypeId)
     {
@@ -181,6 +214,7 @@ class PostService
             return ['success' => false, 'message' => 'Erro ao votar no post.'];
         }
     }
+
 
     public function delete($post, $loggedUserId)
     {

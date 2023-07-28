@@ -3,69 +3,69 @@
 /**** CONTA - CABEÇALHO ****/
 
 .account__header-wrapper {
-   align-items: center;
-   background: linear-gradient(180deg, rgba(191, 128, 255, 1) 0%, rgba(138, 255, 153, 1) 100%);
-   box-shadow: 0px 3px 4px 0px rgb(212, 212, 212);
-   display: flex;
-   height: 250px;
-   justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(191, 128, 255, 1) 0%, rgba(138, 255, 153, 1) 100%);
+    box-shadow: 0px 3px 4px 0px rgb(212, 212, 212);
+    display: flex;
+    height: 250px;
+    justify-content: center;
 }
 
 .account__avatar {
-   font-size: 150px;
-   text-align: center;
-   color: #fff;
-   margin: 15px;
+    font-size: 150px;
+    text-align: center;
+    color: #fff;
+    margin: 15px;
 }
 
 .account__name {
-   font-size: 25px;
-   color: white;
-   text-align: center;
+    font-size: 25px;
+    color: white;
+    text-align: center;
 }
 
 
 /*** CONTA - ALTERAR DADOS ***/
 
 .account__form {
-   max-width: 70%;
-   margin: 50px auto;
-   margin-bottom: 0;
+    max-width: 70%;
+    margin: 50px auto;
+    margin-bottom: 0;
 }
 
 .account__items {
-   padding: 0;
-   margin: 0 0 50px 0;
-   list-style: none;
+    padding: 0;
+    margin: 0 0 50px 0;
+    list-style: none;
 }
 
 .account__item {
-   display: flex;
-   margin-bottom: 15px;
-   min-height: 35px;
-   gap: 15px;
+    display: flex;
+    margin-bottom: 15px;
+    min-height: 35px;
+    gap: 15px;
 }
 
 .account__text,
 .account__email,
 .account__password {
-   box-sizing: border-box;
-   display: flex;
-   height: 35px;
-   padding: 20px;
-   border: 1px solid #d4d4d4;
-   border-radius: 4px;
-   outline: none;
-   width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    height: 35px;
+    padding: 20px;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    outline: none;
+    width: 100%;
 }
 
 .account__text:focus,
 .account__email:focus,
 .account__password:focus {
-   box-shadow: 0 0 5px #B0CFE0;
-   border: 1px solid #B0CFE0;
+    box-shadow: 0 0 5px #B0CFE0;
+    border: 1px solid #B0CFE0;
 }
 
 .account__actions {
-   margin-top: 20px;
+    margin-top: 20px;
 }

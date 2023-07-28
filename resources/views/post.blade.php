@@ -57,7 +57,9 @@
         <section class="full-post__header-wrapper">
             <div>
                 <h2 class="full-post__title">{{ $post->title }}</h2>
-                <h3 class="full-post__name">{{ $post->post_user_name }}</h3>
+                <a class="full-post__link" href="{{ route('profile', ['userId' => $post->user_id]) }}">
+                    <h3 class="full-post__name">{{ $post->post_user_name }}</h3>
+                </a>
                 <h3 class="full-post__date">{{ $post->date }}</h3>
             </div>
         </section>
