@@ -1,14 +1,14 @@
 /* DEFINIÇÃO: estilos da página de erros */
 
 body {
-    background-image: url("../../public/assets/images/background-login-signup.png");
+    background-image: url("../assets/images/background-login-signup.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: initial;
 }
 
 .content {
-    width: 40%;
+    width: 50%;
     margin: 25px;
 }
 
@@ -27,14 +27,17 @@ body {
 .content__title {
     font-size: 100px;
     color: #666;
+    margin: 40px 0px 40px 40px;
 }
 
 .content__subtitle {
     font-size: 30px;
     color: #666;
+    margin: 40px 0px 20px 40px;
 }
 
 .content__paragraph {
     font-size: 15px;
     color: #666;
+    margin: 0px 0px 40px 40px;
 }

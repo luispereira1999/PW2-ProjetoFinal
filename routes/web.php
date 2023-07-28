@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -96,3 +97,7 @@ Route::post('/comments/vote/{commentId}', [CommentController::class, 'vote'])
 Route::delete('/comments/delete/{commentId}', [CommentController::class, 'destroy'])
     ->middleware(['auth', 'check.comment.exists'])
     ->name('comments.delete');
+
+
+// QUANDO ROTAS NÃO ENCONTRADAS
+Route::fallback([ErrorController::class, 'handle404']);

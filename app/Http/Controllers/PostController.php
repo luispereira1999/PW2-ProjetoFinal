@@ -50,9 +50,11 @@ class PostController extends Controller
     public function search($textSearched)
     {
         $loggedUserId = $this->authService->getUserId();
+        $featuredPost = $this->postService->getOneByMostVotes($loggedUserId);
         $posts = $this->postService->getAllByTitle($textSearched, $loggedUserId);
 
         return view('home', [
+            'featuredPost' => $featuredPost,
             'posts' => $posts,
             'loggedUserId' => $loggedUserId
         ]);
