@@ -39,6 +39,25 @@ class PostController extends Controller
 
 
     /**
+     * Pesquisar posts pelo título.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $textSearched
+     * @return \Illuminate\Http\Response
+     */
+    public function search($textSearched)
+    {
+        $loggedUserId = $this->authService->getUserId();
+        $posts = $this->postService->getByTitle($textSearched, $loggedUserId);
+
+        return view('home', [
+            'posts' => $posts,
+            'loggedUserId' => $loggedUserId
+        ]);
+    }
+
+
+    /**
      * Criar um novo post.
      *
      * @param  \Illuminate\Http\Request  $request

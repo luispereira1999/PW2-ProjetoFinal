@@ -18,11 +18,11 @@
     </div>
 
     <div class="brief-posts__title-wrapper">
-        <h3 class="brief-posts__title"><a class="brief-posts__link" href="/posts/{{ $post->post_id }}">{{ $post->title }}</a></h3>
+        <h3 class="brief-posts__title"><a class="brief-posts__link" href="{{ route('posts', ['postId' => $post->post_id]) }}">{{ $post->title }}</a></h3>
     </div>
 
     <div>
-        <h5 class="brief-posts__name"><a class="brief-posts__link" href="/profile/{{ $post->post_user_id }}">{{ $post->post_user_name }}</a></h5>
+        <h5 class="brief-posts__name"><a class="brief-posts__link" href="{{ route('profile', ['userId' => $post->post_user_id]) }}">{{ $post->post_user_name }}</a></h5>
         <h5 class="brief-posts__date">{{ $post->date }}</h5>
     </div>
 

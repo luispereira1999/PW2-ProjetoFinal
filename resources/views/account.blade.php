@@ -82,7 +82,7 @@
 
                 <li class="account__actions">
                     <button class="button button-primary" type="submit" form="formEditData" name="isEditData">Atualizar</button>
-                    <a href="/account"><button class="button button-cancel" type="button">Cancelar</button></a>
+                    <a href="{{ route('account') }}"><button class="button button-cancel" type="button">Cancelar</button></a>
                 </li>
             </ul>
         </form>
@@ -104,7 +104,7 @@
 
                 <li class="account__actions">
                     <button class="button button-primary" type="submit" form="formEditPassword" name="isEditPassword">Atualizar</button>
-                    <a href="/account"><button class="button button-cancel" type="button">Cancelar</button></a>
+                    <a href="{{ route('account') }}"><button class="button button-cancel" type="button">Cancelar</button></a>
                 </li>
             </ul>
         </form>

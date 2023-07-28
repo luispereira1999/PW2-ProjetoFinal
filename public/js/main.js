@@ -155,12 +155,19 @@ $(document).ready(function () {
 
     // pesquisar posts
     $("#linkSearchPosts").click(function () {
-        // obter URL
         let textSearched = $("#inputSearchText").val();
-        let uri = "/search/" + textSearched;
 
-        // atualizar hyperlink
-        $(this).attr("href", uri);
+        // verifica se o texto está vazio ou contém apenas espaços em branco
+        if (!textSearched.trim()) {
+            return;
+        }
+
+        // obter endpoint
+        let encodedText = encodeURIComponent(textSearched);
+        let route = "/search/" + encodedText;
+
+        // atualizar URL
+        $(this).attr("href", route);
     });
 
 

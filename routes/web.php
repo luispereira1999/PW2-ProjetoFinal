@@ -18,7 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 // PÁGINA INICIAL
-Route::get('/', [PostController::class, 'index']);
+Route::get('/', [PostController::class, 'index'])
+    ->name('home');
+
+Route::get('/search/{textSearched}', [PostController::class, 'search'])
+    ->name('search');
 
 
 // AUTENTICAÇÃO

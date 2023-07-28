@@ -60,6 +60,34 @@ class PostService
         return $votesAmount;
     }
 
+    public function getByTitle($title, $loggedUserId)
+    {
+        $titleFilter = '%' . $title . '%';
+
+        $posts = Post::select(
+            'posts.id AS post_id',
+            'posts.title AS title',
+            'posts.description AS description',
+            'posts.date AS date',
+            'posts.votes_amount AS votes_amount',
+            'posts.comments_amount AS comments_amount',
+            'posts.user_id AS post_user_id',
+            'users.name AS post_user_name',
+            'posts_votes.user_id AS vote_user_id',
+            'posts_votes.vote_type_id AS vote_type_id'
+        )
+            ->leftJoin('users', 'posts.user_id', '=', 'users.id')
+            ->leftJoin('posts_votes', function ($join) use ($loggedUserId) {
+                $join->on('posts.id', '=', 'posts_votes.post_id')
+                    ->where('posts_votes.user_id', '=', $loggedUserId);
+            })
+            ->whereRaw('title LIKE BINARY ?', [$titleFilter])
+            ->orderByDesc('votes_amount')
+            ->get();
+
+        return $posts;
+    }
+
     public function insertOne($title, $description, $loggedUserId)
     {
         $post = new Post();

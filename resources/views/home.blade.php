@@ -52,6 +52,14 @@
         @include("about")
     </header>
 
+    <!-- pesquisa -->
+    <section class="search">
+        <input id="inputSearchText" class="search__text" type="text" name="title" placeholder="Título a Pesquisar ..." required>
+
+        <a id="linkSearchPosts"><i class="search__icon fas fa-search" data-toggle="tooltip" data-placement="bottom" title="Pesquisar"></i></a>
+        <a href="{{ route('home') }}"><i class="search__icon fas fa-backspace" data-toggle="tooltip" data-placement="bottom" title="Limpar Pesquisa"></i></a>
+    </section>
+
     <!-- PRINCIPAL: post em destaque, pesquisa, posts (informações, ações) -->
     <main class="brief-posts">
         @php
