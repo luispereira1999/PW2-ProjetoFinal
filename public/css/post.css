@@ -107,6 +107,15 @@
     font-size: 17px;
 }
 
+.comments .comment__name__link {
+    color: #212529;
+    text-decoration: none;
+}
+
+.comments .comment__name__link:hover {
+    color: #999;
+}
+
 .comments .comment__description {
     font-size: 15px;
 }

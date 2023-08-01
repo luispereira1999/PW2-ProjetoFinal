@@ -122,6 +122,10 @@
     <footer class="footer">
         @include("footer")
     </footer>
+
+
+    <!-- MODAL DE ERROS -->
+    @include('error')
 </body>
 
 </html>

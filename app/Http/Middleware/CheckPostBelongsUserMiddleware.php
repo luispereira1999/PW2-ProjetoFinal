@@ -16,7 +16,7 @@ class CheckPostBelongsUserMiddleware
     }
 
     /**
-     * Middleware para verificar se um post com um determinado id existe na base de dados.
+     * Middleware para verificar se um post pertence ao utilizador atualmente com login.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
@@ -28,7 +28,17 @@ class CheckPostBelongsUserMiddleware
         $loggedUserId = $this->authService->getUserId();
 
         if ($post->user_id != $loggedUserId) {
-            return redirect('500')->with('errors', 'Post não pertence ao utilizador atualmente com login.');
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => ['O post não pertence ao utilizador atualmente com login.']
+                ], 500);
+            } else {
+                return response()->view('500', [
+                    'success' => false,
+                    'errors' => ['O post não pertence ao utilizador atualmente com login.']
+                ], 500);
+            }
         }
 
         return $next($request);

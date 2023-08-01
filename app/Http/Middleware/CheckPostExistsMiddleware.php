@@ -22,7 +22,17 @@ class CheckPostExistsMiddleware
         $post = Post::find($postId);
 
         if (!$post) {
-            return redirect('500')->with('errors', 'Post não encontrado.');
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => ['O post não pertence ao utilizador atualmente com login.']
+                ], 500);
+            } else {
+                return response()->view('500', [
+                    'success' => false,
+                    'errors' => ['O post não pertence ao utilizador atualmente com login.']
+                ], 500);
+            }
         }
 
         // para acessar o post encontrado no objeto $request nos controladores

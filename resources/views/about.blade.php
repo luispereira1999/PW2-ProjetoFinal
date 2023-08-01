@@ -1,4 +1,4 @@
-<!-- DEFINIÇÃO: popup sobre informações do site -->
+<!-- DEFINIÇÃO: modal sobre informações do site -->
 
 <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

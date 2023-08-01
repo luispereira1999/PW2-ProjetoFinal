@@ -145,14 +145,12 @@ Route::delete('/comments/delete/{commentId}', [CommentController::class, 'destro
 
 
 // PÁGINAS DE ERROS
-Route::get('/404', [ErrorController::class, 'handle404'])
-    ->name('404');
-
-Route::get('/500', [ErrorController::class, 'handle500'])
-    ->name('500');
+Route::get('/500', function () {
+    return view('500');
+})->name('500');
 
 
-// QUANDO ROTAS NÃO ENCONTRADAS
+// QUANDO UMA ROTA NÃO É ENCONTRADA
 Route::fallback(function () {
-    return redirect()->route('404');
+    return view('404');
 });

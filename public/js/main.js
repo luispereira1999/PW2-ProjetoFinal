@@ -1,20 +1,7 @@
 // executar este código quando a página é carregada
 $(document).ready(function () {
     // esconder secção de erros por padrão
-    const errorsContainer = $('.errors');
-    errorsContainer.hide();
-
-    // se houver erros com o servidor
-    const errorsList = $('.errors__list');
-    if (hasErrors(errorsList)) {
-        // mostrar erros
-        errorsContainer.show();
-
-        // abrir a modal que surgiu os erros
-        const closestModal = errorsContainer.closest('.modal');
-        $(closestModal).modal('show');
-        console.log(closestModal)
-    }
+    $('.errors').hide();
 
 
     // mostrar formulário de login

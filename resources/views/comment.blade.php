@@ -16,7 +16,9 @@
         </div>
 
         <div class="comment__name-wrapper">
-            <h2 class="comment__name">{{ $comment->comment_user_name }}</h2>
+            <h2 class="comment__name">
+                <a class="comment__name__link" href="{{ route('profile', ['userId' => $comment->comment_user_id]) }}">{{ $comment->comment_user_name }}</a>
+            </h2>
         </div>
 
         <div class="{{ $comment->comment_user_id == $loggedUserId ? 'width-70' : 'width-80' }}">

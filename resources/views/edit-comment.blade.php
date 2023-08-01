@@ -1,4 +1,4 @@
-<!-- DEFINIÇÃO: popup de editar um comentário -->
+<!-- DEFINIÇÃO: modal de editar um comentário -->
 
 <div class="modal fade" id="editComment{{ $comment->comment_id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

@@ -1,4 +1,4 @@
-<!-- DEFINIÇÃO: popup de eliminar um post -->
+<!-- DEFINIÇÃO: modal de eliminar um post -->
 
 <div class="modal fade" id="deletePost{{ $post->post_id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">

@@ -64,6 +64,26 @@ class PostController extends Controller
 
 
     /**
+     * Mostrar um post específico.
+     *
+     * @param  int  $postId
+     * @return \Illuminate\Http\Response
+     */
+    public function show($postId)
+    {
+        $loggedUserId = $this->authService->getUserId();
+        $post = $this->postService->getOneWithUserVote($postId, $loggedUserId);
+        $comments = $this->commentService->getAllByPostId($postId, $loggedUserId);
+
+        return view('post', [
+            'loggedUserId' => $loggedUserId,
+            'post' => $post,
+            'comments' => $comments,
+        ]);
+    }
+
+
+    /**
      * Criar um novo post.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -91,26 +111,6 @@ class PostController extends Controller
             'errors' => [],
             'message' => $result['message']
         ], 201);
-    }
-
-
-    /**
-     * Mostrar um post específico.
-     *
-     * @param  int  $postId
-     * @return \Illuminate\Http\Response
-     */
-    public function show($postId)
-    {
-        $loggedUserId = $this->authService->getUserId();
-        $post = $this->postService->getOneWithUserVote($postId, $loggedUserId);
-        $comments = $this->commentService->getAllByPostId($postId, $loggedUserId);
-
-        return view('post', [
-            'loggedUserId' => $loggedUserId,
-            'post' => $post,
-            'comments' => $comments,
-        ]);
     }
 
 
@@ -166,10 +166,22 @@ class PostController extends Controller
 
         $loggedUserId = $this->authService->getUserId();
 
-        $this->postService->vote($postId, $loggedUserId, $data['voteTypeId']);
+        $result = $this->postService->vote($postId, $loggedUserId, $data['voteTypeId']);
         $votesAmount = $this->postService->getVotesAmount($postId);
 
-        return response()->json(['votesAmount' => $votesAmount]);
+        if (!$result['success'] || $votesAmount == -1) {
+            return redirect('500')->with([
+                'success' => false,
+                'errors' => [$result['message']]
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => ['votesAmount' => $votesAmount],
+            'errors' => [],
+            'message' => $result['message']
+        ], 200);
     }
 
 

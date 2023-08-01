@@ -87,7 +87,7 @@
 
             <div class="featured__buttons">
                 <a href="{{ route('posts', ['postId' => $featuredPost->post_id]) }}">
-                    <button class="button button-primary" id="viewFeaturedPost">Ver Mais ...</button>
+                    <button class="button button-primary" id="viewFeaturedPost">Ver Mais</button>
                 </a>
 
                 <div class="featured__options">
@@ -167,6 +167,10 @@
     <footer class="footer">
         @include("footer")
     </footer>
+
+
+    <!-- MODAL DE ERROS -->
+    @include('error')
 </body>
 
 </html>

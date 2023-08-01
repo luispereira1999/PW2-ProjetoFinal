@@ -12,6 +12,7 @@ class authService
         return $user;
     }
 
+
     public function getUserId()
     {
         $user = Auth::user();

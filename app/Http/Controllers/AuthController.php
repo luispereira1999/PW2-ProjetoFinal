@@ -47,7 +47,8 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'errors' => []
+            'errors' => [],
+            'message' => 'Login efetuado com sucesso.'
         ], 200);
     }
 
@@ -86,7 +87,8 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'errors' => []
+            'errors' => [],
+            'message' => 'Registo efetuado com sucesso.'
         ], 201);
     }
 

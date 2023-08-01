@@ -84,13 +84,6 @@ class PostService
     }
 
 
-    public function getVotesAmount($postId)
-    {
-        $votesAmount = Post::where('id', $postId)->pluck('votes_amount')->first();
-        return $votesAmount;
-    }
-
-
     public function getAllByTitle($title, $loggedUserId)
     {
         $titleFilter = '%' . $title . '%';
@@ -117,6 +110,18 @@ class PostService
             ->get();
 
         return $posts;
+    }
+
+
+    public function getVotesAmount($postId)
+    {
+        $votesAmount = Post::where('id', $postId)->pluck('votes_amount')->first();
+
+        if ($votesAmount) {
+            return $votesAmount;
+        } else {
+            return -1;
+        }
     }
 
 
@@ -205,7 +210,7 @@ class PostService
 
             DB::commit();
 
-            return true;  // retorna o estado da operação
+            return ['success' => true, 'message' => 'Post votado com sucesso.'];
         } catch (\Exception $exception) {
             DB::rollback();
             return ['success' => false, 'message' => 'Erro ao votar no post.'];

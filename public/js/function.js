@@ -124,7 +124,7 @@ function newPost(formElement) {
 
     // executar esta função quando existe algum erro ao fazer o pedido
     ajaxRequest.fail(function (response) {
-        if (response.status == 401 || response.status == 422) {
+        if (response.status == 422) {
             let errorsArray = Object.values(response.responseJSON.errors).flat();
 
             let errorsContainer = $('.errors.errors--new-post');
@@ -173,7 +173,7 @@ function editPost(formElement) {
 
     // executar esta função quando existe algum erro ao fazer o pedido
     ajaxRequest.fail(function (response) {
-        if (response.status == 401 || response.status == 422) {
+        if (response.status == 422) {
             let errorsArray = Object.values(response.responseJSON.errors).flat();
 
             let postId = formElement.attr('id').replace('formEditPost', '');
@@ -241,12 +241,13 @@ function votePost(elements, voteTypeId, postId) {
     });
 
     // executar esta função quando existe algum erro ao fazer o pedido
-    ajaxRequest.fail(function (error) {
+    ajaxRequest.fail(function (response) {
         // utilizador não autenticado
-        if (error.status === 401) {
-            // window.location.href = '/auth';
+        if (response.status == 401) {
+            showErrorModal('É necessário iniciar sessão para realizar esta operação.')
+        } else {
+            window.location.href = '/500';
         }
-        showErrorAlert("Erro ao comunicar com o servidor.");
     });
 }
 
@@ -297,20 +298,16 @@ function voteComment(elements, voteTypeId, commentId) {
     // executar esta função quando existe algum erro ao fazer o pedido
     ajaxRequest.fail(function (error) {
         // utilizador não autenticado
-        if (error.status === 401) {
-            window.location.href = '/auth';
+        if (error.status == 401) {
+            showErrorModal('É necessário iniciar sessão para realizar esta operação.')
+        } else {
+            window.location.href = '/500';
         }
-        // showErrorAlert("Erro ao comunicar com o servidor.");
     });
 }
 
 
-function hasErrors(errorsListElement) {
-    return errorsListElement.children().length > 0;
-}
-
-
-function showErrorAlert(message) {
-    $("#error").modal("show");
-    $("#errorText").text(message);
+function showErrorModal(message) {
+    $("#errorModal").modal("show");
+    $("#errorMessage").text(message);
 }
