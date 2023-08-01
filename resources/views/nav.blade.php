@@ -1,9 +1,7 @@
-<!-- DEFINIÇÃO: menu de navegação no topo do site, existem 2 diferentes (utilizador com login, utilizador sem login) -->
-
-<!-- verificar se o utilizador está logado -->
-@if (Auth::check())
+<!-- DEFINIÇÃO: menu de navegação no topo do site (quando o utilizador está autenticado ou não está autenticado) -->
 
 <!-- menu com login -->
+@auth
 <nav class="navigation">
     <div class="navigation__left-wrapper">
         <a href="{{ route('home') }}" data-toggle="tooltip" data-placement="bottom" title="Início"><i class="navigation__icon fas fa-home"></i></a>
@@ -31,10 +29,10 @@
         </div>
     </div>
 </nav>
-
-@else
+@endauth
 
 <!-- menu sem login -->
+@guest
 <nav class="navigation">
     <div class="navigation__left-wrapper">
         <a href="{{ route('home') }}" data-toggle="tooltip" data-placement="bottom" title="Início"><i class="navigation__icon fas fa-home"></i></a>
@@ -55,5 +53,4 @@
         </div>
     </div>
 </nav>
-
-@endif
+@endguest

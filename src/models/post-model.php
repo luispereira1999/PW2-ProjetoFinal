@@ -616,22 +616,22 @@ class PostModel extends Database
       DELETE FROM comments_votes
       WHERE comment_id = :commentId";
 
-      // apagar post e registos associados na base de dados
+      // eliminar post e registos associados na base de dados
       try {
          $this->connection->beginTransaction();
 
-         // apagar post pelo id do post
+         // eliminar post pelo id do post
          $result1 = $this->connection->prepare($query1);
          $result1->bindParam(":postId", $postId, PDO::PARAM_INT);
          $result1->bindParam(":userId", $userId, PDO::PARAM_INT);
          $result1->execute();
 
-         // apagar votos do post pelo id do post
+         // eliminar votos do post pelo id do post
          $result2 = $this->connection->prepare($query2);
          $result2->bindParam(":postId", $postId, PDO::PARAM_INT);
          $result2->execute();
 
-         // apagar comentários pelo id do post
+         // eliminar comentários pelo id do post
          $result3 = $this->connection->prepare($query3);
          $result3->bindParam(":postId", $postId, PDO::PARAM_INT);
          $result3->execute();
@@ -648,7 +648,7 @@ class PostModel extends Database
             while ($row = $result4->fetch(PDO::FETCH_ASSOC)) {
                $commentId = $row["id"];
 
-               // apagar votos do comentário pelo id do comentário
+               // eliminar votos do comentário pelo id do comentário
                $result5 = $this->connection->prepare($query5);
                $result5->bindParam(":commentId", $commentId, PDO::PARAM_INT);
                $result5->execute();

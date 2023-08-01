@@ -52,7 +52,7 @@
         </div>
 
         <main>
-            <h1 class="content__title">503 ERROR</h1>
+            <h1 class="content__title">500 ERROR</h1>
             <h3 class="content__subtitle">Fatal erro.</h3>
             <p class="content__paragraph">Oh! Parece que algo deu errado.</p>
         </main>

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-
 class ErrorController extends Controller
 {
     /**
@@ -24,10 +22,6 @@ class ErrorController extends Controller
      */
     public function handle500()
     {
-        try {
-            DB::connection()->getPdo();
-        } catch (\Exception $e) {
-            return view('500');
-        }
+        return view('500');
     }
 }

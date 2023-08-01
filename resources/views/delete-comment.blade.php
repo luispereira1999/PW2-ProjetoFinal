@@ -1,6 +1,6 @@
 <!-- DEFINIÇÃO: popup de eliminar um comentário -->
 
-<div class="modal fade" id="deleteComment{{ $comment->comment_id }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="deleteComment{{ $comment->comment_id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +11,12 @@
             </div>
 
             <div class="modal-body">
-                <p class="popup__paragraph">Deseja mesmo eliminar este post?</p>
+                <p class="modal__paragraph">Deseja mesmo eliminar este post?</p>
+
+                <!-- mostrar erros -->
+                <div class="errors errors--delete-comment alert alert-danger">
+                    <ul class="errors__list"></ul>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -20,7 +25,7 @@
                     @method('DELETE')
 
                     <input type="hidden" name="postId" value="{{ $post->id }}">
-                    <button class="button button-primary" type="submit" form="formDeleteComment{{ $comment->comment_id }}" name="isDelete">Eliminar</button>
+                    <button class="button button-primary" type="submit" form="formDeleteComment{{ $comment->comment_id }}">Eliminar</button>
                     <button class="button button-cancel" type="button" data-dismiss="modal">Não</button>
                 </form>
             </div>

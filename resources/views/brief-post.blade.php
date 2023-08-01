@@ -11,11 +11,11 @@
         <span data-toggle="tooltip" data-placement="bottom" title="Eliminar Post">
             <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deletePost{{ $post->post_id }}"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
         </span>
-
-        @include('edit-post')
-        @include('delete-post')
         @endif
     </div>
+
+    @include('edit-post')
+    @include('delete-post')
 
     <div class="brief-posts__title-wrapper">
         <h3 class="brief-posts__title"><a class="brief-posts__link" href="{{ route('posts', ['postId' => $post->post_id]) }}">{{ $post->title }}</a></h3>

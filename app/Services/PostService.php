@@ -119,12 +119,13 @@ class PostService
         return $posts;
     }
 
-    public function insertOne($title, $description, $loggedUserId)
+
+    public function insertOne($title, $description, $date, $loggedUserId)
     {
         $post = new Post();
         $post->title = $title;
         $post->description = $description;
-        $post->date = now();
+        $post->date = $date;
         $post->user_id = $loggedUserId;
         $post->save();
 
@@ -132,12 +133,8 @@ class PostService
     }
 
 
-    public function updateOne($post, $loggedUserId, $title, $description)
+    public function updateOne($post, $title, $description)
     {
-        if ($post->user_id != $loggedUserId) {
-            return ['success' => false, 'message' => 'O post não pertence ao utilizador atualmente com login.'];
-        }
-
         $post->title = $title;
         $post->description = $description;
         $post->save();
@@ -216,12 +213,8 @@ class PostService
     }
 
 
-    public function delete($post, $loggedUserId)
+    public function delete($post)
     {
-        if ($post->user_id != $loggedUserId) {
-            return ['success' => false, 'message' => 'O post não pertence ao utilizador atualmente com login.'];
-        }
-
         $post->delete();
 
         return ['success' => true, 'message' => 'Post apagado com sucesso.'];

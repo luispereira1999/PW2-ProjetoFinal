@@ -87,13 +87,9 @@ class UserController extends Controller
             'email.required' => 'O email é obrigatório.'
         ]);
 
-        if (!Auth::check()) {
-            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
-        }
-
         $loggedUserId = Auth::user()->id;
         if ($loggedUserId != $userId) {
-            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+            return redirect()->route('auth')->with('errors', 'Você precisa fazer login para atualizar seu perfil.');
         }
 
         $user = User::findOrFail($userId);
@@ -108,7 +104,7 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->back()->with('success', 'Perfil atualizado com sucesso!')
+        return back()->with('success', 'Perfil atualizado com sucesso!')
             ->with('reload', true);
     }
 
@@ -132,19 +128,15 @@ class UserController extends Controller
             'new_password_confirm.same' => 'As palavra-passes não correspondem.',
         ]);
 
-        if (!Auth::check()) {
-            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
-        }
-
         $loggedUserId = Auth::user()->id;
         if ($loggedUserId != $userId) {
-            return redirect()->route('auth')->with('error', 'Você precisa fazer login para atualizar seu perfil.');
+            return redirect()->route('auth')->with('errors', 'Você precisa fazer login para atualizar seu perfil.');
         }
 
         $user = User::findOrFail($userId);
 
         if (!Hash::check($request->input('current_password'), $user->password)) {
-            return redirect()->back()->with('error', 'A palavra-passe atual fornecida está incorreta.');
+            return back()->with('errors', 'A palavra-passe atual fornecida está incorreta.');
         }
 
         $user->password = Hash::make($request->input('new_password'));
@@ -153,7 +145,7 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->back()->with('success', 'Perfil atualizado com sucesso!')
+        return back()->with('success', 'Perfil atualizado com sucesso!')
             ->with('reload', true);
     }
 

@@ -51,9 +51,15 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        // Verifica se a exceção é uma instância de QueryException (erro de conexão com a base de dados)
+        // verifica se houve algum erro de conexão com a base de dados
         if ($exception instanceof QueryException) {
-            return redirect()->route('500');
+            if ($request->ajax()) {
+                // retorna em json com status HTTP 500
+                return response()->json(['errors' => ['Erro ao comunicar com o servidor.']], 500);
+            } else {
+                // redireciona
+                return redirect()->route('500');
+            }
         }
 
         return parent::render($request, $exception);

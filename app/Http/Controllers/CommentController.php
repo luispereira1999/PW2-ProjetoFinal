@@ -35,10 +35,10 @@ class CommentController extends Controller
         $result = $this->commentService->insertOne($request->input('description'), $loggedUserId, $request->input('post_id'));
 
         if (!$result['success']) {
-            return redirect()->back()->with('error', $result['message']);
+            return back()->with('errors', $result['message']);
         }
 
-        return redirect()->back()->with('success', $result['message']);
+        return back()->with('success', $result['message']);
     }
 
 
@@ -64,10 +64,10 @@ class CommentController extends Controller
         $result = $this->commentService->updateOne($comment, $loggedUserId, $request->input('title'), $request->input('description'));
 
         if (!$result['success']) {
-            return redirect()->back()->with('error', $result['message']);
+            return back()->with('errors', $result['message']);
         }
 
-        return redirect()->back()->with('success', $result['message']);
+        return back()->with('success', $result['message']);
     }
 
 
@@ -112,9 +112,9 @@ class CommentController extends Controller
         $result = $this->commentService->delete($comment, $loggedUserId);
 
         if (!$result['success']) {
-            return redirect()->back()->with('error', $result['message']);
+            return back()->with('errors', $result['message']);
         }
 
-        return redirect()->back()->with('success', $result['message']);
+        return back()->with('success', $result['message']);
     }
 }

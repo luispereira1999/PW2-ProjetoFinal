@@ -22,19 +22,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index'])
     ->name('home');
 
-Route::get('/search/{textSearched}', [PostController::class, 'search'])
+Route::get('/search/{searchText}', [PostController::class, 'search'])
     ->name('search');
 
 
 // AUTENTICAÇÃO
 Route::get('/auth', [AuthController::class, 'index'])
+    ->middleware([
+        'guest'
+    ])
     ->name('auth');
 
-Route::post('/auth/signup', [AuthController::class, 'signup'])
-    ->name('auth.signup');
-
 Route::post('/auth/login', [AuthController::class, 'login'])
+    ->middleware([
+        'guest'
+    ])
     ->name('auth.login');
+
+Route::post('/auth/signup', [AuthController::class, 'signup'])
+    ->middleware([
+        'guest'
+    ])
+    ->name('auth.signup');
 
 Route::get('/auth/logout', [AuthController::class, 'logout'])
     ->middleware([
@@ -85,7 +94,8 @@ Route::post('/posts/create', [PostController::class, 'create'])
 Route::patch('/posts/update/{postId}', [PostController::class, 'update'])
     ->middleware([
         'auth',
-        'check.post.exists'
+        'check.post.exists',
+        'check.post.belongs.user'
     ])
     ->name('posts.update');
 
@@ -99,7 +109,8 @@ Route::post('/posts/vote/{postId}', [PostController::class, 'vote'])
 Route::delete('/posts/delete/{postId}', [PostController::class, 'destroy'])
     ->middleware([
         'auth',
-        'check.post.exists'
+        'check.post.exists',
+        'check.post.belongs.user'
     ])
     ->name('posts.delete');
 

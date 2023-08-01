@@ -57,19 +57,14 @@
             <a class="content__link" data-auth="signup">Sign Up</a>
         </div>
 
+        <!-- mostrar erros -->
+        <div class="errors alert alert-danger">
+            <ul class="errors__list"></ul>
+        </div>
+
         <!-- formulário de login -->
         <div class="content__form-wrapper" id="content__login">
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-
-            <form method="post" action="{{ route('auth.login') }}">
+            <form id="loginForm" method="post" action="{{ route('auth.login') }}">
                 @csrf
 
                 <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador ou Email" require>
@@ -81,7 +76,7 @@
                         <label class="content__label" id="rememberText">Memorizar login</label>
                     </div>
                     <div class="col-4 my-auto">
-                        <button class="button button-primary" name="isLogin">Entrar</button>
+                        <button class="button button-primary">Entrar</button>
                     </div>
                 </div>
             </form>
@@ -89,7 +84,7 @@
 
         <!-- formulário de signup -->
         <div class="content__form-wrapper" id="content__signup">
-            <form method="post" action="{{ route('auth.signup') }}">
+            <form id="signupForm" method="post" action="{{ route('auth.signup') }}">
                 @csrf
 
                 <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador" require>
@@ -98,7 +93,7 @@
                 <input class="content__password" type="password" name="password_confirmation" placeholder="Confirmar Palavra-passe" require>
 
                 <a class="content__link" data-toggle="tooltip" data-placement="bottom" title="Os restantes dados poderá preencher na área de utilizador!"><i class="fas fa-info-circle content__icon"></i></a>
-                <button class="button button-primary" name="isSignup">Registar</button>
+                <button class="button button-primary">Registar</button>
             </form>
         </div>
     </main>

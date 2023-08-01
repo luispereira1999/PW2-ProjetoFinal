@@ -9,6 +9,8 @@ class CommentVote extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'comment_id',
         'user_id',

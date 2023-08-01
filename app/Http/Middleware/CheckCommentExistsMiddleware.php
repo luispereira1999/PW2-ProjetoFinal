@@ -22,7 +22,7 @@ class CheckCommentExistsMiddleware
         $comment = Comment::find($commentId);
 
         if (!$comment) {
-            return redirect()->back()->with('error', 'Comentário não encontrado.');
+            return back()->with('errors', 'Comentário não encontrado.');
         }
 
         // para acessar o comentário encontrado no objeto $request nos controladores

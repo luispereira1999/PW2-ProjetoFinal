@@ -34,6 +34,7 @@ class PostController extends Controller
 
         return view('home', [
             'featuredPost' => $featuredPost,
+            'searchText' => '',
             'posts' => $posts,
             'loggedUserId' => $loggedUserId
         ]);
@@ -44,17 +45,18 @@ class PostController extends Controller
      * Pesquisar posts pelo título.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  string  $textSearched
+     * @param  string  $searchText
      * @return \Illuminate\Http\Response
      */
-    public function search($textSearched)
+    public function search($searchText)
     {
         $loggedUserId = $this->authService->getUserId();
         $featuredPost = $this->postService->getOneByMostVotes($loggedUserId);
-        $posts = $this->postService->getAllByTitle($textSearched, $loggedUserId);
+        $posts = $this->postService->getAllByTitle($searchText, $loggedUserId);
 
         return view('home', [
             'featuredPost' => $featuredPost,
+            'searchText' => $searchText,
             'posts' => $posts,
             'loggedUserId' => $loggedUserId
         ]);
@@ -69,19 +71,26 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required'
+        $data = $request->validate([
+            'title' => 'required|min:1|max:50',
+            'description' => 'required|min:1|max:2000'
+        ], [
+            'title.required' => 'O título é obrigatório.',
+            'title.min' => 'O título deve ter pelo menos :min caracteres.',
+            'title.max' => 'O título não pode ter mais de :max caracteres.',
+            'description.required' => 'A descrição é obrigatória.',
+            'description.min' => 'A descrição deve ter pelo menos :min caracteres.',
+            'description.max' => 'A descrição não pode ter mais de :max caracteres.'
         ]);
 
         $loggedUserId = $this->authService->getUserId();
-        $result = $this->postService->insertOne($request->input('title'), $request->input('description'), $loggedUserId);
+        $result = $this->postService->insertOne($data['title'], $data['description'], now(), $loggedUserId);
 
-        if (!$result['success']) {
-            return redirect()->back()->with('error', $result['message']);
-        }
-
-        return redirect()->back()->with('success', $result['message']);
+        return response()->json([
+            'success' => true,
+            'errors' => [],
+            'message' => $result['message']
+        ], 201);
     }
 
 
@@ -114,25 +123,28 @@ class PostController extends Controller
      */
     public function update(Request $request, $postId)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+        $data = $request->validate([
+            'title' => 'required|min:1|max:50',
+            'description' => 'required|min:1|max:2000'
         ], [
             'title.required' => 'O título é obrigatório.',
-            'description.required' => 'A descrição é obrigatória.'
+            'title.min' => 'O título deve ter pelo menos :min caracteres.',
+            'title.max' => 'O título não pode ter mais de :max caracteres.',
+            'description.required' => 'A descrição é obrigatória.',
+            'description.min' => 'A descrição deve ter pelo menos :min caracteres.',
+            'description.max' => 'A descrição não pode ter mais de :max caracteres.'
         ]);
 
         // obtido do middleware que verificar se o post existe
         $post = $request->attributes->get('post');
 
-        $loggedUserId = $this->authService->getUserId();
-        $result = $this->postService->updateOne($post, $loggedUserId, $request->input('title'), $request->input('description'));
+        $result = $this->postService->updateOne($post,  $data['title'], $data['description']);
 
-        if (!$result['success']) {
-            return redirect()->back()->with('error', $result['message']);
-        }
-
-        return redirect()->back()->with('success', $result['message']);
+        return response()->json([
+            'success' => true,
+            'errors' => [],
+            'message' => $result['message']
+        ], 200);
     }
 
 
@@ -145,16 +157,16 @@ class PostController extends Controller
      */
     public function vote(Request $request, $postId)
     {
-        $request->validate([
+        $data = $request->validate([
             'voteTypeId' => 'required|in:1,2'
         ], [
             'voteTypeId.required' => 'O identificador do tipo de voto é obrigatório.',
-            'voteTypeId.in' => 'O identificador do tipo de voto inválido.',
+            'voteTypeId.in' => 'O identificador do tipo de voto é inválido.',
         ]);
 
         $loggedUserId = $this->authService->getUserId();
 
-        $this->postService->vote($postId, $loggedUserId, $request->input('voteTypeId'));
+        $this->postService->vote($postId, $loggedUserId, $data['voteTypeId']);
         $votesAmount = $this->postService->getVotesAmount($postId);
 
         return response()->json(['votesAmount' => $votesAmount]);
@@ -176,10 +188,10 @@ class PostController extends Controller
         $loggedUserId = $this->authService->getUserId();
         $result = $this->postService->delete($post, $loggedUserId);
 
-        if (!$result['success']) {
-            return redirect()->back()->with('error', $result['message']);
-        }
-
-        return redirect()->back()->with('success', $result['message']);
+        return back()->with([
+            'success' => true,
+            'errors' => [],
+            'message' => $result['message']
+        ], 200);
     }
 }

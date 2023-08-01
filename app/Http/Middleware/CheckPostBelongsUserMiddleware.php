@@ -4,10 +4,17 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Services\AuthService;
 
-class CheckPostExistsMiddleware
+class CheckPostBelongsUserMiddleware
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     /**
      * Middleware para verificar se um post com um determinado id existe na base de dados.
      *
@@ -17,16 +24,12 @@ class CheckPostExistsMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $postId = $request->route('postId');
+        $post = $request->attributes->get('post');
+        $loggedUserId = $this->authService->getUserId();
 
-        $post = Post::find($postId);
-
-        if (!$post) {
-            return redirect('500')->with('errors', 'Post não encontrado.');
+        if ($post->user_id != $loggedUserId) {
+            return redirect('500')->with('errors', 'Post não pertence ao utilizador atualmente com login.');
         }
-
-        // para acessar o post encontrado no objeto $request nos controladores
-        $request->attributes->set('post', $post);
 
         return $next($request);
     }

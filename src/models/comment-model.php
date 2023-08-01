@@ -377,18 +377,18 @@ class CommentModel extends Database
       SET comments_amount = comments_amount - 1
       WHERE id = :postId";
 
-      // apagar comentário e registos associados na base de dados
+      // eliminar comentário e registos associados na base de dados
       try {
          $this->connection->beginTransaction();
 
-         // apagar comentário pelo id do comentário
+         // eliminar comentário pelo id do comentário
          $result1 = $this->connection->prepare($query1);
          $result1->bindParam(":commentId", $commentId, PDO::PARAM_INT);
          $result1->bindParam(":userId", $userId, PDO::PARAM_INT);
          $result1->bindParam(":postId", $postId, PDO::PARAM_INT);
          $result1->execute();
 
-         // apagar votos do comentário pelo id do comentário
+         // eliminar votos do comentário pelo id do comentário
          $result2 = $this->connection->prepare($query2);
          $result2->bindParam(":commentId", $postId, PDO::PARAM_INT);
          $result2->execute();

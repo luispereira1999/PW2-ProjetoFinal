@@ -1,6 +1,6 @@
 <!-- DEFINIÇÃO: popup de editar um comentário -->
 
-<div class="modal fade" id="editComment{{ $comment->comment_id }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="editComment{{ $comment->comment_id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,17 +11,23 @@
             </div>
 
             <div class="modal-body">
-                <form class="popup__form" id="formEditComment{{ $comment->comment_id }}" method="post" action="{{ route('comments.update', ['commentId' => $comment->comment_id]) }}">
+                <!-- mostrar erros -->
+                <div class="errors errors--edit-comment alert alert-danger">
+                    <ul class="errors__list"></ul>
+                </div>
+
+                <form class="modal__form" id="formEditComment{{ $comment->comment_id }}" method="post" action="{{ route('comments.update', ['commentId' => $comment->comment_id]) }}">
                     @csrf
                     @method('PATCH')
 
                     <input type="hidden" name="postId" value="{{ $post->id }}">
-                    <textarea class="popup__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ..." required>{{ $comment->description }}</textarea>
+                    <textarea class="modal__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ..." required>{{ $comment->description }}</textarea>
                 </form>
             </div>
 
             <div class="modal-footer">
-                <button class="button button-primary" type="submit" form="formEditComment{{ $comment->comment_id }}" name="isEdit">Editar</button>
+                <button class="button button-primary" type="submit" form="formEditComment{{ $comment->comment_id }}">Editar</button>
+                <button class="button button-cancel" type="button" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>

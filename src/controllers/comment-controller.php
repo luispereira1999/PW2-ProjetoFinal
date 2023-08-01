@@ -153,7 +153,7 @@ class CommentController
       echo json_encode($returnJon);
    }
 
-   // apagar comentário, registos associados e ir para a página principal
+   // eliminar comentário, registos associados e ir para a página principal
    public function delete($params)
    {
       require_once("src/models/comment-model.php");
@@ -176,7 +176,7 @@ class CommentController
          $userLoggedId = -1;
       }
 
-      // apagar post na base de dados
+      // eliminar post na base de dados
       $commentId = $params["id"];
       $postId = $data["postId"];
       $isDeleted = $this->commentModel->delete($commentId, $postId, $userLoggedId);

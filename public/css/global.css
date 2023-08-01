@@ -101,21 +101,21 @@ p {
 }
 
 
-/*** POPUPS ***/
+/*** MODALS ***/
 
 .close:focus {
     outline: none;
 }
 
-.popup__paragraph {
+.modal__paragraph {
     margin-bottom: 2rem;
 }
 
-.popup__form {
+.modal__form {
     display: grid;
 }
 
-.popup__text {
+.modal__text {
     border-style: none;
     border-bottom: 1px solid #ccc;
     padding: 12px 5px;
@@ -124,12 +124,19 @@ p {
     outline: none;
 }
 
-.popup__textarea {
+.modal__textarea {
     border-style: none;
     border-bottom: 1px solid #ccc;
     outline: none;
     padding: 12px 5px;
     width: 100%;
+}
+
+
+/**** SECÇÃO DE ERROS ****/
+
+.errors__list {
+    margin-bottom: 0;
 }
 
 

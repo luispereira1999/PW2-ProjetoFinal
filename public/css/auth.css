@@ -90,3 +90,10 @@ body {
 #content__signup {
     display: none;
 }
+
+
+/**** SECÇÃO DE ERROS ****/
+
+.errors {
+    margin-left: 40px;
+}

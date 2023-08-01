@@ -1,6 +1,6 @@
 <!-- DEFINIÇÃO: popup de eliminar um post -->
 
-<div class="modal fade" id="deletePost{{ $post->post_id }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="deletePost{{ $post->post_id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,17 +11,17 @@
             </div>
 
             <div class="modal-body">
-                <p class="popup__paragraph">Deseja mesmo eliminar este post?</p>
-            </div>
+                <p class="modal__paragraph">Deseja mesmo eliminar este post?</p>
 
-            <div class="modal-footer">
                 <form id="formDeletePost{{ $post->post_id }}" method="post" action="{{ route('posts.delete', ['postId' => $post->post_id]) }}">
                     @csrf
                     @method('DELETE')
-
-                    <button class="button button-primary" type="submit" form="formDeletePost{{ $post->post_id }}" name="isDelete">Eliminar</button>
-                    <button class="button button-cancel" type="button" data-dismiss="modal">Não</button>
                 </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="button button-primary" type="submit" form="formDeletePost{{ $post->post_id }}">Eliminar</button>
+                <button class="button button-cancel" type="button" data-dismiss="modal">Não</button>
             </div>
         </div>
     </div>

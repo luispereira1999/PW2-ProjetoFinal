@@ -215,7 +215,7 @@ class PostController
       echo json_encode($returnJon);
    }
 
-   // apagar post, registos associados e ir para a página principal
+   // eliminar post, registos associados e ir para a página principal
    public function delete($params)
    {
       require_once("src/models/post-model.php");
@@ -238,7 +238,7 @@ class PostController
          $userLoggedId = -1;
       }
 
-      // apagar post na base de dados
+      // eliminar post na base de dados
       $postId = $params["id"];
       $isDeleted = $this->postModel->delete($postId, $userLoggedId);
 

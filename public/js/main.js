@@ -1,29 +1,76 @@
 // executar este código quando a página é carregada
 $(document).ready(function () {
-    // mostrar formulário de signup
+    // esconder secção de erros por padrão
+    const errorsContainer = $('.errors');
+    errorsContainer.hide();
+
+    // se houver erros com o servidor
+    const errorsList = $('.errors__list');
+    if (hasErrors(errorsList)) {
+        // mostrar erros
+        errorsContainer.show();
+
+        // abrir a modal que surgiu os erros
+        const closestModal = errorsContainer.closest('.modal');
+        $(closestModal).modal('show');
+        console.log(closestModal)
+    }
+
+
+    // mostrar formulário de login
     $("[data-auth='login']").click(function () {
         $("#content__signup").hide(500);
         $("#content__login").show(500);
     });
 
-    // mostrar formulário de login
+    // mostrar formulário de signup
     $("[data-auth='signup']").click(function () {
         $("#content__login").hide(500);
         $("#content__signup").show(500);
     });
 
 
+    // submeter formulário de login
+    $('#loginForm').on('submit', function (event) {
+        event.preventDefault();
+
+        const form = $(this);
+        login(form);
+    });
+
+    // submeter formulário de signup
+    $('#signupForm').on('submit', function (event) {
+        event.preventDefault();
+
+        const form = $(this);
+        signup(form);
+    });
+
+
+    // submeter formulário de novo post
+    $('#formNewPost').submit(function (event) {
+        event.preventDefault();
+        newPost($(this));
+    });
+
+    // submeter formulário de editar um post
+    $('body').on('submit', 'form[id^="formEditPost"]', function (event) {
+        event.preventDefault();
+        editPost($(this));
+    });
+
+
     // pesquisar posts
     $("#linkSearchPosts").click(function () {
-        const textSearched = $("#inputSearchText").val();
+        const searchText = $("#inputSearchText").val();
 
         // verifica se o texto está vazio ou contém apenas espaços em branco
-        if (!textSearched.trim()) {
+        if (!searchText.trim()) {
             return;
         }
 
         // obter endpoint
-        const encodedText = encodeURIComponent(textSearched);
+        const encodedText = encodeURIComponent(searchText);
         const route = "/search/" + encodedText;
 
         // atualizar URL
