@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Services\AuthService;
+use App\Services\UserService;
 
 class AuthController extends Controller
 {
+    protected $authService;
+    protected $userService;
+
+    public function __construct(AuthService $authService, UserService $userService)
+    {
+        $this->authService = $authService;
+        $this->userService = $userService;
+    }
+
+
     /**
      * Ir para a página de autenticação.
      *
@@ -78,17 +88,14 @@ class AuthController extends Controller
             'password.max' => 'A palavra-passe não pode ter mais de :max caracteres.'
         ]);
 
-        // encriptar palavra-passe
-        $data["password"] = Hash::make($data["password"]);
+        $result = $this->userService->insertOne($data['name'], $data['password'], $data['email']);
 
-        $user = User::create($data);
-
-        auth()->login($user);
+        $this->authService->loginUser($result['user']);
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => 'Registo efetuado com sucesso.'
+            'message' => $result['message']
         ], 201);
     }
 
@@ -101,15 +108,13 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $this->authService->cleanSession($request->session());
+        $result = $this->authService->logoutUser();
 
         return redirect('/')->with([
             'success' => true,
             'errors' => [],
-            'message' => 'Utilizador terminou sessão com sucesso.'
+            'message' => $result['message']
         ], 200);
     }
 }

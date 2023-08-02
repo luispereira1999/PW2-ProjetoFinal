@@ -296,6 +296,104 @@ function editComment(formElement) {
 }
 
 
+function editData(formElement) {
+    const formData = formElement.serialize();
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const url = formElement.attr('action');
+
+    // fazer pedido ao servidor
+    ajaxRequest = $.ajax({
+        cache: false,
+        data: formData,
+        dateType: "json",
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        type: "post",
+        url: url
+    });
+
+    // executar esta função quando o pedido é concluído com sucesso
+    ajaxRequest.done(function (response) {
+        if (response.success) {
+            location.reload();
+        }
+    });
+
+    // executar esta função quando existe algum erro ao fazer o pedido
+    ajaxRequest.fail(function (response) {
+        if (response.status == 422) {
+            let errorsArray = Object.values(response.responseJSON.errors).flat();
+
+            let errorsContainer = $('.errors.errors--edit-data');
+            let errorsList = errorsContainer.find('.errors__list');
+
+            if (errorsArray.length > 0) {
+                errorsList.html('');
+                errorsContainer.show();
+
+                errorsArray.forEach((error) => {
+                    const errorItem = $('<li>').text(error);
+                    errorsList.append(errorItem);
+                });
+            }
+        }
+        else {
+            window.location.href = '/500';
+        }
+    });
+}
+
+
+function editPassword(formElement) {
+    const formData = formElement.serialize();
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const url = formElement.attr('action');
+
+    // fazer pedido ao servidor
+    ajaxRequest = $.ajax({
+        cache: false,
+        data: formData,
+        dateType: "json",
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        type: "post",
+        url: url
+    });
+
+    // executar esta função quando o pedido é concluído com sucesso
+    ajaxRequest.done(function (response) {
+        if (response.success) {
+            location.reload();
+        }
+    });
+
+    // executar esta função quando existe algum erro ao fazer o pedido
+    ajaxRequest.fail(function (response) {
+        if (response.status == 422) {
+            let errorsArray = Object.values(response.responseJSON.errors).flat();
+
+            let errorsContainer = $('.errors.errors--edit-password');
+            let errorsList = errorsContainer.find('.errors__list');
+
+            if (errorsArray.length > 0) {
+                errorsList.html('');
+                errorsContainer.show();
+
+                errorsArray.forEach((error) => {
+                    const errorItem = $('<li>').text(error);
+                    errorsList.append(errorItem);
+                });
+            }
+        }
+        else {
+            window.location.href = '/500';
+        }
+    });
+}
+
+
 function votePost(elements, voteTypeId, postId) {
     // dados que vão para o servidor (corpo da requisição)
     let data = {

@@ -63,7 +63,7 @@ class PostService
 
     public function getOne($postId)
     {
-        $post = Post::find($postId);
+        $post = Post::findOrFail($postId);
         return $post;
     }
 
@@ -138,7 +138,7 @@ class PostService
         $post->description = $description;
         $post->save();
 
-        return ['success' => true, 'message' => 'Post atualizado com sucesso.'];
+        return ['message' => 'Post atualizado com sucesso.'];
     }
 
 
@@ -212,10 +212,9 @@ class PostService
     }
 
 
-    public function delete($post)
+    public function deleteOne($post)
     {
         $post->delete();
-
-        return ['success' => true, 'message' => 'Post removido com sucesso.'];
+        return ['message' => 'Post removido com sucesso.'];
     }
 }

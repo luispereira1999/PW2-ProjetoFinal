@@ -18,7 +18,7 @@ function setLoginSession($isActive, $id, $name, $email, $firstName, $lastName)
 
 function setLoginCookies($isActive, $id, $name, $email, $firstName, $lastName)
 {
-   $activeTime = time() + 7 * 24 * 3600; // 7 dias | 24 horas | 3600 minutos  
+   $activeTime = time() + 7 * 24 * 3600; // 7 dias | 24 horas | 3600 minutos
 
    setcookie("login",  $isActive, $activeTime, "/");
    setcookie("id", $id, $activeTime, "/");

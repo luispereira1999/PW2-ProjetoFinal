@@ -19,7 +19,7 @@ class CheckPostExistsMiddleware
     {
         $postId = $request->route('postId');
 
-        $post = Post::find($postId);
+        $post = Post::findOrFail($postId);
 
         if (!$post) {
             if ($request->ajax()) {

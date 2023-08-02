@@ -195,7 +195,7 @@ class PostController extends Controller
         // obtido do middleware que verifica se o post existe
         $post = $request->attributes->get('post');
 
-        $result = $this->postService->delete($post);
+        $result = $this->postService->deleteOne($post);
 
         return back()->with([
             'success' => true,

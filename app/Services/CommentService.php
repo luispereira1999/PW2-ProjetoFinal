@@ -45,7 +45,7 @@ class CommentService
         $comment->post_id = $postId;
         $comment->save();
 
-        return ['success' => true, 'message' => 'Comentário criado com sucesso.'];
+        return ['message' => 'Comentário criado com sucesso.'];
     }
 
     public function updateOne($comment, $description)
@@ -53,7 +53,7 @@ class CommentService
         $comment->description = $description;
         $comment->save();
 
-        return ['success' => true, 'message' => 'Comentário atualizado com sucesso.'];
+        return ['message' => 'Comentário atualizado com sucesso.'];
     }
 
     public function vote($commentId, $userId, $voteTypeId)
@@ -125,10 +125,9 @@ class CommentService
         }
     }
 
-    public function delete($comment)
+    public function deleteOne($comment)
     {
         $comment->delete();
-
-        return ['success' => true, 'message' => 'Comentário removido com sucesso.'];
+        return ['message' => 'Comentário removido com sucesso.'];
     }
 }

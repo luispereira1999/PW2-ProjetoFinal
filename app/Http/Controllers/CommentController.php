@@ -113,7 +113,7 @@ class CommentController extends Controller
         // obtido do middleware que verifica se o comentário existe
         $comment = $request->attributes->get('comment');
 
-        $result = $this->commentService->delete($comment);
+        $result = $this->commentService->deleteOne($comment);
 
         return back()->with([
             'success' => true,

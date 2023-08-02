@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class UserService
@@ -34,27 +35,51 @@ class UserService
     }
 
 
-    public function getOne($postId)
+    public function getOne($userId)
     {
-        // $post = Post::find($postId);
-        // return $post;
+        $user = User::findOrFail($userId);
+        return $user;
     }
 
 
-    public function updateOne($post, $title, $description)
+    public function insertOne($name, $password, $email)
     {
-        // $post->title = $title;
-        // $post->description = $description;
-        // $post->save();
+        $user = new User();
+        $user->name = $name;
+        $user->password = Hash::make($password);  // encripta a palavra-passe
+        $user->email = $email;
+        $user->save();
 
-        // return ['success' => true, 'message' => 'Post atualizado com sucesso.'];
+        return ['user' => $user, 'message' => 'Registo criado com sucesso.'];
     }
 
 
-    public function delete($user)
+    public function updateDataOne($user, $name, $email, $first_name, $last_name, $city, $country)
+    {
+        $user->name = $name;
+        $user->email = $email;
+        $user->first_name = $first_name;
+        $user->last_name = $last_name;
+        $user->city = $city;
+        $user->country = $country;
+        $user->save();
+
+        return ['message' => 'Utilizador atualizado com sucesso.'];
+    }
+
+
+    public function updatePasswordOne($user, $password)
+    {
+        $user->password = Hash::make($password);  // encripta a palavra-passe
+        $user->save();
+
+        return ['message' => 'Utilizador atualizado com sucesso.'];
+    }
+
+
+    public function deleteOne($user)
     {
         $user->delete();
-
-        return ['success' => true, 'message' => 'Utilizador removido com sucesso.'];
+        return ['message' => 'Utilizador removido com sucesso.'];
     }
 }

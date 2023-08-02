@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use App\Services\AuthService;
 use App\Rules\UniqueNameOrEmail;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,13 +26,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('UniqueNameOrEmail', function ($attribute, $value, $parameters, $validator) {
-            $rule = new UniqueNameOrEmail($attribute);
+        $authService = app(AuthService::class);
+
+        Validator::extend('UniqueNameOrEmail', function ($attribute, $value, $parameters, $validator) use ($authService) {
+            $rule = new UniqueNameOrEmail($attribute, $authService);
             return $rule->passes($attribute, $value);
         });
 
-        Validator::replacer('UniqueNameOrEmail', function ($message, $attribute, $rule, $parameters) {
-            $rule = new UniqueNameOrEmail($attribute);
+        Validator::replacer('UniqueNameOrEmail', function ($message, $attribute, $rule, $parameters) use ($authService) {
+            $rule = new UniqueNameOrEmail($attribute, $authService);
             return str_replace(':attribute', $attribute, $rule->message());
         });
     }

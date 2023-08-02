@@ -19,7 +19,7 @@ class CheckCommentExistsMiddleware
     {
         $commentId = $request->route('commentId');
 
-        $comment = Comment::find($commentId);
+        $comment = Comment::findOrFail($commentId);
 
         if (!$comment) {
             if ($request->ajax()) {

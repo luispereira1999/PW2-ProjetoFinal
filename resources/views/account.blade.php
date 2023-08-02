@@ -67,7 +67,16 @@
 
             <h4>Dados Básicos</h4>
 
+            <!-- mostrar erros -->
+            <div class="errors errors--edit-data alert alert-danger">
+                <ul class="errors__list"></ul>
+            </div>
+
             <ul class="account__items">
+                <li class="account__item">
+                    <input class="account__text" type="text" name="name" placeholder="Nome de Utilizador" value="{{ $user->name }}" require>
+                    <input class="account__email" type="email" name="email" placeholder="Email" value="{{ $user->email }}" require>
+                </li>
                 <li class="account__item">
                     <input class="account__text" type="text" name="first_name" placeholder="Primeiro Nome" value="{{ $user->first_name }}">
                     <input class="account__text" type="text" name="last_name" placeholder="Último Nome" value="{{ $user->last_name }}">
@@ -76,12 +85,9 @@
                     <input class="account__text" type="text" name="city" placeholder="Cidade" value="{{ $user->city }}">
                     <input class="account__text" type="text" name="country" placeholder="País" value="{{ $user->country }}">
                 </li>
-                <li class="account__item">
-                    <input class="account__email" type="email" name="email" placeholder="Email" value="{{ $user->email }}" require>
-                </li>
 
                 <li class="account__actions">
-                    <button class="button button-primary" type="submit" form="formEditData" name="isEditData">Atualizar</button>
+                    <button class="button button-primary" type="submit" form="formEditData">Atualizar</button>
                     <a href="{{ route('account', ['userId' => $user->id]) }}"><button class="button button-cancel" type="button">Cancelar</button></a>
                 </li>
             </ul>
@@ -92,6 +98,10 @@
             @method('PATCH')
 
             <h4>Palavra-passe</h4>
+
+            <div class="errors errors--edit-password alert alert-danger">
+                <ul class="errors__list"></ul>
+            </div>
 
             <ul class="account__items">
                 <li class="account__item">

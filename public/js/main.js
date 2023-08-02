@@ -47,6 +47,19 @@ $(document).ready(function () {
     });
 
 
+    // submeter formulário de editar dados do utilizador
+    $('body').on('submit', 'form[id^="formEditData"]', function (event) {
+        event.preventDefault();
+        editData($(this));
+    });
+
+    // submeter formulário de editar palavra-passe do utilizador
+    $('body').on('submit', 'form[id^="formEditPassword"]', function (event) {
+        event.preventDefault();
+        editPassword($(this));
+    });
+
+
     // pesquisar posts
     $("#linkSearchPosts").click(function () {
         const searchText = $("#inputSearchText").val();

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\AuthService;
 use App\Services\UserService;
@@ -77,13 +76,27 @@ class UserController extends Controller
      */
     public function updateData(Request $request, $userId)
     {
-        $request->validate([
-            'email' => 'required|email',
+        $data = $request->validate([
+            'name' => 'required|min:3|max:12|UniqueNameOrEmail',
+            'email' => 'required|email|max:200|UniqueNameOrEmail',
+            'first_name' => 'max:50',
+            'last_name' => 'max:50',
+            'city' => 'max:30',
+            'country' => 'max:100'
         ], [
-            'email.required' => 'O email é obrigatório.'
+            'name.required' => 'O nome de utilizador é obrigatório.',
+            'name.min' => 'O nome de utilizador deve ter pelo menos :min caracteres.',
+            'name.max' => 'O nome de utilizador não pode ter mais de :max caracteres.',
+            'email.required' => 'O email é obrigatório.',
+            'email.email' => 'O email é inválido.',
+            'email.max' => 'O email não pode ter mais de :max caracteres.',
+            'first_name.max' => 'O primeiro nome não pode ter mais de :max caracteres.',
+            'last_name.max' => 'O último nome não pode ter mais de :max caracteres.',
+            'city.max' => 'A cidade não pode ter mais de :max caracteres.',
+            'country.max' => 'O país não pode ter mais de :max caracteres.'
         ]);
 
-        $loggedUserId = Auth::user()->id;
+        $loggedUserId = $this->authService->getUserId();
 
         if ($loggedUserId != $userId) {
             return redirect()->route('500')->with([
@@ -92,19 +105,24 @@ class UserController extends Controller
             ], 500);
         }
 
-        $user = User::findOrFail($userId);
-        $user->email = $request->input('email');
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
-        $user->city = $request->input('city');
-        $user->country = $request->input('country');
-        $user->save();
+        $user = $this->userService->getOne($userId);
 
-        Auth::login($user);
+        $result = $this->userService->updateDataOne(
+            $user,
+            $data['name'],
+            $data['email'],
+            $data['first_name'],
+            $data['last_name'],
+            $data['city'],
+            $data['country']
+        );
 
-        return back()->with([
+        $this->authService->loginUser($user);
+
+        return response()->json([
             'success' => true,
-            'errors' => ['Perfil atualizado com sucesso!']
+            'errors' => [],
+            'message' => $result['message']
         ], 200);
     }
 
@@ -118,17 +136,19 @@ class UserController extends Controller
      */
     public function updatePassword(Request $request, $userId)
     {
-        $request->validate([
+        $data = $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required',
+            'new_password' => 'required|min:6|max:12',
             'new_password_confirm' => 'same:new_password'
         ], [
             'current_password.required' => 'A palavra-passe atual é obrigatória.',
+            'new_password.min' => 'A nova palavra-passe deve ter pelo menos :min caracteres.',
+            'new_password.max' => 'A nova palavra-passe não pode ter mais de :max caracteres.',
             'new_password.required' => 'A nova palavra-passe é obrigatória.',
-            'new_password_confirm.same' => 'As palavra-passes não coincidem.',
+            'new_password_confirm.same' => 'As palavra-passes não coincidem.'
         ]);
 
-        $loggedUserId = Auth::user()->id;
+        $loggedUserId = $this->authService->getUserId();
 
         if ($loggedUserId != $userId) {
             return redirect()->route('500')->with([
@@ -137,23 +157,23 @@ class UserController extends Controller
             ], 500);
         }
 
-        $user = User::findOrFail($userId);
+        $user = $this->userService->getOne($userId);
 
-        if (!Hash::check($request->input('current_password'), $user->password)) {
-            return back()->with([
+        if (!Hash::check($data['current_password'], $user->password)) {
+            return response()->json([
                 'success' => false,
                 'errors' => ['A palavra-passe atual fornecida está incorreta.']
             ], 422);
         }
 
-        $user->password = Hash::make($request->input('new_password'));
-        $user->save();
+        $result = $this->userService->updatePasswordOne($user, $data['new_password']);
 
-        Auth::login($user);
+        $this->authService->loginUser($user);
 
-        return back()->with([
+        return response()->json([
             'success' => true,
-            'errors' => ['Perfil atualizado com sucesso!']
+            'errors' => [],
+            'message' => $result['message']
         ], 200);
     }
 
@@ -175,7 +195,7 @@ class UserController extends Controller
             ], 500);
         }
 
-        $result = $this->userService->delete($loggedUser);
+        $result = $this->userService->deleteOne($loggedUser);
 
         return redirect()->route('home')->with([
             'success' => true,
