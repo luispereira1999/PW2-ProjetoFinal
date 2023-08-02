@@ -23,7 +23,7 @@ class UserController extends Controller
 
 
     /**
-     * Display a listing of the user.
+     * Ir para a página do perfil do utilizador.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,56 +34,40 @@ class UserController extends Controller
 
         $posts = Post::allInProfile($userProfileId, $loggedUserId);
 
-        return view('profile', [
+        return response()->view('profile', [
             'user' => $userProfile,
             'posts' => $posts,
             'loggedUserId' => $loggedUserId
-        ]);
+        ], 200);
     }
 
 
     /**
-     * Show the form for creating a new resource.
+     * Ir para a página de definições da conta.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function show($userId)
     {
-        //
+        $loggedUserId = $this->authService->getUserId();
+
+        if ($loggedUserId != $userId) {
+            return redirect()->route('500')->with([
+                'success' => false,
+                'errors' => ['É necessário fazer login para realizar a operação.']
+            ], 500);
+        }
+
+        $user = User::findOrFail($userId);
+
+        return response()->view('account', [
+            'user' => $user
+        ], 200);
     }
 
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    /**
-     * Display the user logged.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
-        $user = Auth::user();
-        $loggedUserId = $user ? $user->id : -1;
-
-        $user = User::one($loggedUserId);
-
-        return view('account', compact('user'));
-    }
-
-
-    /**
-     * Update the specified resource in storage.
+     * Atualizar os dados básicos do utilizador com login.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $userId
@@ -98,29 +82,33 @@ class UserController extends Controller
         ]);
 
         $loggedUserId = Auth::user()->id;
+
         if ($loggedUserId != $userId) {
-            return redirect()->route('auth')->with('errors', 'Você precisa fazer login para atualizar seu perfil.');
+            return redirect()->route('500')->with([
+                'success' => false,
+                'errors' => ['É necessário fazer login para realizar a operação.']
+            ], 500);
         }
 
         $user = User::findOrFail($userId);
-
         $user->email = $request->input('email');
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->city = $request->input('city');
         $user->country = $request->input('country');
-
         $user->save();
 
         Auth::login($user);
 
-        return back()->with('success', 'Perfil atualizado com sucesso!')
-            ->with('reload', true);
+        return back()->with([
+            'success' => true,
+            'errors' => ['Perfil atualizado com sucesso!']
+        ], 200);
     }
 
 
     /**
-     * Update the specified resource in storage.
+     * Atualizar a palavra-passe do utilizador com login.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $userId
@@ -139,29 +127,37 @@ class UserController extends Controller
         ]);
 
         $loggedUserId = Auth::user()->id;
+
         if ($loggedUserId != $userId) {
-            return redirect()->route('auth')->with('errors', 'Você precisa fazer login para atualizar seu perfil.');
+            return redirect()->route('500')->with([
+                'success' => false,
+                'errors' => ['É necessário fazer login para realizar a operação.']
+            ], 500);
         }
 
         $user = User::findOrFail($userId);
 
         if (!Hash::check($request->input('current_password'), $user->password)) {
-            return back()->with('errors', 'A palavra-passe atual fornecida está incorreta.');
+            return back()->with([
+                'success' => false,
+                'errors' => ['A palavra-passe atual fornecida está incorreta.']
+            ], 422);
         }
 
         $user->password = Hash::make($request->input('new_password'));
-
         $user->save();
 
         Auth::login($user);
 
-        return back()->with('success', 'Perfil atualizado com sucesso!')
-            ->with('reload', true);
+        return back()->with([
+            'success' => true,
+            'errors' => ['Perfil atualizado com sucesso!']
+        ], 200);
     }
 
 
     /**
-     * Remove the specified resource from storage.
+     * Remover o utilizador com login.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

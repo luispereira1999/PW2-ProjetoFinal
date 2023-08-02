@@ -216,6 +216,6 @@ class PostService
     {
         $post->delete();
 
-        return ['success' => true, 'message' => 'Post apagado com sucesso.'];
+        return ['success' => true, 'message' => 'Post removido com sucesso.'];
     }
 }

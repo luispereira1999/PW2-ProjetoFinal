@@ -5,8 +5,6 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\QueryException;
 use Throwable;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
 
 class Handler extends ExceptionHandler
 {
@@ -57,13 +55,16 @@ class Handler extends ExceptionHandler
         if ($exception instanceof QueryException) {
             if ($request->ajax()) {
                 // retorna em json com status HTTP 500
-                return response()->json(['errors' => ['Erro ao comunicar com o servidor.']], 500);
+                return response()->json([
+                    'success' => false,
+                    'errors' => ['Erro ao comunicar com o servidor.']
+                ], 500);
             } else {
                 // mostra diretamente a página 500
                 $response = response()->view('500', [
                     'success' => false,
                     'errors' => ['Erro ao comunicar com o servidor.']
-                ]);
+                ], 500);
 
                 $response->exception = $exception;
                 return $response;
@@ -76,7 +77,7 @@ class Handler extends ExceptionHandler
             $response = response()->view('500', [
                 'success' => false,
                 'errors' => ['Erro ao comunicar com o servidor.']
-            ]);
+            ], 500);
 
             $response->exception = $exception;
             return $response;

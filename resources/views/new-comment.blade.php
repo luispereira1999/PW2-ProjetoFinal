@@ -16,11 +16,10 @@
                     <ul class="errors__list"></ul>
                 </div>
 
-                <form class="modal__form" id="formNewComment" method="post" action="{{ route('comments.create') }}">
+                <form class="modal__form" id="formNewComment" method="post" action="{{ route('comments.create', ['postId' => $post->id]) }}">
                     @csrf
 
-                    <input type="hidden" name="post_id" value="{{ $post->id }}">
-                    <textarea class="modal__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ..." required></textarea>
+                    <textarea class="modal__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ..."></textarea>
                 </form>
             </div>
 

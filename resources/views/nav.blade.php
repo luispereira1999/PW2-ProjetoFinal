@@ -23,7 +23,7 @@
 
             <div class="navigation__dropdown__content-wrapper">
                 <a class="navigation__dropdown__link" href="" data-toggle="modal" data-target="#about"><i class="navigation__dropdown__icon fas fa-info"></i>Sobre</a>
-                <a class="navigation__dropdown__link" href="{{ route('account') }}"><i class="navigation__dropdown__icon fas fa-user-edit"></i>Editar Utilizador</a>
+                <a class="navigation__dropdown__link" href="{{ route('account', ['userId' => Auth::user()->id]) }}"><i class="navigation__dropdown__icon fas fa-user-edit"></i>Editar Utilizador</a>
                 <a class="navigation__dropdown__link" href="{{ route('auth.logout') }}"><i class="navigation__dropdown__icon fas fa-door-open "></i>Terminar Sessão</a>
             </div>
         </div>

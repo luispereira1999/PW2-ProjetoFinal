@@ -48,12 +48,8 @@ class CommentService
         return ['success' => true, 'message' => 'Comentário criado com sucesso.'];
     }
 
-    public function updateOne($comment, $loggedUserId, $title, $description)
+    public function updateOne($comment, $description)
     {
-        if ($comment->user_id != $loggedUserId) {
-            return ['success' => false, 'message' => 'O comentário não pertence ao utilizador atualmente com login.'];
-        }
-
         $comment->description = $description;
         $comment->save();
 
@@ -129,14 +125,10 @@ class CommentService
         }
     }
 
-    public function delete($comment, $loggedUserId)
+    public function delete($comment)
     {
-        if ($comment->user_id != $loggedUserId) {
-            return ['success' => false, 'message' => 'O comentário não pertence ao utilizador atualmente com login.'];
-        }
-
         $comment->delete();
 
-        return ['success' => true, 'message' => 'Comentário apagado com sucesso.'];
+        return ['success' => true, 'message' => 'Comentário removido com sucesso.'];
     }
 }

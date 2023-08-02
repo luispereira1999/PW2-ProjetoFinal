@@ -4,12 +4,19 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Services\AuthService;
 
-class CheckPostExistsMiddleware
+class CheckCommentBelongsUserMiddleware
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     /**
-     * Middleware para verificar se um post com um determinado id existe na base de dados.
+     * Middleware para verificar se um comentário pertence ao utilizador atualmente com login.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
@@ -17,26 +24,22 @@ class CheckPostExistsMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $postId = $request->route('postId');
+        $comment = $request->attributes->get('comment');
+        $loggedUserId = $this->authService->getUserId();
 
-        $post = Post::find($postId);
-
-        if (!$post) {
+        if ($comment->user_id != $loggedUserId) {
             if ($request->ajax()) {
                 return response()->json([
                     'success' => false,
-                    'errors' => ['O post não foi encontrado.']
+                    'errors' => ['O comentário não pertence ao utilizador atualmente com login.']
                 ], 500);
             } else {
                 return response()->view('500', [
                     'success' => false,
-                    'errors' => ['O post não foi encontrado.']
+                    'errors' => ['O comentário não pertence ao utilizador atualmente com login.']
                 ], 500);
             }
         }
-
-        // para acessar o post encontrado no objeto $request nos controladores
-        $request->attributes->set('post', $post);
 
         return $next($request);
     }

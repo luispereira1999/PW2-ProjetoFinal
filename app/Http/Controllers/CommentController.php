@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Comment;
 use App\Services\AuthService;
 use App\Services\CommentService;
 
@@ -27,18 +26,25 @@ class CommentController extends Controller
      */
     public function create(Request $request)
     {
-        $request->validate([
-            'description' => 'required'
+        $data = $request->validate([
+            'description' => 'required|min:1|max:500'
+        ], [
+            'description.required' => 'A descrição é obrigatória.',
+            'description.min' => 'A descrição deve ter pelo menos :min caracteres.',
+            'description.max' => 'A descrição não pode ter mais de :max caracteres.'
         ]);
 
+        // obtido do middleware que verifica se o post existe
+        $post = $request->attributes->get('post');
+
         $loggedUserId = $this->authService->getUserId();
-        $result = $this->commentService->insertOne($request->input('description'), $loggedUserId, $request->input('post_id'));
+        $result = $this->commentService->insertOne($data['description'], $loggedUserId, $post->id);
 
-        if (!$result['success']) {
-            return back()->with('errors', $result['message']);
-        }
-
-        return back()->with('success', $result['message']);
+        return response()->json([
+            'success' => true,
+            'errors' => [],
+            'message' => $result['message']
+        ], 201);
     }
 
 
@@ -49,25 +55,26 @@ class CommentController extends Controller
      * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $commentId)
+    public function update(Request $request)
     {
-        $request->validate([
-            'description' => 'required',
+        $data = $request->validate([
+            'description' => 'required|min:1|max:500'
         ], [
-            'description.required' => 'A descrição é obrigatória.'
+            'description.required' => 'A descrição é obrigatória.',
+            'description.min' => 'A descrição deve ter pelo menos :min caracteres.',
+            'description.max' => 'A descrição não pode ter mais de :max caracteres.'
         ]);
 
-        // obtido do middleware que verificar se o comentário existe
+        // obtido do middleware que verifica se o comentário existe
         $comment = $request->attributes->get('comment');
 
-        $loggedUserId = $this->authService->getUserId();
-        $result = $this->commentService->updateOne($comment, $loggedUserId, $request->input('title'), $request->input('description'));
+        $result = $this->commentService->updateOne($comment, $data['description']);
 
-        if (!$result['success']) {
-            return back()->with('errors', $result['message']);
-        }
-
-        return back()->with('success', $result['message']);
+        return response()->json([
+            'success' => true,
+            'errors' => [],
+            'message' => $result['message']
+        ], 200);
     }
 
 
@@ -103,18 +110,17 @@ class CommentController extends Controller
      * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $commentId)
+    public function destroy(Request $request)
     {
-        // obtido do middleware que verificar se o comentário existe
+        // obtido do middleware que verifica se o comentário existe
         $comment = $request->attributes->get('comment');
 
-        $loggedUserId = $this->authService->getUserId();
-        $result = $this->commentService->delete($comment, $loggedUserId);
+        $result = $this->commentService->delete($comment);
 
-        if (!$result['success']) {
-            return back()->with('errors', $result['message']);
-        }
-
-        return back()->with('success', $result['message']);
+        return back()->with([
+            'success' => true,
+            'errors' => [],
+            'message' => $result['message']
+        ], 200);
     }
 }

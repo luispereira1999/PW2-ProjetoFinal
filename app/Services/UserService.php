@@ -55,6 +55,6 @@ class UserService
     {
         $user->delete();
 
-        return ['success' => true, 'message' => 'Utilizador apagado com sucesso.'];
+        return ['success' => true, 'message' => 'Utilizador removido com sucesso.'];
     }
 }

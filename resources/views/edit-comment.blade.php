@@ -12,7 +12,7 @@
 
             <div class="modal-body">
                 <!-- mostrar erros -->
-                <div class="errors errors--edit-comment alert alert-danger">
+                <div class="errors errors--edit-comment-{{ $comment->comment_id }} alert alert-danger">
                     <ul class="errors__list"></ul>
                 </div>
 
@@ -21,7 +21,7 @@
                     @method('PATCH')
 
                     <input type="hidden" name="postId" value="{{ $post->id }}">
-                    <textarea class="modal__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ..." required>{{ $comment->description }}</textarea>
+                    <textarea class="modal__textarea" name="description" cols="40" rows="5" placeholder="Texto do Comentário ...">{{ $comment->description }}</textarea>
                 </form>
             </div>
 

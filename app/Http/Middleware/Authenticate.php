@@ -7,15 +7,18 @@ use Illuminate\Auth\Middleware\Authenticate as Middleware;
 class Authenticate extends Middleware
 {
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
+     * Middleware para verificar se o utilizador está autenticado.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return string|null
+     * @return \Illuminate\Http\RedirectResponse|null
      */
     protected function redirectTo($request)
     {
         if (!$request->expectsJson()) {
-            return route('auth');
+            return redirect()->route('500')->with([
+                'success' => false,
+                'errors' => ['Você precisa fazer login para atualizar seu perfil.']
+            ], 500);
         }
     }
 }

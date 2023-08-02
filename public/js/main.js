@@ -65,6 +65,19 @@ $(document).ready(function () {
     });
 
 
+    // submeter formulário de novo comentário
+    $('#formNewComment').submit(function (event) {
+        event.preventDefault();
+        newComment($(this));
+    });
+
+    // submeter formulário de editar um comentário
+    $('body').on('submit', 'form[id^="formEditComment"]', function (event) {
+        event.preventDefault();
+        editComment($(this));
+    });
+
+
     // votar no post em destaque na página principal - up vote
     $(".featured [data-vote='upvote']").click(function () {
         let elements = {

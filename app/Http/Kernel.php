@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'check.post.exists' => \App\Http\Middleware\CheckPostExistsMiddleware::class,
         'check.post.belongs.user' => \App\Http\Middleware\CheckPostBelongsUserMiddleware::class,
         'check.comment.exists' => \App\Http\Middleware\CheckCommentExistsMiddleware::class,
+        'check.comment.belongs.user' => \App\Http\Middleware\CheckCommentBelongsUserMiddleware::class,
     ];
 }

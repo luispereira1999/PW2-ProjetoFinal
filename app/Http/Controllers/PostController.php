@@ -32,12 +32,12 @@ class PostController extends Controller
         $featuredPost = $this->postService->getOneByMostVotes($loggedUserId);
         $posts = $this->postService->getAll($loggedUserId);
 
-        return view('home', [
+        return response()->view('home', [
             'featuredPost' => $featuredPost,
             'searchText' => '',
             'posts' => $posts,
             'loggedUserId' => $loggedUserId
-        ]);
+        ], 200);
     }
 
 
@@ -54,12 +54,12 @@ class PostController extends Controller
         $featuredPost = $this->postService->getOneByMostVotes($loggedUserId);
         $posts = $this->postService->getAllByTitle($searchText, $loggedUserId);
 
-        return view('home', [
+        return response()->view('home', [
             'featuredPost' => $featuredPost,
             'searchText' => $searchText,
             'posts' => $posts,
             'loggedUserId' => $loggedUserId
-        ]);
+        ], 200);
     }
 
 
@@ -75,11 +75,11 @@ class PostController extends Controller
         $post = $this->postService->getOneWithUserVote($postId, $loggedUserId);
         $comments = $this->commentService->getAllByPostId($postId, $loggedUserId);
 
-        return view('post', [
+        return response()->view('post', [
             'loggedUserId' => $loggedUserId,
             'post' => $post,
             'comments' => $comments,
-        ]);
+        ], 200);
     }
 
 
@@ -121,7 +121,7 @@ class PostController extends Controller
      * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $postId)
+    public function update(Request $request)
     {
         $data = $request->validate([
             'title' => 'required|min:1|max:50',
@@ -135,7 +135,7 @@ class PostController extends Controller
             'description.max' => 'A descrição não pode ter mais de :max caracteres.'
         ]);
 
-        // obtido do middleware que verificar se o post existe
+        // obtido do middleware que verifica se o post existe
         $post = $request->attributes->get('post');
 
         $result = $this->postService->updateOne($post,  $data['title'], $data['description']);
@@ -192,13 +192,12 @@ class PostController extends Controller
      * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $postId)
+    public function destroy(Request $request)
     {
-        // obtido do middleware que verificar se o post existe
+        // obtido do middleware que verifica se o post existe
         $post = $request->attributes->get('post');
 
-        $loggedUserId = $this->authService->getUserId();
-        $result = $this->postService->delete($post, $loggedUserId);
+        $result = $this->postService->delete($post);
 
         return back()->with([
             'success' => true,

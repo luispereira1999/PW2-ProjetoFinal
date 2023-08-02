@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +55,7 @@ Route::get('/auth/logout', [AuthController::class, 'logout'])
 Route::get('/profile/{userId}', [UserController::class, 'index'])
     ->name('profile');
 
-Route::get('/account', [UserController::class, 'show'])
+Route::get('/account/{userId}', [UserController::class, 'show'])
     ->middleware([
         'auth'
     ])
@@ -113,16 +112,18 @@ Route::delete('/posts/delete/{postId}', [PostController::class, 'destroy'])
 
 
 // COMENTÁRIOS
-Route::post('/comments/create', [CommentController::class, 'create'])
+Route::post('/comments/create/{postId}', [CommentController::class, 'create'])
     ->middleware([
-        'auth'
+        'auth',
+        'check.post.exists'
     ])
     ->name('comments.create');
 
 Route::patch('/comments/update/{commentId}', [CommentController::class, 'update'])
     ->middleware([
         'auth',
-        'check.comment.exists'
+        'check.comment.exists',
+        'check.comment.belongs.user'
     ])
     ->name('comments.update');
 
@@ -136,7 +137,8 @@ Route::post('/comments/vote/{commentId}', [CommentController::class, 'vote'])
 Route::delete('/comments/delete/{commentId}', [CommentController::class, 'destroy'])
     ->middleware([
         'auth',
-        'check.comment.exists'
+        'check.comment.exists',
+        'check.comment.belongs.user'
     ])
     ->name('comments.delete');
 
