@@ -8,7 +8,7 @@
             <a class="brief-posts__link__edit" data-toggle="modal" data-target="#editPost{{ $post->post_id }}"><i class="brief-posts__icon fas fa-edit col-0"></i></a>
         </span>
 
-        <span data-toggle="tooltip" data-placement="bottom" title="Eliminar Post">
+        <span data-toggle="tooltip" data-placement="bottom" title="Remover Post">
             <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deletePost{{ $post->post_id }}"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
         </span>
         @endif

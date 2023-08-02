@@ -52,7 +52,6 @@ class CommentController extends Controller
      * Atualizar um comentário.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -107,7 +106,6 @@ class CommentController extends Controller
      * Remover um comentário.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $commentId
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)

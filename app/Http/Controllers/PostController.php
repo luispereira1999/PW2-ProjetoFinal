@@ -118,7 +118,6 @@ class PostController extends Controller
      * Atualizar um post.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -189,7 +188,6 @@ class PostController extends Controller
      * Remover um post.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $postId
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)

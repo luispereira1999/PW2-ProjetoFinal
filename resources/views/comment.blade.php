@@ -30,7 +30,7 @@
             <span class="comment__action" data-toggle="tooltip" data-placement="bottom" title="Editar Comentário">
                 <a class="comment__link" data-toggle="modal" data-target="#editComment{{ $comment->comment_id }}"><i class="fas fa-edit col-0 comment__action__icon"></i></a>
             </span>
-            <span class="comment__action" data-toggle="tooltip" data-placement="bottom" title="Eliminar Comentário">
+            <span class="comment__action" data-toggle="tooltip" data-placement="bottom" title="Remover Comentário">
                 <a class="comment__link" data-toggle="modal" data-target="#deleteComment{{ $comment->comment_id }}"><i class="fas fa-trash-alt col-0 comment__action__icon"></i></a>
             </span>
 

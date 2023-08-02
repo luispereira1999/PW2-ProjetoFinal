@@ -73,6 +73,12 @@ Route::patch('/account/edit-password/{userId}', [UserController::class, 'updateP
     ])
     ->name('account.edit-password');
 
+Route::delete('/account/delete/{userId}', [UserController::class, 'destroy'])
+    ->middleware([
+        'auth'
+    ])
+    ->name('account.delete');
+
 
 // POSTS
 Route::get('/posts/{postId}', [PostController::class, 'show'])

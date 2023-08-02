@@ -25,14 +25,15 @@ class UserController extends Controller
     /**
      * Ir para a página do perfil do utilizador.
      *
+     * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function index($userProfileId)
+    public function index($userId)
     {
-        $userProfile = User::one($userProfileId);
+        $userProfile = User::one($userId);
         $loggedUserId = $this->authService->getUserId();
 
-        $posts = Post::allInProfile($userProfileId, $loggedUserId);
+        $posts = Post::allInProfile($userId, $loggedUserId);
 
         return response()->view('profile', [
             'user' => $userProfile,
@@ -45,6 +46,7 @@ class UserController extends Controller
     /**
      * Ir para a página de definições da conta.
      *
+     * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
     public function show($userId)
@@ -159,11 +161,26 @@ class UserController extends Controller
     /**
      * Remover o utilizador com login.
      *
-     * @param  int  $id
+     * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($userId)
     {
-        //
+        $loggedUser = $this->authService->getUser();
+
+        if ($loggedUser->id != $userId) {
+            return response()->view('500', [
+                'success' => false,
+                'errors' => ['É necessário fazer login para realizar a operação.']
+            ], 500);
+        }
+
+        $result = $this->userService->delete($loggedUser);
+
+        return redirect()->route('home')->with([
+            'success' => true,
+            'errors' => [],
+            'message' => $result['message']
+        ], 200);
     }
 }

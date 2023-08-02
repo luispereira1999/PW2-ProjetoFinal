@@ -108,6 +108,13 @@
                 </li>
             </ul>
         </form>
+
+        <div id="formDeleteUser" class="account__form">
+            <h4>Remover conta</h4>
+            <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deleteUser{{ $user->id }}"><button class="button button-danger" type="submit" form="formDeleteUser">Remover</button></a>
+        </div>
+
+        @include('delete-user')
     </main>
 
     <!-- RODAPÉ: copyright, autor, links -->

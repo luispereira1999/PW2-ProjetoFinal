@@ -67,6 +67,10 @@ p {
     background-color: #888;
 }
 
+.button-danger {
+    background-color: #d9534f;
+}
+
 .button-dropdown {
     background-color: #242424;
     border: none;
