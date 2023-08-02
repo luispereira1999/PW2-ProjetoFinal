@@ -62,8 +62,8 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|min:3|max:12',
-            'email' => 'required|email|max:200',
+            'name' => 'required|min:3|max:12|UniqueNameOrEmail',
+            'email' => 'required|email|max:200|UniqueNameOrEmail',
             'password' => 'required|confirmed|min:6|max:12'
         ], [
             'name.required' => 'O nome de utilizador é obrigatório.',
@@ -73,7 +73,7 @@ class AuthController extends Controller
             'email.email' => 'O email é inválido.',
             'email.max' => 'O email não pode ter mais de :max caracteres.',
             'password.required' => 'A palavra-passe é obrigatória.',
-            'password.confirmed' => 'As palavra-passes não correspondem.',
+            'password.confirmed' => 'As palavra-passes não coincidem.',
             'password.min' => 'A palavra-passe deve ter pelo menos :min caracteres.',
             'password.max' => 'A palavra-passe não pode ter mais de :max caracteres.'
         ]);

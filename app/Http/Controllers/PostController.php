@@ -169,7 +169,7 @@ class PostController extends Controller
         $result = $this->postService->vote($postId, $loggedUserId, $data['voteTypeId']);
         $votesAmount = $this->postService->getVotesAmount($postId);
 
-        if (!$result['success'] || $votesAmount == -1) {
+        if (!$result['success']) {
             return redirect('500')->with([
                 'success' => false,
                 'errors' => [$result['message']]

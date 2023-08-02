@@ -42,7 +42,6 @@ p {
 }
 
 .button-primary {
-    /* background-color: rgb(130, 40, 222); */
     background: linear-gradient(127deg, rgba(130, 40, 222, 1) 0%, rgba(33, 201, 55, 1) 100%);
 }
 
@@ -101,7 +100,7 @@ p {
 }
 
 
-/*** MODALS ***/
+/*** MODAIS ***/
 
 .close:focus {
     outline: none;

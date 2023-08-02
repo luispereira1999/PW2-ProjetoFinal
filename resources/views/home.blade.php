@@ -69,14 +69,14 @@
                 <!-- votos do post -->
                 <div class="featured__votes">
                     <span class="featured__vote" data-vote="upvote">
-                        <i data-markedvote="@if($featuredPost->vote_user_id == $loggedUserId && $featuredPost->vote_type_id == 1) marked @else none @endif" data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="featured__interactions__icon fas fa-heart">
+                        <i data-markedvote="{{ ($featuredPost->vote_user_id == $loggedUserId && $featuredPost->vote_type_id == 1) ? 'marked' : 'none' }}" data-toggle="tooltip" data-placement="bottom" title="Up Vote" class="featured__interactions__icon fas fa-heart">
                         </i>
                     </span>
 
                     <label class="featured__votes-amount">{{ $featuredPost->votes_amount }}</label>
 
                     <span class="featured__vote" data-vote="downvote">
-                        <i data-markedvote="@if($featuredPost->vote_user_id == $loggedUserId && $featuredPost->vote_type_id == 2) marked @else none @endif" data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="featured__interactions__icon fas fa-heart-broken">
+                        <i data-markedvote="{{ ($featuredPost->vote_user_id == $loggedUserId && $featuredPost->vote_type_id == 2) ? 'marked' : 'none' }}" data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="featured__interactions__icon fas fa-heart-broken">
                         </i>
                     </span>
                 </div>

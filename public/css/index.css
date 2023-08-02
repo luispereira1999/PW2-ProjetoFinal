@@ -116,6 +116,9 @@
     font-size: 15px;
     color: #8228DE;
     margin: 0 5px;
+}
+
+.featured__votes .featured__interactions__icon {
     cursor: pointer;
 }
 
@@ -334,6 +337,9 @@
     font-size: 15px;
     color: #8228DE;
     margin: 0 5px;
+}
+
+.brief-posts__votes .brief-posts__interactions__icon {
     cursor: pointer;
 }
 

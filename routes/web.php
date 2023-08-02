@@ -54,9 +54,6 @@ Route::get('/auth/logout', [AuthController::class, 'logout'])
 
 // UTILIZADORES
 Route::get('/profile/{userId}', [UserController::class, 'index'])
-    ->middleware([
-        'auth'
-    ])
     ->name('profile');
 
 Route::get('/account', [UserController::class, 'show'])

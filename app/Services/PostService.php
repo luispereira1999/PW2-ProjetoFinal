@@ -115,13 +115,7 @@ class PostService
 
     public function getVotesAmount($postId)
     {
-        $votesAmount = Post::where('id', $postId)->pluck('votes_amount')->first();
-
-        if ($votesAmount) {
-            return $votesAmount;
-        } else {
-            return -1;
-        }
+        return Post::where('id', $postId)->pluck('votes_amount')->first();
     }
 
 

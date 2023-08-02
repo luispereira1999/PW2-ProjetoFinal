@@ -57,6 +57,9 @@
     font-size: 15px;
     color: #8228DE;
     margin: 0 5px;
+}
+
+.full-post__votes .full-post__icon {
     cursor: pointer;
 }
 

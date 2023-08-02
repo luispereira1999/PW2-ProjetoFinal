@@ -147,7 +147,7 @@ $(document).ready(function () {
         }
 
         let voteTypeId = 1;
-        let postId = $(this).parent().parent().parent().parent().attr("data-post");
+        let postId = $(this).parent().parent().parent().attr("data-post");
 
         votePost(elements, voteTypeId, postId);
     });
@@ -164,7 +164,7 @@ $(document).ready(function () {
         }
 
         let voteTypeId = 2;
-        let postId = $(this).parent().parent().parent().parent().attr("data-post");
+        let postId = $(this).parent().parent().parent().attr("data-post");
 
         votePost(elements, voteTypeId, postId);
     });

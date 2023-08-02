@@ -5,11 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Services\AuthService;
+use App\Services\UserService;
 use App\Models\User;
 use App\Models\Post;
 
 class UserController extends Controller
 {
+    protected $authService;
+    protected $userService;
+
+    public function __construct(AuthService $authService, UserService $userService)
+    {
+        $this->authService = $authService;
+        $this->userService = $userService;
+    }
+
+
     /**
      * Display a listing of the user.
      *
@@ -18,9 +30,7 @@ class UserController extends Controller
     public function index($userProfileId)
     {
         $userProfile = User::one($userProfileId);
-
-        $loggedUser = Auth::user();
-        $loggedUserId = $loggedUser ? $loggedUser->id : -1;
+        $loggedUserId = $this->authService->getUserId();
 
         $posts = Post::allInProfile($userProfileId, $loggedUserId);
 
@@ -125,7 +135,7 @@ class UserController extends Controller
         ], [
             'current_password.required' => 'A palavra-passe atual é obrigatória.',
             'new_password.required' => 'A nova palavra-passe é obrigatória.',
-            'new_password_confirm.same' => 'As palavra-passes não correspondem.',
+            'new_password_confirm.same' => 'As palavra-passes não coincidem.',
         ]);
 
         $loggedUserId = Auth::user()->id;
