@@ -1,6 +1,6 @@
 <!-- DEFINIÇÃO: modal de editar um post -->
 
-<div class="modal fade" id="editPost{{ $post->post_id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="editPost{{ $post->id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,11 +12,11 @@
 
             <div class="modal-body">
                 <!-- mostrar erros -->
-                <div class="errors errors--edit-post-{{ $post->post_id }} alert alert-danger">
+                <div class="errors errors--edit-post-{{ $post->id }} alert alert-danger">
                     <ul class="errors__list"></ul>
                 </div>
 
-                <form class="modal__form" id="formEditPost{{ $post->post_id }}" method="post" action="{{ route('posts.update', ['postId' => $post->post_id]) }}">
+                <form class="modal__form" id="formEditPost{{ $post->id }}" method="post" action="{{ route('posts.update', ['postId' => $post->id]) }}">
                     @csrf
                     @method('PATCH')
 
@@ -26,7 +26,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="button button-primary" type="submit" form="formEditPost{{ $post->post_id }}">Editar</button>
+                <button class="button button-primary" type="submit" form="formEditPost{{ $post->id }}">Editar</button>
                 <button class="button button-cancel" type="button" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

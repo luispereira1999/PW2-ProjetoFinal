@@ -24,33 +24,6 @@ class Post extends Model
         'user_id'
     ];
 
-    public static function allInProfile($userId, $loggedUserId)
-    {
-        $posts = DB::table('posts AS p')
-            ->select(
-                'p.id AS post_id',
-                'p.title AS title',
-                'p.description AS description',
-                'p.date AS date',
-                'p.votes_amount AS votes_amount',
-                'p.comments_amount AS comments_amount',
-                'p.user_id AS post_user_id',
-                'u.name AS post_user_name',
-                'v.user_id AS vote_user_id',
-                'v.vote_type_id AS vote_type_id'
-            )
-            ->join('users AS u', 'p.user_id', '=', 'u.id')
-            ->leftJoin('posts_votes AS v', function ($join) use ($loggedUserId) {
-                $join->on('p.id', '=', 'v.post_id')
-                    ->where('v.user_id', '=', $loggedUserId);
-            })
-            ->where('p.user_id', '=', $userId)
-            ->orderByDesc('votes_amount')
-            ->get();
-
-        return $posts;
-    }
-
     public function votes()
     {
         return $this->hasMany(PostsVote::class, 'post_id', 'id');

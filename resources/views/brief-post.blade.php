@@ -1,15 +1,15 @@
 <!-- DEFINIÇÃO: template dos posts que aparecem na página principal e na página do perfil -->
 
-<div data-post="{{ $post->post_id }}" class="width-3">
+<div data-post="{{ $post->id }}" class="width-3">
 
     <div class="brief-posts__options">
         @if ($post->post_user_id == $loggedUserId)
         <span data-toggle="tooltip" data-placement="bottom" title="Editar Post">
-            <a class="brief-posts__link__edit" data-toggle="modal" data-target="#editPost{{ $post->post_id }}"><i class="brief-posts__icon fas fa-edit col-0"></i></a>
+            <a class="brief-posts__link__edit" data-toggle="modal" data-target="#editPost{{ $post->id }}"><i class="brief-posts__icon fas fa-edit col-0"></i></a>
         </span>
 
         <span data-toggle="tooltip" data-placement="bottom" title="Remover Post">
-            <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deletePost{{ $post->post_id }}"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
+            <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deletePost{{ $post->id }}"><i class="brief-posts__icon fas fa-trash-alt col-0"></i></a>
         </span>
         @endif
     </div>
@@ -19,7 +19,7 @@
 
     <div class="brief-posts__title-wrapper">
         <h3 class="brief-posts__title">
-            <a class="brief-posts__link" href="{{ route('posts', ['postId' => $post->post_id]) }}">{{ $post->title }}</a>
+            <a class="brief-posts__link" href="{{ route('posts', ['postId' => $post->id]) }}">{{ $post->title }}</a>
         </h3>
     </div>
 

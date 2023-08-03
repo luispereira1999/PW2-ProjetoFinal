@@ -3,16 +3,10 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class authService
 {
-    public function loginUser($user)
-    {
-        auth()->login($user);
-        return ['message' => 'Utilizador efetuou login com sucesso.'];
-    }
-
-
     public function getUser()
     {
         $user = Auth::user();
@@ -32,16 +26,44 @@ class authService
     }
 
 
-    public function cleanSession($session)
+    public function checkPassword($inputPassword, $hashedPassword)
     {
-        $session->invalidate();
-        $session->regenerateToken();
+        if (!Hash::check($inputPassword, $hashedPassword)) {
+            return ['success' => false, 'message' => 'A palavra-passe atual fornecida está incorreta.'];
+        } else {
+            return ['success' => true];
+        }
     }
 
 
-    public function logoutUser()
+    public function loginByCredentials($credentials, $session)
     {
+        if (!Auth::attempt($credentials)) {
+            return ['success' => false, 'message' => 'Credenciais de acesso inválidas.'];
+        } else {
+            $session->regenerate();
+            return ['success' => true];
+        }
+    }
+
+
+    public function loginByObject($user, $session)
+    {
+        auth()->login($user);
+
+        $session->regenerate();
+
+        return ['message' => 'Utilizador efetuou login com sucesso.'];
+    }
+
+
+    public function logoutUser($session)
+    {
+        $session->invalidate();
+        $session->regenerateToken();
+
         auth()->logout();
-        return ['success' => true, 'message' => 'Utilizador terminou sessão com sucesso.'];
+
+        return 'Utilizador terminou sessão com sucesso.';
     }
 }

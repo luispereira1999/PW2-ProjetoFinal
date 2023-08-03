@@ -38,12 +38,12 @@ class CommentController extends Controller
         $post = $request->attributes->get('post');
 
         $loggedUserId = $this->authService->getUserId();
-        $result = $this->commentService->insertOne($data['description'], $loggedUserId, $post->id);
+        $message = $this->commentService->insertOne($data['description'], $loggedUserId, $post->id);
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 201);
     }
 
@@ -67,12 +67,12 @@ class CommentController extends Controller
         // obtido do middleware que verifica se o comentário existe
         $comment = $request->attributes->get('comment');
 
-        $result = $this->commentService->updateOne($comment, $data['description']);
+        $message = $this->commentService->updateOne($comment, $data['description']);
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 200);
     }
 
@@ -86,7 +86,7 @@ class CommentController extends Controller
      */
     public function vote(Request $request, $commentId)
     {
-        $request->validate([
+        $data = $request->validate([
             'voteTypeId' => 'required|in:1,2'
         ], [
             'voteTypeId.required' => 'O identificador do tipo de voto é obrigatório.',
@@ -94,11 +94,22 @@ class CommentController extends Controller
         ]);
 
         $loggedUserId = $this->authService->getUserId();
-
-        $this->commentService->vote($commentId, $loggedUserId, $request->input('voteTypeId'));
+        $result = $this->commentService->vote($commentId, $loggedUserId, $data['voteTypeId']);
         $votesAmount = $this->commentService->getVotesAmount($commentId);
 
-        return response()->json(['votesAmount' => $votesAmount]);
+        if (!$result['success']) {
+            return redirect('500')->with([
+                'success' => false,
+                'errors' => [$result['message']]
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => ['votesAmount' => $votesAmount],
+            'errors' => [],
+            'message' => $result['message']
+        ], 200);
     }
 
 
@@ -113,12 +124,12 @@ class CommentController extends Controller
         // obtido do middleware que verifica se o comentário existe
         $comment = $request->attributes->get('comment');
 
-        $result = $this->commentService->deleteOne($comment);
+        $message = $this->commentService->deleteOne($comment);
 
         return back()->with([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 200);
     }
 }

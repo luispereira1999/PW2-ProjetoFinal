@@ -104,12 +104,12 @@ class PostController extends Controller
         ]);
 
         $loggedUserId = $this->authService->getUserId();
-        $result = $this->postService->insertOne($data['title'], $data['description'], now(), $loggedUserId);
+        $message = $this->postService->insertOne($data['title'], $data['description'], now(), $loggedUserId);
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 201);
     }
 
@@ -137,12 +137,12 @@ class PostController extends Controller
         // obtido do middleware que verifica se o post existe
         $post = $request->attributes->get('post');
 
-        $result = $this->postService->updateOne($post,  $data['title'], $data['description']);
+        $message = $this->postService->updateOne($post,  $data['title'], $data['description']);
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 200);
     }
 
@@ -164,7 +164,6 @@ class PostController extends Controller
         ]);
 
         $loggedUserId = $this->authService->getUserId();
-
         $result = $this->postService->vote($postId, $loggedUserId, $data['voteTypeId']);
         $votesAmount = $this->postService->getVotesAmount($postId);
 
@@ -195,12 +194,12 @@ class PostController extends Controller
         // obtido do middleware que verifica se o post existe
         $post = $request->attributes->get('post');
 
-        $result = $this->postService->deleteOne($post);
+        $message = $this->postService->deleteOne($post);
 
         return back()->with([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 200);
     }
 }

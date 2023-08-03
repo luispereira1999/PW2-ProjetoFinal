@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Services\AuthService;
 use App\Services\UserService;
 
@@ -46,14 +45,14 @@ class AuthController extends Controller
             'password.required' => 'A palavra-passe é obrigatória.'
         ]);
 
-        if (!Auth::attempt($credentials)) {
+        $result = $this->authService->loginByCredentials($credentials, $request->session());
+
+        if (!$result['success']) {
             return response()->json([
                 'success' => false,
-                'errors' => ['Credenciais de acesso inválidas.']
-            ], 401);
+                'errors' => [$result['message']]
+            ], 422);
         }
-
-        $request->session()->regenerate();
 
         return response()->json([
             'success' => true,
@@ -89,8 +88,7 @@ class AuthController extends Controller
         ]);
 
         $result = $this->userService->insertOne($data['name'], $data['password'], $data['email']);
-
-        $this->authService->loginUser($result['user']);
+        $result = $this->authService->loginByObject($result['user'], $request->session());
 
         return response()->json([
             'success' => true,
@@ -108,13 +106,12 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $this->authService->cleanSession($request->session());
-        $result = $this->authService->logoutUser();
+        $message = $this->authService->logoutUser($request->session());
 
         return redirect('/')->with([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 200);
     }
 }

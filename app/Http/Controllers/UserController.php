@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Services\AuthService;
 use App\Services\UserService;
-use App\Models\User;
-use App\Models\Post;
+use App\Services\PostService;
 
 class UserController extends Controller
 {
     protected $authService;
     protected $userService;
+    protected $postService;
 
-    public function __construct(AuthService $authService, UserService $userService)
+    public function __construct(AuthService $authService, UserService $userService, PostService $postService)
     {
         $this->authService = $authService;
         $this->userService = $userService;
+        $this->postService = $postService;
     }
 
 
@@ -29,10 +29,9 @@ class UserController extends Controller
      */
     public function index($userId)
     {
-        $userProfile = User::one($userId);
+        $userProfile = $this->userService->getOne($userId);
         $loggedUserId = $this->authService->getUserId();
-
-        $posts = Post::allInProfile($userId, $loggedUserId);
+        $posts = $this->postService->getAllByUser($userId, $loggedUserId);
 
         return response()->view('profile', [
             'user' => $userProfile,
@@ -59,7 +58,7 @@ class UserController extends Controller
             ], 500);
         }
 
-        $user = User::findOrFail($userId);
+        $user = $this->userService->getOne($userId);
 
         return response()->view('account', [
             'user' => $user
@@ -107,7 +106,7 @@ class UserController extends Controller
 
         $user = $this->userService->getOne($userId);
 
-        $result = $this->userService->updateDataOne(
+        $message = $this->userService->updateDataOne(
             $user,
             $data['name'],
             $data['email'],
@@ -117,12 +116,12 @@ class UserController extends Controller
             $data['country']
         );
 
-        $this->authService->loginUser($user);
+        $this->authService->loginByObject($user, $request->session());
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 200);
     }
 
@@ -158,22 +157,22 @@ class UserController extends Controller
         }
 
         $user = $this->userService->getOne($userId);
+        $result = $this->authService->checkPassword($data['current_password'], $user->password);
 
-        if (!Hash::check($data['current_password'], $user->password)) {
+        if (!$result['success']) {
             return response()->json([
                 'success' => false,
-                'errors' => ['A palavra-passe atual fornecida está incorreta.']
+                'errors' => [$result['message']]
             ], 422);
         }
 
-        $result = $this->userService->updatePasswordOne($user, $data['new_password']);
-
-        $this->authService->loginUser($user);
+        $message = $this->userService->updatePasswordOne($user, $data['new_password']);
+        $this->authService->loginByObject($user, $request->session());
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 200);
     }
 
@@ -195,12 +194,12 @@ class UserController extends Controller
             ], 500);
         }
 
-        $result = $this->userService->deleteOne($loggedUser);
+        $message = $this->userService->deleteOne($loggedUser);
 
         return redirect()->route('home')->with([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 200);
     }
 }

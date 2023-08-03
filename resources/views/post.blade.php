@@ -57,7 +57,7 @@
         <section class="full-post__header-wrapper">
             <div>
                 <h2 class="full-post__title">{{ $post->title }}</h2>
-                <a class="full-post__link" href="{{ route('profile', ['userId' => $post->user_id]) }}">
+                <a class="full-post__link" href="{{ route('profile', ['userId' => $post->post_user_id]) }}">
                     <h3 class="full-post__name">{{ $post->post_user_name }}</h3>
                 </a>
                 <h3 class="full-post__date">{{ $post->date }}</h3>
@@ -72,7 +72,7 @@
             <div class="full-post__interactions">
                 <div class="full-post__votes">
                     <span class="full-post__vote" data-vote="upvote">
-                        <i class="full-post__icon fas fa-heart" @if ($post->vote_user_logged_id == $loggedUserId && $post->vote_type_id == 1)
+                        <i class="full-post__icon fas fa-heart" @if ($post->vote_user_id == $loggedUserId && $post->vote_type_id == 1)
                             data-markedvote="marked"
                             @endif
                             data-toggle="tooltip" data-placement="bottom" title="Up Vote"></i>
@@ -81,7 +81,7 @@
                     <label class="full-post__votes-amount">{{ $post->votes_amount }}</label>
 
                     <span class="full-post__vote" data-vote="downvote">
-                        <i class="full-post__icon fas fa-heart-broken" @if ($post->vote_user_logged_id == $loggedUserId && $post->vote_type_id == 2)
+                        <i class="full-post__icon fas fa-heart-broken" @if ($post->vote_user_id == $loggedUserId && $post->vote_type_id == 2)
                             data-markedvote="marked"
                             @endif
                             data-toggle="tooltip" data-placement="bottom" title="Down Vote">

@@ -471,7 +471,7 @@ function voteComment(elements, voteTypeId, commentId) {
 
     // executar esta função quando o pedido é concluído com sucesso
     ajaxRequest.done(function (response) {
-        let votesAmount = response.votesAmount;
+        let votesAmount = response.data.votesAmount;
 
         // atualizar cor dos ícones de up e down vote
         let currentIsActive = elements.currentVoteIcon.attr("data-markedvote") == "marked";

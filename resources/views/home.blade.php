@@ -53,10 +53,10 @@
     </header>
 
     <!-- post em destaque -->
-    <section data-post="{{ $featuredPost->post_id }}" class="featured">
+    <section data-post="{{ $featuredPost->id }}" class="featured">
         <div class="featured-wrapper">
             <div class="featured__title-wrapper">
-                <h3 class="featured__title"><a class="featured__link__title" href="{{ route('posts', ['postId' => $featuredPost->post_id]) }}">{{ $featuredPost->title }}</a></h3>
+                <h3 class="featured__title"><a class="featured__link__title" href="{{ route('posts', ['postId' => $featuredPost->id]) }}">{{ $featuredPost->title }}</a></h3>
             </div>
             <div>
                 <h5 class="featured__name"><a class="featured__link__name" href="{{ route('profile', ['userId' => $featuredPost->post_user_id]) }}">{{ $featuredPost->post_user_name }}</a></h5>
@@ -86,18 +86,18 @@
             </div>
 
             <div class="featured__buttons">
-                <a href="{{ route('posts', ['postId' => $featuredPost->post_id]) }}">
+                <a href="{{ route('posts', ['postId' => $featuredPost->id]) }}">
                     <button class="button button-primary" id="viewFeaturedPost">Ver Mais</button>
                 </a>
 
                 <div class="featured__options">
                     @if($featuredPost->post_user_id == $loggedUserId)
                     <span data-toggle="tooltip" data-placement="bottom" title="Editar Post">
-                        <a class="featured__link__edit" data-toggle="modal" data-target="#editPost{{ $featuredPost->post_id }}"><i class="featured__icon fas fa-edit col-0"></i></a>
+                        <a class="featured__link__edit" data-toggle="modal" data-target="#editPost{{ $featuredPost->id }}"><i class="featured__icon fas fa-edit col-0"></i></a>
                     </span>
 
                     <span data-toggle="tooltip" data-placement="bottom" title="Remover Post">
-                        <a class="featured__link__delete" data-toggle="modal" data-target="#deletePost{{ $featuredPost->post_id }}"><i class="featured__icon fas fa-trash-alt col-0"></i></a>
+                        <a class="featured__link__delete" data-toggle="modal" data-target="#deletePost{{ $featuredPost->id }}"><i class="featured__icon fas fa-trash-alt col-0"></i></a>
                     </span>
 
                     @php
@@ -131,7 +131,7 @@
         <!-- mostrar posts (3 em 3 por padrão) -->
         @foreach ($posts as $post)
 
-        @if ($post->post_id == $featuredPost->post_id)
+        @if ($post->id == $featuredPost->id)
         @continue
         @endif
 
