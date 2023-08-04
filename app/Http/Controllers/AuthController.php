@@ -48,10 +48,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'name' => ['required'],
+            'name_or_email' => ['required'],
             'password' => ['required']
         ], [
-            'name.required' => 'O nome de utilizador é obrigatório.',
+            'name_or_email.required' => 'O nome de utilizador ou palavra-passe é obrigatório.',
             'password.required' => 'A palavra-passe é obrigatória.'
         ]);
 

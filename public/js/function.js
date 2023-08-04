@@ -423,13 +423,13 @@ function votePost(elements, voteTypeId, postId) {
         let oppositeIsActive = elements.oppositeVoteIcon.attr("data-markedvote") == "marked";
 
         if (currentIsActive) {
-            elements.currentVoteIcon.attr("data-markedvote", "none"); // desativa atual
+            elements.currentVoteIcon.attr("data-markedvote", "none");  // desativa atual
         }
         else {
-            elements.currentVoteIcon.attr("data-markedvote", "marked"); // ativa atual
+            elements.currentVoteIcon.attr("data-markedvote", "marked");  // ativa atual
 
             if (oppositeIsActive) {
-                elements.oppositeVoteIcon.attr("data-markedvote", "none"); // desativa oposto
+                elements.oppositeVoteIcon.attr("data-markedvote", "none");  // desativa oposto
             }
         }
 

@@ -67,7 +67,7 @@
             <form id="loginForm" method="post" action="{{ route('auth.login') }}">
                 @csrf
 
-                <input class="content__text" type="text" name="name" placeholder="Nome de Utilizador ou Email" require>
+                <input class="content__text" type="text" name="name_or_email" placeholder="Nome de Utilizador ou Email" require>
                 <input class="content__password" type="password" name="password" placeholder="Palavra-passe" require>
 
                 <div class="row">

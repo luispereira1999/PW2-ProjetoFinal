@@ -43,20 +43,26 @@ $(document).ready(function () {
     // submeter formulário de editar um post
     $('body').on('submit', 'form[id^="formEditPost"]', function (event) {
         event.preventDefault();
-        editPost($(this));
+
+        const form = $(this);
+        editPost(form);
     });
 
 
     // submeter formulário de editar dados do utilizador
     $('body').on('submit', 'form[id^="formEditData"]', function (event) {
         event.preventDefault();
-        editData($(this));
+
+        const form = $(this);
+        editData(form);
     });
 
     // submeter formulário de editar palavra-passe do utilizador
     $('body').on('submit', 'form[id^="formEditPassword"]', function (event) {
         event.preventDefault();
-        editPassword($(this));
+
+        const form = $(this);
+        editPassword(form);
     });
 
 
@@ -81,13 +87,17 @@ $(document).ready(function () {
     // submeter formulário de novo comentário
     $('#formNewComment').submit(function (event) {
         event.preventDefault();
-        newComment($(this));
+
+        const form = $(this);
+        newComment(form);
     });
 
     // submeter formulário de editar um comentário
     $('body').on('submit', 'form[id^="formEditComment"]', function (event) {
         event.preventDefault();
-        editComment($(this));
+
+        const form = $(this);
+        editComment(form);
     });
 
 

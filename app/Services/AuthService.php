@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 /**
  * Esta classe trata das várias operações relativas à autenticação de utilizadores.
@@ -60,19 +61,27 @@ class AuthService
     /**
      * Fazer login de um utilizador através das credenciais fornecidas.
      *
-     * @param  array $credentials  Array associativo com as credenciais do utilizador (nome de utilizador e palavra-passe).
+     * @param  array $credentials  Array associativo com as credenciais de acesso (nome de utilizador/email e palavra-passe).
      * @param  \Illuminate\Contracts\Session\Session $session  Sessão do utilizador.
      * @return array  O array associativo com o status da resposta e uma mensagem de erro em caso de erro.
      *
      */
     public function loginByCredentials($credentials, $session)
     {
-        if (!Auth::attempt($credentials)) {
+        $user = User::where(function ($query) use ($credentials) {
+            $query->where('name', $credentials['name_or_email'])
+                ->orWhere('email', $credentials['name_or_email']);
+        })->first();
+
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return ['success' => false, 'message' => 'Credenciais de acesso inválidas.'];
-        } else {
-            $session->regenerate();
-            return ['success' => true];
         }
+
+        Auth::login($user);
+
+        $session->regenerate();
+
+        return ['success' => true];
     }
 
 
