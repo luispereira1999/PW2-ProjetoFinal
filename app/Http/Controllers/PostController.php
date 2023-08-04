@@ -7,12 +7,23 @@ use App\Services\AuthService;
 use App\Services\PostService;
 use App\Services\CommentService;
 
+/**
+ * Controlador responsável por tratar as operações relativas aos posts.
+ */
 class PostController extends Controller
 {
     protected $authService;
     protected $postService;
     protected $commentService;
 
+
+    /**
+     * Construtor da classe PostController.
+     *
+     * @param  \App\Services\AuthService $authService  Instância de AuthService.
+     * @param  \App\Services\PostService $postService  Instância de PostService.
+     * @param  \App\Services\CommentService $commentService  Instância de CommentService.
+     */
     public function __construct(AuthService $authService, PostService $postService, CommentService $commentService)
     {
         $this->authService = $authService;
@@ -24,7 +35,7 @@ class PostController extends Controller
     /**
      * Mostrar todos os posts.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function index()
     {
@@ -44,9 +55,9 @@ class PostController extends Controller
     /**
      * Pesquisar posts pelo título.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $searchText
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @param  string $searchText  Texto da pesquisa.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function search($searchText)
     {
@@ -66,14 +77,14 @@ class PostController extends Controller
     /**
      * Mostrar um post específico.
      *
-     * @param  int  $postId
-     * @return \Illuminate\Http\Response
+     * @param  int $postId  Identificador do post.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function show($postId)
     {
         $loggedUserId = $this->authService->getUserId();
-        $post = $this->postService->getOneWithUserVote($postId, $loggedUserId);
-        $comments = $this->commentService->getAllByPostId($postId, $loggedUserId);
+        $post = $this->postService->getOneWithVotes($postId, $loggedUserId);
+        $comments = $this->commentService->getAllByPost($postId, $loggedUserId);
 
         return response()->view('post', [
             'loggedUserId' => $loggedUserId,
@@ -86,8 +97,8 @@ class PostController extends Controller
     /**
      * Criar um novo post.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function create(Request $request)
     {
@@ -117,8 +128,8 @@ class PostController extends Controller
     /**
      * Atualizar um post.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function update(Request $request)
     {
@@ -150,9 +161,9 @@ class PostController extends Controller
     /**
      * Atualizar um voto de um post.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $postId
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.  Requisição HTTP.
+     * @param  int $postId  Identificador do post.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function vote(Request $request, $postId)
     {
@@ -186,8 +197,8 @@ class PostController extends Controller
     /**
      * Remover um post.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function destroy(Request $request)
     {

@@ -1,6 +1,6 @@
 <!-- DEFINIÇÃO: modal de remover um comentário -->
 
-<div class="modal fade" id="deleteComment{{ $comment->comment_id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="deleteComment{{ $comment->id }}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,7 +13,7 @@
             <div class="modal-body">
                 <p class="modal__paragraph">Deseja mesmo remover este post?</p>
 
-                <form id="formDeleteComment{{ $comment->comment_id }}" method="post" action="{{ route('comments.delete', ['commentId' => $comment->comment_id]) }}">
+                <form id="formDeleteComment{{ $comment->id }}" method="post" action="{{ route('comments.delete', ['commentId' => $comment->id]) }}">
                     @csrf
                     @method('DELETE')
 
@@ -22,7 +22,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="button button-primary" type="submit" form="formDeleteComment{{ $comment->comment_id }}">Remover</button>
+                <button class="button button-primary" type="submit" form="formDeleteComment{{ $comment->id }}">Remover</button>
                 <button class="button button-cancel" type="button" data-dismiss="modal">Não</button>
             </div>
         </div>

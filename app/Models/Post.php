@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use App\Models\Comment;
-use App\Models\PostsVote;
 
+/**
+ * Esta classe representa o modelo para a tabela de posts na base de dados.
+ */
 class Post extends Model
 {
     use HasFactory;
@@ -24,13 +25,18 @@ class Post extends Model
         'user_id'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function votes()
     {
-        return $this->hasMany(PostsVote::class, 'post_id', 'id');
+        return $this->hasMany(PostVote::class, 'post_id');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'post_id', 'id');
+        return $this->hasMany(Comment::class, 'post_id');
     }
 }

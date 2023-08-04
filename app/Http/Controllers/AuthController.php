@@ -6,11 +6,21 @@ use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Services\UserService;
 
+/**
+ * Controlador responsável por tratar as operações relativas à autenticação de utilizadores.
+ */
 class AuthController extends Controller
 {
     protected $authService;
     protected $userService;
 
+
+    /**
+     * Construtor da classe AuthController.
+     *
+     * @param  \App\Services\AuthService $authService  Instância de AuthService.
+     * @param  \App\Services\UserService $userService  Instância de UserService.
+     */
     public function __construct(AuthService $authService, UserService $userService)
     {
         $this->authService = $authService;
@@ -21,7 +31,7 @@ class AuthController extends Controller
     /**
      * Ir para a página de autenticação.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function index()
     {
@@ -32,8 +42,8 @@ class AuthController extends Controller
     /**
      * Iniciar sessão de um utilizador.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function login(Request $request)
     {
@@ -65,8 +75,8 @@ class AuthController extends Controller
     /**
      * Registar um utilizador.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function signup(Request $request)
     {
@@ -87,13 +97,13 @@ class AuthController extends Controller
             'password.max' => 'A palavra-passe não pode ter mais de :max caracteres.'
         ]);
 
-        $result = $this->userService->insertOne($data['name'], $data['password'], $data['email']);
-        $result = $this->authService->loginByObject($result['user'], $request->session());
+        $user = $this->userService->insertOne($data['name'], $data['password'], $data['email']);
+        $message = $this->authService->loginByObject($user, $request->session());
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => $result['message']
+            'message' => $message
         ], 201);
     }
 
@@ -101,8 +111,8 @@ class AuthController extends Controller
     /**
      * Terminar sessão de um utilizador.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function logout(Request $request)
     {

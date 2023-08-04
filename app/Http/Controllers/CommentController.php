@@ -6,11 +6,21 @@ use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Services\CommentService;
 
+/**
+ * Controlador responsável por tratar as operações relativas aos comentários.
+ */
 class CommentController extends Controller
 {
     protected $authService;
     protected $commentService;
 
+
+    /**
+     * Construtor da classe CommentController.
+     *
+     * @param  \App\Services\AuthService $authService  Instância de AuthService.
+     * @param  \App\Services\CommentService $commentService  Instância de CommentService.
+     */
     public function __construct(AuthService $authService, CommentService $commentService)
     {
         $this->authService = $authService;
@@ -21,8 +31,8 @@ class CommentController extends Controller
     /**
      * Criar um novo comentário.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function create(Request $request)
     {
@@ -51,8 +61,8 @@ class CommentController extends Controller
     /**
      * Atualizar um comentário.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function update(Request $request)
     {
@@ -80,9 +90,9 @@ class CommentController extends Controller
     /**
      * Atualizar um voto de um comentário.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $commentId
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @param  int $commentId  Identificador do comentário.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function vote(Request $request, $commentId)
     {
@@ -116,8 +126,8 @@ class CommentController extends Controller
     /**
      * Remover um comentário.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function destroy(Request $request)
     {

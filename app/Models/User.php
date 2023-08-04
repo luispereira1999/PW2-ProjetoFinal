@@ -4,21 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
-use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * Esta classe representa o modelo para a tabela de utilizadores na base de dados.
+ */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
     public $timestamps = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'id',
         'name',
@@ -29,14 +24,4 @@ class User extends Authenticatable
         'city',
         'country'
     ];
-
-    public static function one($userId)
-    {
-        $user = DB::table('users')
-            ->select('users.id', 'users.name', 'users.password', 'users.email', 'users.first_name', 'users.last_name', 'users.city', 'users.country')
-            ->where('users.id', '=', $userId)
-            ->first();
-
-        return $user;
-    }
 }

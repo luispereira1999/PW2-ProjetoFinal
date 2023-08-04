@@ -7,12 +7,23 @@ use App\Services\AuthService;
 use App\Services\UserService;
 use App\Services\PostService;
 
+/**
+ * Controlador responsável por tratar as operações relativas aos utilizadores.
+ */
 class UserController extends Controller
 {
     protected $authService;
     protected $userService;
     protected $postService;
 
+
+    /**
+     * Construtor da classe UserController.
+     *
+     * @param  \App\Services\AuthService $authService  Instância de AuthService.
+     * @param  \App\Services\UserService $userService  Instância de UserService.
+     * @param  \App\Services\PostService $postService  Instância de PostService.
+     */
     public function __construct(AuthService $authService, UserService $userService, PostService $postService)
     {
         $this->authService = $authService;
@@ -24,8 +35,8 @@ class UserController extends Controller
     /**
      * Ir para a página do perfil do utilizador.
      *
-     * @param  int  $userId
-     * @return \Illuminate\Http\Response
+     * @param  int $userId  Identificador do utilizador.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function index($userId)
     {
@@ -44,8 +55,8 @@ class UserController extends Controller
     /**
      * Ir para a página de definições da conta.
      *
-     * @param  int  $userId
-     * @return \Illuminate\Http\Response
+     * @param  int $userId  Identificador do utilizador.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function show($userId)
     {
@@ -69,9 +80,9 @@ class UserController extends Controller
     /**
      * Atualizar os dados básicos do utilizador com login.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $userId
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @param  int $userId  Identificador do utilizador.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function updateData(Request $request, $userId)
     {
@@ -129,9 +140,9 @@ class UserController extends Controller
     /**
      * Atualizar a palavra-passe do utilizador com login.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $userId
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
+     * @param  int $userId  Identificador do utilizador.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function updatePassword(Request $request, $userId)
     {
@@ -180,8 +191,8 @@ class UserController extends Controller
     /**
      * Remover o utilizador com login.
      *
-     * @param  int  $userId
-     * @return \Illuminate\Http\Response
+     * @param  int $userId  Identificador do utilizador.
+     * @return \Illuminate\Http\Response  A resposta HTTP.
      */
     public function destroy($userId)
     {
