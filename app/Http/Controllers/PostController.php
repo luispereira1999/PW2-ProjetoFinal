@@ -20,9 +20,9 @@ class PostController extends Controller
     /**
      * Construtor da classe PostController.
      *
-     * @param  \App\Services\AuthService $authService  Instância de AuthService.
-     * @param  \App\Services\PostService $postService  Instância de PostService.
-     * @param  \App\Services\CommentService $commentService  Instância de CommentService.
+     * @param   \App\Services\AuthService $authService          Instância de AuthService.
+     * @param   \App\Services\PostService $postService          Instância de PostService.
+     * @param   \App\Services\CommentService $commentService    Instância de CommentService.
      */
     public function __construct(AuthService $authService, PostService $postService, CommentService $commentService)
     {
@@ -35,7 +35,7 @@ class PostController extends Controller
     /**
      * Mostrar todos os posts.
      *
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @return  \Illuminate\Http\Response   A resposta HTTP.
      */
     public function index()
     {
@@ -55,9 +55,9 @@ class PostController extends Controller
     /**
      * Pesquisar posts pelo título.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
-     * @param  string $searchText  Texto da pesquisa.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @param   string $searchText                  Texto da pesquisa.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function search($searchText)
     {
@@ -77,8 +77,8 @@ class PostController extends Controller
     /**
      * Mostrar um post específico.
      *
-     * @param  int $postId  Identificador do post.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   int $postId  Identificador do post.
+     * @return  \Illuminate\Http\Response  A resposta HTTP.
      */
     public function show($postId)
     {
@@ -97,8 +97,8 @@ class PostController extends Controller
     /**
      * Criar um novo post.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function create(Request $request)
     {
@@ -128,8 +128,8 @@ class PostController extends Controller
     /**
      * Atualizar um post.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function update(Request $request)
     {
@@ -161,9 +161,9 @@ class PostController extends Controller
     /**
      * Atualizar um voto de um post.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.  Requisição HTTP.
-     * @param  int $postId  Identificador do post.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @param   int $postId                         Identificador do post.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function vote(Request $request, $postId)
     {
@@ -197,8 +197,8 @@ class PostController extends Controller
     /**
      * Remover um post.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function destroy(Request $request)
     {

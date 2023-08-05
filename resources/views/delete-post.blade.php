@@ -20,7 +20,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="button button-primary" type="submit" form="formDeletePost{{ $post->id }}">Remover</button>
+                <button class="button button-danger" type="submit" form="formDeletePost{{ $post->id }}">Remover</button>
                 <button class="button button-cancel" type="button" data-dismiss="modal">Não</button>
             </div>
         </div>

@@ -18,8 +18,8 @@ class AuthController extends Controller
     /**
      * Construtor da classe AuthController.
      *
-     * @param  \App\Services\AuthService $authService  Instância de AuthService.
-     * @param  \App\Services\UserService $userService  Instância de UserService.
+     * @param   \App\Services\AuthService $authService  Instância de AuthService.
+     * @param   \App\Services\UserService $userService  Instância de UserService.
      */
     public function __construct(AuthService $authService, UserService $userService)
     {
@@ -31,7 +31,7 @@ class AuthController extends Controller
     /**
      * Ir para a página de autenticação.
      *
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @return  \Illuminate\Http\Response  A resposta HTTP.
      */
     public function index()
     {
@@ -42,8 +42,8 @@ class AuthController extends Controller
     /**
      * Iniciar sessão de um utilizador.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return  \Illuminate\Http\Response  A resposta HTTP.
      */
     public function login(Request $request)
     {
@@ -75,8 +75,8 @@ class AuthController extends Controller
     /**
      * Registar um utilizador.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return  \Illuminate\Http\Response  A resposta HTTP.
      */
     public function signup(Request $request)
     {
@@ -111,8 +111,8 @@ class AuthController extends Controller
     /**
      * Terminar sessão de um utilizador.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request  Requisição HTTP.
+     * @return  \Illuminate\Http\Response  A resposta HTTP.
      */
     public function logout(Request $request)
     {

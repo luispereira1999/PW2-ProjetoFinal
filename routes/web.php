@@ -140,9 +140,10 @@ Route::post('/comments/vote/{commentId}', [CommentController::class, 'vote'])
     ])
     ->name('comments.vote');
 
-Route::delete('/comments/delete/{commentId}', [CommentController::class, 'destroy'])
+Route::delete('/comments/delete/{commentId}/{postId}', [CommentController::class, 'destroy'])
     ->middleware([
         'auth',
+        'check.post.exists',
         'check.comment.exists',
         'check.comment.belongs.user'
     ])

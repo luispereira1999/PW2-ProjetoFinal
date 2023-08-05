@@ -15,15 +15,8 @@
     width: 45%;
 }
 
-.featured__title-wrapper {
-    text-align: center;
-}
-
 .featured__title {
     font-size: 26px;
-    height: 50px;
-    overflow: auto;
-    text-overflow: ellipsis;
     text-align: left;
 }
 
@@ -45,6 +38,11 @@
 
 .featured__link__title {
     color: #7E2DD2;
+    display: -webkit-box;
+    margin-bottom: 25px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
 }
 
 .featured__link__title:hover {

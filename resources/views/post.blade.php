@@ -55,13 +55,11 @@
     <!-- PRINCIPAL: post (informações, ações) -->
     <main>
         <section class="full-post__header-wrapper">
-            <div>
-                <h2 class="full-post__title">{{ $post->title }}</h2>
-                <a class="full-post__link" href="{{ route('profile', ['userId' => $post->post_user_id]) }}">
-                    <h3 class="full-post__name">{{ $post->post_user_name }}</h3>
-                </a>
-                <h3 class="full-post__date">{{ $post->date }}</h3>
-            </div>
+            <h2 class="full-post__title">{{ $post->title }}</h2>
+            <a class="full-post__link" href="{{ route('profile', ['userId' => $post->post_user_id]) }}">
+                <h3 class="full-post__name">{{ $post->post_user_name }}</h3>
+            </a>
+            <h3 class="full-post__date">{{ $post->date }}</h3>
         </section>
 
         <section data-post="{{ $post->id }}" class="full-post__main-wrapper">

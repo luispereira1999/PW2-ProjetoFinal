@@ -15,7 +15,7 @@
     align-items: center;
     display: flex;
     justify-content: start;
-    width: 10%;
+    width: 100%;
 }
 
 .navigation__icon {
@@ -34,7 +34,7 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    width: 80%;
+    width: 100%;
 }
 
 .navigation__logo {
@@ -47,7 +47,7 @@
     align-items: center;
     display: flex;
     justify-content: flex-end;
-    width: 10%;
+    width: 100%;
 }
 
 .navigation__dropdown {

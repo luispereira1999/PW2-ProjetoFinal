@@ -12,9 +12,9 @@ class CommentVoteService
     /**
      * Obter um voto do comentário pelo identificador do comentário e identificador do utilizador autenticado.
      *
-     * @param  int $commentId  Identificador do comentário.
-     * @param  int $userId  Identificador do utilizador autenticado.
-     * @return \App\Models\CommentVote  O voto do comentário obtido.
+     * @param   int $commentId              Identificador do comentário.
+     * @param   int $userId                 Identificador do utilizador autenticado.
+     * @return  \App\Models\CommentVote     O voto do comentário obtido.
      */
     public function getOne($commentId, $userId)
     {
@@ -34,10 +34,10 @@ class CommentVoteService
     /**
      * Inserir um novo voto de um comentário na base de dados.
      *
-     * @param  int $commentId  Identificador do comentário que pertencerá o voto.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado que está a votar no comentário.
-     * @param  int $voteTypeId  Identificador do tipo de voto (upvote ou downvote).
-     * @return string  A mensagem de sucesso.
+     * @param   int $commentId      Identificador do comentário que pertencerá o voto.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado que está a votar no comentário.
+     * @param   int $voteTypeId     Identificador do tipo de voto (upvote ou downvote).
+     * @return  string              A mensagem de sucesso.
      */
     public function insertOne($commentId, $loggedUserId, $voteTypeId)
     {
@@ -54,10 +54,10 @@ class CommentVoteService
     /**
      * Atualizar ou inserir um novo voto de um comentário na base de dados.
      *
-     * @param  int $commentId  Identificador do comentário que pertencerá o voto.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado que está a votar no comentário.
-     * @param  int $voteTypeId  Identificador do tipo de voto (upvote ou downvote).
-     * @return string  A mensagem de sucesso.
+     * @param   int $commentId      Identificador do comentário que pertencerá o voto.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado que está a votar no comentário.
+     * @param   int $voteTypeId     Identificador do tipo de voto (upvote ou downvote).
+     * @return  string              A mensagem de sucesso.
      */
     public function updateOrInsertOne($commentId, $loggedUserId, $voteTypeId)
     {
@@ -73,9 +73,9 @@ class CommentVoteService
     /**
      * Remover um voto de um comentário.
      *
-     * @param  \App\Models\CommentVote $commentId  Objeto do modelo do voto do comentário que será removido.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado que está a votar no comentário.
-     * @return string  A mensagem de sucesso.
+     * @param   \App\Models\CommentVote $commentId  Objeto do modelo do voto do comentário que será removido.
+     * @param   int $loggedUserId                   Identificador do utilizador autenticado que está a votar no comentário.
+     * @return  string                              A mensagem de sucesso.
      */
     public function deleteOne($commentId, $loggedUserId)
     {

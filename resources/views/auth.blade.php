@@ -71,11 +71,7 @@
                 <input class="content__password" type="password" name="password" placeholder="Palavra-passe" require>
 
                 <div class="row">
-                    <div class="col-8">
-                        <input class="content__checkbox" type="checkbox" name="remember_login" value="true" require>
-                        <label class="content__label" id="rememberText">Memorizar login</label>
-                    </div>
-                    <div class="col-4 my-auto">
+                    <div class="col-12 my-auto">
                         <button class="button button-primary">Entrar</button>
                     </div>
                 </div>

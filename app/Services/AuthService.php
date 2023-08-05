@@ -14,7 +14,7 @@ class AuthService
     /**
      * Obter o utilizador autenticado.
      *
-     * @return \App\Models\User|null  O objeto do modelo do utilizador autenticado ou null se não houver nenhum utilizador autenticado.
+     * @return  \App\Models\User|null   O objeto do modelo do utilizador autenticado ou null se não houver nenhum utilizador autenticado.
      */
     public function getUser()
     {
@@ -26,7 +26,7 @@ class AuthService
     /**
      * Obter o identificador do utilizador autenticado.
      *
-     * @return int  O identificador do utilizador autenticado ou -1 se não houver nenhum utilizador autenticado.
+     * @return  int     O identificador do utilizador autenticado ou -1 se não houver nenhum utilizador autenticado.
      */
     public function getUserId()
     {
@@ -43,10 +43,9 @@ class AuthService
     /**
      * Verificar se a palavra-passe fornecida corresponde à palavra-passe armazenada no hash da base de dados.
      *
-     * @param  string $inputPassword  Palavra-passe fornecida pelo utilizador.
-     * @param  string $hashedPassword  Hash da palavra-passe armazenada.
-     *
-     * @return array  O array associativo com o status da resposta e uma mensagem de erro em caso de erro.
+     * @param   string $inputPassword   Palavra-passe fornecida pelo utilizador.
+     * @param   string $hashedPassword  Hash da palavra-passe armazenada.
+     * @return  array                   O array associativo com o status da resposta e uma mensagem de erro em caso de erro.
      */
     public function checkPassword($inputPassword, $hashedPassword)
     {
@@ -61,9 +60,9 @@ class AuthService
     /**
      * Fazer login de um utilizador através das credenciais fornecidas.
      *
-     * @param  array $credentials  Array associativo com as credenciais de acesso (nome de utilizador/email e palavra-passe).
-     * @param  \Illuminate\Contracts\Session\Session $session  Sessão do utilizador.
-     * @return array  O array associativo com o status da resposta e uma mensagem de erro em caso de erro.
+     * @param   array $credentials                              Array associativo com as credenciais de acesso (nome de utilizador/email e palavra-passe).
+     * @param   \Illuminate\Contracts\Session\Session $session  Sessão do utilizador.
+     * @return  array                                           O array associativo com o status da resposta e uma mensagem de erro em caso de erro.
      *
      */
     public function loginByCredentials($credentials, $session)
@@ -88,9 +87,9 @@ class AuthService
     /**
      * Fazer login de um utilizador através do objeto do modelo do utilizador fornecido.
      *
-     * @param  \App\Models\User $user  Objeto do modelo do utilizador que está a fazer login.
-     * @param  \Illuminate\Contracts\Session\Session $session  Sessão do utilizador.
-     * @return string  A mensagem de sucesso.
+     * @param   \App\Models\User $user                          Objeto do modelo do utilizador que está a fazer login.
+     * @param   \Illuminate\Contracts\Session\Session $session  Sessão do utilizador.
+     * @return  string                                          A mensagem de sucesso.
      */
     public function loginByObject($user, $session)
     {
@@ -105,8 +104,8 @@ class AuthService
     /**
      * Terminar a sessão de um utilizador.
      *
-     * @param  \Illuminate\Contracts\Session\Session $session  Sessão do utilizador.
-     * @return string  A mensagem de sucesso.
+     * @param   \Illuminate\Contracts\Session\Session $session  Sessão do utilizador.
+     * @return  string                                          A mensagem de sucesso.
      */
     public function logoutUser($session)
     {

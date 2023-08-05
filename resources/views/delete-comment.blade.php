@@ -11,18 +11,16 @@
             </div>
 
             <div class="modal-body">
-                <p class="modal__paragraph">Deseja mesmo remover este post?</p>
+                <p class="modal__paragraph">Deseja mesmo remover este comentário?</p>
 
-                <form id="formDeleteComment{{ $comment->id }}" method="post" action="{{ route('comments.delete', ['commentId' => $comment->id]) }}">
+                <form id="formDeleteComment{{ $comment->id }}" method="post" action="{{ route('comments.delete', ['commentId' => $comment->id, 'postId' => $post->id]) }}">
                     @csrf
                     @method('DELETE')
-
-                    <input type="hidden" name="postId" value="{{ $post->id }}">
                 </form>
             </div>
 
             <div class="modal-footer">
-                <button class="button button-primary" type="submit" form="formDeleteComment{{ $comment->id }}">Remover</button>
+                <button class="button button-danger" type="submit" form="formDeleteComment{{ $comment->id }}">Remover</button>
                 <button class="button button-cancel" type="button" data-dismiss="modal">Não</button>
             </div>
         </div>

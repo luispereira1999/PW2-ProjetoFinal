@@ -16,7 +16,7 @@ class PostService
     /**
      * Construtor da classe PostService.
      *
-     * @param  \App\Services\PostVoteService $postVoteService  Instância de PostVoteService.
+     * @param   \App\Services\PostVoteService $postVoteService  Instância de PostVoteService.
      */
     public function __construct(PostVoteService $postVoteService)
     {
@@ -27,8 +27,8 @@ class PostService
     /**
      * Obter todos os posts na base de dados.
      *
-     * @param  int $loggedUserId  Identificador do utilizador autenticado.
-     * @return \App\Models\Post[]  A lista de posts.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado.
+     * @return  \App\Models\Post[]  A lista de posts.
      */
     public function getAll($loggedUserId)
     {
@@ -59,9 +59,9 @@ class PostService
     /**
      * Obter todos os posts de um utilizador.
      *
-     * @param  int $userId  Identificador do utilizador que possui os posts.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado.
-     * @return \App\Models\Post[]  A lista de posts.
+     * @param   int $userId         Identificador do utilizador que possui os posts.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado.
+     * @return  \App\Models\Post[]  A lista de posts.
      */
     public function getAllByUser($userId, $loggedUserId)
     {
@@ -93,9 +93,9 @@ class PostService
     /**
      * Obter todos os posts com um determinado título.
      *
-     * @param  string $title  Texto do título do post.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado.
-     * @return \App\Models\Post[]  A lista de posts.
+     * @param   string $title       Texto do título do post.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado.
+     * @return  \App\Models\Post[]  A lista de posts.
      */
     public function getAllByTitle($title, $loggedUserId)
     {
@@ -119,7 +119,7 @@ class PostService
                     ->where('posts_votes.user_id', '=', $loggedUserId);
             })
             ->whereRaw('title LIKE BINARY ?', [$titleFilter])
-            ->orderByDesc('votes_amount')
+            ->orderByDesc('posts.date')
             ->get();
 
         return $posts;
@@ -129,8 +129,8 @@ class PostService
     /**
      * Obter um post pelo identificador do post.
      *
-     * @param  int $postId  Identificador do post.
-     * @return \App\Models\Post  O post obtido.
+     * @param   int $postId         Identificador do post.
+     * @return  \App\Models\Post    O post obtido.
      */
     public function getOne($postId)
     {
@@ -142,9 +142,9 @@ class PostService
     /**
      * Obter um post pelo identificador do post, incluindo os votos do post.
      *
-     * @param  int $postId  Identificador do post.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado.
-     * @return \App\Models\Post  O post obtido.
+     * @param   int $postId         Identificador do post.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado.
+     * @return  \App\Models\Post    O post obtido.
      */
     public function getOneWithVotes($postId, $loggedUserId)
     {
@@ -175,8 +175,8 @@ class PostService
     /**
      * Obter o post com mais votos.
      *
-     * @param  int $loggedUserId  Identificador do utilizador autenticado.
-     * @return \App\Models\Post  O post obtido.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado.
+     * @return  \App\Models\Post    O post obtido.
      */
     public function getOneByMostVotes($loggedUserId)
     {
@@ -207,8 +207,8 @@ class PostService
     /**
      * Obter a quantidade de votos de um post.
      *
-     * @param  int $commentId  Identificador do post que possui os votos.
-     * @return string  A quantidade de votos obtida.
+     * @param   int $commentId  Identificador do post que possui os votos.
+     * @return  string          A quantidade de votos obtida.
      */
     public function getVotesAmount($postId)
     {
@@ -223,11 +223,11 @@ class PostService
     /**
      * Inserir um novo post na base de dados.
      *
-     * @param  string $title  Título do post.
-     * @param  string $description  Descrição do post.
-     * @param  \Illuminate\Support\Carbon $date  Data atual (agora).
-     * @param  int $loggedUserId  Identificador do utilizador autenticado que está a criar o post.
-     * @return string  A mensagem de sucesso.
+     * @param   string $title                       Título do post.
+     * @param   string $description                 Descrição do post.
+     * @param   \Illuminate\Support\Carbon $date    Data atual (agora).
+     * @param   int $loggedUserId                   Identificador do utilizador autenticado que está a criar o post.
+     * @return  string                              A mensagem de sucesso.
      */
     public function insertOne($title, $description, $date, $loggedUserId)
     {
@@ -245,10 +245,10 @@ class PostService
     /**
      * Atualizar um post.
      *
-     * @param  \App\Models\Post $post  Objeto do modelo do post que será atualizado.
-     * @param  string $title  Título do post.
-     * @param  string $description  Descrição do post.
-     * @return string  A mensagem de sucesso.
+     * @param   \App\Models\Post $post  Objeto do modelo do post que será atualizado.
+     * @param   string $title           Título do post.
+     * @param   string $description     Descrição do post.
+     * @return  string                  A mensagem de sucesso.
      */
     public function updateOne($post, $title, $description)
     {
@@ -263,9 +263,9 @@ class PostService
     /**
      * Atualizar a quantidade de votos de um post.
      *
-     * @param  int $postId  Identificador do post que será atualizado.
-     * @param  int $votesAmount  Quantidade de votos a somar ou a subtrair da quantidade atual.
-     * @return string  A mensagem de sucesso.
+     * @param   int $postId         Identificador do post que será atualizado.
+     * @param   int $votesAmount    Quantidade de votos a somar ou a subtrair da quantidade atual.
+     * @return  string              A mensagem de sucesso.
      */
     public function updateVotesAmount($postId, $votesAmount)
     {
@@ -277,12 +277,28 @@ class PostService
 
 
     /**
+     * Atualizar a quantidade de comentários de um post.
+     *
+     * @param   int $postId             Identificador do post que será atualizado.
+     * @param   int $commentsAmount     Quantidade de comentários a somar ou a subtrair da quantidade atual.
+     * @return  string                  A mensagem de sucesso.
+     */
+    public function updateCommentsAmount($postId, $commentsAmount)
+    {
+        $post = $this->getOne($postId);
+        $post->increment('comments_amount', $commentsAmount);
+
+        return 'Quantidade de comentários do post atualizada com sucesso.';
+    }
+
+
+    /**
      * Votar num post.
      *
-     * @param  int $postId  Identificador do post que será votado.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado que está a votar no post.
-     * @param  int $voteTypeId  Identificador do tipo de voto (upvote ou downvote).
-     * @return array  O array associativo com o status da resposta e uma mensagem indicando o resultado da operação.
+     * @param   int $postId         Identificador do post que será votado.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado que está a votar no post.
+     * @param   int $voteTypeId     Identificador do tipo de voto (upvote ou downvote).
+     * @return  array               O array associativo com o status da resposta e uma mensagem indicando o resultado da operação.
      */
     public function vote($postId, $loggedUserId, $voteTypeId)
     {
@@ -336,8 +352,8 @@ class PostService
     /**
      * Remover um post.
      *
-     * @param  \App\Models\Post $post  Objeto do modelo do post que será removido.
-     * @return string  A mensagem de sucesso.
+     * @param   \App\Models\Post $post  Objeto do modelo do post que será removido.
+     * @return  string                  A mensagem de sucesso.
      */
     public function deleteOne($post)
     {

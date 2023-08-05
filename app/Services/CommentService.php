@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
+use App\Services\PostService;
 use App\Services\CommentVoteService;
 use App\Models\Comment;
 
@@ -11,15 +12,18 @@ use App\Models\Comment;
  */
 class CommentService
 {
+    protected $postService;
     protected $commentVoteService;
 
     /**
      * Construtor da classe CommentService.
      *
+     * @param \App\Services\PostService $postService                Instância de PostService.
      * @param \App\Services\CommentVoteService $commentVoteService  Instância de CommentVoteService.
      */
-    public function __construct(CommentVoteService $commentVoteService)
+    public function __construct(PostService $postService, CommentVoteService $commentVoteService)
     {
+        $this->postService = $postService;
         $this->commentVoteService = $commentVoteService;
     }
 
@@ -27,9 +31,9 @@ class CommentService
     /**
      * Obter todos os comentários de um post.
      *
-     * @param  int $postId  Identificador do post que possui os comentários.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado.
-     * @return \App\Models\Comment[]  A lista de comentários.
+     * @param   int $postId             Identificador do post que possui os comentários.
+     * @param   int $loggedUserId       Identificador do utilizador autenticado.
+     * @return  \App\Models\Comment[]   A lista de comentários.
      */
     public function getAllByPost($postId, $loggedUserId)
     {
@@ -59,8 +63,8 @@ class CommentService
     /**
      * Obter um comentário pelo identificador do comentário.
      *
-     * @param  int $commentId  Identificador do comentário.
-     * @return \App\Models\Comment  O comentário obtido.
+     * @param   int $commentId          Identificador do comentário.
+     * @return  \App\Models\Comment     O comentário obtido.
      */
     public function getOne($commentId)
     {
@@ -72,8 +76,8 @@ class CommentService
     /**
      * Obter a quantidade de votos de um comentário.
      *
-     * @param  int $commentId  Identificador do comentário que possui os votos.
-     * @return string  A quantidade de votos obtida.
+     * @param   int $commentId  Identificador do comentário que possui os votos.
+     * @return  string          A quantidade de votos obtida.
      */
     public function getVotesAmount($commentId)
     {
@@ -88,29 +92,41 @@ class CommentService
     /**
      * Inserir um novo comentário na base de dados.
      *
-     * @param  string $description  Descrição do comentário.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado que está a criar o comentário.
-     * @param  int $postId  Identificador do post que pertence o comentário.
-     * @return string  A mensagem de sucesso.
+     * @param   string $description     Descrição do comentário.
+     * @param   int $loggedUserId       Identificador do utilizador autenticado que está a criar o comentário.
+     * @param   int $postId             Identificador do post que pertence o comentário.
+     * @return  array                   O array associativo com o status da resposta e uma mensagem indicando o resultado da operação.
      */
     public function insertOne($description, $loggedUserId, $postId)
     {
-        $comment = new Comment();
-        $comment->description = $description;
-        $comment->user_id = $loggedUserId;
-        $comment->post_id = $postId;
-        $comment->save();
+        try {
+            DB::beginTransaction();
 
-        return 'Comentário criado com sucesso.';
+            $comment = new Comment();
+            $comment->description = $description;
+            $comment->user_id = $loggedUserId;
+            $comment->post_id = $postId;
+            $comment->save();
+
+            $commentsAmount = 1;
+            $this->postService->updateCommentsAmount($postId, $commentsAmount);
+
+            DB::commit();
+
+            return ['success' => true, 'message' => 'Comentário criado com sucesso.'];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            return ['success' => false, 'message' => 'Erro ao criar o comentário.'];
+        }
     }
 
 
     /**
      * Atualizar um comentário.
      *
-     * @param  \App\Models\Comment $comment  Objeto do modelo do comentário que será atualizado.
-     * @param  string $description  Descrição do comentário.
-     * @return string  A mensagem de sucesso.
+     * @param   \App\Models\Comment $comment    Objeto do modelo do comentário que será atualizado.
+     * @param   string $description             Descrição do comentário.
+     * @return  string                          A mensagem de sucesso.
      */
     public function updateOne($comment, $description)
     {
@@ -124,9 +140,9 @@ class CommentService
     /**
      * Atualizar a quantidade de votos de um comentário.
      *
-     * @param  int $commentId  Identificador do comentário que será atualizado.
-     * @param  int $votesAmount  Quantidade de votos a somar ou a subtrair da quantidade atual.
-     * @return string  A mensagem de sucesso.
+     * @param   int $commentId      Identificador do comentário que será atualizado.
+     * @param   int $votesAmount    Quantidade de votos a somar ou a subtrair da quantidade atual.
+     * @return  string              A mensagem de sucesso.
      */
     public function updateVotesAmount($commentId, $votesAmount)
     {
@@ -140,10 +156,10 @@ class CommentService
     /**
      * Votar num comentário de um post.
      *
-     * @param  int $commentId  Identificador do comentário que será votado.
-     * @param  int $loggedUserId  Identificador do utilizador autenticado que está a votar no comentário.
-     * @param  int $voteTypeId  Identificador do tipo de voto (upvote ou downvote).
-     * @return array  Um array associativo com o status da resposta e uma mensagem indicando o resultado da operação.
+     * @param   int $commentId      Identificador do comentário que será votado.
+     * @param   int $loggedUserId   Identificador do utilizador autenticado que está a votar no comentário.
+     * @param   int $voteTypeId     Identificador do tipo de voto (upvote ou downvote).
+     * @return  array               O array associativo com o status da resposta e uma mensagem indicando o resultado da operação.
      */
     public function vote($commentId, $loggedUserId, $voteTypeId)
     {
@@ -197,12 +213,26 @@ class CommentService
     /**
      * Remover um comentário.
      *
-     * @param  \App\Models\Comment $comment  Objeto do modelo do comentário que será removido.
-     * @return string  A mensagem de sucesso.
+     * @param   \App\Models\Comment $comment    Objeto do modelo do comentário que será removido.
+     * @param   int $postId                     Identificador do post que pertence o comentário.
+     * @return  array                           O array associativo com o status da resposta e uma mensagem indicando o resultado da operação.
      */
-    public function deleteOne($comment)
+    public function deleteOne($comment, $postId)
     {
-        $comment->delete();
-        return 'Comentário removido com sucesso.';
+        try {
+            DB::beginTransaction();
+
+            $comment->delete();
+
+            $commentsAmount = -1;
+            $this->postService->updateCommentsAmount($postId, $commentsAmount);
+
+            DB::commit();
+
+            return ['success' => true, 'message' => 'Comentário removido com sucesso.'];
+        } catch (\Exception $exception) {
+            DB::rollback();
+            return ['success' => false, 'message' => 'Erro ao remover o comentário.'];
+        }
     }
 }

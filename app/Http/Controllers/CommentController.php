@@ -18,8 +18,8 @@ class CommentController extends Controller
     /**
      * Construtor da classe CommentController.
      *
-     * @param  \App\Services\AuthService $authService  Instância de AuthService.
-     * @param  \App\Services\CommentService $commentService  Instância de CommentService.
+     * @param   \App\Services\AuthService $authService           Instância de AuthService.
+     * @param   \App\Services\CommentService $commentService     Instância de CommentService.
      */
     public function __construct(AuthService $authService, CommentService $commentService)
     {
@@ -31,8 +31,8 @@ class CommentController extends Controller
     /**
      * Criar um novo comentário.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function create(Request $request)
     {
@@ -48,12 +48,19 @@ class CommentController extends Controller
         $post = $request->attributes->get('post');
 
         $loggedUserId = $this->authService->getUserId();
-        $message = $this->commentService->insertOne($data['description'], $loggedUserId, $post->id);
+        $result = $this->commentService->insertOne($data['description'], $loggedUserId, $post->id);
+
+        if (!$result['success']) {
+            return redirect('500')->with([
+                'success' => false,
+                'errors' => [$result['message']]
+            ], 500);
+        }
 
         return response()->json([
             'success' => true,
             'errors' => [],
-            'message' => $message
+            'message' => $result['message']
         ], 201);
     }
 
@@ -61,8 +68,8 @@ class CommentController extends Controller
     /**
      * Atualizar um comentário.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function update(Request $request)
     {
@@ -90,9 +97,9 @@ class CommentController extends Controller
     /**
      * Atualizar um voto de um comentário.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
-     * @param  int $commentId  Identificador do comentário.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @param   int $commentId                      Identificador do comentário.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function vote(Request $request, $commentId)
     {
@@ -126,20 +133,30 @@ class CommentController extends Controller
     /**
      * Remover um comentário.
      *
-     * @param  \Illuminate\Http\Request $request  Requisição HTTP.
-     * @return \Illuminate\Http\Response  A resposta HTTP.
+     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
+     * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
     public function destroy(Request $request)
     {
+        // obtido do middleware que verifica se o post existe
+        $post = $request->attributes->get('post');
+
         // obtido do middleware que verifica se o comentário existe
         $comment = $request->attributes->get('comment');
 
-        $message = $this->commentService->deleteOne($comment);
+        $result = $this->commentService->deleteOne($comment, $post->id);
+
+        if (!$result['success']) {
+            return redirect('500')->with([
+                'success' => false,
+                'errors' => [$result['message']]
+            ], 500);
+        }
 
         return back()->with([
             'success' => true,
             'errors' => [],
-            'message' => $message
+            'message' => $result['message']
         ], 200);
     }
 }
