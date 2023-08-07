@@ -8,7 +8,7 @@
     </div>
 
     <div class="navigation__center-wrapper">
-        <a href="{{ route('home') }}"><img src="{{ URL::asset('assets/images/logo.png') }}" class="navigation__logo"></a>
+        <a href="{{ route('home') }}"><img src="{{ URL::asset('assets/images/full-logo.png') }}" class="navigation__logo"></a>
     </div>
 
     <div class="navigation__right-wrapper">
@@ -39,7 +39,7 @@
     </div>
 
     <div class="navigation__center-wrapper">
-        <a href="{{ route('home') }}"><img src="{{ URL::asset('assets/images/logo.png') }}" class="navigation__logo"></a>
+        <a href="{{ route('home') }}"><img src="{{ URL::asset('assets/images/full-logo.png') }}" class="navigation__logo"></a>
     </div>
 
     <div class="navigation__right-wrapper">

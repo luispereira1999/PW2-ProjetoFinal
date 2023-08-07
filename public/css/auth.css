@@ -1,7 +1,7 @@
 /* DEFINIÇÃO: estilos da página de login ou signup */
 
 body {
-    background-image: url("../assets/images/background-login-signup.png");
+    background-image: url("../assets/images/background-auth.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top;
@@ -26,8 +26,6 @@ body {
 .content__logo {
     width: 80px;
     height: 50px;
-    margin: 5px;
-    float: left;
 }
 
 .content__links-wrapper {
@@ -113,7 +111,6 @@ body {
         margin: 0;
         padding: 25px;
     }
-
 }
 
 
@@ -122,8 +119,6 @@ body {
 @media screen and (max-width: 600px) {
     .content {
         width: 100%;
-        margin: 0;
-        padding: 25px;
     }
 
     .content__links-wrapper {

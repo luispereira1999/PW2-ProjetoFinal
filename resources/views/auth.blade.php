@@ -48,7 +48,7 @@
     <main class="content">
         <div class="content__logo-wrapper">
             <a href="{{ route('home') }}">
-                <img src="{{ URL::asset('assets/images/logo.png') }}" class="content__logo">
+                <img src="{{ URL::asset('assets/images/full-logo.png') }}" class="content__logo">
             </a>
         </div>
 

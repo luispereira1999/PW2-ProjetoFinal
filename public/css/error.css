@@ -1,10 +1,11 @@
 /* DEFINIÇÃO: estilos das páginas de erros */
 
 body {
-    background-image: url("../assets/images/background-login-signup.png");
+    background-image: url("../assets/images/background-auth.png");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: initial;
+    background-position: top;
+    height: 100vh;
 }
 
 .content {
@@ -20,24 +21,60 @@ body {
 .content__logo {
     width: 80px;
     height: 50px;
-    margin: 5px;
-    float: left;
 }
 
 .content__title {
     font-size: 100px;
     color: #666;
-    margin: 40px 0px 40px 40px;
+    margin: 40px 0px 40px 0px;
 }
 
 .content__subtitle {
     font-size: 30px;
     color: #666;
-    margin: 40px 0px 20px 40px;
+    margin: 40px 0px 20px 0px;
 }
 
 .content__paragraph {
     font-size: 15px;
     color: #666;
-    margin: 0px 0px 40px 40px;
+    margin: 0px 0px 40px 0px;
+}
+
+
+/*** BIG TABLETS ***/
+
+@media screen and (max-width: 1025px) {
+    body {
+        background-size: 100% 100%;
+    }
+
+    .content {
+        width: 50%;
+        margin: 0;
+        padding: 25px;
+    }
+
+}
+
+
+/*** SMALL TABLETS ***/
+
+@media screen and (max-width: 600px) {
+    .content {
+        width: 70%;
+    }
+
+    .content__title {
+        font-size: clamp(50px, 3.5rem, 100px);
+        margin: 20px 0px 20px 0px;
+    }
+
+    .content__subtitle {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .content__paragraph {
+        margin: 0px 0px 20px 0px;
+    }
 }

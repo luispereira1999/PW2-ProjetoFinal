@@ -87,7 +87,7 @@
                     <input class="account__text" type="text" name="country" placeholder="País" value="{{ $user->country }}">
                 </li>
 
-                <li class="account__actions">
+                <li class="account__item">
                     <button class="button button-primary" type="submit" form="formEditData">Atualizar</button>
                     <a href="{{ route('account', ['userId' => $user->id]) }}"><button class="button button-cancel" type="button">Cancelar</button></a>
                 </li>
@@ -113,7 +113,7 @@
                     <input class="account__password" type="password" name="new_password_confirm" placeholder="Confirmar Palavra-passe" require>
                 </li>
 
-                <li class="account__actions">
+                <li class="account__item">
                     <button class="button button-primary" type="submit" form="formEditPassword" name="isEditPassword">Atualizar</button>
                     <a href="{{ route('account', ['userId' => $user->id]) }}"><button class="button button-cancel" type="button">Cancelar</button></a>
                 </li>
@@ -122,6 +122,7 @@
 
         <div id="formDeleteUser" class="account__form">
             <h4>Remover conta</h4>
+
             <a class="brief-posts__link__delete" data-toggle="modal" data-target="#deleteUser{{ $user->id }}"><button class="button button-danger" type="submit" form="formDeleteUser">Remover</button></a>
         </div>
 

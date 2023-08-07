@@ -65,6 +65,11 @@
     border: 1px solid #B0CFE0;
 }
 
-.account__actions {
-    margin-top: 20px;
+
+/*** SMALL TABLETS ***/
+
+@media screen and (max-width: 600px) {
+    .account__item {
+        flex-direction: column;
+    }
 }
