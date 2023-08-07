@@ -9,8 +9,8 @@
 
     <!-- METADADOS -->
     <meta charset="utf-8">
-    <meta name="description" content="Uma rede social nova e alternativa!">
-    <meta name="keywords" content="IPCA, Programação Web 2, Projeto Final, Rede Social">
+    <meta name="description" content="Uma rede social alternativa. Escreva os seus melhores posts.">
+    <meta name="keywords" content="Rede Social">
     <meta name="author" content="Lara Ribeiro, Luís Pereira, Maria Costa">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">

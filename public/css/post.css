@@ -1,6 +1,6 @@
 /* DEFINIÇÃO: estilos da página individual do post */
 
-/**** POST INDIVIDUAL - CABEÇALHO ****/
+/**** POST INDIVIDUAL: CABEÇALHO ****/
 
 .full-post__header-wrapper {
     align-items: center;
@@ -36,7 +36,7 @@
 }
 
 
-/*** POST INDIVIDUAL - DESCRIÇÃO ***/
+/*** POST INDIVIDUAL: DESCRIÇÃO ***/
 
 .full-post__main-wrapper {
     padding: 40px;
@@ -44,7 +44,7 @@
 }
 
 
-/**** POST INDIVIDUAL - BARRA DE INTERAÇÕES ****/
+/**** POST INDIVIDUAL: BARRA DE INTERAÇÕES ****/
 
 .full-post__interactions {
     display: flex;
@@ -91,7 +91,7 @@
 }
 
 
-/*** POST INDIVIDUAL - COMENTÁRIOS ***/
+/*** POST INDIVIDUAL: COMENTÁRIOS ***/
 
 .comments {
     padding: 40px;

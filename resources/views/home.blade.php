@@ -9,8 +9,8 @@
 
     <!-- METADADOS -->
     <meta charset="utf-8">
-    <meta name="description" content="Uma rede social nova e alternativa!">
-    <meta name="keywords" content="IPCA, Programação Web 2, Projeto Final, Rede Social">
+    <meta name="description" content="Uma rede social alternativa. Escreva os seus melhores posts.">
+    <meta name="keywords" content="Rede Social">
     <meta name="author" content="Lara Ribeiro, Luís Pereira, Maria Costa">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -45,14 +45,15 @@
 </head>
 
 <body>
-    <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
+    <!-- CABEÇALHO: menu de navegação, logótipo -->
     <header>
         @include("nav")
         @include("new-post")
         @include("about")
     </header>
 
-    <!-- post em destaque -->
+
+    <!-- POST EM DESTAQUE -->
     <section data-post="{{ $featuredPost->id }}" class="featured">
         <div class="featured-wrapper">
             <div class="featured__title-wrapper">
@@ -112,7 +113,8 @@
         </div>
     </section>
 
-    <!-- pesquisa -->
+
+    <!-- PESQUISA -->
     <section class="search">
         <input id="inputSearchText" class="search__text" type="text" name="title" placeholder="Título a Pesquisar ..." value="{{ $searchText }}" required>
 
@@ -120,7 +122,15 @@
         <a href="{{ route('home') }}"><i class="search__icon fas fa-backspace" data-toggle="tooltip" data-placement="bottom" title="Limpar Pesquisa"></i></a>
     </section>
 
-    <!-- PRINCIPAL: post em destaque, pesquisa, posts (informações, ações) -->
+
+    <!-- OPÇÕES DE LAYOUT -->
+    <section class="layout-options">
+        <i class="fas fa-th layout-options__icon layout-options__icon--active" data-grid="width3" data-toggle="tooltip" data-placement="bottom" title="Vista em 3x3"></i>
+        <i class="fas fa-th-list layout-options__icon" data-grid="width1" data-toggle="tooltip" data-placement="bottom" title="Vista em Linha"></i>
+    </section>
+
+
+    <!-- PRINCIPAL: posts -->
     <main class="brief-posts">
         @php
         // contador auxiliar para saber quando já foram criados 3 posts
@@ -163,7 +173,8 @@
         @endforeach
     </main>
 
-    <!-- RODAPÉ: copyright, autor, links -->
+
+    <!-- RODAPÉ: copyright, autor -->
     <footer class="footer">
         @include("footer")
     </footer>

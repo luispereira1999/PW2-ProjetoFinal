@@ -4,6 +4,27 @@ $(document).ready(function () {
     $('.errors').hide();
 
 
+    // alterar layout dos posts para grid em 3x3
+    $("[data-grid='width3']").click(function () {
+        $('.layout-options__icon').removeClass('layout-options__icon--active');
+        $(this).addClass('layout-options__icon--active');
+
+        $(".brief-posts").children().addClass("brief-posts__post");
+        $(".brief-posts").children().children(".width-1").addClass("width-3");
+        $(".brief-posts ").children().children(".width-1").removeClass("width-1");
+    });
+
+    // alterar layout dos posts para grid em linha
+    $("[data-grid='width1']").click(function () {
+        $('.layout-options__icon').removeClass('layout-options__icon--active');
+        $(this).addClass('layout-options__icon--active');
+
+        $(".brief-posts").children(".brief-posts__post").removeClass("brief-posts__post");
+        $(".brief-posts").children().children(".width-3").addClass("width-1");
+        $(".brief-posts").children().children(".width-3").removeClass("width-3");
+    });
+
+
     // mostrar formulário de login
     $("[data-auth='login']").click(function () {
         $("#content__signup").hide(500);

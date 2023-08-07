@@ -1,6 +1,6 @@
 /* DEFINIÇÃO: estilos da página de definições da conta de utilizador */
 
-/**** CONTA - CABEÇALHO ****/
+/**** CONTA: CABEÇALHO ****/
 
 .account__header-wrapper {
     align-items: center;
@@ -25,7 +25,7 @@
 }
 
 
-/*** CONTA - ALTERAR DADOS ***/
+/*** CONTA: ALTERAR DADOS ***/
 
 .account__form {
     max-width: 70%;

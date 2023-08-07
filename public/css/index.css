@@ -98,7 +98,7 @@
 }
 
 
-/**** POST EM DESTAQUE - BARRA DE INTERAÇÕES ****/
+/**** POST EM DESTAQUE: BARRA DE INTERAÇÕES ****/
 
 .featured__interactions {
     display: flex;
@@ -154,7 +154,7 @@
 }
 
 .search__text {
-    width: 800px;
+    width: clamp(200px, 50vw, 700px);
     height: 40px;
     margin: 40px 0;
     padding: 0 20px;
@@ -180,7 +180,32 @@
 }
 
 
-/**** GRID - TIPOS DE GRID PARA VISUALIZAR OS POSTS RESUMIDOS ****/
+/**** OPÇÕES DE LAYOUT ****/
+
+.layout-options {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1px;
+    width: 100%;
+}
+
+.layout-options__icon {
+    color: #777;
+    margin: 20px 10px 10px 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.layout-options__icon:active {
+    color: #8228DE;
+}
+
+.layout-options__icon--active {
+    color: #8228DE;
+}
+
+
+/**** GRID: TIPOS DE GRID PARA VISUALIZAR OS POSTS RESUMIDOS ****/
 
 .width-1 {
     background-color: #f0f0f0;
@@ -189,10 +214,11 @@
 
 .width-1 .brief-posts__title {
     text-align: left;
-    margin: 5px 40px;
+    margin: 5px 40px 20px 40px;
     font-size: 22px;
     color: #8228DE;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .width-1 .brief-posts__name,
@@ -236,7 +262,7 @@
     color: #8228DE;
     cursor: pointer;
     height: 65px;
-    overflow: scroll;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -319,7 +345,7 @@
 }
 
 
-/**** POSTS RESUMIDOS - BARRA DE INTERAÇÕES ****/
+/**** POSTS RESUMIDOS: BARRA DE INTERAÇÕES ****/
 
 .brief-posts__interactions {
     display: flex;
@@ -363,4 +389,22 @@
 .brief-posts__comments-amount {
     color: #7d7d7d;
     margin-bottom: 0 !important;
+}
+
+
+/*** TABLETS ***/
+
+@media screen and (max-width: 801px) {
+    .featured-wrapper {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .brief-posts__post {
+        flex-flow: wrap;
+    }
+
+    .width-3 {
+        width: 100%;
+    }
 }

@@ -9,8 +9,8 @@
 
     <!-- METADADOS -->
     <meta charset="utf-8">
-    <meta name="description" content="Uma rede social nova e alternativa!">
-    <meta name="keywords" content="IPCA, Programação Web 2, Projeto Final, Rede Social">
+    <meta name="description" content="Uma rede social alternativa. Escreva os seus melhores posts.">
+    <meta name="keywords" content="Rede Social">
     <meta name="author" content="Lara Ribeiro, Luís Pereira, Maria Costa">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -45,15 +45,17 @@
 </head>
 
 <body>
-    <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
+    <!-- CABEÇALHO: menu de navegação, logótipo -->
     <header>
         @include("nav")
         @include("new-post")
         @include("about")
     </header>
 
-    <!-- PRINCIPAL: utilizador, posts (informações, ações) -->
-    <main>
+
+    <!-- CONTEÚDO -->
+    <div>
+        <!-- INFORMAÇÕES DO UTILIZADOR -->
         <section class="profile__header-wrapper">
             <div>
                 <i class="profile__avatar fas fa-user-circle"></i>
@@ -61,8 +63,16 @@
             </div>
         </section>
 
-        <!-- posts -->
-        <section class="posts">
+
+        <!-- OPÇÕES DE LAYOUT -->
+        <section class="layout-options">
+            <i class="fas fa-th layout-options__icon layout-options__icon--active" data-grid="width3" data-toggle="tooltip" data-placement="bottom" title="Vista em 3x3"></i>
+            <i class="fas fa-th-list layout-options__icon" data-grid="width1" data-toggle="tooltip" data-placement="bottom" title="Vista em Linha"></i>
+        </section>
+
+
+        <!-- PRINCIPAL: posts -->
+        <main class="brief-posts">
             @php
             // contador auxiliar para saber quando já foram criados 3 posts
             $counter = 0;
@@ -98,10 +108,11 @@
             @endphp
 
             @endforeach
-        </section>
-    </main>
+        </main>
+    </div>
 
-    <!-- RODAPÉ: copyright, autor, links -->
+
+    <!-- RODAPÉ: copyright, autor -->
     <footer class="footer">
         @include("footer")
     </footer>

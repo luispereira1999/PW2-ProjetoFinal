@@ -1,6 +1,6 @@
 /* DEFINIÇÃO: estilos da página do perfil de utilizador */
 
-/**** CONTA - CABEÇALHO ****/
+/**** CONTA: CABEÇALHO ****/
 
 .profile__header-wrapper {
     align-items: center;
@@ -25,58 +25,32 @@
 }
 
 
-/*** CONTA - ALTERAR DADOS ***/
+/**** OPÇÕES DE LAYOUT ****/
 
-.profile__form {
-    max-width: 70%;
-    padding: 30px;
-    margin: 50px auto;
-    margin-bottom: 0;
-}
-
-.profile__items {
-    padding: 0;
-    margin: 0 0 50px 0;
-    list-style: none;
-}
-
-.profile__item {
-    display: block;
-    margin-bottom: 15px;
-    padding: 8px;
-    min-height: 35px;
-}
-
-.profile__text,
-.profile__email,
-.profile__password {
-    box-sizing: border-box;
-    height: 35px;
-    padding: 20px;
-    border: 1px solid #d4d4d4;
-    border-radius: 4px;
-    outline: none;
-}
-
-.profile__password-wrapper {
+.layout-options {
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1px;
+    width: 100%;
 }
 
-.profile__icon {
-    width: 35px;
-    height: 35px;
-    margin-bottom: .5rem;
-    margin-left: 20px;
+.layout-options__icon {
+    color: #777;
+    margin: 20px 10px 10px 10px;
+    font-size: 20px;
     cursor: pointer;
 }
 
-.profile__actions {
-    margin-top: 20px;
+.layout-options__icon:active {
+    color: #8228DE;
+}
+
+.layout-options__icon--active {
+    color: #8228DE;
 }
 
 
-/**** GRID - TIPOS DE GRID PARA VISUALIZAR OS POSTS RESUMIDOS ****/
+/**** GRID: TIPOS DE GRID PARA VISUALIZAR OS POSTS RESUMIDOS ****/
 
 .width-1 {
     background-color: #f0f0f0;
@@ -85,10 +59,11 @@
 
 .width-1 .brief-posts__title {
     text-align: left;
-    margin: 5px 40px;
+    margin: 5px 40px 20px 40px;
     font-size: 22px;
     color: #8228DE;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .width-1 .brief-posts__name,
@@ -132,16 +107,15 @@
     color: #8228DE;
     cursor: pointer;
     height: 65px;
-    overflow: scroll;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .width-3 .brief-posts__name,
 .width-3 .brief-posts__date {
-    color: #666;
-    text-align: center;
     font-size: 12px;
     color: #666;
+    text-align: center;
 }
 
 .width-3 .brief-posts__description {
@@ -216,7 +190,7 @@
 }
 
 
-/**** POSTS RESUMIDOS - BARRA DE INTERAÇÕES ****/
+/**** POSTS RESUMIDOS: BARRA DE INTERAÇÕES ****/
 
 .brief-posts__interactions {
     display: flex;
@@ -264,4 +238,17 @@
 .brief-posts__comments-amount {
     color: #7d7d7d;
     margin-bottom: 0 !important;
+}
+
+
+/*** TABLETS ***/
+
+@media screen and (max-width: 801px) {
+    .brief-posts__post {
+        flex-flow: wrap;
+    }
+
+    .width-3 {
+        width: 100%;
+    }
 }

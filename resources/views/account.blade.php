@@ -9,8 +9,8 @@
 
     <!-- METADADOS -->
     <meta charset="utf-8">
-    <meta name="description" content="Uma rede social nova e alternativa!">
-    <meta name="keywords" content="IPCA, Programação Web 2, Projeto Final, Rede Social">
+    <meta name="description" content="Uma rede social alternativa. Escreva os seus melhores posts.">
+    <meta name="keywords" content="Rede Social">
     <meta name="author" content="Lara Ribeiro, Luís Pereira, Maria Costa">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -45,14 +45,15 @@
 </head>
 
 <body>
-    <!-- CABEÇALHO: menu de navegação (logótipo, links) -->
+    <!-- CABEÇALHO: menu de navegação, logótipo -->
     <header>
         @include("nav")
         @include("new-post")
         @include("about")
     </header>
 
-    <!-- PRINCIPAL: post (informações, alterar dados) -->
+
+    <!-- PRINCIPAL: post -->
     <main>
         <section class="account__header-wrapper">
             <div>
@@ -127,7 +128,8 @@
         @include('delete-user')
     </main>
 
-    <!-- RODAPÉ: copyright, autor, links -->
+
+    <!-- RODAPÉ: copyright, autor -->
     <footer class="footer">
         @include("footer")
     </footer>
