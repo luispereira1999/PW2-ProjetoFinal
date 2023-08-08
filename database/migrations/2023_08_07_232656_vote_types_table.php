@@ -13,18 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('password');
-            $table->string('email');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('city');
-            $table->string('country');
+        Schema::create('vote_types', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
+            $table->string('title', 10);
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -33,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('vote_types');
     }
 };

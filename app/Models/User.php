@@ -12,10 +12,13 @@ class User extends Authenticatable
 {
     use HasFactory;
 
+    protected $table = 'users';
+
+    public $incrementing = true;
+
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
         'name',
         'password',
         'email',

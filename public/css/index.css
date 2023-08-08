@@ -391,6 +391,11 @@
     margin-bottom: 0 !important;
 }
 
+.brief-posts--not-found {
+    padding: 20px 10px 10px 10px;
+    text-align: center;
+}
+
 
 /*** TABLETS ***/
 

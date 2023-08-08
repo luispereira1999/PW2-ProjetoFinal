@@ -13,5 +13,5 @@
 <hr class="footer_line">
 
 <section class="footer__bottom">
-    <a class="footer__link" href="{{ route('home') }}"><img class="footer__logo" src="{{ URL::asset('assets/images/favicon.ico') }}"></a>
+    <a class="footer__link" href="{{ route('home') }}"><img class="footer__logo" src="{{ URL::asset('images/favicon.ico') }}"></a>
 </section>

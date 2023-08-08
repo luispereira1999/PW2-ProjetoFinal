@@ -13,10 +13,13 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $table = 'posts';
+
+    public $incrementing = true;
+
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
         'title',
         'description',
         'date',
@@ -27,16 +30,6 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function votes()
-    {
-        return $this->hasMany(PostVote::class, 'post_id');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'post_id');
+        return $this->belongsTo(User::class);
     }
 }

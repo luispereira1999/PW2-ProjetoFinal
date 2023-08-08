@@ -14,6 +14,10 @@ class PostVote extends Model
 
     protected $table = 'posts_votes';
 
+    protected $primaryKey = ['post_id', 'user_id'];
+
+    public $incrementing = false;
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -21,4 +25,19 @@ class PostVote extends Model
         'user_id',
         'vote_type_id'
     ];
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function voteType()
+    {
+        return $this->belongsTo(VoteType::class);
+    }
 }

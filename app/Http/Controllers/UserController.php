@@ -87,7 +87,7 @@ class UserController extends Controller
     public function updateData(Request $request, $userId)
     {
         $data = $request->validate([
-            'name' => 'required|min:3|max:12|UniqueNameOrEmail',
+            'name' => 'required|min:3|max:15|UniqueNameOrEmail',
             'email' => 'required|email|max:200|UniqueNameOrEmail',
             'first_name' => 'max:50',
             'last_name' => 'max:50',

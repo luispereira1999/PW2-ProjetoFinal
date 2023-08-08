@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,12 +9,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class VoteType extends Model
 {
-    use HasFactory;
+    protected $table = 'vote_types';
+
+    public $incrementing = false;
 
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
         'title'
     ];
 }

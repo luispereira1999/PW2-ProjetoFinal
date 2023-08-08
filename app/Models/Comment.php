@@ -12,18 +12,26 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $table = 'comments';
+
+    public $incrementing = true;
+
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
         'description',
         'votes_amount',
         'user_id',
         'post_id'
     ];
 
-    public function votes()
+    public function user()
     {
-        return $this->hasMany(CommentVote::class, 'comment_id', 'id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
     }
 }

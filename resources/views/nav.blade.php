@@ -1,6 +1,6 @@
 <!-- DEFINIÇÃO: menu de navegação no topo do site (quando o utilizador está autenticado ou não está autenticado) -->
 
-<!-- menu com login -->
+<!-- MENU: com login -->
 @auth
 <nav class="navigation">
     <div class="navigation__left-wrapper">
@@ -8,7 +8,7 @@
     </div>
 
     <div class="navigation__center-wrapper">
-        <a href="{{ route('home') }}"><img src="{{ URL::asset('assets/images/full-logo.png') }}" class="navigation__logo"></a>
+        <a href="{{ route('home') }}"><img src="{{ URL::asset('images/full-logo.png') }}" class="navigation__logo"></a>
     </div>
 
     <div class="navigation__right-wrapper">
@@ -31,7 +31,7 @@
 </nav>
 @endauth
 
-<!-- menu sem login -->
+<!-- MENU: sem login -->
 @guest
 <nav class="navigation">
     <div class="navigation__left-wrapper">
@@ -39,7 +39,7 @@
     </div>
 
     <div class="navigation__center-wrapper">
-        <a href="{{ route('home') }}"><img src="{{ URL::asset('assets/images/full-logo.png') }}" class="navigation__logo"></a>
+        <a href="{{ route('home') }}"><img src="{{ URL::asset('images/full-logo.png') }}" class="navigation__logo"></a>
     </div>
 
     <div class="navigation__right-wrapper">

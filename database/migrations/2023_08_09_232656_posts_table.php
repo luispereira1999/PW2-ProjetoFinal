@@ -14,16 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->string('date');
-            $table->integer('votes_amount');
-            $table->integer('comments_amount');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->increments('id')->unsigned();
+            $table->string('title', 50);
+            $table->string('description', 2000);
+            $table->dateTime('date');
+            $table->integer('votes_amount')->default(0);
+            $table->integer('comments_amount')->default(0);
+            $table->integer('user_id')->unsigned();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
 
     /**
      * Reverse the migrations.

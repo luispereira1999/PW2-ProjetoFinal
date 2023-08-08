@@ -16,7 +16,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('images/favicon.ico') }}">
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ URL::asset('css/global.css') }}">
@@ -54,6 +54,7 @@
 
 
     <!-- POST EM DESTAQUE -->
+    @if($featuredPost)
     <section data-post="{{ $featuredPost->id }}" class="featured">
         <div class="featured-wrapper">
             <div class="featured__title-wrapper">
@@ -112,6 +113,7 @@
             </div>
         </div>
     </section>
+    @endif
 
 
     <!-- PESQUISA -->
@@ -132,6 +134,8 @@
 
     <!-- PRINCIPAL: posts -->
     <main class="brief-posts">
+        @if(count($posts) > 0)
+
         @php
         // contador auxiliar para saber quando já foram criados 3 posts
         $counter = 0;
@@ -171,6 +175,10 @@
         @endphp
 
         @endforeach
+
+        @else
+        <h3 class="brief-posts--not-found">Não foram encontrados posts.</h3>
+        @endif
     </main>
 
 
