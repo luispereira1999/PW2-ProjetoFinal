@@ -40,10 +40,25 @@ class PostsVotesTableSeeder extends Seeder
             $current++;
         }
 
+        // cria os dados na base de dados
         foreach ($combinations as $combination) {
             [$postId, $userId] = explode('_', $combination);
 
             PostVote::factory()->createWithPostAndUser($postId, $userId);
+        }
+
+        // obtém os votos que pertencem aos posts
+        $votesWithPosts = PostVote::select('post_id')
+            ->groupBy('post_id')
+            ->get();
+
+        // para cada post, atualiza a quantidade de votos desse post
+        foreach ($votesWithPosts as $post) {
+            $votesAmount = PostVote::where('post_id', $post->post_id)
+                ->count();
+
+            Post::Where('id', $post->post_id)
+                ->update(['votes_amount' => $votesAmount]);
         }
     }
 }

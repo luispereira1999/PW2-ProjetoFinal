@@ -40,10 +40,25 @@ class CommentsVotesTableSeeder extends Seeder
             $current++;
         }
 
+        // cria os dados na base de dados
         foreach ($combinations as $combination) {
             [$commentId, $userId] = explode('_', $combination);
 
             CommentVote::factory()->createWithCommentAndUser($commentId, $userId);
+        }
+
+        // obtém os votos que pertencem aos comentários
+        $votesWithComments = CommentVote::select('comment_id')
+            ->groupBy('comment_id')
+            ->get();
+
+        // para cada comentário, atualiza a quantidade de votos desse comentário
+        foreach ($votesWithComments as $comment) {
+            $votesAmount = CommentVote::where('comment_id', $comment->post_id)
+                ->count();
+
+            Comment::Where('id', $comment->comment_id)
+                ->update(['votes_amount' => $votesAmount]);
         }
     }
 }

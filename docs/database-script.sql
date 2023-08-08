@@ -1,68 +1,24 @@
--- --------------------------------------------------------
--- Anfitrião:                    127.0.0.1
--- Versão do servidor:           10.4.28-MariaDB - mariadb.org binary distribution
--- SO do servidor:               Win64
--- HeidiSQL Versão:              12.1.0.6537
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
--- A despejar estrutura da base de dados para kll
-CREATE DATABASE IF NOT EXISTS `kll` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci */;
-USE `kll`;
-
--- A despejar estrutura para tabela kll.comments
-CREATE TABLE IF NOT EXISTS `comments` (
+-- CRIAR TABELA "vote_types"
+CREATE TABLE IF NOT EXISTS `vote_types` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `description` varchar(500) NOT NULL,
-  `votes_amount` int(10) NOT NULL DEFAULT 0,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `post_id` int(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_user_id_c` (`user_id`),
-  KEY `fk_post_id_c` (`post_id`),
-  CONSTRAINT `fk_post_id_c` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_user_id_c` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+  `title` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- CRIAR TABELA "users"
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `first_name` varchar(50) DEFAULT '',
+  `last_name` varchar(50) DEFAULT '',
+  `city` varchar(30) DEFAULT '',
+  `country` varchar(100) DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela kll.comments: ~5 rows (aproximadamente)
-REPLACE INTO `comments` (`id`, `description`, `votes_amount`, `user_id`, `post_id`) VALUES
-	(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante libero, tristique at est et, sodales vulputate lectus. Curabitur eget bibendum ipsum. Nulla tincidunt dignissim est eget dapibus. ', 0, 3, 1),
-	(2, 'Etiam convallis luctus neque eget egestas. Maecenas condimentum consectetur lorem et scelerisque. Nam pellentesque tincidunt malesuada. Nam in dolor id est viverra efficitur eget ac nisl. Nunc scelerisque malesuada ligula nec hendrerit. Phasellus elementum leo finibus risus consequat fringilla.', 0, 7, 1),
-	(3, 'Phasellus quis lectus non risus volutpat tincidunt non nec nulla. Proin sed est at erat lobortis consectetur. Proin eget ullamcorper justo, nec semper metus.\r\n\r\nCras lobortis convallis orci. Quisque molestie, libero id sagittis fermentum, dolor magna vulputate elit, eget gravida tellus est vel nisl. ', 0, 6, 1),
-	(4, 'Ut ac dolor ac dolor scelerisque accumsan. Phasellus in eleifend nibh, ut auctor est. Nulla sodales, leo ut pulvinar consequat, nisi nisi sagittis sapien, sit amet mollis nisl magna nec quam. Sed bibendum felis neque, vel maximus nunc mollis nec. Nam a iaculis neque. Nulla facilisi', 0, 5, 1),
-	(5, 'Phasellus lectus orci, lacinia eget ullamcorper ac, dictum sit amet orci. Donec vehicula nibh nulla, sed tincidunt justo fringilla imperdiet. Donec arcu massa, fringilla nec vestibulum sit amet, consectetur a dui. Nulla convallis tincidunt nunc, non tristique dui.\r\n\r\nPhasellus convallis elementum maximus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi vel interdum felis, eu posuere massa. ', 0, 6, 2),
-	(6, 'Nam sit amet urna eget nisi rutrum fringilla. Morbi dapibus fermentum diam, vitae vehicula diam dapibus sit amet. Nunc consequat nibh at est venenatis, ac scelerisque libero ultricies. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi facilisis commodo metus, sit amet facilisis libero condimentum dapibus. Sed id venenatis nibh. Donec eu ligula ac urna auctor eleifend.\r\n\r\n', 0, 1, 2),
-	(7, 'Duis eu libero aliquam, vulputate neque in, dignissim augue. Nulla facilisi. Donec vitae scelerisque sem. Nullam ac hendrerit ligula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sodales, ex quis egestas varius, felis felis dapibus dui, non finibus nisl nibh in magna. ', 0, 3, 3),
-	(8, 'Morbi porttitor accumsan justo, a fermentum justo fermentum consectetur. Integer hendrerit ultrices eros tincidunt consequat. Curabitur iaculis, augue quis porttitor blandit, sapien enim mattis ante, in ultricies lorem nunc et nulla.\r\n\r\nMorbi vestibulum turpis in semper tempus. In a nisi quis lorem elementum viverra. Pellentesque eu ex sit amet nisl vulputate dapibus ac eget enim. Integer quis odio lobortis, ornare felis eu, finibus enim.', 0, 8, 3),
-	(9, 'Phasellus posuere est sit amet nisi rhoncus consectetur at commodo eros. Nunc lacinia lorem dui, sed efficitur quam efficitur vitae. Aenean porttitor enim sit amet dignissim imperdiet. Morbi tempus nunc eu odio pellentesque pellentesque. Duis condimentum sit amet felis ut faucibus.', 0, 6, 8),
-	(10, 'Nam consequat, augue vel tincidunt rhoncus, sapien erat gravida lacus, sit amet porttitor nunc risus ut leo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum a enim et augue semper tincidunt. Aliquam porttitor eros justo, ac pharetra tortor iaculis ut. Phasellus eget lobortis nisl, non pellentesque lacus. ', 0, 2, 5);
-
--- A despejar estrutura para tabela kll.comments_votes
-CREATE TABLE IF NOT EXISTS `comments_votes` (
-  `comment_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `vote_type_id` int(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`comment_id`,`user_id`),
-  KEY `fk_user_id_cv` (`user_id`),
-  KEY `fk_comment_id_cv` (`comment_id`),
-  KEY `fk_vote_type_id_cv` (`vote_type_id`),
-  CONSTRAINT `fk_comment_id_cv` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_user_id_cv` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_vote_type_id_cv` FOREIGN KEY (`vote_type_id`) REFERENCES `vote_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- A despejar dados para tabela kll.comments_votes: ~0 rows (aproximadamente)
-
--- A despejar estrutura para tabela kll.posts
+-- CRIAR TABELA "posts"
 CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
@@ -76,20 +32,21 @@ CREATE TABLE IF NOT EXISTS `posts` (
   CONSTRAINT `fk_user_id_p` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela kll.posts: ~10 rows (aproximadamente)
-REPLACE INTO `posts` (`id`, `title`, `description`, `date`, `votes_amount`, `comments_amount`, `user_id`) VALUES
-	(1, 'iOS 14 vai reforçar funcionalidades', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor, arcu eget faucibus aliquam, risus erat facilisis velit, vel porta orci ligula sit amet dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi libero metus, dictum sit amet turpis et, euismod feugiat orci. Vivamus nec magna in lorem dictum venenatis. Nam vestibulum felis lacinia efficitur pretium. Praesent dapibus placerat lectus, in tristique eros. Proin a porttitor neque. Vestibulum quis lacus vel ex convallis condimentum. Suspendisse dapibus neque eget elit rutrum, vulputate egestas eros congue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque tincidunt elementum tortor in gravida. Vestibulum ac pellentesque ligula, non molestie felis. In quam ex, ultrices quis suscipit non, rutrum et tellus.\r\n\r\nPhasellus eu nunc congue, elementum tellus eu, tincidunt ligula. Nullam fringilla pretium dui. Ut ut interdum diam, sit amet laoreet massa. Fusce faucibus sapien a nisi lobortis bibendum. Donec accumsan risus et egestas aliquet. Pellentesque blandit elementum tristique. Praesent laoreet arcu nec enim dignissim congue et at metus. Vestibulum sapien lorem, rutrum ut ex eget, vulputate pulvinar est. Nullam ac massa quis sem accumsan finibus. Suspendisse dictum orci a urna maximus, ut molestie odio maximus. Aliquam erat volutpat. Aenean non lorem a eros sollicitudin molestie. Sed ac rhoncus dolor.\r\n\r\nAliquam fermentum massa et molestie consequat. Sed semper mi non neque tempus, vitae vulputate augue semper. Etiam commodo augue odio, quis tincidunt eros faucibus non. Phasellus nunc sem, pharetra ut velit sit amet, efficitur malesuada sapien. Vivamus et ultricies libero. Sed tristique consectetur enim, eget viverra nunc vestibulum commodo. Nullam consequat condimentum massa, id finibus erat ullamcorper quis. Integer a facilisis velit. Cras finibus consectetur quam, et sollicitudin est viverra eget. Fusce consectetur massa mi, a ', '2020-01-17 00:00:00', 0, 4, 8),
-	(2, 'Phishing é o tipo de incidente ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-01-17 02:14:30', 0, 2, 10),
-	(3, 'Huawei novo design', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-01-17 04:12:05', 0, 2, 1),
-	(4, 'Acer apresenta novidades ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-01-17 01:24:30', 0, 0, 10),
-	(5, 'Governo diz que tecnologia 5G “não está pensada” ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-01-17 14:32:40', 0, 1, 8),
-	(6, 'Mi Smart Mouse ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-01-17 06:12:30', 0, 0, 1),
-	(7, 'Ópera de Barcelona reabre ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-06-22 03:29:29', 0, 0, 4),
-	(8, 'Quase um quinto do oceano já foi mapeado', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-06-22 03:30:26', 0, 1, 3),
-	(9, 'Satélite da ESA que estuda alterações climáticas ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-06-22 04:09:27', 0, 0, 10),
-	(10, 'A foca mais rara à face da Terra', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eleifend risus sed mattis lobortis. Suspendisse sed volutpat libero. Etiam arcu turpis, efficitur ut lacus a, maximus fringilla metus. Aliquam iaculis molestie sapien, et convallis nisl sagittis at. Vestibulum maximus semper tortor, non faucibus enim rhoncus eget. Donec et sapien gravida, luctus metus eu, congue metus. Praesent ullamcorper felis ac augue porta volutpat vitae in orci. Sed ac efficitur diam. Suspendisse vel nulla euismod, porttitor est a, posuere nibh. Proin malesuada maximus accumsan. Etiam condimentum erat augue, id vestibulum dui commodo quis. Etiam consequat lorem non tortor gravida, laoreet vulputate leo tincidunt. Nunc mollis venenatis elementum. Suspendisse venenatis ex id nibh ullamcorper eleifend.\r\n\r\nDonec imperdiet odio sit amet elementum volutpat. Sed laoreet quam erat, in congue tellus convallis vel. Duis sed nisi sit amet turpis aliquam dapibus. Praesent tincidunt sapien tincidunt dolor dapibus maximus. Aenean accumsan, nunc mollis pretium faucibus, est ligula semper purus, non vestibulum ipsum ante at felis. Sed dictum molestie dui, eu congue mauris convallis nec. Curabitur vel convallis magna. Vestibulum pretium porta arcu.\r\n\r\nAliquam ac eros interdum, dapibus tortor in, malesuada odio. Phasellus euismod, nisl ac tempus luctus, risus erat feugiat tortor, vel viverra dolor nibh in sapien. Morbi vel elit ultrices tortor dignissim dapibus vitae et dolor. Maecenas lobortis eget erat id dictum. Morbi a ultrices ipsum. Vestibulum varius est congue gravida placerat. Cras quis sapien sit amet lectus convallis commodo. Aenean rhoncus iaculis diam, faucibus eleifend sem porta vitae.\r\n\r\nNam vitae eleifend dui. Suspendisse at ipsum tellus. Nam molestie ornare cursus. Praesent pretium volutpat vehicula. Sed elementum nulla in nisl aliquam pretium. Ut faucibus, diam vel semper mattis, augue lacus dignissim metus, at iaculis purus ligula at sem. Proin elementum libero consectetur, ve', '2020-06-23 17:06:23', 0, 0, 2);
+-- CRIAR TABELA "comments"
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `description` varchar(500) NOT NULL,
+  `votes_amount` int(10) NOT NULL DEFAULT 0,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `post_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_user_id_c` (`user_id`),
+  KEY `fk_post_id_c` (`post_id`),
+  CONSTRAINT `fk_post_id_c` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_user_id_c` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar estrutura para tabela kll.posts_votes
+-- CRIAR TABELA "posts_votes"
 CREATE TABLE IF NOT EXISTS `posts_votes` (
   `post_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
@@ -103,48 +60,16 @@ CREATE TABLE IF NOT EXISTS `posts_votes` (
   CONSTRAINT `fk_vote_type_id_pv` FOREIGN KEY (`vote_type_id`) REFERENCES `vote_types` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- A despejar dados para tabela kll.posts_votes: ~0 rows (aproximadamente)
-
--- A despejar estrutura para tabela kll.users
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `first_name` varchar(50) DEFAULT '',
-  `last_name` varchar(50) DEFAULT '',
-  `city` varchar(30) DEFAULT '',
-  `country` varchar(100) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- A despejar dados para tabela kll.users: ~10 rows (aproximadamente)
-REPLACE INTO `users` (`id`, `name`, `password`, `email`, `first_name`, `last_name`, `city`, `country`) VALUES
-	(1, 'Luisa', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'l.m@gmail.com', 'Luisa', 'Machado', 'Aveiro', 'Portugal'),
-	(2, 'Matias', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'p.m@gmail.com', 'Pedro', 'Matias', 'Vila Real', 'Portugal'),
-	(3, 'Duda', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'a.d@gmail.com', 'Álvaro', 'Duarte', 'Bragança', 'Portugal'),
-	(4, 'Matilde', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'm.c@gmail.com', 'Matilde', 'Castro', 'Viseu', 'Portugal'),
-	(5, 'Joaninha', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'j.a@gmail.com', 'Joana', 'Alves', 'Portimão', 'Portugal'),
-	(6, 'Ismael', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'i.m@gmail.com', 'Ismael', 'Moreira', 'Lisboa', 'Portugal'),
-	(7, 'Barbie', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'b.b@gmail.com', 'Barbara', 'Barbosa', 'Porto', 'Portugal'),
-	(8, 'Kiki', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'francisca.costa@kll.com', 'Francisca', 'Costa', 'Braga', 'Portugal'),
-	(9, 'Luisinho', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'luis.pereira@kll.com', 'Luís', 'Pereira', 'Vila Nova de Famalicão', 'Portugal'),
-	(10, 'Larinha', '$2y$10$nrkHt0NmLcINvEn4e3jEvONEZNgL9TFSbHYnCeg9cx./shNFZugPG', 'lara.ribeiro@kll.com', 'Lara', 'Ribeiro', 'Barcelos', 'Portugal');
-
--- A despejar estrutura para tabela kll.vote_types
-CREATE TABLE IF NOT EXISTS `vote_types` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- A despejar dados para tabela kll.vote_types: ~2 rows (aproximadamente)
-REPLACE INTO `vote_types` (`id`, `title`) VALUES
-	(1, 'up'),
-	(2, 'down');
-
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+-- CRIAR TABELA "comments_votes"
+CREATE TABLE IF NOT EXISTS `comments_votes` (
+  `comment_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `vote_type_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`comment_id`,`user_id`),
+  KEY `fk_user_id_cv` (`user_id`),
+  KEY `fk_comment_id_cv` (`comment_id`),
+  KEY `fk_vote_type_id_cv` (`vote_type_id`),
+  CONSTRAINT `fk_comment_id_cv` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_user_id_cv` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_vote_type_id_cv` FOREIGN KEY (`vote_type_id`) REFERENCES `vote_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
