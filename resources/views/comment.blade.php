@@ -11,7 +11,7 @@
             <label class="comment__votes-amount" data-toggle="tooltip" data-placement="bottom" title="Número de Comentários">{{ $comment->votes_amount }}</label>
 
             <span class="comment__vote" data-vote="downvote">
-                <i data-markedvote="{{ ($comment->vote_user_id == $loggedUserId && $comment->vote_type_id == 2) ? 'marked' : 'none' }}" data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="fas fa-heart comment__vote__icon"></i>
+                <i data-markedvote="{{ ($comment->vote_user_id == $loggedUserId && $comment->vote_type_id == 2) ? 'marked' : 'none' }}" data-toggle="tooltip" data-placement="bottom" title="Down Vote" class="fas fa-heart-broken comment__vote__icon"></i>
             </span>
         </div>
 

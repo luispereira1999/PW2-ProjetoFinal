@@ -410,7 +410,7 @@ function votePost(elements, voteTypeId, postId) {
         headers: {
             'X-CSRF-TOKEN': csrfToken
         },
-        type: "post",
+        type: "patch",
         url: "/posts/vote/" + postId
     });
 
@@ -465,7 +465,7 @@ function voteComment(elements, voteTypeId, commentId) {
         headers: {
             'X-CSRF-TOKEN': csrfToken
         },
-        type: "post",
+        type: "patch",
         url: "/comments/vote/" + commentId
     });
 

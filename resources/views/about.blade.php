@@ -12,9 +12,9 @@
 
             <div class="modal-body">
                 <h6>Quem Somos?</h6>
-                <p class="modal__paragraph">Um grupo da UC de PW2 do TESP-DWM no IPCA.</p>
+                <p class="modal__paragraph">Uma rede social alternativa! Escreva os seus melhores posts.</p>
                 <h6>O Projeto</h6>
-                <p class="modal__paragraph">Um site de publicações baseado no Reddit</p>
+                <p class="modal__paragraph">KLL é uma aplicação desenvolvida em ambiente Web com Laravel. No quesito de preservar os dados foi realizado com base de dados MySQL.</p>
             </div>
         </div>
     </div>

@@ -118,7 +118,7 @@ class PostService
                 $join->on('posts.id', '=', 'posts_votes.post_id')
                     ->where('posts_votes.user_id', '=', $loggedUserId);
             })
-            ->whereRaw('title LIKE BINARY ?', [$titleFilter])
+            ->whereRaw('posts.title LIKE ?', [$titleFilter])
             ->orderByDesc('posts.date')
             ->get();
 

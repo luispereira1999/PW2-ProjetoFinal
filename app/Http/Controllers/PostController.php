@@ -16,7 +16,6 @@ class PostController extends Controller
     protected $postService;
     protected $commentService;
 
-
     /**
      * Construtor da classe PostController.
      *
@@ -33,7 +32,7 @@ class PostController extends Controller
 
 
     /**
-     * Mostrar todos os posts.
+     * Ir para a página inicial.
      *
      * @return  \Illuminate\Http\Response   A resposta HTTP.
      */
@@ -53,9 +52,8 @@ class PostController extends Controller
 
 
     /**
-     * Pesquisar posts pelo título.
+     * Pesquisar posts pelo título na página inicial.
      *
-     * @param   \Illuminate\Http\Request $request   Requisição HTTP.
      * @param   string $searchText                  Texto da pesquisa.
      * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
@@ -75,7 +73,7 @@ class PostController extends Controller
 
 
     /**
-     * Mostrar um post específico.
+     * Ir para a página de um post específico.
      *
      * @param   int $postId  Identificador do post.
      * @return  \Illuminate\Http\Response  A resposta HTTP.
@@ -209,7 +207,6 @@ class PostController extends Controller
 
         return back()->with([
             'success' => true,
-            'errors' => [],
             'message' => $message
         ], 200);
     }

@@ -14,7 +14,6 @@ class AuthController extends Controller
     protected $authService;
     protected $userService;
 
-
     /**
      * Construtor da classe AuthController.
      *
@@ -118,10 +117,9 @@ class AuthController extends Controller
     {
         $message = $this->authService->logoutUser($request->session());
 
-        return redirect('/')->with([
+        return redirect()->route('home')->with([
             'success' => true,
-            'errors' => [],
             'message' => $message
-        ], 200);
+        ]);
     }
 }

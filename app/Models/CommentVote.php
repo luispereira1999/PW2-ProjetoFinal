@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Comment;
+use App\Models\User;
+use App\Models\VoteType;
 
 /**
  * Esta classe representa o modelo para a tabela de votos dos comentários na base de dados.

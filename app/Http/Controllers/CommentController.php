@@ -14,7 +14,6 @@ class CommentController extends Controller
     protected $authService;
     protected $commentService;
 
-
     /**
      * Construtor da classe CommentController.
      *
@@ -155,7 +154,6 @@ class CommentController extends Controller
 
         return back()->with([
             'success' => true,
-            'errors' => [],
             'message' => $result['message']
         ], 200);
     }

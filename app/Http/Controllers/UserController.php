@@ -16,7 +16,6 @@ class UserController extends Controller
     protected $userService;
     protected $postService;
 
-
     /**
      * Construtor da classe UserController.
      *
@@ -38,7 +37,7 @@ class UserController extends Controller
      * @param   int $userId  Identificador do utilizador.
      * @return  \Illuminate\Http\Response  A resposta HTTP.
      */
-    public function index($userId)
+    public function profile($userId)
     {
         $userProfile = $this->userService->getOne($userId);
         $loggedUserId = $this->authService->getUserId();
@@ -58,7 +57,7 @@ class UserController extends Controller
      * @param   int $userId                  Identificador do utilizador.
      * @return  \Illuminate\Http\Response    A resposta HTTP.
      */
-    public function show($userId)
+    public function account($userId)
     {
         $loggedUserId = $this->authService->getUserId();
 
@@ -209,7 +208,6 @@ class UserController extends Controller
 
         return redirect()->route('home')->with([
             'success' => true,
-            'errors' => [],
             'message' => $message
         ], 200);
     }

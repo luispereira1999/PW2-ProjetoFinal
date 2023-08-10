@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Comment;
+use App\Models\User;
 
 /**
  * Esta classe representa o modelo para a tabela de posts na base de dados.

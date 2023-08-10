@@ -2,7 +2,7 @@
 
 ## O que é o KLL?
 
-Uma rede social alternativa. Escreva os seus melhores posts.
+Uma rede social alternativa! Escreva os seus melhores posts.
 
 KLL é uma aplicação desenvolvida em ambiente Web com Laravel. No quesito de preservar os dados foi realizado com base de dados MySQL.
 

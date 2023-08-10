@@ -52,10 +52,10 @@ Route::get('/auth/logout', [AuthController::class, 'logout'])
 
 
 // UTILIZADORES
-Route::get('/profile/{userId}', [UserController::class, 'index'])
+Route::get('/profile/{userId}', [UserController::class, 'profile'])
     ->name('profile');
 
-Route::get('/account/{userId}', [UserController::class, 'show'])
+Route::get('/account/{userId}', [UserController::class, 'account'])
     ->middleware([
         'auth'
     ])
@@ -101,7 +101,7 @@ Route::patch('/posts/update/{postId}', [PostController::class, 'update'])
     ])
     ->name('posts.update');
 
-Route::post('/posts/vote/{postId}', [PostController::class, 'vote'])
+Route::patch('/posts/vote/{postId}', [PostController::class, 'vote'])
     ->middleware([
         'auth',
         'check.post.exists'
@@ -133,7 +133,7 @@ Route::patch('/comments/update/{commentId}', [CommentController::class, 'update'
     ])
     ->name('comments.update');
 
-Route::post('/comments/vote/{commentId}', [CommentController::class, 'vote'])
+Route::patch('/comments/vote/{commentId}', [CommentController::class, 'vote'])
     ->middleware([
         'auth',
         'check.comment.exists'
@@ -152,11 +152,11 @@ Route::delete('/comments/delete/{commentId}/{postId}', [CommentController::class
 
 // PÁGINAS DE ERROS
 Route::get('/500', function () {
-    return view('500');
+    return response()->view('500', [], 500);
 })->name('500');
 
 
 // QUANDO UMA ROTA NÃO É ENCONTRADA
 Route::fallback(function () {
-    return view('404');
+    return response()->view('404', [], 404);
 });
