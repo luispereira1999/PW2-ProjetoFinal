@@ -58,7 +58,9 @@ $(document).ready(function () {
     // submeter formulário de novo post
     $('#formNewPost').submit(function (event) {
         event.preventDefault();
-        newPost($(this));
+
+        const form = $(this);
+        newPost(form);
     });
 
     // submeter formulário de editar um post

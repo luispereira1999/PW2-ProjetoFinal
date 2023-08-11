@@ -34,6 +34,7 @@
     height: 70px;
     margin-bottom: 0px;
     margin-top: 10px;
+    white-space: pre-wrap;
 }
 
 .featured__link__title {
@@ -234,10 +235,8 @@
     margin: 20px 40px;
     height: 70px;
     font-size: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
     overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: pre-wrap;
 }
 
 .width-1 .brief-posts__link {
@@ -278,10 +277,8 @@
     margin: 20px 60px;
     height: 100px;
     font-size: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
     overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: pre-wrap;
 }
 
 .width-3 .brief-posts__link {

@@ -25,7 +25,7 @@ class PostFactory extends Factory
 
         return [
             'title' => $title,
-            'description' => $this->faker->paragraph(28),
+            'description' => implode("\n", $this->faker->paragraphs(10)),
             'date' => $this->faker->dateTimeThisYear,
             'votes_amount' => 0,
             'comments_amount' => 0,

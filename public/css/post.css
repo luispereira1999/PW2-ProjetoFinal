@@ -43,6 +43,12 @@
     padding-bottom: 0;
 }
 
+.full-post__description {
+    font-size: 17px;
+    line-height: 2rem;
+    white-space: pre-wrap;
+}
+
 
 /**** POST INDIVIDUAL: BARRA DE INTERAÇÕES ****/
 
@@ -125,6 +131,7 @@
     font-size: 15px;
     margin-bottom: 0;
     padding: 4px;
+    padding-top: 0;
 }
 
 .comment__vote,

@@ -65,7 +65,7 @@
 
         <section data-post="{{ $post->id }}" class="full-post__main-wrapper">
             <div>
-                <p>{{ $post->description }}</p>
+                <p class="full-post__description">{{ $post->description }}</p>
             </div>
 
             <div class="full-post__interactions">
