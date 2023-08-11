@@ -10,7 +10,7 @@ KLL é uma aplicação desenvolvida em ambiente Web com Laravel. No quesito de p
 
 ## Pré-Requisitos
 
-Tudo o que você precisa para usar o software é instalar o [Node.js](https://nodejs.org).
+Tudo o que você precisa para usar o software é: instalar o [XAMPP](https://www.apachefriends.org/download.html) e [Composer](https://getcomposer.org/download).
 
 ## Instalação
 
@@ -18,9 +18,17 @@ Para colocar o projeto a funcionar localmente na sua máquina basta:
 
 1. Clonar o repositório.
 
-2. Abrir a linha de comandos.
+2. Abrir o XAMPP e iniciar o Apache e o MySQL.
 
-3. Ir para a pasta do projeto:
+3. Abrir o phpMyAdmin e criar uma base de dados com o nome "kll":
+
+    ```sh
+    http://localhost/phpmyadmin
+    ```
+
+4. Abrir a linha de comandos.
+
+5. Ir para a pasta do projeto:
 
     ```sh
     cd "pasta_do_projeto"
@@ -29,7 +37,8 @@ Para colocar o projeto a funcionar localmente na sua máquina basta:
 4. Instalar todos os pacotes e dependências necessárias do projeto (apenas necessário uma vez quando se faz clone do repositório):
 
     ```sh
-    npm install
+    composer install
+    composer install
     ```
 
 5. Iniciar servidor:
