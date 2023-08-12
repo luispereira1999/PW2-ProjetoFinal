@@ -75,8 +75,6 @@ Para colocar o projeto a funcionar localmente na sua máquina basta:
 ## 📖 API
 
 É graças à API que o software se comunica com o servidor, possibilitando a interação com a base de dados e o armazenamento de dados.
-
-Pode aceder facilmente à documentação da mesma através da seguinte página do nosso [GitHub Pages](https://luispereira1999.github.io/picand-go).
 Aqui você encontrará a lista de todos as rotas disponíveis para efetuar essa comunicação.
 
 | Rota                                  | Método | Descrição                                                                             |
