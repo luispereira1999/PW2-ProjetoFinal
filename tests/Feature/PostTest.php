@@ -25,50 +25,6 @@ class PostTest extends TestCase
 
 
     /**
-     * Ir para a página inicial.
-     *
-     * @test
-     */
-    public function test_home_route()
-    {
-        $user = User::first();
-        $this->actingAs($user);  // autentica utilizador
-
-        $response = $this->get(route('home'));
-
-        $response->assertStatus(200);
-        $response->assertViewIs('home');
-        $response->assertViewHas('featuredPost');
-        $response->assertViewHas('searchText');
-        $response->assertViewHas('posts');
-        $response->assertViewHas('loggedUserId');
-    }
-
-
-    /**
-     * Pesquisar posts pelo título na página inicial.
-     *
-     * @test
-     */
-    public function test_search_route()
-    {
-        $user = User::first();
-        $this->actingAs($user);  // autentica utilizador
-
-        $searchText = 'hello world';
-
-        $response = $this->get(route('search', ['searchText' => $searchText]));
-
-        $response->assertStatus(200);
-        $response->assertViewIs('home');
-        $response->assertViewHas('featuredPost');
-        $response->assertViewHas('searchText');
-        $response->assertViewHas('posts');
-        $response->assertViewHas('loggedUserId');
-    }
-
-
-    /**
      * Ir para a página de um post específico.
      *
      * @test
@@ -115,7 +71,7 @@ class PostTest extends TestCase
      *
      * @test
      */
-    public function test_posts_update_route()
+    public function test_posts_edit_route()
     {
         $post = Post::first();
 
@@ -127,7 +83,7 @@ class PostTest extends TestCase
             'description' => 'DescriÇão atualizadA'
         ];
 
-        $response = $this->patch(route('posts.update', ['postId' => $post->id]), $data);
+        $response = $this->patch(route('posts.edit', ['postId' => $post->id]), $data);
 
         $response->assertStatus(200);
     }

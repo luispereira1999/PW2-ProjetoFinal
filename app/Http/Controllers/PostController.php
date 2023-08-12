@@ -32,53 +32,12 @@ class PostController extends Controller
 
 
     /**
-     * Ir para a página inicial.
-     *
-     * @return  \Illuminate\Http\Response   A resposta HTTP.
-     */
-    public function index()
-    {
-        $loggedUserId = $this->authService->getUserId();
-        $featuredPost = $this->postService->getOneByMostVotes($loggedUserId);
-        $posts = $this->postService->getAll($loggedUserId);
-
-        return response()->view('home', [
-            'featuredPost' => $featuredPost,
-            'searchText' => '',
-            'posts' => $posts,
-            'loggedUserId' => $loggedUserId
-        ], 200);
-    }
-
-
-    /**
-     * Pesquisar posts pelo título na página inicial.
-     *
-     * @param   string $searchText                  Texto da pesquisa.
-     * @return  \Illuminate\Http\Response           A resposta HTTP.
-     */
-    public function search($searchText)
-    {
-        $loggedUserId = $this->authService->getUserId();
-        $featuredPost = $this->postService->getOneByMostVotes($loggedUserId);
-        $posts = $this->postService->getAllByTitle($searchText, $loggedUserId);
-
-        return response()->view('home', [
-            'featuredPost' => $featuredPost,
-            'searchText' => $searchText,
-            'posts' => $posts,
-            'loggedUserId' => $loggedUserId
-        ], 200);
-    }
-
-
-    /**
      * Ir para a página de um post específico.
      *
      * @param   int $postId  Identificador do post.
      * @return  \Illuminate\Http\Response  A resposta HTTP.
      */
-    public function show($postId)
+    public function post($postId)
     {
         $loggedUserId = $this->authService->getUserId();
         $post = $this->postService->getOneWithVotes($postId, $loggedUserId);
@@ -129,7 +88,7 @@ class PostController extends Controller
      * @param   \Illuminate\Http\Request $request   Requisição HTTP.
      * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
-    public function update(Request $request)
+    public function edit(Request $request)
     {
         $data = $request->validate([
             'title' => 'required|min:1|max:50',
@@ -198,7 +157,7 @@ class PostController extends Controller
      * @param   \Illuminate\Http\Request $request   Requisição HTTP.
      * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         // obtido do middleware que verifica se o post existe
         $post = $request->attributes->get('post');

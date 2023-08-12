@@ -32,7 +32,7 @@ class AuthController extends Controller
      *
      * @return  \Illuminate\Http\Response  A resposta HTTP.
      */
-    public function index()
+    public function auth()
     {
         return view('auth');
     }

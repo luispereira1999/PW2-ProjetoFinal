@@ -52,7 +52,7 @@
         </div>
 
         <main>
-            <h1 class="content__title">404 ERROR</h1>
+            <h1 class="content__title">ERROR 404</h1>
             <h3 class="content__subtitle">Página não encontrada.</h3>
             <p class="content__paragraph">Oh! Parece que algo deu errado.</p>
         </main>

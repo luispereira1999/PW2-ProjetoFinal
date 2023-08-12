@@ -16,7 +16,7 @@
                     <ul class="errors__list"></ul>
                 </div>
 
-                <form class="modal__form" id="formEditPost{{ $post->id }}" method="post" action="{{ route('posts.update', ['postId' => $post->id]) }}">
+                <form class="modal__form" id="formEditPost{{ $post->id }}" method="post" action="{{ route('posts.edit', ['postId' => $post->id]) }}">
                     @csrf
                     @method('PATCH')
 

@@ -83,7 +83,7 @@ class UserController extends Controller
      * @param   int $userId                          Identificador do utilizador.
      * @return  \Illuminate\Http\Response            A resposta HTTP.
      */
-    public function updateData(Request $request, $userId)
+    public function editData(Request $request, $userId)
     {
         $data = $request->validate([
             'name' => 'required|min:3|max:15|UniqueNameOrEmail',
@@ -143,7 +143,7 @@ class UserController extends Controller
      * @param   int $userId                          Identificador do utilizador.
      * @return  \Illuminate\Http\Response            A resposta HTTP.
      */
-    public function updatePassword(Request $request, $userId)
+    public function editPassword(Request $request, $userId)
     {
         $data = $request->validate([
             'current_password' => 'required',
@@ -193,7 +193,7 @@ class UserController extends Controller
      * @param   int $userId                  Identificador do utilizador.
      * @return  \Illuminate\Http\Response    A resposta HTTP.
      */
-    public function destroy($userId)
+    public function delete($userId)
     {
         $loggedUser = $this->authService->getUser();
 

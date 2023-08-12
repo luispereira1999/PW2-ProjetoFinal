@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,15 +20,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 // PÁGINA INICIAL
-Route::get('/', [PostController::class, 'index'])
+Route::get('/', [HomeController::class, 'home'])
     ->name('home');
 
-Route::get('/search/{searchText}', [PostController::class, 'search'])
+Route::get('/search/{searchText}', [HomeController::class, 'search'])
     ->name('search');
 
 
 // AUTENTICAÇÃO
-Route::get('/auth', [AuthController::class, 'index'])
+Route::get('/auth', [AuthController::class, 'auth'])
     ->middleware([
         'guest'
     ])
@@ -61,19 +63,19 @@ Route::get('/account/{userId}', [UserController::class, 'account'])
     ])
     ->name('account');
 
-Route::patch('/account/edit-data/{userId}', [UserController::class, 'updateData'])
+Route::patch('/account/edit-data/{userId}', [UserController::class, 'editData'])
     ->middleware([
         'auth'
     ])
     ->name('account.edit-data');
 
-Route::patch('/account/edit-password/{userId}', [UserController::class, 'updatePassword'])
+Route::patch('/account/edit-password/{userId}', [UserController::class, 'editPassword'])
     ->middleware([
         'auth'
     ])
     ->name('account.edit-password');
 
-Route::delete('/account/delete/{userId}', [UserController::class, 'destroy'])
+Route::delete('/account/delete/{userId}', [UserController::class, 'delete'])
     ->middleware([
         'auth'
     ])
@@ -81,7 +83,7 @@ Route::delete('/account/delete/{userId}', [UserController::class, 'destroy'])
 
 
 // POSTS
-Route::get('/posts/{postId}', [PostController::class, 'show'])
+Route::get('/posts/{postId}', [PostController::class, 'post'])
     ->middleware([
         'check.post.exists'
     ])
@@ -93,13 +95,13 @@ Route::post('/posts/create', [PostController::class, 'create'])
     ])
     ->name('posts.create');
 
-Route::patch('/posts/update/{postId}', [PostController::class, 'update'])
+Route::patch('/posts/edit/{postId}', [PostController::class, 'edit'])
     ->middleware([
         'auth',
         'check.post.exists',
         'check.post.belongs.user'
     ])
-    ->name('posts.update');
+    ->name('posts.edit');
 
 Route::patch('/posts/vote/{postId}', [PostController::class, 'vote'])
     ->middleware([
@@ -108,7 +110,7 @@ Route::patch('/posts/vote/{postId}', [PostController::class, 'vote'])
     ])
     ->name('posts.vote');
 
-Route::delete('/posts/delete/{postId}', [PostController::class, 'destroy'])
+Route::delete('/posts/delete/{postId}', [PostController::class, 'delete'])
     ->middleware([
         'auth',
         'check.post.exists',
@@ -125,13 +127,13 @@ Route::post('/comments/create/{postId}', [CommentController::class, 'create'])
     ])
     ->name('comments.create');
 
-Route::patch('/comments/update/{commentId}', [CommentController::class, 'update'])
+Route::patch('/comments/edit/{commentId}', [CommentController::class, 'edit'])
     ->middleware([
         'auth',
         'check.comment.exists',
         'check.comment.belongs.user'
     ])
-    ->name('comments.update');
+    ->name('comments.edit');
 
 Route::patch('/comments/vote/{commentId}', [CommentController::class, 'vote'])
     ->middleware([
@@ -140,7 +142,7 @@ Route::patch('/comments/vote/{commentId}', [CommentController::class, 'vote'])
     ])
     ->name('comments.vote');
 
-Route::delete('/comments/delete/{commentId}/{postId}', [CommentController::class, 'destroy'])
+Route::delete('/comments/delete/{commentId}/{postId}', [CommentController::class, 'delete'])
     ->middleware([
         'auth',
         'check.post.exists',
@@ -150,13 +152,10 @@ Route::delete('/comments/delete/{commentId}/{postId}', [CommentController::class
     ->name('comments.delete');
 
 
-// PÁGINAS DE ERROS
-Route::get('/500', function () {
-    return response()->view('500', [], 500);
-})->name('500');
+// PÁGINA DE ERRO FATAL
+Route::get('/500', [ErrorController::class, 'fatalError'])
+    ->name('500');
 
 
 // QUANDO UMA ROTA NÃO É ENCONTRADA
-Route::fallback(function () {
-    return response()->view('404', [], 404);
-});
+Route::fallback([ErrorController::class, 'notFound']);

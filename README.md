@@ -1,6 +1,6 @@
 <p align="center"><img width="350" src="public/images/full-logo.png" alt="Logótipo KLL"></p>
 
-## O que é o KLL?
+## ⚡️ O que é o KLL?
 
 Uma rede social alternativa! Escreva os seus melhores posts.
 
@@ -8,11 +8,11 @@ KLL é uma aplicação desenvolvida em ambiente Web com Laravel. No quesito de p
 
 > Esta não é um aplicação oficializada no mercado, foi construida no âmbito académico de forma aumentar as nossas capacidades técnicas e interpessoais.
 
-## Pré-Requisitos
+## 💡 Pré-Requisitos
 
 Tudo o que você precisa para usar o software é: instalar o [XAMPP](https://www.apachefriends.org/download.html) e [Composer](https://getcomposer.org/download).
 
-## Instalação
+## ⚙️ Instalação
 
 Para colocar o projeto a funcionar localmente na sua máquina basta:
 
@@ -26,51 +26,103 @@ Para colocar o projeto a funcionar localmente na sua máquina basta:
     http://localhost/phpmyadmin
     ```
 
-4. Abrir a linha de comandos.
+4. Na raiz do projeto, fazer uma cópia do ficheiro ".env.example" e renomeá-lo para ".env".
 
-5. Ir para a pasta do projeto:
+5. Abrir a linha de comandos.
+
+6. Ir para a pasta do projeto:
 
     ```sh
     cd "pasta_do_projeto"
     ```
 
-6. Instalar todos os pacotes e dependências necessárias do projeto (apenas necessário uma vez quando se faz clone do repositório):
+7. Instalar todos os pacotes e dependências necessárias do projeto (apenas necessário uma vez quando se faz clone do repositório):
 
     ```sh
     composer install
-    composer install
     ```
 
-7. Iniciar servidor:
+8. Gerar a chave para aceder à aplicação:
 
     ```sh
-    npm start
+    php artisan key:generate
     ```
 
-8. Abrir no browser:
+9. Criar tabelas da base de dados:
+
     ```sh
-    http://localhost:8080
+    php artisan migrate
     ```
 
-## API
+10. Inserir dados fictícios na base de dados:
 
-É graças à API que o software se comunica com o servidor, possibilitando a interação com a base de dados e o armazenamento de ficheiros.
+    ```sh
+    php artisan db:seed --class=DatabaseSeeder
+    ```
+
+11. Iniciar o servidor:
+
+    ```sh
+    php artisan serve
+    ```
+
+12. Abrir a aplicação no browser a funcionar:
+
+    ```sh
+    http://localhost:8000
+    ```
+
+## 📖 API
+
+É graças à API que o software se comunica com o servidor, possibilitando a interação com a base de dados e o armazenamento de dados.
 
 Pode aceder facilmente à documentação da mesma através da seguinte página do nosso [GitHub Pages](https://luispereira1999.github.io/picand-go).
-Aqui você encontrará uma explicação clara e detalhada para efetuar essa comunicação.
+Aqui você encontrará a lista de todos as rotas disponíveis para efetuar essa comunicação.
 
-## Contribuições
+| Rota                                  | Método | Descrição                                                                             |
+| :------------------------------------ | :----- | :------------------------------------------------------------------------------------ |
+| **PÁGINA INICIAL**                    |
+| /                                     | GET    | Ir para a página inicial.                                                             |
+| /search/{searchText}                  | GET    | Pesquisar posts pelo título na página inicial.                                        |
+| **AUTENTICAÇÃO**                      |
+| /auth                                 | GET    | Ir para a página de autenticação.                                                     |
+| /auth/login                           | POST   | Iniciar sessão de um utilizador.                                                      |
+| /auth/signup                          | POST   | Registar um utilizador.                                                               |
+| /auth/logout                          | GET    | Terminar sessão de um utilizador.                                                     |
+| **UTILIZADORES**                      |
+| /profile/{userId}                     | GET    | Ir para a página do perfil do utilizador.                                             |
+| /account/{userId}                     | GET    | Ir para a página de definições da conta.                                              |
+| /account/edit-data/{userId}           | PATCH  | Atualizar os dados básicos do utilizador com login.                                   |
+| /account/edit-password/{userId}       | PATCH  | Atualizar a palavra-passe do utilizador com login.                                    |
+| /account/delete/{userId}              | DELETE | Remover o utilizador com login.                                                       |
+| **POSTS**                             |
+| /posts/{postId}                       | GET    | Ir para a página de um post específico.                                               |
+| /posts/create                         | POST   | Criar um novo post.                                                                   |
+| /posts/edit/{postId}                  | PATCH  | Atualizar um post.                                                                    |
+| /posts/vote/{postId}                  | PATCH  | Atualizar um voto de um post.                                                         |
+| /posts/delete/{postId}                | DELETE | Remover um post.                                                                      |
+| **COMENTÁRIOS**                       |
+| /comments/create/{postId}             | POST   | Criar um novo comentário.                                                             |
+| /comments/edit/{commentId}            | PATCH  | Atualizar um comentário.                                                              |
+| /comments/vote/{commentId}            | PATCH  | Atualizar um voto de um comentário.                                                   |
+| /comments/delete/{commentId}/{postId} | DELETE | Remover um comentário.                                                                |
+| **ERRO FATAL**                        |
+| /500                                  | GET    | Ir para esta página quando existe uma erro que impede o funcionamento da aplicação.   |
+| **PÁGINA NÃO ENCONTRADA**             |
+| /404                                  | GET    | Mostrar esta página quando o utilizador tenta aceder uma rota que não foi encontrada. |
+
+## 👍 Contribuições
 
 As contribuições são o que tornam a comunidade de código aberto um lugar incrível para aprender, inspirar e criar. Quaisquer contribuições que você faça são muito apreciadas.
 
 Se você tiver uma sugestão de melhoria, por favor, faça fork do repositório e crie uma pull request. Ou pode simplesmente abrir um issue. Não se esqueça de dar uma estrela ao projeto! Obrigado mais uma vez!
 
-## Colaboradores
+## ⭐️ Colaboradores
 
 -   Lara Ribeiro
 -   Luís Pereira
 -   Maria Costa
 
-## Licença
+## ⚠️ Licença
 
-Ao contribuir para este projeto, você concorda com as políticas da licença MIT.
+Ao contribuir para este projeto, você concorda com as políticas da licença [MIT](LICENSE).

@@ -5,7 +5,7 @@
 
 <head>
     <!-- TÍTULO DA PÁGINA -->
-    <title>Fatal Erro</title>
+    <title>Erro Fatal</title>
 
     <!-- METADADOS -->
     <meta charset="utf-8">
@@ -52,8 +52,8 @@
         </div>
 
         <main>
-            <h1 class="content__title">500 ERROR</h1>
-            <h3 class="content__subtitle">Fatal erro.</h3>
+            <h1 class="content__title">ERROR 500</h1>
+            <h3 class="content__subtitle">Erro fatal erro.</h3>
             <p class="content__paragraph">Oh! Parece que algo deu errado.</p>
         </main>
     </section>

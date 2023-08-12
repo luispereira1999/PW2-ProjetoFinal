@@ -70,7 +70,7 @@ class CommentController extends Controller
      * @param   \Illuminate\Http\Request $request   Requisição HTTP.
      * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
-    public function update(Request $request)
+    public function edit(Request $request)
     {
         $data = $request->validate([
             'description' => 'required|min:1|max:500'
@@ -135,7 +135,7 @@ class CommentController extends Controller
      * @param   \Illuminate\Http\Request $request   Requisição HTTP.
      * @return  \Illuminate\Http\Response           A resposta HTTP.
      */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
         // obtido do middleware que verifica se o post existe
         $post = $request->attributes->get('post');

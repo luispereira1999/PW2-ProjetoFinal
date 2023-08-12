@@ -53,7 +53,7 @@ class CommentTest extends TestCase
      *
      * @test
      */
-    public function test_comments_update_route()
+    public function test_comments_edit_route()
     {
         $comment = Comment::first();
 
@@ -65,7 +65,7 @@ class CommentTest extends TestCase
             'description' => 'DescriÇão atualizadA'
         ];
 
-        $response = $this->patch(route('comments.update', ['commentId' => $comment->id]), $data);
+        $response = $this->patch(route('comments.edit', ['commentId' => $comment->id]), $data);
 
         $response->assertStatus(200);
     }
