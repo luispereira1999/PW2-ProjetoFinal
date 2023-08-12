@@ -34,20 +34,20 @@ Para colocar o projeto a funcionar localmente na sua máquina basta:
     cd "pasta_do_projeto"
     ```
 
-4. Instalar todos os pacotes e dependências necessárias do projeto (apenas necessário uma vez quando se faz clone do repositório):
+6. Instalar todos os pacotes e dependências necessárias do projeto (apenas necessário uma vez quando se faz clone do repositório):
 
     ```sh
     composer install
     composer install
     ```
 
-5. Iniciar servidor:
+7. Iniciar servidor:
 
     ```sh
     npm start
     ```
 
-6. Abrir no browser:
+8. Abrir no browser:
     ```sh
     http://localhost:8080
     ```
