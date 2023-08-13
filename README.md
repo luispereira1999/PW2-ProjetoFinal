@@ -119,7 +119,7 @@ Se você tiver uma sugestão de melhoria, por favor, faça fork do repositório 
 
 -   Lara Ribeiro
 -   Luís Pereira
--   Maria Costa
+-   Francisca Costa
 
 ## ⚠️ Licença
 
