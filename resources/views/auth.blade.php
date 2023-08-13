@@ -10,8 +10,8 @@
     <!-- METADADOS -->
     <meta charset="utf-8">
     <meta name="description" content="Uma rede social alternativa! Escreva os seus melhores posts.">
-    <meta name="keywords" content="Rede Social">
-    <meta name="author" content="Lara Ribeiro, Luís Pereira, Maria Costa">
+    <meta name="keywords" content="Rede, Social, Web, App">
+    <meta name="author" content="Francisca Costa, Lara Ribeiro, Luís Pereira">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
