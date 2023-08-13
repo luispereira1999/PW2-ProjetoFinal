@@ -117,9 +117,9 @@ Se você tiver uma sugestão de melhoria, por favor, faça fork do repositório 
 
 ## ⭐️ Colaboradores
 
+-   Francisca Costa
 -   Lara Ribeiro
 -   Luís Pereira
--   Francisca Costa
 
 ## ⚠️ Licença
 
