@@ -1,4 +1,4 @@
-<p align="center"><img width="350" src="public/images/full-logo.png" alt="Logótipo KLL"></p>
+<p align="center"><img width="425" src="http://luispereiralabs.com/assets/kll/page-cover.png" alt="Imagem de Apresentação"></p>
 
 ## ⚡️ O que é o KLL?
 
