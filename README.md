@@ -2,7 +2,7 @@
 
 ## ⚡️ O que é o KLL?
 
-Uma rede social alternativa! Escreva os seus melhores posts.
+Uma rede social desenvolvida para a web, adaptada para qualquer dispositivo. Baseada nas primeiras versões do Reddit, onde as pessoas partilham as suas ideias apenas com texto, sem elementos visuais como imagens ou vídeos, e os utilizadores podem votar positivamente ou negativamente nos posts.
 
 KLL é uma aplicação desenvolvida em ambiente Web com Laravel. No quesito de preservar os dados foi realizado com base de dados MySQL.
 
@@ -10,7 +10,7 @@ KLL é uma aplicação desenvolvida em ambiente Web com Laravel. No quesito de p
 
 ## 💡 Pré-Requisitos
 
-Tudo o que você precisa para usar o software é: instalar o [XAMPP](https://www.apachefriends.org/download.html) e [Composer](https://getcomposer.org/download).
+Para comerçar a usar o software localmente na sua máquina, basta instalar o [XAMPP](https://www.apachefriends.org/download.html) e [Composer](https://getcomposer.org/download).
 
 ## ⚙️ Instalação
 
@@ -75,7 +75,8 @@ Para colocar o projeto a funcionar localmente na sua máquina basta:
 ## 📖 API
 
 É graças à API que o software se comunica com o servidor, possibilitando a interação com a base de dados e o armazenamento de dados.
-Aqui você encontrará a lista de todos as rotas disponíveis para efetuar essa comunicação.
+
+Aqui você encontrará a lista de todos as funcionalidades disponíveis para efetuar essa comunicação.
 
 | Rota                                  | Método | Descrição                                                                             |
 | :------------------------------------ | :----- | :------------------------------------------------------------------------------------ |
